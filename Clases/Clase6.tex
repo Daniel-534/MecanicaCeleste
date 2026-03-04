@@ -1,0 +1,111 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Clase \#6}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+\section{El Momentum Angular en el Problema de los $N$-Cuerpos}
+
+En las clases anteriores hemos establecido las bases del problema de los $N$-cuerpos y derivado las primeras constantes de movimiento relacionadas con el momentum lineal y el centro de masa. Hoy abordaremos una de las cantidades más fundamentales y "sacrosantas" de la dinámica celeste: el **momentum angular total**.
+
+\subsection{Formulación y Derivación Matemática}
+
+Partimos de las ecuaciones de movimiento para un sistema de $N$ partículas puntuales que interactúan únicamente a través de la gravedad newtoniana, sin fuerzas externas:
+\begin{equation}
+    m_i \ddot{\vec{r}}_i = -\sum_{j \neq i}^{N} \frac{G m_i m_j}{r_{ij}^3} \vec{r}_{ij}
+\end{equation}
+Donde $\vec{r}_{ij} = \vec{r}_i - \vec{r}_j$ es el vector de posición relativa. 
+
+Para encontrar una nueva cuadratura, aplicamos un "factor integrante" vectorial. Multiplicamos vectorialmente cada ecuación por el vector de posición $\vec{r}_i$:
+\begin{equation}
+    \vec{r}_i \times m_i \ddot{\vec{r}}_i = -\vec{r}_i \times \sum_{j \neq i}^{N} \frac{m_i \mu_j}{r_{ij}^3} (\vec{r}_i - \vec{r}_j)
+\end{equation}
+Al expandir el lado derecho, notamos que $\vec{r}_i \times \vec{r}_i = 0$, por lo que la expresión se simplifica a:
+\begin{equation}
+    \vec{r}_i \times m_i \ddot{\vec{r}}_i = \sum_{j \neq i}^{N} \frac{m_i \mu_j}{r_{ij}^3} (\vec{r}_i \times \vec{r}_j)
+\end{equation}
+
+\subsection{La Sumatoria Total y la Simetría de las Fuerzas}
+
+Al sumar sobre todas las partículas $i$ del sistema, obtenemos la evolución del momentum angular total:
+\begin{equation}
+    \sum_{i=1}^N m_i (\vec{r}_i \times \ddot{\vec{r}}_i) = \sum_{i} \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}^3} (\vec{r}_i \times \vec{r}_j)
+\end{equation}
+Debido a la simetría de la sumatoria doble y a que el producto vectorial es antisimétrico ($\vec{r}_i \times \vec{r}_j = -\vec{r}_j \times \vec{r}_i$), todos los términos en el lado derecho se anulan por parejas. Físicamente, esto significa que las fuerzas internas (de interacción mutua) no pueden generar un torque neto sobre el sistema completo.
+
+Por lo tanto, la ecuación se reduce a:
+\begin{equation}
+    \sum_{i=1}^N m_i (\vec{r}_i \times \ddot{\vec{r}}_i) = 0 \implies \frac{d}{dt} \left( \sum_{i=1}^N m_i \vec{r}_i \times \dot{\vec{r}}_i \right) = 0
+\end{equation}
+
+Esto nos permite identificar la **tercera cuadratura vectorial** (3 constantes escalares): el momentum angular total $\vec{L}$ es constante:
+\begin{equation}
+    \sum_{i=1}^N m_i \vec{r}_i \times \dot{\vec{r}}_i = \vec{L} = \text{constante}
+\end{equation}
+
+\section{Dinámica Respecto al Centro de Masa}
+
+Es extremadamente útil analizar el momentum angular separando el movimiento global del sistema del movimiento interno de las partículas. Definimos la posición y velocidad de cada partícula respecto al baricentro ($\vec{r}'_i, \vec{v}'_i$) mediante las transformaciones de Galileo:
+\begin{equation}
+    \vec{r}_i(t) = \vec{R}_{CM}(t) + \vec{r}'_i(t) \quad , \quad \vec{v}_i(t) = \vec{V}_{CM}(t) + \vec{v}'_i(t)
+\end{equation}
+
+Al sustituir estas expresiones en la definición de $\vec{L}$, el momentum angular total se descompone en dos partes:
+\begin{equation}
+    \vec{L} = (\sum m_i) \vec{R}_{CM} \times \vec{V}_{CM} + \sum m_i (\vec{r}'_i \times \vec{v}'_i)
+\end{equation}
+Donde:
+\begin{enumerate}
+    \item $\vec{L}_{CM} = \vec{R}_{CM} \times \vec{P}_{CM}$ es el momentum angular del centro de masa respecto al origen inercial.
+    \item $\vec{L}' = \sum m_i \vec{r}'_i \times \vec{v}'_i$ es el momentum angular intrínseco o relativo al baricentro.
+\end{enumerate}
+
+Dado que tanto $\vec{L}$ como $\vec{L}_{CM}$ son constantes (pues $\vec{V}_{CM}$ es constante en ausencia de fuerzas externas), se deduce que el momentum angular relativo al centro de masa, $\vec{L}'$, también es una cantidad conservada.
+
+\section{El Plano Invariable de Laplace}
+
+La existencia de un vector $\vec{L}'$ constante tiene una consecuencia geométrica profunda. El plano perpendicular a este vector, que pasa por el centro de masa del sistema, se conoce como el **Plano Invariable de Laplace**.
+
+\begin{itemize}
+    \item \textbf{Definición:} Es un plano cuya orientación en el espacio absoluto no cambia nunca, independientemente de las perturbaciones mutuas entre los planetas o cuerpos del sistema.
+    \item \textbf{Importancia:} A diferencia del plano de la eclíptica (definido por la órbita terrestre) o el plano del ecuador de un planeta, que precesan y cambian con el tiempo, el plano de Laplace es una referencia inercial natural para el sistema.
+    \item \textbf{Sistema de Coordenadas Natural:} Se define como aquel que tiene su origen en el baricentro y su plano fundamental ($x-y$) coincidiendo con el plano invariable de Laplace.
+\end{itemize}
+
+\section{Resumen de Cuadraturas (Primeras Integrales)}
+
+Con los resultados de hoy, hemos identificado 10 de las 6N constantes necesarias para resolver el problema de los N-cuerpos:
+\begin{itemize}
+    \item \textbf{Momentum lineal (3):} Conservación del movimiento del baricentro.
+    \item \textbf{Posición inicial del centro de masa (3):} Relacionada con la integración del momentum lineal.
+    \item \textbf{Momentum angular (3):} Conservación de la rotación total del sistema.
+    \item \textbf{Energía total (1):} Conservación de la energía mecánica (que estudiaremos en detalle la próxima clase).
+\end{itemize}
+
+De acuerdo con el **Teorema de Bruns**, para $N \geq 3$, estas 10 integrales son las únicas constantes algebraicas independientes que se pueden encontrar utilizando las coordenadas y velocidades de las partículas.
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}

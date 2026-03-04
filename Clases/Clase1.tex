@@ -1,0 +1,75 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Clase \#1}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+\section{Presentación del curso}
+La \textbf{Mecánica Celeste} es la disciplina científica encargada de aplicar las leyes de la mecánica para estudiar el movimiento de cuerpos bajo la acción dominante de la \textbf{gravedad}. Aunque clásicamente se definía como el estudio de las posiciones de los planetas, hoy abarca desde pequeñas partículas de polvo hasta galaxias y vehículos espaciales. Este curso está dirigido a estudiantes de pregrado en astronomía, física e ingeniería aeroespacial.
+
+\subsection{Raíces históricas}
+El descubrimiento de los planetas se remonta a la antigüedad, cuando se observaron cuerpos que no mantenían posiciones fijas entre las estrellas. Civilizaciones como los babilonios y asirios fueron pioneras en predecir posiciones planetarias usando métodos aritméticos y geométricos. Durante siglos, modelos como las esferas de Eudoxio y el sistema de Claudio Ptolomeo dominaron la disciplina.
+
+\section{Estructura y Contenido}
+El curso se organiza en tres grandes bloques temáticos que siguen un orden lógico y atemporal:
+\begin{enumerate}
+    \item \textbf{Fundamentos:} Repaso de bases matemáticas (cálculo vectorial, cónicas) y físicas (mecánica newtoniana).
+    \item \textbf{Formalismo Vectorial:} Estudio del problema de los $N$-cuerpos y el problema relativo de dos cuerpos.
+    \item \textbf{Mecánica Analítica:} Introducción a los formalismos Lagrangiano y Hamiltoniano aplicados a la dinámica celeste.
+\end{enumerate}
+
+\section{Recursos y Metodología}
+El curso integra herramientas modernas para el aprendizaje y la investigación:
+\begin{itemize}
+    \item \textbf{Texto guía:} \textit{Mecánica Celeste: teoría, algoritmos y problemas}, del Prof. Jorge I. Zuluaga.
+    \item \textbf{Lenguaje de programación:} Se utilizará \textbf{Python} por su sintaxis cercana al lenguaje natural y su amplia comunidad científica.
+    \item \textbf{PymCel:} Paquete de utilidades diseñado originalmente para el libro guía que facilita el estudio de la astrodinámica.
+    \item \textbf{SPICE:} Sistema de la NASA para la determinación precisa de posiciones de cuerpos del Sistema Solar y naves espaciales.
+    \item \textbf{Jupyter Notebooks:} El material está disponible en libretas interactivas que permiten ejecutar algoritmos y visualizaciones en clase.
+\end{itemize}
+
+\section{Evaluación}
+El sistema de evaluación se basa en el desarrollo de cuatro competencias principales:
+\begin{itemize}
+    \item \textbf{Asistencia:} Seguimiento con nota (10\%).
+    \item \textbf{Conceptos:} Evaluados mediante quices (25\%) y un examen final (20\%).
+    \item \textbf{Modelación teórica:} Solución de problemas teóricos (30\%).
+    \item \textbf{Modelación computacional:} Desarrollo de un proyecto computacional (15\%).
+\end{itemize}
+
+\section{El Problema Básico de la Mecánica Celeste}
+El objetivo fundamental es predecir la posición y velocidad de los cuerpos celestes en el futuro dadas sus condiciones iniciales. Para un sistema de $N$ partículas puntuales que interactúan gravitacionalmente, el movimiento se describe mediante un conjunto de ecuaciones diferenciales ordinarias.
+
+\subsection{Ecuaciones de movimiento}
+Para cada partícula $i$ en un sistema, la aceleración se determina por la suma de las fuerzas gravitacionales ejercidas por las demás partículas $j$:
+\begin{equation}
+    \left\{ \ddot{\vec{r}}_i = -\sum_{j=1, j \neq i}^{N} \frac{\mu_j}{r_{ij}^3} \vec{r}_{ij} \right\}_{i=1...N}
+\end{equation}
+Donde $\mu_j = Gm_j$ es el parámetro gravitacional del cuerpo $j$ y $\vec{r}_{ij} = \vec{r}_i - \vec{r}_j$ representa el vector de posición relativa entre los cuerpos. En un sistema de dos cuerpos como la Tierra y el Sol, ambos experimentan fuerzas de atracción mutua, lo que implica que el Sol también está en movimiento y el sistema debe analizarse de forma relativa o respecto al centro de masa.
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}

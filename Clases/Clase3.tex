@@ -1,0 +1,91 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Clase \#3}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+\section{El Problema de los $N$-Cuerpos}
+
+El problema de los $N$-cuerpos es, posiblemente, el primer problema de física teórica formulado en la historia y constituye el núcleo central de la mecánica celeste. Su objetivo es describir la evolución temporal de un sistema de partículas puntuales que interactúan exclusivamente a través de la atracción gravitacional mutua.
+
+\subsection{Formulación Matemática}
+Supongamos un sistema de $N$ partículas con masas $m_1, m_2, ..., m_N$. En un instante inicial $t_0$, conocemos sus posiciones $\vec{r}_i(t_0)$ y sus velocidades $\dot{\vec{r}}_i(t_0)$. El problema consiste en determinar estos vectores para cualquier instante futuro $t$.
+
+De acuerdo con la segunda ley de Newton y la ley de gravitación universal, la aceleración de cada partícula $i$ es el resultado de la suma de las fuerzas ejercidas por todas las demás partículas $j$ del sistema:
+\begin{equation}
+    \left\{ \ddot{\vec{r}}_i = -\sum_{j=1, j \neq i}^{N} \frac{\mu_j}{r_{ij}^3} \vec{r}_{ij} \right\}_{i=1...N}
+\end{equation}
+Donde:
+\begin{itemize}
+    \item $\mu_j = Gm_j$ es el parámetro gravitacional de la partícula $j$.
+    \item $\vec{r}_{ij} = \vec{r}_i - \vec{r}_j$ es el vector de posición relativa que apunta de $j$ hacia $i$.
+    \item $r_{ij} = |\vec{r}_{ij}|$ es la distancia entre las partículas.
+\end{itemize}
+
+\subsection{Características del Sistema}
+Este conjunto representa un sistema de $N$ ecuaciones diferenciales vectoriales de segundo orden acopladas. Si eliminamos la notación vectorial y descomponemos el movimiento en las tres dimensiones espaciales ($x, y, z$), nos enfrentamos a un sistema de $3N$ ecuaciones diferenciales ordinarias de segundo orden.
+
+Para resolver un sistema de este tipo, se requieren $6N$ condiciones iniciales: $3N$ componentes de posición y $3N$ componentes de velocidad. Matemáticamente, para obtener una solución analítica completa (convertir el problema diferencial en uno algebraico), necesitaríamos encontrar $6N$ constantes de movimiento o "cuadraturas". Sin embargo, como veremos, este es un "problema irresoluble" en términos de funciones analíticas simples para $N > 2$.
+
+\section{Primeras Integrales de Movimiento}
+
+A pesar de la imposibilidad de una solución general, podemos identificar ciertas cantidades que se conservan durante el movimiento, conocidas como \textbf{primeras integrales} o \textbf{cuadraturas}. Estas surgen de las simetrías del sistema y de que este se considera aislado (sin fuerzas externas).
+
+\subsection{Conservación del Momentum Lineal (Primera Cuadratura)}
+Si sumamos las ecuaciones de movimiento de todas las partículas multiplicadas por sus respectivas masas, obtenemos la dinámica del sistema completo:
+\begin{equation}
+    \sum_{i=1}^N m_i \ddot{\vec{r}}_i = -\sum_{i=1}^N \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}^3} \vec{r}_{ij}
+\end{equation}
+Debido a la tercera ley de Newton (acción y reacción), por cada término $\vec{r}_{ij}$ existe un término $\vec{r}_{ji}$ antisimétrico que lo anula en la sumatoria doble. Por lo tanto, el lado derecho es nulo:
+\begin{equation}
+    \sum_{i=1}^N m_i \ddot{\vec{r}}_i = 0 \implies \frac{d}{dt} \left( \sum_{i=1}^N m_i \dot{\vec{r}}_i \right) = 0
+\end{equation}
+Esto nos da la **primera integral vectorial** (que contiene 3 constantes escalares): el momentum lineal total $\vec{P}_{CM}$ es constante:
+\begin{equation}
+    \sum_{i=1}^N m_i \dot{\vec{r}}_i = \vec{P}_{CM} = \text{constante}
+\end{equation}
+
+\subsection{El Baricentro (Segunda Cuadratura)}
+Si definimos la masa total como $M = \sum m_i$, podemos introducir el concepto de **Centro de Masa** o **Baricentro**, que es el promedio pesado de las posiciones de las partículas:
+\begin{equation}
+    \vec{R}_{CM} = \frac{\sum m_i \vec{r}_i}{M}
+\end{equation}
+Integrando la ecuación del momentum lineal respecto al tiempo, obtenemos la **segunda integral vectorial** (otras 3 constantes):
+\begin{equation}
+    \sum_{i=1}^N m_i \vec{r}_i - \vec{P}_{CM}t = M\vec{R}_0 \implies \vec{R}_{CM}(t) = \vec{R}_0 + \vec{V}_{CM}t
+\end{equation}
+Donde $\vec{V}_{CM} = \vec{P}_{CM}/M$ es la velocidad constante del centro de masa. Físicamente, esto significa que el baricentro de un sistema de $N$-cuerpos se mueve con movimiento rectilíneo y uniforme.
+
+\subsection{El Sistema de Referencia Baricéntrico}
+Dado que el movimiento del centro de masa es predecible y constante, es ideal describir la dinámica en un sistema de referencia inercial cuyo origen coincida con el baricentro ($\vec{R}_{CM} = 0$ y $\vec{V}_{CM} = 0$). En este sistema, las constantes de movimiento se simplifican a:
+\begin{equation}
+    \sum_{i=1}^N m_i \vec{r}'_i = 0 \quad \text{y} \quad \sum_{i=1}^N m_i \dot{\vec{r}}'_i = 0
+\end{equation}
+Aquí, las cantidades primadas indican que son medidas respecto al baricentro. Este enfoque reduce la complejidad del análisis al eliminar el movimiento de traslación global del sistema.
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}

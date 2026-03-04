@@ -1,0 +1,100 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Clase \#4}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+\section{Solución Numérica al Problema de los $N$-Cuerpos}
+
+Dada la imposibilidad de encontrar una solución analítica práctica para $N > 2$ (debido a la lentitud de convergencia de las series de Sundman o Wang), la mecánica celeste moderna se apoya en la \textbf{solución numérica}. Este enfoque permite construir "laboratorios virtuales" para poner a prueba teorías dinámicas y realizar predicciones precisas en ingeniería aeroespacial.
+
+\section{Linealización y Reducción del Orden}
+
+Para resolver numéricamente el sistema de ecuaciones diferenciales de segundo orden que describe el movimiento gravitacional:
+\begin{equation}
+    \left\{ \ddot{\vec{r}}_i = -\sum_{j=1, j \neq i}^{N} \frac{\mu_j}{r_{ij}^3} \vec{r}_{ij} \right\}_{i=1...N}
+\end{equation}
+
+Es necesario realizar una \textbf{reducción del orden} para convertirlo en un sistema de ecuaciones de primer orden. Siguiendo una idea original de Euler, definimos variables auxiliares de velocidad $\vec{v}_i \equiv \dot{\vec{r}}_i$, lo que transforma el sistema de $3N$ ecuaciones de segundo orden en $6N$ ecuaciones de primer orden:
+
+\begin{equation}
+    \begin{cases} 
+    \dot{\vec{r}}_i = \vec{v}_i \\
+    \dot{\vec{v}}_i = -\sum_{j \neq i} \frac{\mu_j}{r_{ij}^3} \vec{r}_{ij} 
+    \end{cases}
+\end{equation}
+
+Matemáticamente, esto se gestiona mediante un \textbf{vector de estado} $Y$ que compila todas las componentes de posición y velocidad del sistema:
+\begin{equation}
+    Y = \{x_1, y_1, z_1, ..., x_N, y_N, z_N, v_{x1}, v_{y1}, v_{z1}, ..., v_{xN}, v_{yN}, v_{zN}\}
+\end{equation}
+
+\section{El Problema de Valor Inicial (IVP)}
+
+La integración numérica requiere definir \textbf{condiciones iniciales} precisas en un instante $t_0$. Esto implica conocer $6N$ valores: las posiciones $\{ \vec{r}_i(t_0) \}$ y las velocidades $\{ \dot{\vec{r}}_i(t_0) \}$ de todas las partículas. El objetivo es encontrar el estado del sistema en un tiempo futuro $t_0 + \Delta t$.
+
+\section{Unidades Canónicas y Escalas Gravitacionales}
+
+En el Sistema Internacional, la constante $G \approx 6.67 \times 10^{-11} \, \text{m}^3\text{kg}^{-1}\text{s}^{-2}$ es extremadamente pequeña, mientras que las masas y distancias astronómicas son enormes (p.e. $M_{\odot} \approx 10^{30}$ kg). Para mejorar la estabilidad numérica y evitar errores de redondeo, se utilizan \textbf{unidades canónicas} donde $G = 1$.
+
+Un sistema de unidades $(L, M, T)$ es canónico si sus factores de conversión $(U_L, U_M, U_T)$ satisfacen:
+\begin{equation}
+    1 = \frac{G U_M U_T^2}{U_L^3} \implies U_T = \sqrt{\frac{U_L^3}{G U_M}}
+\end{equation}
+
+En estas unidades, el parámetro gravitacional $\mu_j = G m_j$ se reduce numéricamente a la masa $m_j$.
+
+\section{Algoritmos de Integración}
+
+\subsection{Diferencias Finitas y Método Leapfrog}
+Una técnica común para propagar el estado del sistema es el uso de \textbf{diferencias finitas}. Un algoritmo destacado es el \textbf{Método de Leapfrog}, una variante de los métodos de Delambre o Verlet, que actualiza posiciones y velocidades de forma alternada para conservar mejor la energía del sistema:
+\begin{equation}
+    \begin{cases} 
+    \vec{v}_i(t_0 + \Delta t) \approx \vec{v}_i(t_0) + \vec{a}_i(t_0) \Delta t \\
+    \vec{r}_i(t_0 + \Delta t) \approx \vec{r}_i(t_0) + \vec{v}_i(t_0 + \Delta t) \Delta t 
+    \end{cases}
+\end{equation}
+
+\subsection{Implementación Computacional}
+En la práctica, se utilizan integradores robustos como \texttt{odeint} (basado en ODEPACK). El proceso algorítmico general implica:
+\begin{enumerate}
+    \item Definir el sistema de ecuaciones diferenciales reducidas (EDMR).
+    \item Especificar el estado inicial $Y_0$ y el intervalo de tiempo.
+    \item Extraer las trayectorias y reconstruir los vectores de posición y velocidad.
+\end{enumerate}
+
+\section{Validación de la Solución}
+
+Una solución numérica es confiable solo si preserva las propiedades físicas globales del sistema. Se deben verificar las \textbf{constantes de movimiento} (cuadraturas) a lo largo del tiempo:
+\begin{itemize}
+    \item \textbf{Momentum Lineal:} $\vec{P}_{CM} = \sum m_i \dot{\vec{r}}_i$.
+    \item \textbf{Momentum Angular:} $\vec{L} = \sum m_i \vec{r}_i \times \dot{\vec{r}}_i$.
+    \item \textbf{Energía Total:} $E = K + U$.
+    \item \textbf{Teorema del Virial:} En sistemas ligados, el promedio de la energía cinética debe ser $-\frac{1}{2}$ del promedio de la energía potencial ($\langle K \rangle = -\frac{1}{2} \langle U \rangle$).
+\end{itemize}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
