@@ -1,0 +1,256 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Solución del Taller - Clase 2}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\Large Universidad de Antioquia\par}
+  \vspace{2cm}
+  {\huge\bfseries Mecánica Celeste\par}
+  \vspace{0.4cm}
+  {\Large Clase 2 - Taller\par}
+  \vspace{2.5cm}
+  {\large Autor:\par}
+  \vspace{0.2cm}
+  {\large Daniel Soto Villada\par}
+  {\large Estudiante de Astronomía\par}
+  \vfill
+  {\large \today\par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Problema \# 1}
+
+Sea el vector de posición definido en coordenadas cartesianas como $\vec{r} = (x, y, z)$ y su magnitud escalar definida como $r = |\vec{r}| = (x^2 + y^2 + z^2)^{1/2}$.
+
+\begin{enumerate}[a)]
+    \item Calcule las derivadas parciales $\frac{\partial r}{\partial x}$, $\frac{\partial r}{\partial y}$ y $\frac{\partial r}{\partial z}$.
+    \item A partir de lo anterior, demuestre que el gradiente de la magnitud del vector de posición es $\nabla r = \frac{\vec{r}}{r}$ y verifique que la magnitud de este gradiente es $|\nabla r| = 1$ para todo $r \neq 0$.
+\end{enumerate}
+
+\section{Solución Problema \# 1}
+
+Este problema trata sobre el análisis básico del **vector de posición** en el espacio euclidiano tridimensional. El objetivo es comprender cómo varía la distancia radial $r$ desde el origen respecto a las coordenadas cartesianas y cómo estas variaciones se combinan para formar el **operador gradiente** aplicado a una función puramente radial.
+
+\subsection{Parte (a): Cálculo de las derivadas parciales}
+
+Para calcular las derivadas parciales de la función escalar $r(x, y, z) = (x^2 + y^2 + z^2)^{1/2}$, debemos aplicar la **regla de la cadena** para derivadas multivariadas.
+
+\subsubsection{Derivada respecto a $x$}
+Consideramos a las variables $y$ y $z$ como constantes durante la diferenciación:
+$ \frac{\partial r}{\partial x} = \frac{\partial}{\partial x} (x^2 + y^2 + z^2)^{1/2} $
+
+Aplicando la regla de la potencia y la derivada interna:
+$ \frac{\partial r}{\partial x} = \frac{1}{2} (x^2 + y^2 + z^2)^{-1/2} \cdot \frac{\partial}{\partial x} (x^2 + y^2 + z^2) $
+$ \frac{\partial r}{\partial x} = \frac{1}{2} (x^2 + y^2 + z^2)^{-1/2} \cdot (2x) $
+
+Simplificando el factor $2$ y reescribiendo la potencia negativa en el denominador:
+$ \frac{\partial r}{\partial x} = \frac{x}{(x^2 + y^2 + z^2)^{1/2}} $
+$ \frac{\partial r}{\partial x} = \frac{x}{r} $
+
+\subsubsection{Derivadas respecto a $y$ y $z$}
+Dada la **simetría esférica** de la función $r$ (es decir, las variables $x, y, z$ entran de la misma forma en la ecuación), los cálculos para las otras coordenadas son análogos:
+$ \frac{\partial r}{\partial y} = \frac{y}{(x^2 + y^2 + z^2)^{1/2}} = \frac{y}{r} $
+$ \frac{\partial r}{\partial z} = \frac{z}{(x^2 + y^2 + z^2)^{1/2}} = \frac{z}{r} $
+
+\subsection{Parte (b): Gradiente y verificación de magnitud}
+
+\subsubsection{Demostración de $\nabla r = \frac{\vec{r}}{r}$}
+El operador gradiente $\nabla$ en un sistema cartesiano se define como el vector cuyas componentes son las derivadas parciales de la función escalar sobre la cual actúa:
+$ \nabla r = \left( \frac{\partial r}{\partial x}, \frac{\partial r}{\partial y}, \frac{\partial r}{\partial z} \right) $
+
+Sustituyendo los resultados de la parte (a):
+$ \nabla r = \left( \frac{x}{r}, \frac{y}{r}, \frac{z}{r} \right) $
+
+Podemos extraer el factor escalar común $\frac{1}{r}$:
+$ \nabla r = \frac{1}{r} (x, y, z) $
+
+Dado que el vector $(x, y, z)$ es la definición de $\vec{r}$ en componentes cartesianas, llegamos a la conclusión requerida:
+$ \nabla r = \frac{\vec{r}}{r} = \hat{r} $.
+Donde $\hat{r}$ es el vector unitario en la dirección radial.
+
+\subsubsection{Verificación de que $|\nabla r| = 1$}
+Para verificar la magnitud del vector resultante, calculamos su norma euclidiana:
+$ |\nabla r| = \sqrt{ \left( \frac{x}{r} \right)^2 + \left( \frac{y}{r} \right)^2 + \left( \frac{z}{r} \right)^2 } $
+
+Elevando al cuadrado los términos:
+$ |\nabla r| = \sqrt{ \frac{x^2}{r^2} + \frac{y^2}{r^2} + \frac{z^2}{r^2} } $
+$ |\nabla r| = \sqrt{ \frac{x^2 + y^2 + z^2}{r^2} } $
+
+Utilizando la definición original de $r^2 = x^2 + y^2 + z^2$:
+$ |\nabla r| = \sqrt{ \frac{r^2}{r^2} } $
+$ |\nabla r| = \sqrt{1} = 1 $
+Este resultado es válido siempre que $r \neq 0$ para evitar la indeterminación en el origen.
+
+\section{Relevancia en física}
+
+Este problema es fundamental en la física por varias razones clave:
+
+\begin{enumerate}
+    \item \textbf{Fuerzas Centrales:} En Mecánica Celeste y Electrodinámica, muchas fuerzas dependen solo de la distancia $r$. Este cálculo permite demostrar que la fuerza es proporcional al gradiente del potencial radial, $\vec{F} = -\nabla V(r) = -\hat{r} \frac{dV}{dr}$, lo que implica que las fuerzas gravitacionales y electrostáticas siempre apuntan a lo largo de la línea que une a los cuerpos.
+    \item \textbf{Propiedades del Espacio Isotrópico:} El hecho de que $|\nabla r| = 1$ refleja la homogeneidad e isotropía del espacio euclidiano, donde la tasa de cambio de la distancia respecto a un desplazamiento en su propia dirección es la unidad.
+    \item \textbf{Cálculo de Potenciales:} Es la base para derivar campos de vectores a partir de potenciales escalares (campos conservativos), lo cual simplifica enormemente la resolución de problemas de dinámica $N$-cuerpos.
+\end{enumerate}
+
+\section{Problema \# 2}
+
+En coordenadas cartesianas, sea la función escalar $f(\vec{r}) = \frac{1}{r}$, donde $r = |\vec{r}| = (x^2 + y^2 + z^2)^{1/2}$ es la magnitud del vector de posición $\vec{r} = (x, y, z)$.
+
+\begin{enumerate}[a)]
+    \item Calcule la derivada parcial $\frac{\partial}{\partial x} \left( \frac{1}{r} \right)$. Sugerencia: use la definición de $r$ en términos de sus componentes cartesianas.
+    \item Construya el vector gradiente $\nabla \left( \frac{1}{r} \right)$ y demuestre que, para todo $r \neq 0$, se cumple que $\nabla \left( \frac{1}{r} \right) = -\frac{\vec{r}}{r^3}$.
+\end{enumerate}
+
+\section{Solución Problema \# 2}
+
+Este problema aborda el cálculo del **gradiente de un potencial escalar inversamente proporcional a la distancia**, una operación fundamental en la física clásica. El objetivo es demostrar matemáticamente cómo la variación de la función $1/r$ en el espacio tridimensional genera un campo vectorial que apunta hacia el origen y cuya magnitud decae con el cuadrado de la distancia ($1/r^2$).
+
+\subsection{Parte (a): Cálculo de la derivada parcial}
+
+Para calcular $\frac{\partial}{\partial x} \left( \frac{1}{r} \right)$, tratamos a $r$ como una función compuesta de $x, y, z$ y aplicamos la **regla de la cadena**.
+
+\subsubsection{Derivación paso a paso}
+
+Definimos la función como $f(r) = r^{-1}$. La derivada parcial respecto a $x$ es:
+$ \frac{\partial f}{\partial x} = \frac{df}{dr} \frac{\partial r}{\partial x} $
+
+Primero, calculamos la derivada de $f$ respecto a $r$:
+$ \frac{df}{dr} = \frac{d}{dr} (r^{-1}) = -r^{-2} = -\frac{1}{r^2} $
+
+Segundo, utilizamos el resultado del problema anterior (o lo derivamos nuevamente) para la variación de $r$ respecto a $x$:
+$ \frac{\partial r}{\partial x} = \frac{\partial}{\partial x} (x^2 + y^2 + z^2)^{1/2} = \frac{1}{2}(x^2 + y^2 + z^2)^{-1/2} \cdot (2x) = \frac{x}{r} $
+
+Finalmente, combinamos ambos resultados:
+$ \frac{\partial}{\partial x} \left( \frac{1}{r} \right) = \left( -\frac{1}{r^2} \right) \left( \frac{x}{r} \right) = -\frac{x}{r^3} $
+
+\subsection{Parte (b): Construcción del gradiente y demostración}
+
+El gradiente $\nabla$ en coordenadas cartesianas de una función escalar $\phi$ se define como el vector:
+$ \nabla \phi = \left( \frac{\partial \phi}{\partial x}, \frac{\partial \phi}{\partial y}, \frac{\partial \phi}{\partial z} \right) $
+
+\subsubsection{Cálculo de las componentes restantes}
+
+Dada la simetría de la función $1/r$, las derivadas respecto a $y$ y $z$ siguen exactamente la misma forma que la obtenida para $x$:
+$ \frac{\partial}{\partial y} \left( \frac{1}{r} \right) = -\frac{y}{r^3} $
+$ \frac{\partial}{\partial z} \left( \frac{1}{r} \right) = -\frac{z}{r^3} $
+
+\subsubsection{Ensamblaje del vector gradiente}
+
+Sustituyendo las tres componentes en la definición del gradiente:
+$ \nabla \left( \frac{1}{r} \right) = \left( -\frac{x}{r^3}, -\frac{y}{r^3}, -\frac{z}{r^3} \right) $
+
+Podemos factorizar el término escalar común $-\frac{1}{r^3}$:
+$ \nabla \left( \frac{1}{r} \right) = -\frac{1}{r^3} (x, y, z) $
+
+Como el vector $(x, y, z)$ es por definición el vector de posición $\vec{r}$, llegamos al resultado final:
+$ \nabla \left( \frac{1}{r} \right) = -\frac{\vec{r}}{r^3} $
+
+Para expresar esto en términos del vector unitario $\hat{r} = \frac{\vec{r}}{r}$, también podemos escribir:
+$ \nabla \left( \frac{1}{r} \right) = -\frac{1}{r^2} \hat{r} $
+
+\section{Relevancia en física}
+
+Este resultado es de vital importancia en la **Mecánica Celeste** y la física general por las siguientes razones:
+
+\begin{enumerate}
+    \item \textbf{Potencial Gravitacional:} La ley de gravitación de Newton establece que la fuerza es central y conservativa. El potencial gravitacional de una masa puntual $M$ es $\Phi = -G \frac{M}{r}$. La aceleración de la gravedad se obtiene como $\vec{g} = -\nabla \Phi$. Al aplicar el resultado de este problema, vemos que $\vec{g} = -GM \nabla(1/r) = -G \frac{M}{r^3} \vec{r}$, que es la forma vectorial de la **ley del inverso del cuadrado**.
+    \item \textbf{Ecuación de Poisson y Laplace:} Este cálculo demuestra que $1/r$ es una solución a la ecuación de Laplace ($\nabla^2 \phi = 0$) en todo punto excepto en el origen ($r=0$). De hecho, en el origen, este gradiente genera una singularidad relacionada con la función delta de Dirac, esencial para entender fuentes puntuales de masa o carga.
+    \item \textbf{Campos Conservativos:} El hecho de que una fuerza pueda escribirse como el gradiente de un potencial escalar ($1/r$) garantiza la conservación de la energía mecánica en el sistema de dos cuerpos.
+\end{enumerate}
+
+\section{Problema \# 3}
+
+(En coordenadas esféricas) Use el operador gradiente en coordenadas esféricas para una función escalar $\phi(r, \theta, \varphi)$, definido como:
+$ \nabla \phi = \frac{\partial \phi}{\partial r} \hat{e}_r + \frac{1}{r} \frac{\partial \phi}{\partial \theta} \hat{e}_\theta + \frac{1}{r \sin \theta} \frac{\partial \phi}{\partial \varphi} \hat{e}_\varphi $
+
+\begin{enumerate}[a)]
+    \item Para la función $\phi(r, \theta, \varphi) = \frac{1}{r}$, calcule $\nabla \phi$.
+    \item Compare con el resultado obtenido en el problema 2 (en coordenadas cartesianas) y explique por qué una función puramente radial simplifica el cálculo en problemas de fuerzas centrales.
+\end{enumerate}
+
+\section{Solución Problema \# 3}
+
+Este problema explora el cálculo del gradiente utilizando el sistema de **coordenadas esféricas**, el cual es el sistema de referencia natural para problemas con simetría central. El objetivo es verificar que, para un potencial radial como $1/r$, el uso de coordenadas esféricas reduce significativamente la complejidad algebraica en comparación con las coordenadas cartesianas, facilitando la descripción de campos de fuerza como el gravitatorio.
+
+\subsection{Parte (a): Cálculo del gradiente en esféricas}
+
+Dada la función escalar $\phi(r, \theta, \varphi) = \frac{1}{r}$, observamos que esta función depende exclusivamente de la coordenada radial $r$ y es independiente de los ángulos $\theta$ (colatitud) y $\varphi$ (azimut).
+
+\subsubsection{Derivadas parciales}
+
+Procedemos a calcular cada componente del gradiente según la definición proporcionada:
+
+1. **Componente radial:**
+$ \frac{\partial \phi}{\partial r} = \frac{\partial}{\partial r} \left( \frac{1}{r} \right) = -\frac{1}{r^2} $
+
+2. **Componente polar ($\theta$):**
+Como $\phi$ no contiene la variable $\theta$:
+$ \frac{1}{r} \frac{\partial \phi}{\partial \theta} = \frac{1}{r} (0) = 0 $
+
+3. **Componente azimutal ($\varphi$):**
+Como $\phi$ no contiene la variable $\varphi$:
+$ \frac{1}{r \sin \theta} \frac{\partial \phi}{\partial \varphi} = \frac{1}{r \sin \theta} (0) = 0 $
+
+\subsubsection{Resultado final}
+
+Sustituyendo estos valores en la expresión del gradiente:
+$ \nabla \left( \frac{1}{r} \right) = -\frac{1}{r^2} \hat{e}_r + 0 \hat{e}_\theta + 0 \hat{e}_\varphi $
+$ \nabla \left( \frac{1}{r} \right) = -\frac{1}{r^2} \hat{e}_r $
+
+\subsection{Parte (b): Comparación y simplificación en problemas centrales}
+
+\subsubsection{Comparación con coordenadas cartesianas}
+En el problema 2, se demostró en coordenadas cartesianas que $\nabla (1/r) = -\frac{\vec{r}}{r^3}$. 
+Para comparar, recordamos que el vector de posición se define como $\vec{r} = r \hat{e}_r$. Al sustituir esto en el resultado cartesiano obtenemos:
+$ -\frac{\vec{r}}{r^3} = -\frac{r \hat{e}_r}{r^3} = -\frac{1}{r^2} \hat{e}_r $
+Ambos resultados son idénticos, lo que confirma la **invarianza del operador gradiente** bajo transformaciones de coordenadas.
+
+\subsubsection{¿Por qué simplifica el cálculo?}
+El uso de una función puramente radial simplifica el cálculo en problemas de fuerzas centrales por las siguientes razones:
+\begin{itemize}
+    \item **Anulación de términos:** Al depender solo de $r$, las derivadas respecto a las coordenadas angulares ($\theta, \varphi$) desaparecen automáticamente, reduciendo el gradiente a un solo término.
+    \item **Alineación natural:** El resultado apunta directamente en la dirección del vector unitario radial $\hat{e}_r$, lo cual coincide con la línea de acción de la fuerza gravitacional.
+    \item **Eficiencia algebraica:** Evita la manipulación de raíces cuadradas y potencias de componentes $(x, y, z)$ que suelen aparecer en cartesianas, permitiendo una transición directa del potencial escalar a la aceleración vectorial.
+\end{itemize}
+
+\section{Relevancia en física}
+
+Este ejercicio tiene una relevancia fundamental en la **Mecánica Celeste**:
+
+\begin{enumerate}
+    \item **Leyes de Kepler:** La mayoría de los cuerpos celestes se modelan como masas puntuales donde el potencial gravitatorio depende únicamente de la distancia $r$. Las coordenadas esféricas permiten derivar las ecuaciones de movimiento de forma mucho más directa, facilitando la deducción de las órbitas cónicas.
+    \item **Campos de Fuerza Central:** Una fuerza es "central" si su magnitud depende solo de $r$ y su dirección es radial. Este problema demuestra matemáticamente que cualquier potencial escalar de la forma $V(r)$ genera una fuerza central $\vec{F} = -\nabla V = -\frac{dV}{dr} \hat{e}_r$, lo que garantiza la conservación del momento angular.
+    \item **Estabilidad Numérica:** En astrodinámica computacional, entender estas propiedades permite elegir sistemas de coordenadas que minimizan los errores de redondeo y simplifican la integración de trayectorias complejas.
+\end{enumerate}
+
+
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
