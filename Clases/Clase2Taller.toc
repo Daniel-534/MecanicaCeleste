@@ -1,27 +1,26 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {section}{\numberline {1}Problema \# 1}{2}{section.1}%
-\contentsline {section}{\numberline {2}Solución Problema \# 1}{2}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Parte (a): Cálculo de las derivadas parciales}{2}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}Derivada respecto a $x$}{2}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Derivadas respecto a $y$ y $z$}{2}{subsubsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.2}Parte (b): Gradiente y verificación de magnitud}{2}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Demostración de $\nabla r = \frac {\vec {r}}{r}$}{2}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Verificación de que $|\nabla r| = 1$}{2}{subsubsection.2.2.2}%
-\contentsline {section}{\numberline {3}Relevancia en física}{3}{section.3}%
-\contentsline {section}{\numberline {4}Problema \# 2}{3}{section.4}%
-\contentsline {section}{\numberline {5}Solución Problema \# 2}{3}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Parte (a): Cálculo de la derivada parcial}{3}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Derivación paso a paso}{3}{subsubsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.2}Parte (b): Construcción del gradiente y demostración}{3}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Cálculo de las componentes restantes}{3}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}Ensamblaje del vector gradiente}{3}{subsubsection.5.2.2}%
-\contentsline {section}{\numberline {6}Relevancia en física}{4}{section.6}%
-\contentsline {section}{\numberline {7}Problema \# 3}{4}{section.7}%
-\contentsline {section}{\numberline {8}Solución Problema \# 3}{4}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Parte (a): Cálculo del gradiente en esféricas}{4}{subsection.8.1}%
-\contentsline {subsubsection}{\numberline {8.1.1}Derivadas parciales}{4}{subsubsection.8.1.1}%
-\contentsline {subsubsection}{\numberline {8.1.2}Resultado final}{4}{subsubsection.8.1.2}%
-\contentsline {subsection}{\numberline {8.2}Parte (b): Comparación y simplificación en problemas centrales}{4}{subsection.8.2}%
-\contentsline {subsubsection}{\numberline {8.2.1}Comparación con coordenadas cartesianas}{4}{subsubsection.8.2.1}%
-\contentsline {subsubsection}{\numberline {8.2.2}¿Por qué simplifica el cálculo?}{5}{subsubsection.8.2.2}%
-\contentsline {section}{\numberline {9}Relevancia en física}{5}{section.9}%
+\contentsline {subsection}{\numberline {1.1}Parte (a): Cálculo de las derivadas parciales}{2}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Derivada respecto a $x$}{2}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Derivadas respecto a $y$ y $z$}{2}{subsubsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.2}Parte (b): Gradiente y verificación de magnitud}{3}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Demostración de $\nabla r = \frac {\vec {r}}{r}$}{3}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Verificación de que $|\nabla r| = 1$}{3}{subsubsection.1.2.2}%
+\contentsline {section}{\numberline {2}Problema \# 2}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Parte (a): Cálculo de la derivada parcial}{4}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Derivación paso a paso}{4}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Parte (b): Construcción del gradiente y demostración}{4}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Cálculo de las componentes restantes}{4}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Ensamblaje del vector gradiente}{5}{subsubsection.2.2.2}%
+\contentsline {section}{\numberline {3}Problema \# 3}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Parte (a): Cálculo del gradiente en esféricas}{5}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Derivadas parciales}{6}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Resultado final}{6}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}Parte (b): Comparación y simplificación en problemas centrales}{6}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Comparación con coordenadas cartesianas}{6}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}¿Por qué simplifica el cálculo?}{6}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {4}Problema \# 4}{7}{section.4}%
+\contentsline {section}{\numberline {5}Solución Problema \# 4}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Parte (a): Aplicación de la regla de la cadena}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Parte (b): Demostración en notación vectorial}{7}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Relevancia en física}{8}{section.6}%
