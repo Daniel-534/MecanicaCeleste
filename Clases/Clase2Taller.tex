@@ -262,110 +262,208 @@ Este ejercicio tiene una relevancia fundamental en la {Mecánica Celeste}:
 
 \section{Problema \# 4}
 
-Sea $U(\vec{r})$ un potencial que depende solo de la posición, y sea $\vec{r}(t)$ una trayectoria definida en el espacio tridimensional.
+Sean $\vec{r}(t)$ y $\vec{v}(t)$ los vectores de posición y velocidad de una partícula, donde $\vec{v}(t) = \dot{\vec{r}}(t)$. Definimos la magnitud del vector de posición como $r = |\vec{r}|$ y el vector unitario en la dirección radial como $\hat{r} = \frac{\vec{r}}{r}$.
 
-\begin{enumerate}[label=\alph*)]
-    \item Escriba la derivada total $dU/dt$ usando la regla de la cadena multivariada en términos de las derivadas parciales $\partial U/\partial x, \partial U/\partial y, \partial U/\partial z$ y las componentes de la velocidad $\dot{x}, \dot{y}, \dot{z}$.
-    
-    \item Reescriba el resultado en notación vectorial y demuestre que 
-    $dU/dt = \nabla U(\vec{r}(t)) \cdot \dot{\vec{r}}(t)$.
+\begin{enumerate}[a)]
+    \item Demuestre que la derivada temporal de la magnitud del vector de posición (velocidad radial) está dada por $\dot{r} = \hat{r} \cdot \vec{v}$.
+    \item A partir de lo anterior, demuestre que la derivada temporal del vector unitario radial es $\frac{d\hat{r}}{dt} = \frac{\vec{v} - \dot{r}\hat{r}}{r}$.
+    \item Justifique algebraicamente por qué el producto escalar $\hat{r} \cdot \frac{d\hat{r}}{dt}$ es siempre igual a cero.
 \end{enumerate}
 
-\section{Solución Problema \# 4}
+\section*{Solución Problema \# 4}
 
-Este problema trata sobre el cálculo de la **tasa de cambio temporal** de una función escalar (potencial) a lo largo de la trayectoria de una partícula. Se busca aplicar la **regla de la cadena multivariada** para descomponer el cambio total en términos de las variaciones espaciales del potencial y el vector velocidad de la partícula.
+Este problema es fundamental para la cinemática en coordenadas no cartesianas (como polares o esféricas). Se centra en entender cómo cambian tanto la **longitud** como la **dirección** del vector de posición a medida que una partícula se mueve. El objetivo es descomponer el vector velocidad en una componente que cambia la distancia al origen y otra que cambia la orientación del vector unitario radial.
 
-\subsection{Parte (a): Aplicación de la regla de la cadena}
+\subsection{Parte (a): Derivada de la magnitud $r$}
 
-Cuando una partícula se mueve siguiendo una trayectoria 
-$\vec{r}(t) = (x(t), y(t), z(t))$, el potencial $U$ cambia en el tiempo debido al cambio de posición de la partícula. Matemáticamente, $U$ es una función compuesta:
+Para encontrar la tasa de cambio de la distancia $r$, partimos de la definición del cuadrado de la magnitud usando el producto escalar:
+$$ r^2 = \vec{r} \cdot \vec{r} $$
 
-\[
-U = U(x(t), y(t), z(t)).
-\]
+Derivamos ambos lados de la ecuación con respecto al tiempo $t$ aplicando la regla del producto:
+$$ \frac{d}{dt}(r^2) = \frac{d}{dt}(\vec{r} \cdot \vec{r}) $$
+$$ 2r \frac{dr}{dt} = \dot{\vec{r}} \cdot \vec{r} + \vec{r} \cdot \dot{\vec{r}} $$
 
-De acuerdo con la regla de la cadena para funciones de varias variables, la derivada total respecto al tiempo es
+Dado que el producto escalar es conmutativo y definiendo $\dot{r} = \frac{dr}{dt}$ y $\vec{v} = \dot{\vec{r}}$:
+$$ 2r\dot{r} = 2\vec{r} \cdot \vec{v} $$
 
-\[
-\frac{dU}{dt}
-=
-\frac{\partial U}{\partial x}\frac{dx}{dt}
-+
-\frac{\partial U}{\partial y}\frac{dy}{dt}
-+
-\frac{\partial U}{\partial z}\frac{dz}{dt}.
-\]
+Dividiendo por $2r$ (asumiendo $r \neq 0$):
+$$ \dot{r} = \frac{\vec{r} \cdot \vec{v}}{r} $$
 
-Utilizando la notación de punto para las velocidades ($\dot{x}, \dot{y}, \dot{z}$):
+Sustituyendo la definición de vector unitario $\hat{r} = \frac{\vec{r}}{r}$, llegamos al resultado:
+$$ \dot{r} = \hat{r} \cdot \vec{v} $$
 
-\[
-\frac{dU}{dt}
-=
-\frac{\partial U}{\partial x}\dot{x}
-+
-\frac{\partial U}{\partial y}\dot{y}
-+
-\frac{\partial U}{\partial z}\dot{z}.
-\]
+Este resultado indica que la velocidad radial es la proyección del vector velocidad total sobre la dirección radial.
 
-Como el potencial depende **solo de la posición**, se tiene
+\subsection{Parte (b): Derivada del vector unitario $\hat{r}$}
 
-\[
-\frac{\partial U}{\partial t}=0.
-\]
+Para calcular $\frac{d\hat{r}}{dt}$, aplicamos la regla del cociente a la definición $\hat{r} = \frac{\vec{r}}{r}$, tratando a $\vec{r}$ como el numerador y a $r$ como el denominador:
+$$ \frac{d\hat{r}}{dt} = \frac{d}{dt} \left( \frac{\vec{r}}{r} \right) = \frac{\dot{\vec{r}}r - \vec{r}\dot{r}}{r^2} $$
 
-\subsection{Parte (b): Demostración en notación vectorial}
+Sustituimos $\dot{\vec{r}}$ por $\vec{v}$:
+$$ \frac{d\hat{r}}{dt} = \frac{\vec{v}r - \vec{r}\dot{r}}{r^2} $$
 
-Identificamos dos entidades vectoriales:
+Podemos separar la fracción para simplificar los términos:
+$$ \frac{d\hat{r}}{dt} = \frac{\vec{v}r}{r^2} - \frac{\vec{r}\dot{r}}{r^2} = \frac{\vec{v}}{r} - \frac{\dot{r}}{r} \left( \frac{\vec{r}}{r} \right) $$
 
-\textbf{Gradiente del potencial}
+Reconocemos nuevamente que $\frac{\vec{r}}{r} = \hat{r}$, por lo que:
+$$ \frac{d\hat{r}}{dt} = \frac{\vec{v} - \dot{r}\hat{r}}{r} $$
 
-\[
-\nabla U =
-\left(
-\frac{\partial U}{\partial x},
-\frac{\partial U}{\partial y},
-\frac{\partial U}{\partial z}
-\right)
-\]
+Este vector representa la tasa de cambio en la dirección del vector de posición. Es importante notar que el numerador $\vec{v} - \dot{r}\hat{r}$ es la componente de la velocidad perpendicular a la dirección radial.
 
-\textbf{Vector velocidad}
+\subsection{Parte (c): Justificación de $\hat{r} \cdot \dot{\hat{r}} = 0$}
 
-\[
-\dot{\vec r} =
-(\dot{x},\dot{y},\dot{z})
-\]
+Existen dos formas de justificar este resultado: una geométrica y otra algebraica.
 
-El producto escalar entre estos vectores es
+\subsubsection{Justificación algebraica (Propiedad de la norma constante)}
+Un vector unitario tiene, por definición, una magnitud constante igual a 1. Por lo tanto:
+$$ \hat{r} \cdot \hat{r} = |\hat{r}|^2 = 1 $$
 
-\[
-\nabla U \cdot \dot{\vec r}
-=
-\frac{\partial U}{\partial x}\dot{x}
-+
-\frac{\partial U}{\partial y}\dot{y}
-+
-\frac{\partial U}{\partial z}\dot{z}.
-\]
+Si derivamos esta constante respecto al tiempo:
+$$ \frac{d}{dt}(\hat{r} \cdot \hat{r}) = \frac{d}{dt}(1) $$
+$$ \dot{\hat{r}} \cdot \hat{r} + \hat{r} \cdot \dot{\hat{r}} = 0 $$
+$$ 2\hat{r} \cdot \dot{\hat{r}} = 0 \implies \hat{r} \cdot \dot{\hat{r}} = 0 $$
 
-Por lo tanto,
+\subsubsection{Interpretación física}
+Este resultado demuestra que el cambio de un vector unitario siempre debe ser perpendicular al vector mismo. Si tuviera una componente en la dirección radial, cambiaría la longitud del vector, lo que contradice su definición como vector unitario.
 
-\[
-\frac{dU}{dt}
-=
-\nabla U(\vec r(t))\cdot \dot{\vec r}(t).
-\]
+\section*{Relevancia en física}
 
-\section{Relevancia en física}
+Este problema es la base técnica para construir la cinemática en sistemas de referencia rotantes y es vital en la **mecánica celeste**:
 
 \begin{enumerate}
-\item \textbf{Conservación de la energía:} Esta relación es clave para demostrar la conservación de la energía mecánica en sistemas conservativos.
-
-\item \textbf{Dinámica de Hamilton:} Permite describir la evolución de sistemas físicos en el espacio de fase usando potenciales escalares.
-
-\item \textbf{Teoría de perturbaciones:} Facilita calcular cómo cambia la energía de una órbita cuando actúan fuerzas adicionales.
+    \item \textbf{Momento Angular:} La relación $\dot{\hat{r}}$ permite demostrar que en un sistema de dos cuerpos, la velocidad transversal es responsable del barrido de áreas (Segunda Ley de Kepler).
+    \item \textbf{Aceleraciones Centrales:} Al derivar nuevamente estos resultados, aparecen los términos de aceleración centrípeta y de Coriolis, esenciales para el Problema de los $N$-Cuerpos.
+    \item \textbf{Elementos Orbitales:} La determinación de la anomalía verdadera $f$ y su evolución temporal depende directamente de entender cómo la velocidad total se reparte entre el cambio en la distancia ($r$) y el cambio en la orientación ($\hat{r}$).
 \end{enumerate}
 
+
+\section{Problema \# 5}
+
+Sea $U(\vec{r})$ un potencial escalar que depende únicamente de la posición $\vec{r}$, y sea $\vec{r}(t)$ una trayectoria definida en el espacio tridimensional en función del tiempo $t$.
+
+\begin{enumerate}[a)]
+    \item Escriba la derivada total $\frac{dU}{dt}$ utilizando la regla de la cadena multivariada en términos de las derivadas parciales $\frac{\partial U}{\partial x}$, $\frac{\partial U}{\partial y}$, $\frac{\partial U}{\partial z}$ y las componentes de la velocidad $\dot{x}, \dot{y}, \dot{z}$.
+    \item Reescriba el resultado utilizando notación vectorial y demuestre que $\frac{dU}{dt} = \nabla U(\vec{r}(t)) \cdot \dot{\vec{r}}(t)$.
+\end{enumerate}
+
+\section*{Solución Problema \# 5}
+
+Este problema aborda el concepto de la **tasa de cambio temporal** de un campo escalar (en este caso, un potencial gravitatorio) cuando este es "visto" por una partícula que se desplaza a través del espacio siguiendo una trayectoria determinada. El objetivo es comprender cómo la variación espacial del potencial (gradiente) se proyecta sobre el movimiento de la partícula (velocidad) para producir un cambio neto en el valor del potencial a lo largo del tiempo.
+
+\subsection{Parte (a): Aplicación de la regla de la cadena multivariada}
+
+Dado que el potencial $U$ depende de la posición $\vec{r} = (x, y, z)$, y a su vez cada una de estas coordenadas es una función del tiempo $t$ debido al movimiento de la partícula ($x(t), y(t), z(t)$), podemos expresar a $U$ como una función compuesta del tiempo: $U(x(t), y(t), z(t))$.
+
+Para encontrar la derivada total de $U$ respecto a $t$, aplicamos la **regla de la cadena para funciones de varias variables**. Esta establece que el cambio total es la suma de los cambios producidos a través de cada una de sus variables independientes:
+
+$$ \frac{dU}{dt} = \frac{\partial U}{\partial x} \frac{dx}{dt} + \frac{\partial U}{\partial y} \frac{dy}{dt} + \frac{\partial U}{\partial z} \frac{dz}{dt} $$
+
+Si adoptamos la notación de punto para las derivadas temporales, donde $\dot{x} = \frac{dx}{dt}$, $\dot{y} = \frac{dy}{dt}$ y $\dot{z} = \frac{dz}{dt}$, la expresión anterior se escribe de forma más sucinta como:
+
+$$ \frac{dU}{dt} = \frac{\partial U}{\partial x} \dot{x} + \frac{\partial U}{\partial y} \dot{y} + \frac{\partial U}{\partial z} \dot{z} $$
+
+Es importante notar que, dado que el enunciado especifica que el potencial depende **solo de la posición**, no existe un término de variación temporal explícita ($\frac{\partial U}{\partial t} = 0$), por lo que el cambio se debe exclusivamente al desplazamiento de la partícula en el campo espacial.
+
+\subsection{Parte (b): Notación vectorial y demostración}
+
+Para simplificar la expresión obtenida, podemos identificar las entidades vectoriales subyacentes en el cálculo anterior.
+
+\subsubsection{Identificación de los vectores de estado}
+
+1. \textbf{El Gradiente del Potencial ($\nabla U$):} Se define como el vector cuyas componentes son las derivadas parciales de la función escalar respecto a las coordenadas espaciales:
+$$ \nabla U = \left( \frac{\partial U}{\partial x}, \frac{\partial U}{\partial y}, \frac{\partial U}{\partial z} \right) $$
+
+2. \textbf{El Vector Velocidad ($\dot{\vec{r}}$):} Es el vector que representa la tasa de cambio de la posición de la partícula en el tiempo:
+$$ \dot{\vec{r}} = (\dot{x}, \dot{y}, \dot{z}) $$
+
+\subsubsection{Demostración mediante el producto escalar}
+
+Recordando la definición del **producto escalar** entre dos vectores $\vec{A} \cdot \vec{B} = \sum_{i} A_i B_i$, observamos que la estructura de la derivada total obtenida en el inciso (a) coincide exactamente con esta operación matemática:
+
+$$ \frac{dU}{dt} = \left( \frac{\partial U}{\partial x}, \frac{\partial U}{\partial y}, \frac{\partial U}{\partial z} \right) \cdot (\dot{x}, \dot{y}, \dot{z}) $$
+
+Por lo tanto, llegamos a la identidad vectorial requerida:
+
+$$ \frac{dU}{dt} = \nabla U(\vec{r}(t)) \cdot \dot{\vec{r}}(t) $$
+
+Esta expresión compacta nos dice que la tasa de cambio del potencial es igual a la proyección del gradiente del campo sobre el vector velocidad de la partícula.
+
+\section*{Relevancia en física}
+
+Este resultado es una piedra angular tanto en la física general como en la **mecánica celeste** por las siguientes razones fundamentales:
+
+\begin{enumerate}
+    \item \textbf{Conservación de la Energía:} Este cálculo es el paso matemático necesario para demostrar que la energía mecánica se conserva. Al multiplicar la ecuación de movimiento ($m\vec{a} = \vec{F}$) por la velocidad, el término de la fuerza conservativa ($\vec{F} \cdot \vec{v} = -\nabla U \cdot \vec{v}$) se convierte, gracias a este problema, en $-dU/dt$, permitiendo la integración directa de la energía.
+    \item \textbf{Trabajo y Potencia:} Define la potencia mecánica de una fuerza conservativa. La potencia es $P = \vec{F} \cdot \vec{v}$; si la fuerza es central y conservativa, la potencia es simplemente el negativo de la derivada temporal del potencial.
+    \item \textbf{Dinámica en Sistemas de N-Cuerpos:} Permite describir la evolución de sistemas complejos (como el Sistema Solar) mediante un solo funcional escalar, facilitando el uso de formalismos avanzados como el Lagrangiano o el Hamiltoniano.
+\end{enumerate}
+
+
+\section{Problema \# 6}
+
+En un sistema de $N$ cuerpos, defina la distancia relativa entre las partículas $j$ e $i$ como $r_{ji} = |\vec{r}_j - \vec{r}_i|$.
+
+\begin{enumerate}[a)]
+    \item Calcule el gradiente de la función escalar $\frac{1}{r_{ji}}$ con respecto a las coordenadas de la partícula $j$, denotado como $\nabla_j \left( \frac{1}{r_{ji}} \right)$.
+    \item Calcule el gradiente de la misma función con respecto a las coordenadas de la partícula $i$, denotado como $\nabla_i \left( \frac{1}{r_{ji}} \right)$.
+    \item Establezca la relación exacta entre ambos resultados y exprésela de forma compacta.
+\end{enumerate}
+
+\section*{Solución Problema \# 6}
+
+Este problema extiende el análisis del gradiente de un potencial central al contexto de un sistema de múltiples partículas puntuales. El objetivo es comprender cómo varía la energía potencial de interacción mutua (proporcional a $1/r_{ji}$) cuando se desplaza individualmente a cada uno de los cuerpos involucrados en el par. Este análisis es fundamental para derivar las fuerzas internas en el problema de los $N$-cuerpos y verificar la consistencia con las leyes de Newton.
+
+\subsection{Parte (a): Gradiente respecto a la partícula $j$}
+
+Definimos el vector de posición relativa que apunta de $i$ hacia $j$ como $\vec{r}_{ji} = \vec{r}_j - \vec{r}_i$. Al calcular el gradiente $\nabla_j$, tratamos a $\vec{r}_i$ como un vector constante.
+
+\subsubsection{Cálculo paso a paso}
+
+La variación de la magnitud $r_{ji}$ respecto a un cambio en la posición de la partícula $j$ es idéntica al gradiente radial simple estudiado en problemas anteriores:
+$$ \nabla_j r_{ji} = \frac{\vec{r}_{ji}}{r_{ji}} = \hat{r}_{ji} $$
+
+Aplicando la regla de la cadena para la función recíproca:
+$$ \nabla_j \left( \frac{1}{r_{ji}} \right) = \frac{d}{dr_{ji}} \left( r_{ji}^{-1} \right) \nabla_j r_{ji} $$
+$$ \nabla_j \left( \frac{1}{r_{ji}} \right) = \left( -\frac{1}{r_{ji}^2} \right) \left( \frac{\vec{r}_{ji}}{r_{ji}} \right) $$
+$$ \nabla_j \left( \frac{1}{r_{ji}} \right) = -\frac{\vec{r}_{ji}}{r_{ji}^3} $$
+
+Este resultado indica que el gradiente respecto a la partícula que "siente" el potencial apunta hacia la otra partícula $,$.
+
+\subsection{Parte (b): Gradiente respecto a la partícula $i$}
+
+Ahora calculamos el gradiente $\nabla_i$, tratando a $\vec{r}_j$ como constante. Notamos que en la definición $r_{ji} = \sqrt{(x_j-x_i)^2 + (y_j-y_i)^2 + (z_j-z_i)^2}$, las coordenadas de la partícula $i$ entran con signo negativo.
+
+\subsubsection{Cálculo de la derivada interna}
+
+Calculamos la derivada parcial de $r_{ji}$ respecto a $x_i$:
+$$ \frac{\partial r_{ji}}{\partial x_i} = \frac{1}{2 r_{ji}} \cdot 2(x_j - x_i) \cdot (-1) = -\frac{x_j - x_i}{r_{ji}} = \frac{x_i - x_j}{r_{ji}} $$
+
+Al generalizar para las tres componentes:
+$$ \nabla_i r_{ji} = \frac{\vec{r}_i - \vec{r}_j}{r_{ji}} = -\frac{\vec{r}_{ji}}{r_{ji}} $$
+
+Finalmente, el gradiente de la función recíproca es:
+$$ \nabla_i \left( \frac{1}{r_{ji}} \right) = \left( -\frac{1}{r_{ji}^2} \right) \nabla_i r_{ji} = \left( -\frac{1}{r_{ji}^2} \right) \left( -\frac{\vec{r}_{ji}}{r_{ji}} \right) $$
+$$ \nabla_i \left( \frac{1}{r_{ji}} \right) = \frac{\vec{r}_{ji}}{r_{ji}^3} $$
+
+\subsection{Parte (c): Relación entre gradientes}
+
+Comparando los resultados obtenidos en (a) y (b), observamos que los vectores resultantes tienen la misma magnitud y dirección, pero sentidos opuestos:
+$$ \nabla_j \left( \frac{1}{r_{ji}} \right) = -\frac{\vec{r}_{ji}}{r_{ji}^3} \quad , \quad \nabla_i \left( \frac{1}{r_{ji}} \right) = \frac{\vec{r}_{ji}}{r_{ji}^3} $$
+
+La relación compacta es:
+$$ \nabla_j \left( \frac{1}{r_{ji}} \right) = -\nabla_i \left( \frac{1}{r_{ji}} \right) $$
+
+Esta simetría es una propiedad intrínseca de las funciones que dependen únicamente de la distancia relativa entre dos puntos $,$.
+
+\section*{Relevancia en física}
+
+Este resultado es de suma importancia en la **Mecánica Celeste** y la dinámica de sistemas por las siguientes razones:
+
+\begin{enumerate}
+    \item \textbf{Tercera Ley de Newton:} La fuerza ejercida por la partícula $j$ sobre la partícula $i$ es $\vec{F}_{ij} = -G m_i m_j \nabla_i (1/r_{ji})$. Debido a la relación demostrada, se cumple automáticamente que $\vec{F}_{ij} = -\vec{F}_{ji}$, satisfaciendo el postulado de acción y reacción.
+    \item \textbf{Conservación del Momentum Lineal:} Esta simetría en las derivadas del potencial garantiza que la suma de las fuerzas internas en un sistema de $N$ cuerpos sea nula, lo que implica que el centro de masa se mueve de forma inercial.
+    \item \textbf{Formulación del Hamiltoniano:} En la mecánica analítica, permite simplificar el cálculo de las ecuaciones de movimiento al reducir el número de operaciones necesarias para evaluar las interacciones gravitatorias mutuas.
+\end{enumerate}
 
 
 
