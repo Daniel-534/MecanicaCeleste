@@ -20,7 +20,19 @@
 \contentsline {subsubsection}{\numberline {3.2.1}Comparación con coordenadas cartesianas}{6}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}¿Por qué simplifica el cálculo?}{6}{subsubsection.3.2.2}%
 \contentsline {section}{\numberline {4}Problema \# 4}{7}{section.4}%
-\contentsline {section}{\numberline {5}Solución Problema \# 4}{7}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Parte (a): Aplicación de la regla de la cadena}{7}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Parte (b): Demostración en notación vectorial}{7}{subsection.5.2}%
-\contentsline {section}{\numberline {6}Relevancia en física}{8}{section.6}%
+\contentsline {subsection}{\numberline {4.1}Parte (a): Derivada de la magnitud $r$}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Parte (b): Derivada del vector unitario $\hat {r}$}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Parte (c): Justificación de $\hat {r} \cdot \dot {\hat {r}} = 0$}{8}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Justificación algebraica (Propiedad de la norma constante)}{8}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Interpretación física}{8}{subsubsection.4.3.2}%
+\contentsline {section}{\numberline {5}Problema \# 5}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Parte (a): Aplicación de la regla de la cadena multivariada}{9}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Parte (b): Notación vectorial y demostración}{9}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Identificación de los vectores de estado}{9}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Demostración mediante el producto escalar}{9}{subsubsection.5.2.2}%
+\contentsline {section}{\numberline {6}Problema \# 6}{10}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Parte (a): Gradiente respecto a la partícula $j$}{10}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Cálculo paso a paso}{10}{subsubsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.2}Parte (b): Gradiente respecto a la partícula $i$}{11}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Cálculo de la derivada interna}{11}{subsubsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.3}Parte (c): Relación entre gradientes}{11}{subsection.6.3}%

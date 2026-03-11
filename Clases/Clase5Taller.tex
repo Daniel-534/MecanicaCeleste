@@ -1,0 +1,421 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Solución del Taller - Clase 5}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\Large Universidad de Antioquia\par}
+  \vspace{2cm}
+  {\huge\bfseries Mecánica Celeste\par}
+  \vspace{0.4cm}
+  {\Large Clase 2 - Taller\par}
+  \vspace{2.5cm}
+  {\large Autor:\par}
+  \vspace{0.2cm}
+  {\large Daniel Soto Villada\par}
+  {\large Estudiante de Astronomía\par}
+  \vfill
+  {\large \today\par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Problema \# 7}
+
+\textbf{Reducción de ecuaciones diferenciales}
+
+Escriba el sistema de ecuaciones diferenciales reducido correspondiente a las siguientes ecuaciones diferenciales de segundo orden, identificando las variables auxiliares $Y_i$ y las funciones correspondientes $f_i$. En cada caso, aquellas variables o símbolos que no se identifican como la función dependiente o la variable independiente se asumen constantes:
+
+\begin{enumerate}[a)]
+    \item $z(1-z) \frac{d^2w}{dz^2} + [c - (a+b+1)z] \frac{dw}{dz} - abw = 0$
+    \item $\frac{d^2y}{dt^2} = 6y^2 + t$
+    \item $\frac{d^2y}{dt^2} = \frac{1}{y} \left( \frac{dy}{dt} \right)^2 - \frac{1}{t} \frac{dy}{dt} + \frac{1}{t} (\alpha y^2 + \beta) + \gamma y^3 + \frac{\delta}{y}$
+    \item $\frac{d^2y}{dt^2} + \frac{1}{y} \frac{dy}{dt} + \frac{31y - 4}{144y^2(1-y^2)y} = 0$
+    \item $x^2 \frac{d^2y}{dx^2} + ax \frac{dy}{dx} + by = 0$
+\end{enumerate}
+
+\section*{Solución Problema \# 7}
+
+Este problema consiste en aplicar el método de \textbf{reducción del orden} a diversas ecuaciones diferenciales ordinarias (ODE) de segundo orden. La reducción del orden es un procedimiento matemático que permite transformar una única ecuación diferencial de orden $M$ en un sistema de $M$ ecuaciones diferenciales de primer orden. Esta técnica es fundamental en la física computacional, ya que la mayoría de los algoritmos de integración numérica, como el paquete \texttt{odeint} de SciPy, requieren que el problema se exprese en términos de un sistema de primer orden donde se definan las derivadas de un vector de variables auxiliares. 
+
+El procedimiento general implica definir la función dependiente como la primera variable auxiliar ($Y_0$) y su derivada como la segunda ($Y_1$). A partir de allí, se despeja la derivada de mayor orden para obtener la regla de evolución temporal del sistema.
+
+\subsection{Ítem (a): Ecuación hipergeométrica de Gauss}
+
+La ecuación es: 
+$$ z(1-z) \frac{d^2w}{dz^2} + [c - (a+b+1)z] \frac{dw}{dz} - abw = 0 $$
+Aquí, la variable independiente es $z$ y la dependiente es $w$.
+
+\subsubsection{Identificación de variables y reducción}
+Definimos las variables auxiliares:
+\begin{itemize}
+    \item $Y_0 = w$
+    \item $Y_1 = \frac{dw}{dz}$
+\end{itemize}
+
+El sistema reducido se construye encontrando las derivadas de estas variables respecto a $z$:
+\begin{enumerate}
+    \item $f_0(z, Y_0, Y_1) = \frac{dY_0}{dz} = Y_1$
+    \item Para $f_1$, despejamos $\frac{d^2w}{dz^2}$ (que es $\frac{dY_1}{dz}$) de la ecuación original:
+    $$ z(1-z) \frac{dY_1}{dz} = ab Y_0 - [c - (a+b+1)z] Y_1 $$
+    $$ f_1(z, Y_0, Y_1) = \frac{ab Y_0 - [c - (a+b+1)z] Y_1}{z(1-z)} $$
+\end{enumerate}
+
+\subsection{Ítem (b): Ecuación no lineal simple}
+
+La ecuación es: 
+$$ \frac{d^2y}{dt^2} = 6y^2 + t $$
+Variable independiente: $t$. Variable dependiente: $y$.
+
+\subsubsection{Sistema reducido}
+Definimos:
+\begin{itemize}
+    \item $Y_0 = y$
+    \item $Y_1 = \frac{dy}{dt}$
+\end{itemize}
+
+Las funciones correspondientes son:
+\begin{enumerate}
+    \item $f_0(t, Y_0, Y_1) = Y_1$
+    \item $f_1(t, Y_0, Y_1) = 6Y_0^2 + t$
+\end{enumerate}
+
+\subsection{Ítem (c): Ecuación de Painleve}
+
+La ecuación es:
+$$ \frac{d^2y}{dt^2} = \frac{1}{y} \left( \frac{dy}{dt} \right)^2 - \frac{1}{t} \frac{dy}{dt} + \frac{1}{t} (\alpha y^2 + \beta) + \gamma y^3 + \frac{\delta}{y} $$
+
+\subsubsection{Sistema reducido}
+Siguiendo la identificación $Y_0 = y$ y $Y_1 = \dot{y}$:
+\begin{enumerate}
+    \item $f_0(t, Y_0, Y_1) = Y_1$
+    \item $f_1(t, Y_0, Y_1) = \frac{Y_1^2}{Y_0} - \frac{Y_1}{t} + \frac{\alpha Y_0^2 + \beta}{t} + \gamma Y_0^3 + \frac{\delta}{Y_0}$
+\end{enumerate}
+
+\subsection{Ítem (d): Ecuación con términos racionales complejos}
+
+La ecuación es:
+$$ \frac{d^2y}{dt^2} + \frac{1}{y} \frac{dy}{dt} + \frac{31y - 4}{144y^2(1-y^2)y} = 0 $$
+
+\subsubsection{Sistema reducido}
+Variables: $Y_0 = y, Y_1 = \dot{y}$.
+\begin{enumerate}
+    \item $f_0(t, Y_0, Y_1) = Y_1$
+    \item Despejando la aceleración:
+    $$ f_1(t, Y_0, Y_1) = - \frac{Y_1}{Y_0} - \frac{31Y_0 - 4}{144Y_0^2(1 - Y_0^2)Y_0} $$
+\end{enumerate}
+
+\subsection{Ítem (e): Ecuación de Euler-Cauchy}
+
+La ecuación es:
+$$ x^2 \frac{d^2y}{dx^2} + ax \frac{dy}{dx} + by = 0 $$
+Variable independiente: $x$. Variable dependiente: $y$.
+
+\subsubsection{Sistema reducido}
+Definimos $Y_0 = y$ y $Y_1 = \frac{dy}{dx}$:
+\begin{enumerate}
+    \item $f_0(x, Y_0, Y_1) = Y_1$
+    \item Despejamos la segunda derivada:
+    $$ x^2 \frac{dY_1}{dx} = -ax Y_1 - b Y_0 $$
+    $$ f_1(x, Y_0, Y_1) = \frac{-ax Y_1 - b Y_0}{x^2} $$
+\end{enumerate}
+
+\section*{Relevancia en física}
+
+La reducción de ecuaciones diferenciales es la piedra angular de la \textbf{mecánica celeste moderna} y la física teórica por las siguientes razones extraídas de las fuentes:
+
+\begin{enumerate}
+    \item \textbf{Solución al Problema de los N-cuerpos:} Como se establece en el texto guía, el problema de los $N$-cuerpos para $N > 2$ no admite una solución analítica práctica en términos de funciones elementales. Por lo tanto, el estándar en astronomía e ingeniería aeroespacial es la solución numérica. Para ello, es obligatorio reducir el sistema de $3N$ ecuaciones de segundo orden a un sistema de $6N$ ecuaciones de primer orden.
+    \item \textbf{Implementación de Algoritmos:} Algoritmos fundamentales como el de \textbf{Leapfrog} o integradores robustos como \texttt{odeint} (basados en ODEPACK) operan sobre sistemas reducidos. Estos permiten calcular el vector de estado (posición y velocidad) de planetas o naves espaciales en cualquier instante futuro.
+    \item \textbf{Estudio de la Estabilidad:} Al expresar las ecuaciones en su forma reducida de primer orden, es más sencillo identificar simetrías y verificar la conservación de constantes de movimiento como la energía total $E$ o el momentum angular $\vec{L}$, lo cual sirve para validar la precisión de las simulaciones.
+\end{enumerate}
+
+
+
+\section{Problema \# 8}
+
+\textbf{Solución numérica de ecuaciones diferenciales}
+
+Use los métodos vistos en el capítulo para encontrar la solución numérica de las siguientes ecuaciones diferenciales, partiendo de las condiciones iniciales provistas. En cada caso haga un gráfico de la solución en un intervalo adecuadamente escogido.
+
+\begin{enumerate}[a)]
+    \item $ \frac{d^2y}{dt^2} = -\frac{y}{t^2} $, con $ y(1) = 1 $ y $ \frac{dy}{dt}(1) = 0 $.
+    \item $ y'' - 2y' + 3y = 0 $, con $ y(0) = 1, y'(0) = 0 $.
+\end{enumerate}
+
+\section*{Solución Problema \# 8}
+
+Este problema aborda la resolución de **problemas de valor inicial (IVP)** mediante técnicas de integración numérica. Dado que muchas ecuaciones diferenciales en la dinámica real no poseen soluciones analíticas cerradas, el método estándar consiste en realizar una **reducción del orden** para convertir una ecuación de segundo grado en un sistema de ecuaciones de primer grado. Este sistema resultante puede ser procesado por algoritmos computacionales como \texttt{odeint} de SciPy para predecir el estado futuro del sistema.
+
+\subsection{Metodología General: Reducción del Orden}
+
+Para resolver numéricamente una ecuación de la forma $ \ddot{y} = f(t, y, \dot{y}) $, introducimos un **vector de estado** $ Y $ y una variable auxiliar para la velocidad, $ v \equiv \dot{y} $. Esto transforma el problema en:
+
+$$ Y = \begin{pmatrix} Y_0 \\ Y_1 \end{pmatrix} = \begin{pmatrix} y \\ v \end{pmatrix} \implies \dot{Y} = \begin{pmatrix} \dot{y} \\ \dot{v} \end{pmatrix} = \begin{pmatrix} Y_1 \\ f(t, Y_0, Y_1) \end{pmatrix} $$
+
+Esta estructura de primer orden permite que el integrador calcule el cambio infinitesimal del sistema en cada paso de tiempo.
+
+\subsection{Ítem (a): Ecuación con aceleración dependiente del tiempo}
+
+La ecuación es $ \frac{d^2y}{dt^2} = -\frac{y}{t^2} $, lo que representa un sistema no autónomo donde la fuerza depende explícitamente del tiempo $ t $.
+
+\subsubsection{Construcción del sistema reducido}
+Definimos las variables auxiliares:
+\begin{itemize}
+    \item $ Y_0 = y $
+    \item $ Y_1 = \dot{y} $
+\end{itemize}
+
+El sistema de ecuaciones diferenciales reducidas (EDMR) queda como:
+\begin{enumerate}
+    \item $ \dot{Y}_0 = Y_1 $
+    \item $ \dot{Y}_1 = -\frac{Y_0}{t^2} $
+\end{enumerate}
+
+\subsubsection{Condiciones iniciales y estabilidad}
+Las condiciones iniciales se definen en $ t_0 = 1 $ como $ Y(1) =^T $. Es fundamental notar que la ecuación presenta una singularidad en $ t = 0 $, por lo que la integración numérica debe realizarse en un intervalo que excluya el origen (por ejemplo, $ t \in $) para garantizar la convergencia del algoritmo.
+
+\subsection{Ítem (b): Oscilador con amortiguamiento negativo}
+
+La ecuación es $ y'' - 2y' + 3y = 0 $, que puede reescribirse como $ \ddot{y} = 2\dot{y} - 3y $.
+
+\subsubsection{Identificación del sistema}
+Nuevamente, usando $ Y_0 = y $ y $ Y_1 = \dot{y} $, el sistema de primer orden es:
+\begin{enumerate}
+    \item $ \dot{Y}_0 = Y_1 $
+    \item $ \dot{Y}_1 = 2Y_1 - 3Y_0 $
+\end{enumerate}
+
+En notación matricial, este es un sistema lineal autónomo:
+$$ \dot{Y} = \begin{pmatrix} 0 & 1 \\ -3 & 2 \end{pmatrix} \begin{pmatrix} Y_0 \\ Y_1 \end{pmatrix} $$
+
+\subsubsection{Comportamiento de la solución}
+Partiendo de $ Y(0) =^T $, el término $ 2\dot{y} $ actúa como un amortiguamiento negativo (inyección de energía), lo que resultará en una solución oscilatoria cuya amplitud crece exponencialmente con el tiempo. La integración numérica permite capturar este crecimiento con alta precisión siempre que el paso de tiempo sea lo suficientemente pequeño para resolver las oscilaciones.
+
+\section*{Relevancia en física}
+
+La resolución numérica de estas ecuaciones es el núcleo de la **mecánica celeste moderna** por las siguientes razones documentadas en las fuentes:
+
+\begin{enumerate}
+    \item \textbf{Imposibilidad de soluciones analíticas:} Como establece el **Teorema de Bruns**, para el problema de los $ N $-cuerpos ($ N > 2 $) no existen suficientes cuadraturas algebraicas para resolver el sistema de forma exacta. La integración numérica es, por tanto, la única vía para predecir trayectorias reales.
+    \item \textbf{Validación de constantes:} Las soluciones numéricas se validan verificando que el algoritmo preserve las **primeras integrales** (como la energía total o el momentum angular) dentro de una tolerancia aceptable.
+    \item \textbf{Exploración Espacial:} Sistemas de alta precisión como SPICE de la NASA dependen de estos mismos métodos de integración de IVP para el diseño de trayectorias de naves espaciales y la predicción de efemérides planetarias.
+\end{enumerate}
+
+
+\section{Problema \# 9}
+
+\textbf{Péndulo simple}
+
+La ecuación diferencial para el ángulo $\theta$, que forma un péndulo con la vertical sobre el cual también actúa la fricción del aire, es de la forma:
+$$ \ddot{\theta}(t) + b\dot{\theta}(t) + c \sin \theta(t) = 0 $$
+donde $b$ y $c$ son constantes positivas. Escriba un código que solucione esta ecuación diferencial y proporcione en una misma gráfica las soluciones para $\theta(t)$ y $\dot{\theta}(t)$.
+
+\section*{Solución Problema \# 9}
+
+Este problema aborda la modelación dinámica de un **péndulo simple con amortiguamiento**, un sistema clásico en física que incluye términos no lineales ($\sin \theta$) y fuerzas disipativas (proporcionales a $b$). Debido a la presencia del término seno, el sistema no posee una solución analítica simple en términos de funciones elementales para ángulos grandes, por lo que se requiere el uso de **integración numérica**. El objetivo es transformar esta ecuación de segundo orden en un sistema de dos ecuaciones de primer orden mediante la reducción del orden y resolverlo computacionalmente para observar la evolución de la posición angular y la velocidad angular en el tiempo.
+
+\subsection{Reducción del Orden y Vector de Estado}
+
+Para aplicar algoritmos de integración como \texttt{odeint}, definimos un vector de estado $Y$ que contenga las variables dependientes del sistema:
+$$ Y = \begin{pmatrix} Y_0 \\ Y_1 \end{pmatrix} = \begin{pmatrix} \theta \\ \dot{\theta} \end{pmatrix} $$
+
+Derivando este vector con respecto al tiempo, obtenemos el sistema de ecuaciones diferenciales de primer orden:
+\begin{enumerate}
+    \item $ \dot{Y}_0 = \dot{\theta} = Y_1 $
+    \item $ \dot{Y}_1 = \ddot{\theta} = -b \dot{\theta} - c \sin \theta = -b Y_1 - c \sin Y_0 $
+\end{enumerate}
+
+Este sistema define la tasa de cambio instantánea del péndulo basada en su estado actual.
+
+\subsection{Implementación en Python}
+
+A continuación, se presenta el código que implementa la solución numérica. Se utiliza la biblioteca \texttt{SciPy} para la integración y \texttt{Matplotlib} para la generación de los gráficos requeridos.
+
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import odeint
+
+# 1. Definición del sistema de ecuaciones diferenciales reducido (EDMR)
+def pendulo_amortiguado(Y, t, b, c):
+    theta, omega = Y
+    d_theta = omega
+    d_omega = -b * omega - c * np.sin(theta)
+    return [d_theta, d_omega]
+
+# 2. Parámetros del sistema y condiciones iniciales
+b = 0.25  # Coeficiente de fricción
+c = 5.0   # Relacionado con g/L
+theta_0 = np.pi / 4  # 45 grados de desplazamiento inicial
+omega_0 = 0.0        # Partiendo del reposo
+Y0 = [theta_0, omega_0]
+
+# 3. Vector de tiempo para la integración
+t = np.linspace(0, 20, 500)
+
+# 4. Solución numérica mediante odeint
+solucion = odeint(pendulo_amortiguado, Y0, t, args=(b, c))
+
+# 5. Extracción de resultados
+theta_t = solucion[:, 0]
+omega_t = solucion[:, 1]
+
+# 6. Generación de la gráfica
+plt.figure(figsize=(10, 5))
+plt.plot(t, theta_t, 'b-', label=r'$\theta(t)$ [Posición]')
+plt.plot(t, omega_t, 'r--', label=r'$\dot{\theta}(t)$ [Velocidad]')
+plt.title('Dinámica de un Péndulo con Fricción del Aire')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Amplitud')
+plt.legend()
+plt.grid(True)
+plt.show()
+\end{verbatim}
+
+\section*{Relevancia en física}
+
+El estudio numérico del péndulo amortiguado es fundamental por las siguientes razones:
+
+\begin{enumerate}
+    \item \textbf{Sistemas Disipativos:} A diferencia de los modelos ideales donde la energía mecánica se conserva, este problema introduce el concepto de fuerzas no conservativas. La fricción del aire ($b \dot{\theta}$) extrae energía del sistema, lo que se observa gráficamente como una disminución progresiva en la amplitud de las oscilaciones hasta alcanzar el equilibrio estático.
+    \item \textbf{No Linealidad:} Al no aplicar la aproximación de ángulos pequeños ($\sin \theta \approx \theta$), el modelo describe con precisión el comportamiento del péndulo incluso en amplitudes grandes, donde el período depende de la energía total.
+    \item \textbf{Base para la Teoría del Caos:} Aunque este sistema específico es predecible, el péndulo amortiguado y forzado es el sistema prototipo para el estudio del caos dinámico y los atractores en el espacio de fase.
+    \item \textbf{Fundamentación en Mecánica Celeste:} El formalismo de reducción de orden y resolución numérica de Problemas de Valor Inicial (IVP) aquí aplicado es exactamente la misma metodología que se utiliza para resolver el **Problema de los $N$-Cuerpos**, donde las fuerzas gravitatorias acopladas impiden soluciones analíticas exactas.
+\end{enumerate}
+
+
+
+\section{Problema \# 10}
+
+Asumiendo que $x$ y $y$ son funciones que dependen del tiempo $t$ (es decir, $x(t)$ y $y(t)$), reescriba cada una de las siguientes ecuaciones diferenciales en la forma de una única derivada total igualada a cero:
+
+$$ \frac{d}{dt} [...] = 0 $$
+
+Una vez reescrita, integre para encontrar la cantidad que se conserva (la constante de integración $C$).
+
+\begin{enumerate}[a)]
+    \item $\ddot{x} \sin(t) + \dot{x} \cos(t) = 0$
+    \item $t\ddot{x} - \dot{x} = 0$
+    \item $\ddot{x} + e^x = 0$
+    \item $\dot{x} + tx^2 = 0$
+    \item $\ddot{x} \cos(x) - (\dot{x})^2 \sin(x) = 0$
+\end{enumerate}
+
+\section*{Solución Problema \# 10}
+
+Este problema trata sobre la identificación y el cálculo de **cuadraturas** (también llamadas integrales de movimiento o constantes de movimiento). En la dinámica de sistemas, una cuadratura es una expresión matemática que combina las variables de estado y el tiempo, cuya derivada total respecto al tiempo es nula. Encontrar estas cantidades es un paso fundamental para reducir la complejidad de las ecuaciones diferenciales y, en muchos casos, permite obtener información física crucial (como la energía o el momentum) sin necesidad de resolver completamente el sistema original.
+
+\subsection{Ítem (a): $\ddot{x} \sin(t) + \dot{x} \cos(t) = 0$}
+
+Para este ítem, observamos que los términos de la ecuación diferencial tienen la estructura de la **regla del producto** para la derivación.
+
+\subsubsection{Derivada total}
+Recordando que $\frac{d}{dt}(u \cdot v) = \dot{u}v + u\dot{v}$, identificamos a $u = \dot{x}$ y $v = \sin(t)$.
+Entonces:
+$$ \frac{d}{dt} (\dot{x} \sin(t)) = \ddot{x} \sin(t) + \dot{x} \cos(t) $$
+La ecuación original se reescribe como:
+$$ \frac{d}{dt} [\dot{x} \sin(t)] = 0 $$
+
+\subsubsection{Constante de movimiento}
+Al integrar ambos lados respecto al tiempo, obtenemos la cantidad conservada:
+$$ \dot{x} \sin(t) = C $$
+
+\subsection{Ítem (b): $t\ddot{x} - \dot{x} = 0$}
+
+En este caso, la estructura sugiere la **regla del cociente**.
+
+\subsubsection{Derivada total}
+Si dividimos toda la ecuación por $t^2$ (asumiendo $t \neq 0$), obtenemos:
+$$ \frac{t\ddot{x} - \dot{x}}{t^2} = 0 $$
+Reconocemos que esta es la derivada de la función $\dot{x}/t$:
+$$ \frac{d}{dt} \left[ \frac{\dot{x}}{t} \right] = 0 $$
+
+\subsubsection{Constante de movimiento}
+Integrando la expresión:
+$$ \frac{\dot{x}}{t} = C $$
+
+\subsection{Ítem (c): $\ddot{x} + e^x = 0$}
+
+Esta es una ecuación diferencial autónoma de segundo orden. Para encontrar una cuadratura, utilizamos la técnica del **factor integrante** multiplicando por la velocidad $\dot{x}$.
+
+\subsubsection{Derivada total}
+Multiplicamos ambos lados por $\dot{x}$:
+$$ \dot{x}\ddot{x} + \dot{x} e^x = 0 $$
+Sabemos que $\dot{x}\ddot{x} = \frac{d}{dt} \left( \frac{1}{2}\dot{x}^2 \right)$ y que $\dot{x} e^x = \frac{dx}{dt} e^x = \frac{d}{dt} (e^x)$.
+Por lo tanto, la ecuación se convierte en:
+$$ \frac{d}{dt} \left[ \frac{1}{2}\dot{x}^2 + e^x \right] = 0 $$
+
+\subsubsection{Constante de movimiento}
+Integrando, hallamos la constante (que en física representaría la energía total):
+$$ \frac{1}{2}\dot{x}^2 + e^x = C $$
+
+\subsection{Ítem (d): $\dot{x} + tx^2 = 0$}
+
+Esta ecuación de primer orden puede resolverse mediante la separación de variables para identificar la derivada total.
+
+\subsubsection{Derivada total}
+Dividimos por $x^2$ (asumiendo $x \neq 0$):
+$$ \frac{1}{x^2}\dot{x} + t = 0 $$
+Notamos que $\frac{\dot{x}}{x^2} = \frac{d}{dt} \left( -\frac{1}{x} \right)$ y $t = \frac{d}{dt} \left( \frac{1}{2}t^2 \right)$.
+Agrupando los términos:
+$$ \frac{d}{dt} \left[ -\frac{1}{x} + \frac{1}{2}t^2 \right] = 0 $$
+
+\subsubsection{Constante de movimiento}
+La integración directa nos da:
+$$ -\frac{1}{x} + \frac{1}{2}t^2 = C $$
+
+\subsection{Ítem (e): $\ddot{x} \cos(x) - (\dot{x})^2 \sin(x) = 0$}
+
+Nuevamente, buscamos una estructura de derivada de producto que involucre funciones compuestas.
+
+\subsubsection{Derivada total}
+Probamos derivando el producto de la velocidad por la función trigonométrica de la posición, $\dot{x} \cos(x)$:
+$$ \frac{d}{dt} (\dot{x} \cos(x)) = \ddot{x} \cos(x) + \dot{x} (-\sin(x) \dot{x}) = \ddot{x} \cos(x) - \dot{x}^2 \sin(x) $$
+Esto coincide exactamente con el lado izquierdo de nuestra ecuación. Por tanto:
+$$ \frac{d}{dt} [\dot{x} \cos(x)] = 0 $$
+
+\subsubsection{Constante de movimiento}
+Integrando obtenemos:
+$$ \dot{x} \cos(x) = C $$
+
+\section*{Relevancia en física}
+
+El concepto de cuadraturas es la "piedra angular" para el análisis de sistemas dinámicos y la **mecánica celeste** por las siguientes razones:
+
+\begin{enumerate}
+    \item \textbf{Leyes de Conservación:} Las cuadraturas que no dependen explícitamente del tiempo suelen representar leyes físicas fundamentales. Por ejemplo, en el problema de los $N$-cuerpos, estas integrales de movimiento dan origen a la conservación del momentum lineal, el momentum angular y la energía mecánica total.
+    \item \textbf{Reducción del Problema:} Cada cuadratura encontrada permite eliminar una de las variables desconocidas del sistema. En el caso de dos cuerpos, la existencia de suficientes cuadraturas permite resolver el problema analíticamente, demostrando que las órbitas son cónicas.
+    \item \textbf{Teorema de Bruns:} Como se menciona en las fuentes, para sistemas con $N \geq 3$, las únicas cuadraturas algebraicas independientes son las 10 clásicas. Esto explica por qué el problema de los $N$-cuerpos no tiene una solución analítica general y requiere de métodos numéricos para su estudio.
+    \item \textbf{Pistas sobre el destino del sistema:} Incluso cuando no podemos resolver las ecuaciones de movimiento, las cuadraturas (como la energía total negativa, $E < 0$) nos indican si un sistema es estable y ligado o si los cuerpos tienen energía suficiente para escapar al infinito.
+\end{enumerate}
+
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
