@@ -1,2 +1,15 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {section}{\numberline {1}Template}{2}{section.1}%
+\contentsline {section}{\numberline {1}Contexto Científico: La Aproximación de (99942) Apophis en 2029}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Descubrimiento y Caracterización Inicial}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Propiedades Físicas y Composición}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Dinámica del Encuentro de 2029}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Geometría de la Trayectoria y Visibilidad}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Alteración de la Órbita Heliocéntrica}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Mecánica de Rotación y Efectos Físicos}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Estado de Rotación Complejo}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Deformación Estructural y Resurgimiento Superficial}{2}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Origen y Población Fuente}{3}{section.4}%
+\contentsline {section}{\numberline {5}Misiones Espaciales y Observación de Alta Resolución}{3}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Reconocimiento In Situ: RAMSES y OSIRIS-APEX}{3}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Red Global de Radar y Ciencia Ciudadana}{3}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Conclusión del Preámbulo}{3}{section.6}%
