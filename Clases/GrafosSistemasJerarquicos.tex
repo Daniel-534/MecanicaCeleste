@@ -1,0 +1,346 @@
+	\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+
+
+
+\renewcommand{\proofname}{Demostración}
+
+\newtheorem{teorema}{Teorema}
+\newtheorem{lema}{Lema}
+\newtheorem{definicion}{Definición}
+\newtheorem{corolario}{Corolario}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Solución del Taller - Clase 2}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\Large Universidad de Antioquia\par}
+  \vspace{2cm}
+  {\huge\bfseries Mecánica Celeste\par}
+  \vspace{0.4cm}
+  {\Large Clase 2 - Taller\par}
+  \vspace{2.5cm}
+  {\large Autor:\par}
+  \vspace{0.2cm}
+  {\large Daniel Soto Villada\par}
+  {\large Estudiante de Astronomía\par}
+  \vfill
+  {\large \today\par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+Los sistemas estelares múltiples jerárquicos son, en el sentido
+matemático preciso, árboles binarios plenos con raíz y pesados.
+La teoría de grafos no solo describe la estructura: también formaliza
+exactamente por qué la jerarquía garantiza estabilidad dinámica.
+
+% -----------------------------------------------------------------------
+\section{Fundamentos matemáticos}
+
+\begin{definicion}[Grafo]
+Un \textbf{grafo} es un par $G = (V, E)$ donde $V$ es un conjunto finito
+de vértices y
+$$E \subseteq \bigl\{\{u,v\} : u,v \in V,\; u \neq v\bigr\}$$
+es el conjunto de aristas.
+\end{definicion}
+
+Dos propiedades básicas se derivan inmediatamente:
+
+\begin{itemize}
+  \item \textbf{Grado de un vértice} $v$:
+        $\deg(v) = \bigl|\{u \in V : \{u,v\} \in E\}\bigr|$
+  \item \textbf{Lema del apretón de manos}:
+        $\displaystyle\sum_{v \in V} \deg(v) = 2|E|$
+\end{itemize}
+
+\begin{definicion}[Árbol]
+Un árbol $T = (V, E)$ es un grafo conexo y acíclico. Son equivalentes:
+\begin{enumerate}
+  \item $T$ es un árbol.
+  \item $|E| = |V| - 1$ y $T$ es conexo.
+  \item Existe exactamente un camino entre cualquier par $u, v \in V$.
+\end{enumerate}
+\end{definicion}
+
+\begin{definicion}[Árbol con raíz]
+Un árbol con raíz $(T, r)$ distingue un vértice $r \in V$ llamado
+raíz, lo que induce:
+\begin{itemize}
+  \item la \textbf{profundidad} $\operatorname{prof}(v)$, definida como
+        la longitud del camino de $r$ a $v$,
+  \item la función $\operatorname{padre}(v)$ para todo $v \neq r$,
+  \item el conjunto $\operatorname{hijos}(v)$,
+  \item la distinción entre \textbf{hojas}
+        $L = \{v : \operatorname{hijos}(v) = \varnothing\}$
+        y \textbf{nodos internos} $I = V \setminus L$.
+\end{itemize}
+\end{definicion}
+
+\begin{definicion}[Árbol binario pleno]
+Un árbol binario pleno (\textit{full binary tree}) es aquel en que
+todo nodo interno tiene exactamente $2$ hijos.
+\end{definicion}
+
+\begin{teorema}
+Sea $T$ un árbol binario pleno con $k$ hojas. Entonces:
+$$|I| = k - 1, \qquad |V| = 2k - 1, \qquad |E| = 2k - 2.$$
+\end{teorema}
+
+\begin{proof}
+Por inducción sobre $k$. El caso base $k = 1$ da $|I| = 0$, $|V| = 1$,
+$|E| = 0$, que satisface las tres igualdades. Para el paso inductivo,
+si una hoja se convierte en nodo interno al ganar $2$ hijos, el número
+neto de hojas aumenta en $1$ y el de nodos internos también en $1$,
+preservando la relación $|I| = k - 1$.
+\end{proof}
+
+% -----------------------------------------------------------------------
+\section{Castor como árbol con raíz}
+
+El sistema se formaliza como $(T, \Omega)$, donde $\Omega$ es el
+baricentro global:
+
+$$V = \{\Omega,\;\mathrm{CM_{AB}},\;\mathrm{CM_A},\;\mathrm{CM_B},\;
+       \mathrm{CM_C},\;\mathrm{Aa},\;\mathrm{Ab},\;\mathrm{Ba},\;
+       \mathrm{Bb},\;\mathrm{Ca},\;\mathrm{Cb}\}$$
+
+\begin{align*}
+E = \bigl\{
+  &\{\Omega, \mathrm{CM_{AB}}\},\;
+   \{\Omega, \mathrm{CM_C}\},\;
+   \{\mathrm{CM_{AB}}, \mathrm{CM_A}\},\;
+   \{\mathrm{CM_{AB}}, \mathrm{CM_B}\},\\
+  &\{\mathrm{CM_A}, \mathrm{Aa}\},\;
+   \{\mathrm{CM_A}, \mathrm{Ab}\},\;
+   \{\mathrm{CM_B}, \mathrm{Ba}\},\;
+   \{\mathrm{CM_B}, \mathrm{Bb}\},\\
+  &\{\mathrm{CM_C}, \mathrm{Ca}\},\;
+   \{\mathrm{CM_C}, \mathrm{Cb}\}
+\bigr\}
+\end{align*}
+
+Propiedades inmediatas:
+$$|V| = 11, \qquad |E| = 10 = 11 - 1 \;\checkmark$$
+
+Con $6$ hojas (estrellas reales) y $5$ nodos internos (baricentros),
+se verifica $|I| = 6 - 1 = 5\;\checkmark$, confirmando que el árbol
+es \textbf{binario pleno}.
+
+Verificación del lema del apretón de manos:
+\begin{align*}
+\sum_{v \in V} \deg(v)
+  &= \deg(\Omega) + \deg(\mathrm{CM_{AB}}) + \deg(\mathrm{CM_A})
+   + \deg(\mathrm{CM_B}) + \deg(\mathrm{CM_C})
+   + \sum_{\text{hojas}} \deg(v)\\
+  &= 2 + 3 + 3 + 3 + 3 + (6 \times 1) = 20 = 2 \times 10 \;\checkmark
+\end{align*}
+
+Las profundidades revelan que el árbol es binario pleno pero
+\textbf{no completo ni perfecto}:
+$$\operatorname{prof}(\mathrm{Ca}) = \operatorname{prof}(\mathrm{Cb}) = 2,
+\qquad
+\operatorname{prof}(\mathrm{Aa}) = \operatorname{prof}(\mathrm{Ab})
+= \operatorname{prof}(\mathrm{Ba}) = \operatorname{prof}(\mathrm{Bb}) = 3.$$
+
+% -----------------------------------------------------------------------
+\section{Árbol pesado y la condición de estabilidad}
+
+\begin{definicion}[Grafo pesado]
+Un grafo pesado $G = (V, E, w)$ agrega una función de peso
+$w : E \to \mathbb{R}^+$. Para sistemas estelares, el peso natural es
+el semieje mayor orbital de cada órbita:
+$$w\bigl(\{u,v\}\bigr) = a_{u,v}.$$
+\end{definicion}
+
+La estabilidad jerárquica se traduce en una condición sobre los
+cocientes de pesos. Para cada nodo interno $v \neq \Omega$ se define el
+\textbf{cociente de separación}:
+$$\rho(v) = \frac{w\bigl(\{\operatorname{padre}(v),\, v\}\bigr)}
+                 {w\bigl(\{v,\, c\}\bigr)},
+\qquad \forall\; c \in \operatorname{hijos}(v).$$
+
+Un sistema es jerárquicamente estable si y solo si
+$\rho(v) \gg 1$ para todos los nodos internos. En la práctica se
+requiere $\rho \gtrsim 3\text{--}5$; para longevidad real, $\rho > 10$.
+
+Para Castor (valores aproximados en UA):
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Arista & Peso $a$ (UA) & $\rho$ \\
+\midrule
+$\mathrm{Aa}\text{--}\mathrm{Ab}$ & $\approx 0.09$ & --- \\
+$\mathrm{Ba}\text{--}\mathrm{Bb}$ & $\approx 0.04$ & --- \\
+$\mathrm{CM_A}\text{--}\mathrm{CM_B}$ & $\approx 73$
+  & $\rho(\mathrm{CM_{AB}}) \approx 73/0.09 \approx 810$ \\
+$\Omega\text{--}\mathrm{CM_C}$ & $\approx 1000$
+  & $\rho(\Omega) \approx 1000/73 \approx 14$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Ambos cocientes satisfacen $\rho \gg 1$, lo que justifica la
+estabilidad del sistema.
+
+% -----------------------------------------------------------------------
+\section{La notación de Newick como serialización del árbol}
+
+La notación compacta \texttt{((Aa,Ab),(Ba,Bb))} es exactamente el
+\textbf{formato Newick}, usado en filogenética desde 1974 para
+serializar árboles filogenéticos. Formalmente es una función
+recursiva:
+
+$$\mathrm{newick}(v) =
+\begin{cases}
+  \operatorname{nombre}(v)
+    & \text{si } v \text{ es hoja,}\\[4pt]
+  \bigl(\mathrm{newick}(c_1),\;\mathrm{newick}(c_2)\bigr)
+    & \text{si } v \text{ es nodo interno.}
+\end{cases}$$
+
+Para Castor:
+$$\texttt{(((Aa,Ab),(Ba,Bb)),(Ca,Cb))}$$
+
+Es una codificación biyectiva del árbol que mapea toda su
+estructura a una cadena. Es notable que astrofísicos y filogenetistas
+hayan convergido en la misma representación para describir
+jerarquías anidadas en dominios completamente distintos.
+
+% -----------------------------------------------------------------------
+\section{Sobre el ejemplo de Castor}
+
+La descripción presentada es correcta en todos sus aspectos: la
+clasificación séxtuple, la jerarquía de tres niveles, el árbol
+y la notación compacta corresponden fielmente al sistema
+$\alpha$~Geminorum. Si hay algo que matizar: la separación entre el
+par~AB y YY~Gem es de $\sim 1000\;\mathrm{UA}$ con un período
+orbital estimado en varios miles a decenas de miles de años, lo que
+hace difícil confirmar la órbita directamente; sin embargo, el
+movimiento propio compartido confirma la ligadura gravitacional. No es
+un error en la descripción, sino una limitación observacional del
+nivel más externo del árbol.
+
+% -----------------------------------------------------------------------
+\section{Ejemplo inventado: Sistema Múltiple Ficticio Zeta Aquilae-X
+         (séptuple)}
+
+Se define un sistema con una asimetría más pronunciada que Castor:
+la rama derecha contiene solo dos estrellas ligadas directamente al
+baricentro intermedio, mientras que la rama izquierda anida tres
+niveles de binarias. Además, $C$ es una \textbf{estrella individual}
+(no binaria), lo que crea un nodo interno con un hijo hoja y un hijo
+interno.
+
+Notación de Newick:
+$$\texttt{(((Aa,Ab),(Ba,Bb)),C),(Da,Db)}$$
+
+Formalización:
+\begin{align*}
+V = \bigl\{&\Omega,\;\mathrm{BM_4},\;\mathrm{BM_5},\;\mathrm{BM_3},\;
+             \mathrm{BM_1},\;\mathrm{BM_2},\\
+           &C,\;\mathrm{Da},\;\mathrm{Db},\;
+            \mathrm{Aa},\;\mathrm{Ab},\;\mathrm{Ba},\;\mathrm{Bb}
+    \bigr\}
+\end{align*}
+
+\begin{align*}
+E = \bigl\{
+  &\{\Omega, \mathrm{BM_4}\},\;
+   \{\Omega, \mathrm{BM_5}\},\;
+   \{\mathrm{BM_4}, \mathrm{BM_3}\},\;
+   \{\mathrm{BM_4}, C\},\;
+   \{\mathrm{BM_5}, \mathrm{Da}\},\\
+  &\{\mathrm{BM_5}, \mathrm{Db}\},\;
+   \{\mathrm{BM_3}, \mathrm{BM_1}\},\;
+   \{\mathrm{BM_3}, \mathrm{BM_2}\},\;
+   \{\mathrm{BM_1}, \mathrm{Aa}\},\\
+  &\{\mathrm{BM_1}, \mathrm{Ab}\},\;
+   \{\mathrm{BM_2}, \mathrm{Ba}\},\;
+   \{\mathrm{BM_2}, \mathrm{Bb}\}
+\bigr\}
+\end{align*}
+
+Propiedades:
+\begin{align*}
+|V| &= 13, \qquad |E| = 12 = 13 - 1 \;\checkmark\\
+|L| &= |\{\mathrm{Aa},\mathrm{Ab},\mathrm{Ba},\mathrm{Bb},C,
+           \mathrm{Da},\mathrm{Db}\}| = 7\\
+|I| &= 6 = 7 - 1 \;\checkmark \quad \Rightarrow \text{árbol binario pleno}
+\end{align*}
+
+Las profundidades de las hojas son:
+$$\operatorname{prof}(C)
+= \operatorname{prof}(\mathrm{Da})
+= \operatorname{prof}(\mathrm{Db}) = 2,
+\qquad
+\operatorname{prof}(\mathrm{Aa})
+= \operatorname{prof}(\mathrm{Ab})
+= \operatorname{prof}(\mathrm{Ba})
+= \operatorname{prof}(\mathrm{Bb}) = 4.$$
+
+La profundidad máxima es $4$, un nivel más que Castor. La secuencia
+de grados:
+\begin{align*}
+\deg(\Omega) &= 2,\\
+\deg(\mathrm{BM_4}) = \deg(\mathrm{BM_5}) = \deg(\mathrm{BM_3})
+  = \deg(\mathrm{BM_1}) = \deg(\mathrm{BM_2}) &= 3,\\
+\deg(C) = \deg(\mathrm{Da}) = \deg(\mathrm{Db})
+  = \deg(\mathrm{Aa}) = \deg(\mathrm{Ab})
+  = \deg(\mathrm{Ba}) = \deg(\mathrm{Bb}) &= 1.
+\end{align*}
+
+Verificación:
+$$\sum_{v \in V} \deg(v) = 2 + (5 \times 3) + (7 \times 1)
+= 2 + 15 + 7 = 24 = 2 \times 12 \;\checkmark$$
+
+Lo que hace interesante este árbol desde la teoría de grafos es su
+\textbf{asimetría estructural}: la rama izquierda de $\Omega$ alcanza
+profundidad máxima $4$, mientras que la rama derecha solo llega a
+profundidad $2$. La estrella $C$ es un caso especial: es hija directa
+de $\mathrm{BM_4}$ sin formar una binaria propia, lo que significa que
+$\mathrm{BM_4}$ tiene un hijo hoja y un hijo interno.
+
+Finalmente, la condición de estabilidad exige que los pesos de las
+aristas crezcan estrictamente de hoja a raíz a lo largo de cualquier
+camino. Formalmente, para todo camino
+$v_0, v_1, \ldots, v_\ell = \Omega$ con $v_0 \in L$:
+$$w\bigl(\{v_0, v_1\}\bigr)
+< w\bigl(\{v_1, v_2\}\bigr)
+< \cdots
+< w\bigl(\{v_{\ell-1}, \Omega\}\bigr).$$
+Un árbol pesado con esa propiedad es un \textbf{árbol de Hasse
+ponderado} y la condición de estabilidad es simplemente que ese
+árbol sea estrictamente creciente en pesos de hoja a raíz.
+
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
