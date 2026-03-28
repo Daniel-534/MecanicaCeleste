@@ -1,0 +1,61 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica celeste}
+\fancyhead[c]{Quiz 2}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+
+\section{Problema 1: Energía y sistema ligado}
+Por qué razón $E<0$ no necesariamente implica que se tiene un sistema ligado.
+
+\section{Problema 2: Términos de la energía potencial}
+
+Demuestre que el número de términos necesarios para calcular la energía potencial de un sistema de $N$ cuerpos es $\frac{N(N-1)}{2}$ y por lo tanto su costo computacional es $\mathcal{O}(N^2)$
+
+\section{Problema 3: Dibujar árbol jerárquico}
+
+Dibuje el árbol jerárquico del sistema sextuple TYC 7037-89-1
+
+\section{Problema 4: Conservación de la energía total de un sistema}
+
+Partiendo de $$\left\{m_i \ddot{\vec{r}}_i = -\frac{\partial U}{\partial \vec{r}_i}\right\}_N$$ demuestre que la energía total del sistema $E=K+U$ se conserva
+
+\section{Problema 5: Demostración analítica}
+
+Demuestre que si $G = \sum m_i \vec{r}_i\cdot \dot{\vec{r}}_i$ entonces $\dot{G} = K+E$ 
+
+\textit{Ayuda:} $U(x_1,y_1,z_1,x_2,...,z_N)$ es una función homogénea de orden $k=-1$
+
+\section{Problema 6: Coordenadas}
+Partiendo de las definiciones del vector relativo $\vec{r}=\vec{r}_1-\vec{r}_2$ y del centro de masa $\vec{R}_{cm}$ demuestre que 
+
+\begin{align*}
+\vec{r}_1 &= \vec{R}_{cm} + \frac{m_2}{M}\vec{r} \\
+\vec{r}_2 &= \vec{R}_{cm} - \frac{m_1}{M}\vec{r}
+\end{align*}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}

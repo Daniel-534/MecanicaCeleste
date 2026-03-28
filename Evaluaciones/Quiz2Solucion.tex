@@ -1,0 +1,350 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{forest}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica celeste}
+\fancyhead[c]{Quiz 2}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+
+\section{Problema 1: Energía y sistema ligado}
+Por qué razón $E<0$ no necesariamente implica que se tiene un sistema ligado.
+
+\subsection{Solución}
+
+En la dinámica de un sistema de $N$ cuerpos, una energía total negativa ($E < 0$) es una condición \textbf{necesaria} para que el sistema sea ligado, pero no es una condición \textbf{suficiente}. 
+
+A diferencia del problema de los dos cuerpos donde $E < 0$ garantiza una órbita cerrada, en sistemas con $N \geq 3$ es posible que, mediante intercambios de energía en encuentros cercanos, una o más partículas alcancen la velocidad de escape y se alejen indefinidamente ($r \to \infty$). En este escenario, el resto de las partículas del sistema se vuelven más ligadas para compensar la energía ganada por la partícula fugitiva, manteniendo la energía total $E$ negativa y constante.
+
+Para que un sistema sea estrictamente ligado, la cantidad física $G = \sum m_i \vec{r}_i \cdot \dot{\vec{r}}_i$ (relacionada con la derivada del momento de inercia) debe permanecer acotada, lo cual permite que se cumpla el teorema del virial en el promedio temporal:
+
+$$ \langle K \rangle = -\frac{1}{2} \langle U \rangle $$
+
+Si $G$ no está acotada, el sistema tenderá a disgregarse a pesar de tener energía total negativa.
+
+
+
+
+\section{Problema 2: Términos de la energía potencial}
+
+Demuestre que el número de términos necesarios para calcular la energía potencial de un sistema de $N$ cuerpos es $\frac{N(N-1)}{2}$ y por lo tanto su costo computacional es $\mathcal{O}(N^2)$
+
+\subsection{Solución}
+
+\textbf{Demostración analítica del número de términos de la energía potencial}
+
+Para determinar la energía potencial total $U$ de un sistema de $N$ partículas, es necesario sumar las contribuciones de energía debidas a la interacción gravitatoria de cada par posible de cuerpos en el sistema. Matemáticamente, si el sistema consta de $N$ partículas, el número total de interacciones mutuas únicas corresponde a todas las formas en que se pueden agrupar dichas partículas en parejas.
+
+Utilizando el análisis combinatorio, el número de formas de elegir $k$ elementos de un conjunto de $N$ sin importar el orden viene dado por la fórmula de las combinaciones:
+$$ C_{N,k} = \frac{N!}{k!(N-k)!} $$
+
+En el caso de la energía potencial gravitatoria, las interacciones ocurren entre pares de partículas, por lo que $k=2$. Sustituyendo este valor en la ecuación, obtenemos:
+$$ C_{N,2} = \frac{N!}{2!(N-2)!} $$
+
+Desarrollando el factorial del numerador para simplificar la expresión:
+$$ C_{N,2} = \frac{N \cdot (N-1) \cdot (N-2)!}{2 \cdot (N-2)!} $$
+$$ C_{N,2} = \frac{N(N-1)}{2} $$
+
+Este resultado demuestra que el número de términos necesarios para calcular la energía potencial mutua es exactamente $N(N-1)/2$. Esta cantidad coincide con el número de términos que aparecen al expandir la energía potencial cuando se utiliza la forma restringida de la sumatoria $\sum_{i<j}$ para evitar el conteo doble de interacciones.
+
+\textbf{Análisis del costo computacional}
+
+Desde la perspectiva de la física computacional y la algoritmia, el costo de evaluar una función de este tipo se mide en términos de cómo escala el número de operaciones con el tamaño de la entrada $N$. Al expandir analíticamente el resultado obtenido:
+$$ \frac{N^2 - N}{2} = \frac{1}{2}N^2 - \frac{1}{2}N $$
+
+En la notación \textit{Big O}, se conservan únicamente los términos de mayor orden y se omiten las constantes multiplicativas, ya que estas definen el comportamiento asintótico del algoritmo cuando $N$ es muy grande. Debido a que el término dominante en la expresión es $N^2$, se confirma que el costo computacional de calcular la energía potencial en un problema de $N$ cuerpos es de orden cuadrático, es decir, $O(N^2)$.
+
+Este costo implica que en una simulación numérica de mecánica celeste, el tiempo de procesamiento para calcular las fuerzas e interacciones potenciales crece de forma no lineal. Si la cantidad de partículas $N$ aumenta significativamente, el número de cálculos de distancias relativas $r_{ij}$ crece rápidamente, lo que hace que los métodos de integración directa sean computacionalmente costosos para sistemas con un número muy elevado de cuerpos.
+
+
+\section{Problema 3: Dibujar árbol jerárquico}
+
+Dibuje el árbol jerárquico del sistema sextuple TYC 7037-89-1
+
+\begin{center}
+\begin{forest}
+  for tree={
+    draw,
+    rounded corners,
+    align=center,
+    font=\small,
+    edge={-},
+    l sep=8mm,
+    s sep=6mm,
+  }
+  [TYC 7037-89-1, fill=violet!20
+    [AC cuádruplo, fill=violet!10
+      [Par A, fill=orange!20
+        [A1, circle, fill=orange!30]
+        [A2, circle, fill=orange!30]
+      ]
+      [Par C, fill=teal!20
+        [C1, circle, fill=teal!30]
+        [C2, circle, fill=teal!30]
+      ]
+    ]
+    [Par B, fill=green!20
+      [B1, circle, fill=green!30]
+      [B2, circle, fill=green!30]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+
+\section{Problema 4: Conservación de la energía total de un sistema}
+
+Partiendo de $$\left\{m_i \ddot{\vec{r}}_i = -\frac{\partial U}{\partial \vec{r}_i}\right\}_N$$ demuestre que la energía total del sistema $E=K+U$ se conserva
+
+\subsection{Solución}
+
+Esta demostración utiliza el método de las \textbf{cuadraturas} para identificar una constante de movimiento a partir de las leyes dinámicas fundamentales. Para un sistema aislado de $N$ cuerpos donde las fuerzas son conservativas (derivan de un potencial escalar $U$), el objetivo es probar que la derivada total respecto al tiempo de la suma de las energías cinética y potencial es nula.
+
+\subsubsection*{Parte (a): Tasa de cambio de la energía cinética}
+
+Para iniciar la demostración, tomamos la ecuación de movimiento para cada partícula $i$ y multiplicamos escalarmente ambos lados por el vector velocidad de dicha partícula, $\dot{\vec{r}}_i$ (esto actúa como un \textbf{factor integrante}):
+
+$$ m_i \ddot{\vec{r}}_i \cdot \dot{\vec{r}}_i = -\frac{\partial U}{\partial \vec{r}_i} \cdot \dot{\vec{r}}_i $$
+
+Sumamos ahora sobre todas las partículas del sistema ($i = 1, \dots, N$):
+
+$$ \sum_i m_i \ddot{\vec{r}}_i \cdot \dot{\vec{r}}_i = -\sum_i \frac{\partial U}{\partial \vec{r}_i} \cdot \dot{\vec{r}}_i $$
+
+Observamos que el término de la izquierda representa la derivada temporal del cuadrado de la rapidez de cada partícula. Específicamente:
+$$ \frac{d}{dt} \left( \frac{1}{2} m_i \dot{\vec{r}}_i^2 \right) = m_i \dot{\vec{r}}_i \cdot \ddot{\vec{r}}_i $$
+
+Por lo tanto, la sumatoria del lado izquierdo es la derivada total respecto al tiempo de la energía cinética total del sistema, $K$:
+$$ \frac{dK}{dt} = \frac{d}{dt} \left( \sum_i \frac{1}{2} m_i v_i^2 \right) = \sum_i m_i \dot{\vec{r}}_i \cdot \ddot{\vec{r}}_i $$
+
+\subsubsection*{Parte (b): Tasa de cambio de la energía potencial}
+
+Consideramos ahora el lado derecho de nuestra ecuación sumada. El potencial $U(\vec{r}_1, \vec{r}_2, \dots, \vec{r}_N)$ depende únicamente de las posiciones de las partículas. De acuerdo con la \textbf{regla de la cadena multivariada}, la derivada total del potencial respecto al tiempo se expresa como la suma de sus derivadas parciales proyectadas sobre las velocidades de cada coordenada:
+
+$$ \frac{dU}{dt} = \frac{\partial U}{\partial \vec{r}_1} \cdot \dot{\vec{r}}_1 + \frac{\partial U}{\partial \vec{r}_2} \cdot \dot{\vec{r}}_2 + \dots + \frac{\partial U}{\partial \vec{r}_N} \cdot \dot{\vec{r}}_N = \sum_i \frac{\partial U}{\partial \vec{r}_i} \cdot \dot{\vec{r}}_i $$
+
+Vemos que esta expresión es idéntica al lado derecho de nuestra ecuación fundamental, pero con signo opuesto.
+
+Parte (c): Demostración de la conservación de $E$
+
+Al igualar los resultados obtenidos en las partes anteriores, llegamos a la siguiente relación de cuadraturas:
+
+$$ \frac{dK}{dt} = -\frac{dU}{dt} $$
+
+Reordenando los términos para agrupar las derivadas bajo un mismo operador temporal:
+
+$$ \frac{d}{dt} (K + U) = 0 $$
+
+Definimos la energía mecánica total como $E \equiv K + U$. Dado que su derivada respecto al tiempo es cero, concluimos que $E$ es una cantidad que se mantiene \textit{constante} a lo largo del movimiento del sistema:
+
+$$ K + U = E = \textit{constante} $$
+
+
+\section{Problema 5: Demostración analítica}
+
+Demuestre que si $G = \sum m_i \vec{r}_i\cdot \dot{\vec{r}}_i$ entonces $\dot{G} = K+E$ 
+
+\textit{Ayuda:} $U(x_1,y_1,z_1,x_2,...,z_N)$ es una función homogénea de orden $k=-1$
+
+	
+\subsection{Solución}
+
+Para demostrar la identidad de Lagrange-Jacobi en un sistema de $N$ cuerpos, partimos de la definición de la cantidad escalar $G$, la cual está relacionada con la derivada temporal del momento de inercia del sistema:
+
+$$ G = \sum_{i=1}^N m_i \vec{r}_i \cdot \dot{\vec{r}}_i $$
+
+\textbf{1. Derivación temporal de $G$}
+
+Procedemos a calcular la derivada total de $G$ respecto al tiempo $t$ utilizando la regla del producto para el producto escalar:
+
+$$ \dot{G} = \frac{d}{dt} \left( \sum_{i=1}^N m_i \vec{r}_i \cdot \dot{\vec{r}}_i \right) = \sum_{i=1}^N m_i \left( \dot{\vec{r}}_i \cdot \dot{\vec{r}}_i + \vec{r}_i \cdot \ddot{\vec{r}}_i \right) $$
+
+Expandiendo la sumatoria, obtenemos dos términos claramente diferenciables:
+
+$$ \dot{G} = \sum_{i=1}^N m_i \dot{\vec{r}}_i^2 + \sum_{i=1}^N \vec{r}_i \cdot (m_i \ddot{\vec{r}}_i) $$
+
+\textbf{2. Identificación de la energía cinética}
+
+Recordamos que la energía cinética total del sistema, denotada como $K$, se define como la suma de las energías cinéticas individuales de las partículas:
+
+$$ K = \sum_{i=1}^N \frac{1}{2} m_i v_i^2 = \sum_{i=1}^N \frac{1}{2} m_i \dot{\vec{r}}_i^2 $$
+
+Al observar el primer término de nuestra expresión para $\dot{G}$, notamos que es exactamente el doble de la energía cinética total:
+
+$$ \sum_{i=1}^N m_i \dot{\vec{r}}_i^2 = 2K $$
+
+\textbf{3. Relación con el potencial y el Teorema de Euler}
+
+Para el segundo término, utilizamos las ecuaciones de movimiento del sistema de $N$ cuerpos, las cuales establecen que la fuerza neta sobre la partícula $i$ es igual al negativo del gradiente del potencial escalar $U$ respecto a sus coordenadas:
+
+$$ m_i \ddot{\vec{r}}_i = \vec{F}_i = -\frac{\partial U}{\partial \vec{r}_i} $$
+
+Sustituyendo esta expresión en el segundo término de $\dot{G}$, llegamos a la definición del virial del sistema, $V$:
+
+$$ \sum_{i=1}^N \vec{r}_i \cdot (m_i \ddot{\vec{r}}_i) = \sum_{i=1}^N \vec{r}_i \cdot \vec{F}_i = -\sum_{i=1}^N \vec{r}_i \cdot \frac{\partial U}{\partial \vec{r}_i} = V $$
+
+De acuerdo con la ayuda proporcionada y los fundamentos matemáticos de las funciones homogéneas, si una función $U(\vec{r}_1, \dots, \vec{r}_N)$ es homogénea de orden $k$, se cumple el \textit{Teorema de Euler}:
+
+$$ \sum_{i=1}^N \vec{r}_i \cdot \frac{\partial U}{\partial \vec{r}_i} = k U $$
+
+\textbf{Cuidado con esta expresión}
+
+\textbf{Teorema de funciones homogéneas de Euler}
+
+De acuerdo con los fundamentos matemáticos presentados en la obra \textit{Mecánica Celeste} de Zuluaga, el teorema se define de la siguiente manera:
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.8\textwidth}
+\vspace{2mm}
+Si una función $f(\{q_i\}_N)$ es homogénea de grado $k$, entonces se cumple la identidad:
+$$ \sum_{i=1}^N q_i \frac{\partial f}{\partial q_i} = k f $$
+Para funciones definidas en el espacio de tres dimensiones, esto se expresa vectorialmente como:
+$$ \vec{r} \cdot \vec{\nabla} f = k f $$
+\vspace{1mm}
+\end{minipage}
+}
+\end{center}
+
+\textbf{Expansión analítica de la expresión}
+
+Para visualizar el funcionamiento del teorema en un sistema de $N$ partículas, expandimos la sumatoria propuesta. Cada término representa el producto escalar entre el vector de posición de la partícula $i$ y el gradiente del potencial con respecto a las coordenadas de esa misma partícula:
+
+$$ \vec{r}_1 \cdot \frac{\partial U}{\partial \vec{r}_1} + \vec{r}_2 \cdot \frac{\partial U}{\partial \vec{r}_2} + \dots + \vec{r}_N \cdot \frac{\partial U}{\partial \vec{r}_N} = k U $$
+
+Si desglosamos cada producto escalar en sus componentes cartesianas $(x, y, z)$, la expresión se visualiza como la suma total de las variaciones espaciales del potencial ponderadas por la posición actual:
+
+$$ \sum_{i=1}^N \left( x_i \frac{\partial U}{\partial x_i} + y_i \frac{\partial U}{\partial y_i} + z_i \frac{\partial U}{\partial z_i} \right) = k U $$
+
+Esta suma captura cómo cambia el valor global de la función potencial ante un escalamiento uniforme de todas las coordenadas del sistema.
+
+\textbf{Verificación para el potencial gravitatorio ($k = -1$)}
+
+En mecánica celeste, la función de energía potencial gravitatoria mutua para un sistema de $N$ cuerpos se define como:
+$$ U = -\frac{1}{2} \sum_{i=1}^N \sum_{j \neq i}^N \frac{m_i \mu_j}{r_{ij}} $$
+
+Para verificar que el teorema aplica con $k = -1$, analizamos la homogeneidad de la función. Si escalamos todas las posiciones por un factor $\lambda$ (es decir, $\vec{r} \to \lambda \vec{r}$), la distancia entre partículas cambia como $r_{ij} \to \lambda r_{ij}$. Al sustituir en la fórmula del potencial:
+
+$$ U(\lambda \vec{r}_1, \dots, \lambda \vec{r}_N) = -\frac{1}{2} \sum_{i} \sum_{j \neq i} \frac{m_i \mu_j}{\lambda r_{ij}} = \lambda^{-1} \left( -\frac{1}{2} \sum_{i} \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}} \right) = \lambda^{-1} U $$
+
+Dado que el potencial escala con $\lambda^{-1}$, se confirma que es una función homogénea de grado $k = -1$. Por lo tanto, la aplicación del Teorema de Euler sobre el potencial gravitatorio resulta en:
+
+$$ \sum_{i=1}^N \vec{r}_i \cdot \frac{\partial U}{\partial \vec{r}_i} = -U $$
+
+Este resultado es el que se utiliza directamente en la deducción de la identidad de Lagrange-Jacobi y el Teorema del Virial para sistemas astronómicos ligados.
+
+
+
+Dado que el potencial gravitatorio es una función homogénea de orden $k = -1$ (debido a su dependencia proporcional a $1/r$), la expresión se simplifica a:
+
+$$ \sum_{i=1}^N \vec{r}_i \cdot \frac{\partial U}{\partial \vec{r}_i} = -U $$
+
+Por lo tanto, el valor del virial $V$ es igual a la energía potencial total del sistema:
+
+$$ V = -(-U) = U $$
+
+\textbf{4. Obtención de la identidad final}
+
+Sustituyendo los resultados de los pasos 2 y 3 en la ecuación original de $\dot{G}$, obtenemos la Identidad de Lagrange-Jacobi:
+
+$$ \dot{G} = 2K + U $$
+
+Finalmente, invocamos el principio de conservación de la energía mecánica total $E$, la cual es la suma de la energía cinética y la energía potencial ($E = K + U$). Despejando el potencial como $U = E - K$ y sustituyendo en nuestra expresión:
+
+$$ \dot{G} = 2K + (E - K) $$
+$$ \dot{G} = K + E $$
+
+Con esto queda demostrado que la tasa de cambio de la cantidad $G$ es igual a la suma de la energía cinética y la energía total del sistema.
+
+
+\section{Problema 6: Coordenadas}
+Partiendo de las definiciones del vector relativo $\vec{r}=\vec{r}_1-\vec{r}_2$ y del centro de masa $\vec{R}_{cm}$ demuestre que 
+
+\begin{align*}
+\vec{r}_1 &= \vec{R}_{cm} + \frac{m_2}{M}\vec{r} \\
+\vec{r}_2 &= \vec{R}_{cm} - \frac{m_1}{M}\vec{r}
+\end{align*}
+
+\subsection{Solución}
+
+Este problema requiere la demostración analítica de cómo se pueden expresar las coordenadas de posición individuales de un sistema de dos cuerpos a partir de la posición de su centro de masa y de su vector de posición relativa. Esta transformación es una de las simetrías fundamentales que permite reducir el problema de los dos cuerpos al estudio de una sola partícula ficticia con masa reducida.
+
+\textbf{1. Definiciones fundamentales}
+
+De acuerdo con los fundamentos de la mecánica de sistemas de partículas, el vector de posición del centro de masa $\vec{R}_{cm}$ para un sistema de dos cuerpos con masas $m_1$ y $m_2$ localizadas en $\vec{r}_1$ y $\vec{r}_2$ se define como la suma ponderada de sus posiciones respecto a la masa total $M = m_1 + m_2$:
+$$ \vec{R}_{cm} = \frac{m_1\vec{r}_1 + m_2\vec{r}_2}{M} $$
+
+Por otra parte, definimos el vector de posición relativa $\vec{r}$ como la diferencia entre los vectores de posición de las dos partículas:
+$$ \vec{r} = \vec{r}_1 - \vec{r}_2 $$
+En esta convención, el vector relativo apunta desde la partícula 2 hacia la partícula 1.
+
+\textbf{2. Demostración para el vector de posición $\vec{r}_1$}
+
+Para encontrar la expresión de $\vec{r}_1$ en términos de las variables colectivas del sistema, comenzamos despejando el vector $\vec{r}_2$ de la definición del vector relativo:
+$$ \vec{r}_2 = \vec{r}_1 - \vec{r} $$
+
+Sustituimos esta relación en la ecuación que define al centro de masa para eliminar la dependencia explícita de la segunda partícula:
+$$ \vec{R}_{cm} = \frac{m_1\vec{r}_1 + m_2(\vec{r}_1 - \vec{r})}{M} $$
+
+Procedemos a expandir el numerador y agrupar los términos proporcionales al vector de posición de la primera partícula:
+$$ M\vec{R}_{cm} = m_1\vec{r}_1 + m_2\vec{r}_1 - m_2\vec{r} $$
+$$ M\vec{R}_{cm} = (m_1 + m_2)\vec{r}_1 - m_2\vec{r} $$
+
+Dado que la suma de las masas individuales es igual a la masa total del sistema ($m_1 + m_2 = M$), la ecuación se simplifica significativamente:
+$$ M\vec{R}_{cm} = M\vec{r}_1 - m_2\vec{r} $$
+
+Finalmente, despejamos el vector $\vec{r}_1$ sumando el término de la interacción relativa y dividiendo por la masa total:
+$$ M\vec{r}_1 = M\vec{R}_{cm} + m_2\vec{r} $$
+$$ \vec{r}_1 = \vec{R}_{cm} + \frac{m_2}{M}\vec{r} $$
+
+Este resultado demuestra que la posición de la partícula 1 es igual a la posición del centro de masa más un desplazamiento proporcional a la masa del compañero y a la distancia relativa.
+
+\textbf{3. Demostración para el vector de posición $\vec{r}_2$}
+
+Para obtener la segunda relación, realizamos un procedimiento análogo despejando ahora el vector $\vec{r}_1$ de la definición de posición relativa:
+$$ \vec{r}_1 = \vec{r} + \vec{r}_2 $$
+
+Sustituimos esta expresión en la definición del baricentro del sistema:
+$$ \vec{R}_{cm} = \frac{m_1(\vec{r} + \vec{r}_2) + m_2\vec{r}_2}{M} $$
+
+Multiplicamos ambos lados de la igualdad por $M$ y distribuimos la masa $m_1$ en el numerador:
+$$ M\vec{R}_{cm} = m_1\vec{r} + m_1\vec{r}_2 + m_2\vec{r}_2 $$
+
+Nuevamente, agrupamos los términos de la variable que deseamos encontrar:
+$$ M\vec{R}_{cm} = m_1\vec{r} + (m_1 + m_2)\vec{r}_2 $$
+$$ M\vec{R}_{cm} = m_1\vec{r} + M\vec{r}_2 $$
+
+Despejamos el vector de posición de la segunda partícula restando el término relativo y dividiendo toda la expresión por la masa total $M$:
+$$ M\vec{r}_2 = M\vec{R}_{cm} - m_1\vec{r} $$
+$$ \vec{r}_2 = \vec{R}_{cm} - \frac{m_1}{M}\vec{r} $$
+
+Con esta última deducción, quedan demostradas analíticamente las dos relaciones de transformación de coordenadas solicitadas para el sistema de dos cuerpos.
+
+
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
