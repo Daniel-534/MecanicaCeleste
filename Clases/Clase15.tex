@@ -1,0 +1,575 @@
+\documentclass[12pt,oneside]{book}
+
+% -------------------------------------------------
+% PAQUETES
+% -------------------------------------------------
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{tocloft}
+\usepackage{tcolorbox}
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{listings}
+
+% -------------------------------------------------
+% CONFIGURACIÓN VISUAL
+% -------------------------------------------------
+\definecolor{azulUdeA}{HTML}{003B7A}
+\definecolor{grisClaro}{HTML}{F4F6F8}
+\definecolor{grisTexto}{HTML}{2E2E2E}
+\definecolor{grisSec}{HTML}{6C757D}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=azulUdeA,
+    urlcolor=azulUdeA,
+    citecolor=azulUdeA,
+    pdftitle={Notas de Clase - Mecánica Celeste},
+    pdfauthor={Daniel Soto Villada}
+}
+
+\setstretch{1.12}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% Estilo de capítulos y secciones
+\titleformat{\chapter}[display]
+  {\bfseries\Huge\color{azulUdeA}}
+  {\filleft\Large\chaptername\ \thechapter}
+  {1ex}
+  {\titlerule\vspace{1ex}\filright}
+  [\vspace{1ex}\titlerule]
+
+\titleformat{\section}
+  {\bfseries\Large\color{azulUdeA}}
+  {\thesection}{0.7em}{}
+
+\titleformat{\subsection}
+  {\bfseries\large\color{grisTexto}}
+  {\thesubsection}{0.6em}{}
+
+% Encabezados y pies
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{grisSec}{\nouppercase{\leftmark}}}
+\fancyhead[R]{\textcolor{grisSec}{Daniel Soto Villada}}
+\fancyfoot[C]{\textcolor{grisSec}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{azulUdeA}\leaders\hrule height \headrulewidth\hfill}}
+
+% Índice más limpio
+\renewcommand{\cftchapfont}{\bfseries\color{azulUdeA}}
+\renewcommand{\cftsecfont}{\color{grisTexto}}
+\renewcommand{\cftchappagefont}{\bfseries\color{azulUdeA}}
+\renewcommand{\cftsecpagefont}{\color{grisTexto}}
+
+% Caja para definiciones/ideas importantes
+\newtcolorbox{importante}{
+  colback=grisClaro,
+  colframe=azulUdeA,
+  boxrule=0.8pt,
+  arc=2mm,
+  left=2mm,right=2mm,top=1mm,bottom=1mm
+}
+
+% -------------------------------------------------
+% DATOS DEL DOCUMENTO
+% -------------------------------------------------
+\newcommand{\NombreEstudiante}{Daniel Soto Villada}
+\newcommand{\Programa}{Estudiante de astronomía}
+\newcommand{\Universidad}{Universidad de Antioquia}
+\newcommand{\Facultad}{Facultad de Ciencias Exactas y Naturales}
+\newcommand{\Instituto}{Instituto de Física}
+\newcommand{\TituloDocumento}{Notas de Clase - Mecánica Celeste}
+
+% -------------------------------------------------
+% DOCUMENTO
+% -------------------------------------------------
+\begin{document}
+
+% ---------- PORTADA ----------
+\begin{titlepage}
+    \centering
+    \vspace*{1.8cm}
+
+    {\Large\textcolor{grisSec}{\Universidad}\par}
+    \vspace{0.25cm}
+    {\large\textcolor{grisSec}{\Facultad}\par}
+    {\large\textcolor{grisSec}{\Instituto}\par}
+
+    \vspace{2.2cm}
+    {\Huge\bfseries\textcolor{azulUdeA}{\TituloDocumento}\par}
+    \vspace{0.5cm}
+    {\Large\textcolor{grisSec}{Plantilla académica profesional}\par}
+
+    \vspace{2.4cm}
+    \begin{tcolorbox}[colback=grisClaro,colframe=azulUdeA,boxrule=0.9pt,arc=2mm,width=0.78\textwidth]
+        \centering
+        {\Large\bfseries \NombreEstudiante}\par
+        \vspace{0.2cm}
+        {\large \Programa}
+    \end{tcolorbox}
+
+    \vfill
+    {\large\textcolor{grisSec}{\today}\par}
+    \vspace{0.5cm}
+\end{titlepage}
+
+% ---------- PÁGINAS PRELIMINARES ----------
+\frontmatter
+\tableofcontents
+\clearpage
+
+% ---------- CONTENIDO ----------
+\mainmatter
+
+\chapter{Introducción}
+
+\section{Objetivo del curso}
+El objetivo de estas notas es registrar de forma detallada y rigurosa los conceptos, deducciones y algoritmos vistos en el curso de Mecánica Celeste (2026-1), con énfasis en la comprensión profunda de los fundamentos físicos y matemáticos. En esta clase se aborda el problema relativo de dos cuerpos, pieza clave para reducir el problema de \(N\) cuerpos a un sistema tratable.
+
+\section{Convenciones de apuntes}
+\begin{itemize}[leftmargin=2em]
+    \item Definiciones clave se destacan en cajas \texttt{importante}.
+    \item Teoremas o resultados importantes se derivan paso a paso.
+    \item Ejemplos y ejercicios se incluyen para reforzar la comprensión.
+\end{itemize}
+
+\begin{importante}
+Tip: Usa estas notas para repasar las deducciones analíticas del problema relativo, que permite pasar de 12 variables (6 por cuerpo) a solo 6 variables relativas más el movimiento uniforme del centro de masa.
+\end{importante}
+
+
+\chapter{Clase 13: Sistemas Jerárquicos (parte 1)}
+
+Esta clase pertenece a la Unidad 2 (\emph{El problema de 2-Cuerpos}) y constituye la introducción a los sistemas jerárquicos de \(N\) cuerpos. Se parte de la motivación observacional y teórica de por qué los sistemas reales de \(N\) cuerpos tienden a autoorganizarse en estructuras jerárquicas, y se desarrolla la herramienta matemática (coordenadas de Jacobi) que permite modelarlos eficientemente.
+
+\section{Motivación: autoorganización de los sistemas de \(N\) cuerpos}
+El problema de \(N\) cuerpos es muy general, pero los sistemas reales tienden a ``autoorganizarse'' después de un tiempo prolongado de interacción.
+
+\begin{itemize}
+    \item Con colisiones: se forman cuerpos grandes que crecen \emph{oligárquicamente} (los más masivos crecen más rápido).
+    \item Sin colisiones: las interacciones por pares expulsan cuerpos y el sistema se relaja hacia una configuración más ordenada.
+\end{itemize}
+
+Las características típicas de estos sistemas autoorganizados son:
+\begin{enumerate}
+    \item Las masas de los cuerpos difieren mucho entre sí (hay cuerpos muy masivos comparados con otros).
+    \item Los cuerpos tienen masas parecidas, pero las distancias entre ellos son muy diferentes (sistemas jerárquicos).
+\end{enumerate}
+
+\begin{importante}
+En el marco del centro de masa, los sistemas jerárquicos de \(N\) cuerpos evidencian una clara organización por pares. Aunque en otros sistemas de referencia parezcan caóticos, en el CM se observa una estructura ordenada de órbitas anidadas.
+\end{importante}
+
+\section{Organización de los sistemas jerárquicos por pares}
+Un sistema jerárquico de \(N\) cuerpos puede modelarse como \textbf{\(N-1\) sistemas de dos cuerpos}.
+
+Cada par forma un subsistema cuya órbita relativa se describe con el problema de dos cuerpos ya estudiado. El árbol jerárquico representa la estructura de contención: el sistema total se divide en subsistemas internos y externos.
+
+Ejemplos astrofísicos reales:
+\begin{itemize}
+    \item Sistema estelar múltiple \textbf{$\alpha$ Gem} (Castor): seis estrellas organizadas en tres pares binarios jerárquicos.
+    \item Sistema \textbf{30 Ari}: doble estrella con subcomponentes.
+    \item Sistemas planetarios y exoplanetas: un planeta orbita una estrella que a su vez orbita otra estrella lejana.
+\end{itemize}
+
+\begin{importante}
+En un sistema jerárquico típico, las órbitas internas son mucho más cerradas (y rápidas) que las órbitas externas. Esto permite tratar cada nivel como un problema de dos cuerpos independiente (aproximación jerárquica).
+\end{importante}
+
+\section{Tipos de sistemas jerárquicos de dos cuerpos}
+Se distinguen dos configuraciones básicas:
+\begin{itemize}
+    \item \textbf{Sistema central}: un cuerpo masivo en el centro con uno o más cuerpos orbitando a su alrededor (ej. estrella + planeta).
+    \item \textbf{Sistema jerárquico propiamente dicho}: dos subsistemas (cada uno con su centro de masa) orbitando mutuamente.
+\end{itemize}
+
+\section{Coordenadas de Jacobi}
+Para describir eficientemente un sistema jerárquico se utilizan las \textbf{coordenadas de Jacobi}.
+
+\subsection{Definición y motivación}
+Normalmente describimos un sistema de \(N\) cuerpos con posiciones \(\vec{r}_i\) respecto a un origen arbitrario (6\(N\) coordenadas).  
+
+En coordenadas de Jacobi se calculan centros de masa de pares sucesivos, de modo que el sistema se describe completamente usando \textbf{solo distancias relativas} (y los centros de masa de los subsistemas).
+
+Para el caso de \textbf{dos cuerpos} (base del método):
+\begin{align*}
+\vec{R}_{\text{CM}} &= \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M} \\
+\vec{r} &= \vec{r}_1 - \vec{r}_2
+\end{align*}
+donde \(M = m_1 + m_2\).
+
+\subsection{Transformación de coordenadas}
+\textbf{De coordenadas convencionales a Jacobi:}
+\[
+\vec{R}_{\text{CM}} = \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M}, \quad
+\vec{r} = \vec{r}_1 - \vec{r}_2
+\]
+
+\textbf{De Jacobi a coordenadas convencionales:}
+\[
+\vec{r}_1 = \vec{R}_{\text{CM}} + \frac{m_2}{M} \vec{r}, \quad
+\vec{r}_2 = \vec{R}_{\text{CM}} - \frac{m_1}{M} \vec{r}
+\]
+
+Estas transformaciones son idénticas a las derivadas en la clase anterior para el problema relativo, pero aquí se enfatiza su uso recursivo en sistemas jerárquicos de \(N > 2\).
+
+\begin{importante}
+Las coordenadas de Jacobi desacoplan el movimiento del centro de masa (rectilíneo uniforme) del movimiento relativo en cada nivel jerárquico. Cada vector relativo \(\vec{r}\) satisface la ecuación del problema de dos cuerpos:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3}\vec{r}, \quad \mu = G(m_1 + m_2)
+\]
+\end{importante}
+
+\section{Ejemplo práctico: sistema jerárquico de tres cuerpos (Zul Aa + Ab + B)}
+En el ejercicio de la clase se construye un sistema jerárquico triple:
+
+\begin{itemize}[leftmargin=2em,label={}]
+\item \textbf{Zul} (sistema total)
+  \begin{itemize}[leftmargin=2em,label={}]
+  \item \textbf{A} (subsistema interno)
+    \begin{itemize}[leftmargin=2em,label={}]
+    \item \textbf{Aa} (estrella primaria, \(m = 1.0\))
+    \item \textbf{Ab} (planeta, \(m = 0.01\))
+    \end{itemize}
+  \item \textbf{B} (estrella secundaria, \(m = 5.0\))
+  \end{itemize}
+\end{itemize}
+
+Se usan coordenadas de Jacobi descendiendo por el árbol:
+\begin{enumerate}
+    \item Fijar \(\vec{R}_{\text{CM}}\) y \(\vec{V}_{\text{CM}}\) del sistema total.
+    \item Calcular posición y velocidad del CM del subsistema A respecto a B.
+    \item Descender al interior de A: posición de Aa y Ab respecto al CM de A.
+\end{enumerate}
+
+Las ecuaciones exactas (implementadas en el cuaderno de clase) son:
+\[
+\vec{R}_{\text{CM,A}} = \vec{R}_{\text{CM,AB}} + \frac{m_B}{m_A + m_B} \vec{r}_{AB}
+\]
+\[
+\vec{r}_B = \vec{R}_{\text{CM,AB}} - \frac{m_A}{m_A + m_B} \vec{r}_{AB}
+\]
+y luego dentro de A:
+\[
+\vec{r}_{\text{Aa}} = \vec{R}_{\text{CM,A}} + \frac{m_{\text{Ab}}}{m_A} \vec{r}_A, \quad
+\vec{r}_{\text{Ab}} = \vec{R}_{\text{CM,A}} - \frac{m_{\text{Aa}}}{m_A} \vec{r}_A
+\]
+
+Este procedimiento se generaliza a cualquier \(N\).
+
+\section{Consecuencias y perspectivas}
+\begin{itemize}
+    \item Los sistemas jerárquicos son la forma natural en que se presentan los sistemas estelares múltiples, planetarios y galácticos.
+    \item Las coordenadas de Jacobi permiten inicializar simulaciones de \(N\) cuerpos de forma estable y física.
+    \item En la parte 2 de la clase (próxima) se profundizará en la simulación numérica y estabilidad de estos sistemas.
+\end{itemize}
+
+\begin{importante}
+La aproximación jerárquica es válida cuando las órbitas internas son mucho más rápidas y cerradas que las externas (condición de estabilidad jerárquica).
+\end{importante}
+
+
+\chapter{Clase 14: Sistemas Jerárquicos (parte 2)}
+
+Esta clase es completamente práctica y se desarrolla íntegramente en el cuaderno de Jupyter \texttt{CuadernoClase\_SistemasJerarquicos\_Ejercicio(1).ipynb}. El objetivo es aplicar todo lo visto en la Clase 13: construir explícitamente un sistema jerárquico de tres cuerpos usando coordenadas de Jacobi y simular su evolución dinámica con la librería \texttt{pymcel}.
+
+\section{Definición del sistema jerárquico de tres cuerpos}
+Llamamos al sistema completo \textbf{Zul}. Sus componentes son:
+\begin{itemize}
+    \item \textbf{Zul Aa}: estrella primaria (\(m = 1.0\))
+    \item \textbf{Zul Ab}: planeta (\(m = 0.01\))
+    \item \textbf{Zul B}: estrella secundaria (\(m = 5.0\))
+\end{itemize}
+
+El árbol jerárquico es:
+
+\begin{itemize}[leftmargin=2em,label={}]
+\item \textbf{Zul} (sistema total)
+  \begin{itemize}[leftmargin=2em,label={}]
+  \item \textbf{A} (subsistema interno: Aa + Ab)
+    \begin{itemize}[leftmargin=2em,label={}]
+    \item \textbf{Aa} (estrella primaria, \(m_{\text{Aa}} = 1.0\))
+    \item \textbf{Ab} (planeta, \(m_{\text{Ab}} = 0.01\))
+    \end{itemize}
+  \item \textbf{B} (estrella secundaria, \(m_{\text{B}} = 5.0\))
+  \end{itemize}
+\end{itemize}
+
+\begin{importante}
+Este es un sistema jerárquico típico: un planeta orbita una estrella (subsistema A) y ese subsistema orbita a su vez una estrella más masiva (B). Las masas y distancias están elegidas para que la jerarquía sea estable.
+\end{importante}
+
+\section{Condiciones iniciales en coordenadas de Jacobi}
+Usamos unidades canónicas: \(G = 1\).
+
+\subsection{Subsistema interno A (Aa + Ab)}
+\[
+m_{\text{A}} = m_{\text{Aa}} + m_{\text{Ab}} = 1.01
+\]
+\[
+\vec{r}_{\text{A}} = \begin{pmatrix} 0.1 \\ 0 \\ 0 \end{pmatrix}, \quad
+\vec{v}_{\text{A}} = \begin{pmatrix} 0 \\ 4.0 \\ 0 \end{pmatrix}
+\]
+
+\subsection{Vector relativo entre A y B}
+\[
+\vec{r}_{\text{AB}} = \begin{pmatrix} 2.0 \\ 0 \\ 0 \end{pmatrix}, \quad
+\vec{v}_{\text{AB}} = \begin{pmatrix} 0 \\ 2.0 \\ 0 \end{pmatrix}
+\]
+
+\subsection{Centro de masa total del sistema}
+\[
+\vec{R}_{\text{CM}} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}, \quad
+\vec{V}_{\text{CM}} = \begin{pmatrix} 0.01 \\ 0 \\ 0 \end{pmatrix}
+\]
+
+\section{Descenso por el árbol jerárquico (cálculo paso a paso)}
+
+\subsection{Nivel 1: Posiciones y velocidades del CM de A y de B}
+\[
+\vec{R}_{\text{CM,A}} = \vec{R}_{\text{CM}} + \frac{m_{\text{B}}}{m_{\text{A}} + m_{\text{B}}} \vec{r}_{\text{AB}} = \begin{pmatrix} 1.66389351 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{V}_{\text{CM,A}} = \vec{V}_{\text{CM}} + \frac{m_{\text{B}}}{m_{\text{A}} + m_{\text{B}}} \vec{v}_{\text{AB}} = \begin{pmatrix} 0.01 \\ 1.66389351 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{r}_{\text{B}} = \vec{R}_{\text{CM}} - \frac{m_{\text{A}}}{m_{\text{A}} + m_{\text{B}}} \vec{r}_{\text{AB}} = \begin{pmatrix} -0.33610649 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{v}_{\text{B}} = \vec{V}_{\text{CM}} - \frac{m_{\text{A}}}{m_{\text{A}} + m_{\text{B}}} \vec{v}_{\text{AB}} = \begin{pmatrix} 0.01 \\ -0.33610649 \\ 0 \end{pmatrix}
+\]
+
+\subsection{Nivel 2: Posiciones y velocidades de Aa y Ab dentro de A}
+\[
+\vec{r}_{\text{Aa}} = \vec{R}_{\text{CM,A}} + \frac{m_{\text{Ab}}}{m_{\text{A}}} \vec{r}_{\text{A}} = \begin{pmatrix} 1.66488361 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{v}_{\text{Aa}} = \vec{V}_{\text{CM,A}} + \frac{m_{\text{Ab}}}{m_{\text{A}}} \vec{v}_{\text{A}} = \begin{pmatrix} 0.01 \\ 1.70349747 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{r}_{\text{Ab}} = \vec{R}_{\text{CM,A}} - \frac{m_{\text{Aa}}}{m_{\text{A}}} \vec{r}_{\text{A}} = \begin{pmatrix} 1.56488361 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{v}_{\text{Ab}} = \vec{V}_{\text{CM,A}} - \frac{m_{\text{Aa}}}{m_{\text{A}}} \vec{v}_{\text{A}} = \begin{pmatrix} 0.01 \\ -2.29650253 \\ 0 \end{pmatrix}
+\]
+
+\begin{importante}
+Estas fórmulas son las coordenadas de Jacobi aplicadas recursivamente. Cada nivel usa el centro de masa del subsistema anterior como nuevo origen.
+\end{importante}
+
+\section{Construcción del sistema para simulación}
+El sistema completo se define como una lista de diccionarios:
+\begin{lstlisting}
+sistema = [
+    dict(m = 1.0,   r = r_Zul_Aa, v = v_Zul_Aa),
+    dict(m = 0.01,  r = r_Zul_Ab, v = v_Zul_Ab),
+    dict(m = 5.0,   r = r_Zul_B,  v = v_Zul_B)
+]
+\end{lstlisting}
+
+Se simula con la función \texttt{ncuerpos\_solución} de \texttt{pymcel} en el intervalo temporal:
+\[
+t \in [0, 50]\qquad \text{con 1000 puntos}
+\]
+
+\section{Resultados de la simulación y visualización}
+La simulación muestra claramente el comportamiento jerárquico esperado:
+\begin{itemize}
+    \item \textbf{Órbita interna rápida}: el planeta Ab describe una órbita casi circular alrededor de Aa (radio \(\approx 0.1\)).
+    \item \textbf{Órbita intermedia}: el subsistema A (Aa + Ab) describe una órbita alrededor del centro de masa total.
+    \item \textbf{Órbita externa}: la estrella B orbita alrededor del centro de masa del sistema completo con un radio mayor (\(\approx 0.336\)).
+\end{itemize}
+
+Se generan gráficas de:
+\begin{itemize}
+    \item Trayectorias en el plano \(xy\) (todas las partículas).
+    \item Trayectorias en el marco del centro de masa.
+    \item Animación con \texttt{celluloid} que muestra el movimiento jerárquico completo.
+\end{itemize}
+
+\begin{importante}
+La simulación numérica confirma que el sistema permanece estable durante el tiempo integrado. Esto valida la aproximación jerárquica y la correcta inicialización con coordenadas de Jacobi.
+\end{importante}
+
+\section{Generalización y consejos prácticos}
+\begin{enumerate}
+    \item Para cualquier sistema jerárquico de \(N\) cuerpos se sigue el mismo procedimiento recursivo: se desciende por el árbol calculando centros de masa y vectores relativos en cada nivel.
+    \item Siempre se debe fijar primero el centro de masa y velocidad total del sistema (\(\vec{R}_{\text{CM}}\), \(\vec{V}_{\text{CM}}\)).
+    \item La librería \texttt{pymcel} facilita enormemente la simulación una vez que se tienen las condiciones iniciales en el formato de lista de diccionarios.
+    \item En sistemas reales (ej. sistemas estelares múltiples, exoplanetas circumbinarios) se usan exactamente estas mismas técnicas para generar condiciones iniciales estables.
+\end{enumerate}
+
+\section{Conclusiones de las Clases 13 y 14}
+Las dos clases juntas muestran el camino completo:
+\begin{itemize}
+    \item Teoría (Clase 13): motivación, autoorganización y coordenadas de Jacobi.
+    \item Práctica (Clase 14): construcción explícita de un sistema jerárquico y simulación numérica.
+\end{itemize}
+
+Esta metodología es la base para estudiar sistemas de \(N\) cuerpos más complejos en las próximas unidades.
+
+
+
+
+\chapter{Clase 15: El problema relativo de dos cuerpos}
+
+Esta clase, correspondiente a la Unidad 2 del curso (\emph{El problema de 2-Cuerpos}), se centra en la derivación rigurosa del \textbf{problema relativo} a partir del problema de \(N\) cuerpos. El objetivo es mostrar cómo, al considerar únicamente dos cuerpos, es posible reducir el sistema a una ecuación vectorial equivalente al movimiento de un solo cuerpo bajo una fuerza central, facilitando la solución analítica y numérica posterior.
+
+\section{Motivación y contexto}
+En el problema de \(N\) cuerpos (capítulo 6 del libro de texto), las ecuaciones de movimiento son acopladas y no tienen solución analítica general. Para \(N=2\), sin embargo, es posible transformar las ecuaciones a un sistema desacoplado: el movimiento del centro de masa (uniforme rectilíneo) y el movimiento \emph{relativo} entre los dos cuerpos. Este último es el que describe la órbita relativa y es equivalente al problema de Kepler.
+
+El vector relativo se define como:
+\[
+\vec{r} = \vec{r}_1 - \vec{r}_2
+\]
+donde \(\vec{r}_1\) y \(\vec{r}_2\) son las posiciones de los cuerpos 1 y 2 en un marco inercial.
+
+El centro de masa del sistema es:
+\[
+\vec{R}_{\text{CM}} = \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M}, \quad M = m_1 + m_2
+\]
+
+\section{De las posiciones a las velocidades}
+Para expresar las posiciones individuales en términos del vector relativo y del centro de masa, resolvemos el sistema lineal:
+
+\[
+\vec{r}_1 - \vec{r}_2 = \vec{r}
+\]
+\[
+m_1 \vec{r}_1 + m_2 \vec{r}_2 = M \vec{R}_{\text{CM}}
+\]
+
+La solución es:
+\[
+\vec{r}_1 = \vec{R}_{\text{CM}} + \frac{m_2}{M} \vec{r}
+\]
+\[
+\vec{r}_2 = \vec{R}_{\text{CM}} - \frac{m_1}{M} \vec{r}
+\]
+
+Diferenciando con respecto al tiempo (velocidades):
+\[
+\dot{\vec{r}}_1 = \vec{V}_{\text{CM}} + \frac{m_2}{M} \dot{\vec{r}}
+\]
+\[
+\dot{\vec{r}}_2 = \vec{V}_{\text{CM}} - \frac{m_1}{M} \dot{\vec{r}}
+\]
+
+\begin{importante}
+Estas expresiones muestran que el movimiento de cada cuerpo es la superposición del movimiento uniforme del centro de masa más un término proporcional al movimiento relativo. El factor \(\frac{m_2}{M}\) indica que el cuerpo más ligero se mueve más en la coordenada relativa.
+\end{importante}
+
+\section{De las velocidades a las aceleraciones}
+Diferenciando nuevamente obtenemos las aceleraciones:
+\[
+\ddot{\vec{r}}_1 = \frac{m_2}{M} \ddot{\vec{r}}
+\]
+\[
+\ddot{\vec{r}}_2 = -\frac{m_1}{M} \ddot{\vec{r}}
+\]
+
+Estas relaciones son puramente cinemáticas y serán clave para relacionar las ecuaciones de movimiento newtonianas con la ecuación relativa.
+
+\section{Ecuaciones de movimiento de las partículas (problema de \(N\) cuerpos)}
+Para dos cuerpos interactuando gravitacionalmente, las ecuaciones del problema de \(N\) cuerpos se reducen a:
+\[
+\ddot{\vec{r}}_i = -\sum_{j \neq i} \frac{G m_j}{r_{ij}^3} \vec{r}_{ij}
+\]
+
+Explicitamente:
+\[
+\ddot{\vec{r}}_1 = -\frac{G m_2}{r^3} (\vec{r}_1 - \vec{r}_2) = -\frac{\mu_2}{r^3} \vec{r}, \quad \mu_2 = G m_2
+\]
+\[
+\ddot{\vec{r}}_2 = -\frac{G m_1}{r^3} (\vec{r}_2 - \vec{r}_1) = +\frac{\mu_1}{r^3} \vec{r}, \quad \mu_1 = G m_1
+\]
+donde \(r = |\vec{r}|\) y \(\vec{r} = \vec{r}_1 - \vec{r}_2\).
+
+\section{Deducción de la ecuación de movimiento relativa}
+Ahora combinamos las expresiones cinemáticas con las dinámicas. Hay dos caminos equivalentes; ambos se presentan para mayor claridad.
+
+\textbf{Vía 1: Diferencia directa de aceleraciones}
+\[
+\ddot{\vec{r}} = \ddot{\vec{r}}_1 - \ddot{\vec{r}}_2 = \left( -\frac{\mu_2}{r^3} \vec{r} \right) - \left( +\frac{\mu_1}{r^3} \vec{r} \right) = -\frac{\mu_1 + \mu_2}{r^3} \vec{r}
+\]
+\[
+\mu = G(m_1 + m_2) \implies \ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}
+\]
+
+\textbf{Vía 2: Reemplazo y resta (como en las láminas de clase)}
+Igualamos las dos expresiones para \(\ddot{\vec{r}}_1\):
+\[
+\frac{m_2}{M} \ddot{\vec{r}} = -\frac{\mu_2}{r^3} \vec{r}
+\]
+y para \(\ddot{\vec{r}}_2\):
+\[
+-\frac{m_1}{M} \ddot{\vec{r}} = +\frac{\mu_1}{r^3} \vec{r}
+\]
+
+Reordenando y restando (o resolviendo directamente) se obtiene el mismo resultado:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}, \quad \mu = G(m_1 + m_2)
+\]
+
+Esta es la \textbf{ecuación del problema de los dos cuerpos relativo}.
+
+\begin{importante}
+La ecuación \(\ddot{\vec{r}} = -\dfrac{\mu}{r^3} \vec{r}\) describe el movimiento relativo como si fuera un cuerpo de masa reducida bajo una fuerza central inversa al cuadrado. Es idéntica a la ecuación de Kepler con parámetro gravitacional efectivo \(\mu = G(m_1 + m_2)\).
+\end{importante}
+
+\section{El problema de los dos cuerpos en coordenadas de Jacobi}
+En el formalismo de Jacobi (útil para generalizaciones a \(N\) cuerpos), el vector relativo se expresa como:
+\[
+\vec{r} = \vec{r}_1 - \vec{r}_2
+\]
+y la ecuación de movimiento es exactamente la misma:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}, \quad \mu \equiv G(m_1 + m_2)
+\]
+
+\textbf{Importante aclaración geométrica:}  
+Al representar gráficamente la órbita relativa (la curva que traza el extremo del vector \(\vec{r}\)), el origen del sistema de coordenadas (el foco de la cónica) \textbf{no coincide con ningún objeto físico}. No es el centro de masa ni la posición del cuerpo más pesado. El punto \( \vec{r} = 0 \) corresponde al caso de colisión (ambos cuerpos en el mismo lugar), y el foco de la elipse/hipérbola es un punto vacío en el espacio físico. Esto evita confusiones comunes con la aproximación \(m_1 \gg m_2\), donde se fija el cuerpo masivo en el origen.
+
+\begin{importante}
+En coordenadas de Jacobi, el problema relativo es independiente del marco de referencia del centro de masa. El movimiento del CM es trivial (rectilíneo uniforme), mientras que toda la dinámica orbital reside en \(\vec{r}\).
+\end{importante}
+
+\section{Síntesis y consecuencias}
+La derivación anterior muestra que:
+\begin{itemize}
+    \item El problema de dos cuerpos se reduce a una ecuación de segundo orden vectorial en 3D (6 variables de estado).
+    \item El centro de masa se mueve con velocidad constante \(\vec{V}_{\text{CM}}\).
+    \item Toda la información orbital (forma, tamaño, orientación) está contenida en la solución de \(\vec{r}(t)\).
+\end{itemize}
+
+Esta ecuación es la base para todos los desarrollos posteriores: ecuación de la trayectoria, anomalías, elementos orbitales, variables universales y perturbaciones (ver Clases 16 y siguientes).
+
+\section{Ejemplo numérico ilustrativo}
+Supongamos dos cuerpos con \(m_1 = 1\,M_\odot\), \(m_2 = 1\,M_\text{Tierra}\), separación inicial \(r = 1\,\text{UA}\), velocidad relativa perpendicular adecuada para órbita circular. La ecuación \(\ddot{\vec{r}} = -\mu/r^3 \vec{r}\) con \(\mu \approx G M_\odot\) (ya que \(m_2 \ll m_1\)) reproduce la órbita kepleriana con error negligible. Para masas comparables (ej. sistema binario), el factor completo \(\mu = G(m_1+m_2)\) es esencial.
+
+\chapter{Clase 16}
+% Espacio reservado para la siguiente clase (se completará en la próxima sesión)
+
+% ---------- FINAL ----------
+\backmatter
+% Puedes agregar bibliografía o anexos aquí si deseas.
+
+\end{document}
