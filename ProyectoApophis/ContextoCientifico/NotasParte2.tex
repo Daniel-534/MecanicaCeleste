@@ -1,0 +1,536 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Proyecto Apophis}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\Large Universidad de Antioquia\par}
+  \vspace{2cm}
+  {\huge\bfseries Mecánica Celeste\par}
+  \vspace{0.4cm}
+  {\Large Notas parte 2 Proyecto Apophis\par}
+  \vspace{2.5cm}
+  {\large Autor:\par}
+  \vspace{0.2cm}
+  {\large Daniel Soto Villada\par}
+  {\large Estudiante de Astronomía\par}
+  \vfill
+  {\large \today\par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section{Elementos Orbitales de Apophis y Clasificación Dinámica}
+% ===================================================================
+
+\subsection{Parámetros Keplerianos}
+
+La órbita de Apophis puede describirse, en primera aproximación, como una elipse kepleriana alrededor del Sol. Los elementos orbitales osculadores para el asteroide, referidos al éfemeris JPL \#220 y el marco eclíptico J2000 con época 2462800.5 JD (aproximadamente 2031-ene-26), se resumen en la Tabla~\ref{tab:elementos}.
+
+\begin{table}[H]
+  \centering
+  \caption{Elementos orbitales osculadores de (99942) Apophis (pre-encuentro 2029). Fuente: JPL SBDB \cite{jpl2024sbdb, farnocchia2023orbit}.}
+  \label{tab:elementos}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Parámetro} & \textbf{Símbolo} & \textbf{Valor} \\
+    \midrule
+    Semieje mayor        & $a$    & $0.9224 \;\text{UA}$ \\
+    Excentricidad        & $e$    & $0.1912$ \\
+    Inclinación          & $i$    & $3.337°$ \\
+    Long. del nodo asc.  & $\Omega$ & $204.45°$ \\
+    Arg. del perihelio   & $\omega$ & $126.40°$ \\
+    Período orbital      & $T$    & $323.57 \;\text{días}$ \\
+    Perihelio            & $q = a(1-e)$ & $0.7462 \;\text{UA}$ \\
+    Afelio               & $Q = a(1+e)$ & $1.0985 \;\text{UA}$ \\
+    MOID                 & ---    & $0.000316 \;\text{UA} \approx 47\,300 \;\text{km}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+El \textit{Minimum Orbit Intersection Distance} (MOID) es la distancia mínima geométrica entre las órbitas de Apophis y la Tierra, independientemente de cuándo cada cuerpo ocupa esa región. Un MOID inferior a $0.05\,\text{UA}$ y un diámetro superior a 140 m otorgan a un objeto la categoría de \textit{Objeto Potencialmente Peligroso} (PHA, por sus siglas en inglés). Apophis cumple holgadamente ambos criterios \cite{jpl2024sbdb}.
+
+\subsection{Clasificación como NEA y reclasificación post-2029}
+
+Los asteroides cercanos a la Tierra (NEAs) se dividen en cuatro familias orbitales según la relación entre sus parámetros y los de la Tierra. La familia \textbf{Aten} agrupa objetos con $a < 1\,\text{UA}$ y afelio $Q > 0.983\,\text{UA}$; la familia \textbf{Apollo} los tiene con $a > 1\,\text{UA}$ y perihelio $q < 1.017\,\text{UA}$. Antes del encuentro de 2029, Apophis pertenece al grupo Aten. Después del sobrevuelo, la asistencia gravitatoria aumentará su semieje mayor a $a' \approx 1.10\,\text{UA}$, ampliando el período orbital a $\sim 420$ días y cambiando su membresía al grupo Apollo \cite{esa2024apophis, jpl2024sbdb}. Este cambio de familia es observable directamente mediante integración numérica.
+
+El parámetro de Tisserand respecto a la Tierra, definido como
+\begin{equation}
+  T_\oplus = \frac{a_\oplus}{a} + 2\cos i\sqrt{\frac{a}{a_\oplus}\left(1-e^2\right)},
+\end{equation}
+proporciona una cuantificación de cuán ``perturbada'' es la órbita de Apophis por la Tierra. Para Apophis, $T_\oplus \approx 6.39$, valor alejado de $T_\oplus = 3$, lo que confirma que no es un cometa capturado sino un asteroide del cinturón principal evolucionado \cite{murray1999solar}.
+
+% ===================================================================
+\section{El Plano-B de Öpik y Geometría del Encuentro}
+% ===================================================================
+
+\subsection{Definición del plano-B}
+
+El análisis de encuentros planetarios se formaliza mediante el \textbf{plano-B} (también llamado plano de impacto de Öpik), introducido por Ernst Öpik en 1951 \cite{opik1951encounter}. Este plano es perpendicular a la asíntota de la hipérbola geocéntrica de Apophis y pasa por el centro de la Tierra (ver Figura~\ref{fig:planob}).
+
+Se define un sistema de coordenadas $(\xi, \zeta)$ en dicho plano:
+\begin{itemize}
+  \item El eje $\zeta$ apunta en la dirección proyectada de la velocidad heliocéntrica de la Tierra al momento del encuentro.
+  \item El eje $\xi$ completa el triedro a la derecha.
+  \item El vector $\mathbf{b} = (\xi, \zeta)$ conecta el origen (centro de la Tierra) con el punto de cruce del trayecto asintótico del asteroide.
+\end{itemize}
+
+La magnitud $b = |\mathbf{b}|$ es el \textit{parámetro de impacto geocéntrico}. Su relación con la distancia mínima de aproximación $r_\text{min}$ viene dada por la solución hiperbólica del problema de dos cuerpos:
+\begin{equation}
+  b = r_\text{min}\sqrt{1 + \frac{v_e^2}{v_\infty^2}},
+  \label{eq:b}
+\end{equation}
+donde $v_\infty$ es la velocidad hiperbólica en el infinito (relativa geocéntrica lejos de la Tierra) y $v_e$ es la velocidad de escape en la superficie terrestre ($\approx 11.2\;\text{km/s}$). El radio de captura gravitatoria, que define el umbral de impacto físico, es precisamente $b_\text{imp} = R_\oplus\sqrt{1 + (v_e/v_\infty)^2}$.
+
+Para el sobrevuelo de 2029, los valores nominales son \cite{chesley2005keyholes, farnocchia2023orbit}:
+\begin{align}
+  v_\infty &\approx 5.87\;\text{km/s}, \\
+  b         &\approx 6.08\;R_\oplus \approx 38\,800\;\text{km}, \\
+  r_\text{min} &\approx 5.65\;R_\oplus \approx 36\,000\;\text{km}.
+\end{align}
+
+\subsection{Amplificación gravitatoria y sección eficaz de impacto}
+
+La ``sección eficaz de impacto'' geométrica de la Tierra es $\pi R_\oplus^2 \approx 1.28 \times 10^8\,\text{km}^2$; sin embargo, el efecto de focalización gravitatoria amplía esta área a
+\begin{equation}
+  \sigma = \pi b_\text{imp}^2 = \pi R_\oplus^2 \left(1 + \frac{v_e^2}{v_\infty^2}\right).
+\end{equation}
+Para la velocidad de Apophis, el factor de amplificación es $1 + (11.2/5.87)^2 \approx 4.6$, lo que incrementa significativamente la probabilidad estadística de impacto para trayectorias cercanas respecto a un blanco sin gravedad \cite{murray1999solar, valsecchi2003resonant}.
+
+\subsection{Ángulo de deflexión en el sobrevuelo}
+
+Durante el sobrevuelo de 2029, la trayectoria geocéntrica de Apophis es una hipérbola con la Tierra en el foco. El ángulo de deflexión $\delta$ de la velocidad asintótica viene dado por
+\begin{equation}
+  \sin\frac{\delta}{2} = \frac{1}{e_h},
+\end{equation}
+donde $e_h$ es la excentricidad de la hipérbola. Esta se relaciona con $b$ y $v_\infty$ mediante:
+\begin{equation}
+  e_h = \sqrt{1 + \left(\frac{b\,v_\infty^2}{\mu_\oplus}\right)^2},
+  \quad \mu_\oplus = GM_\oplus \approx 3.986\times10^5\;\text{km}^3/\text{s}^2.
+\end{equation}
+Con los valores del encuentro, $e_h \approx 26.5$, lo que da una deflexión $\delta \approx 4.3°$. Este cambio aparentemente pequeño tiene enormes consecuencias para la órbita heliocéntrica de largo plazo, ya que modifica el vector velocidad heliocéntrica en un 14\% \cite{scheeres2023proximity, vallejo2022conditions}.
+
+% ===================================================================
+\section{El Efecto Yarkovsky y su Influencia en la Órbita de Apophis}
+% ===================================================================
+
+\subsection{Mecanismo físico}
+
+El efecto Yarkovsky es una fuerza no gravitatoria que actúa sobre pequeños cuerpos rocosos como consecuencia del intercambio diferido de momento entre la radiación solar absorbida y la radiación térmica re-emitida \cite{vokrouhlicky2015yarkovsky}. El cuerpo absorbe luz solar en su lado iluminado, pero re-irradia el calor con un retardo térmico; en consecuencia, la emisión máxima ocurre en la tarde del asteroide (componente diurna) o en el verano del hemisferio norte/sur del asteroide (componente estacional), lo que genera una pequeña fuerza neta fuera del plano o en la dirección del movimiento orbital.
+
+La componente diurna produce una deriva del semieje mayor de la forma \cite{vokrouhlicky2015yarkovsky}:
+\begin{equation}
+  \frac{da}{dt} \approx \frac{4}{9} \frac{\alpha \Phi}{n\,a} \frac{\Theta\cos\gamma}{1 + \Theta^2 + \Theta\sqrt{2}},
+\end{equation}
+donde $\alpha$ es la absortividad solar, $\Phi = L_\odot / (4\pi a^2 c m)$ es el flujo normalizado de radiación, $n$ es el movimiento medio, $\gamma$ es la oblicuidad del polo de rotación del asteroide respecto a la órbita, y $\Theta$ es el parámetro térmico de Yarkovsky. Para $\gamma < 90°$ (polo apuntando en el sentido del movimiento), la deriva es positiva (semieje crece); para $\gamma > 90°$, la deriva es negativa.
+
+\subsection{Detección de Yarkovsky en Apophis}
+
+Apophis fue el primer asteroide próximo a la Tierra para el cual el efecto Yarkovsky fue detectado directamente mediante astrometría de radar de alta precisión. Utilizando observaciones de los radiotelescopios de Arecibo (Puerto Rico) y Goldstone (California) entre 2005 y 2013, Farnocchia et al. (2013) midieron una deriva del semieje mayor de \cite{farnocchia2013yarkovsky}:
+\begin{equation}
+  \frac{da}{dt} = -(2.90 \pm 0.29) \times 10^{-4}\;\text{UA/Myr}.
+\end{equation}
+
+Esta deriva es consistente con una oblicuidad de polo cercana a $\gamma \approx 180°$ (retrograde rotator), lo que implica una fuerza de Yarkovsky en la dirección contraria al movimiento orbital, reduciendo lentamente el semieje mayor. La detección de esta aceleración no gravitatoria fue fundamental para descartar el impacto de 2036, ya que permitió refinar el posicionamiento de la trayectoria en el plano-B y confirmar que el punto de cruce se encontraba fuera del \textit{keyhole} de 2036 \cite{farnocchia2013yarkovsky, brozovic2018radar}.
+
+\subsection{Implicaciones para las predicciones a largo plazo}
+
+Sin la corrección de Yarkovsky, los modelos predictivos de la órbita de Apophis presentaban una incertidumbre exponencialmente creciente debido a la amplificación caótica de errores en las condiciones iniciales durante el sobrevuelo de 2029 \cite{farnocchia2013yarkovsky, vokrouhlicky2015yarkovsky}. Conocer $da/dt$ con precisión del 10\% permite propagar la órbita más allá de 2029 con incertidumbres manejables durante al menos dos décadas más, reduciendo el número de keyholes que deben monitorearse activamente \cite{farnocchia2023orbit}.
+
+% ===================================================================
+\section{Llaves Gravitacionales (\textit{Keyholes}) y Retornos Resonantes}
+% ===================================================================
+
+\subsection{Concepto de keyhole}
+
+Un \textit{keyhole} (llave gravitacional) es una región pequeña y bien delimitada del plano-B del sobrevuelo de 2029 tal que, si el vector $\mathbf{b}$ cae dentro de ella, la trayectoria post-2029 llevará a Apophis a un impacto con la Tierra en una fecha futura específica \cite{chesley2005keyholes, valsecchi2003resonant}. El concepto fue introducido formalmente por Chodas (1999) y formalizado analíticamente por Valsecchi et al. (2003) en el marco del modelo lineal de encuentros \cite{valsecchi2003resonant}.
+
+Matemáticamente, la posición de un keyhole en el plano-B se determina por la condición de que la órbita posterior al sobrevuelo sea comensurada con la de la Tierra en relación $p\!:\!q$ (es decir, $T_\text{Apophis}/T_\oplus = p/q$). Si el período orbital tras el encuentro satisface esta resonancia exactamente, Apophis regresará a la vecindad de la Tierra exactamente después de $p$ años terrestres (equivalentes a $q$ períodos de Apophis).
+
+\subsection{Keyholes identificados para 2029}
+
+Chesley (2005) identificó los principales keyholes en el plano-B del sobrevuelo de 2029 \cite{chesley2005keyholes}. Dichos keyholes corresponden a resonancias de bajo orden que llevarían a encuentros cercanos o impactos entre 2035 y 2068. Los más importantes se listan en la Tabla~\ref{tab:keyholes}.
+
+\begin{table}[H]
+  \centering
+  \caption{Keyholes relevantes en el plano-B del sobrevuelo de 2029. Fuente: \cite{chesley2005keyholes, farnocchia2023orbit}.}
+  \label{tab:keyholes}
+  \begin{tabular}{ccccc}
+    \toprule
+    \textbf{Fecha de impacto} & \textbf{Resonancia $p\!:\!q$} & \textbf{Ancho keyhole} & \textbf{$b_\text{keyhole}$ ($R_\oplus$)} & \textbf{Estado} \\
+    \midrule
+    13 abr 2036 & 7:6  & $\sim 600\;\text{m}$  & $5.93$ & Descartado \\
+    6 abr  2037 & 8:7  & $\sim 200\;\text{m}$  & $5.89$ & Descartado \\
+    12 abr 2043 & 14:13 & $< 50\;\text{m}$     & $5.98$ & Descartado \\
+    12 abr 2047 & 6:5  & $\sim 300\;\text{m}$  & $6.02$ & Descartado \\
+    12 abr 2051 & 5:4  & $\sim 700\;\text{m}$  & $6.10$ & Descartado \\
+    12 abr 2068 & 13:11 & $\sim 100\;\text{m}$ & $5.87$ & En monitoreo \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+El keyhole de 2036 era el de mayor preocupación, con un ancho de aproximadamente 600 metros. Dado que el plano-B nominal de 2029 se ubica a $b \approx 6.08\;R_\oplus$ y la posición del keyhole de 2036 es $b \approx 5.93\;R_\oplus$, la separación es de solo $\sim 1000\;\text{km}$ en el plano-B, un margen estrecho pero suficiente para ser resuelto con astrometría de radar de alta precisión \cite{farnocchia2013yarkovsky, brozovic2018radar}.
+
+\subsection{El keyhole de 2036 y su descarte}
+
+Antes de las observaciones de radar de 2013, existía una probabilidad residual de impacto en 2036 de aproximadamente $1\times 10^{-6}$ que no podía excluirse con solo datos ópticos \cite{farnocchia2013yarkovsky}. Las observaciones de radar de Goldstone en enero de 2013 y los datos del radar de Arecibo en 2012-2013 arrojaron una posición del punto nominal en el plano-B que se alejaba del keyhole de 2036 en más de $3\sigma$ (millones de kilómetros de margen en la escala de la órbita heliocéntrica), cerrando definitivamente ese escenario de riesgo \cite{brozovic2018radar, farnocchia2013yarkovsky}.
+
+% ===================================================================
+\section{Escalas de Riesgo de Impacto: Turín y Palermo}
+% ===================================================================
+
+\subsection{Escala de Turín}
+
+La \textbf{Escala de Turín} (\textit{Torino Impact Hazard Scale}, TIS) fue propuesta en 1999 por Richard Binzel y adoptada por la Unión Astronómica Internacional durante su Asamblea General celebrada en Turín ese mismo año \cite{binzel1999torino}. Es una escala discreta de 11 niveles (0 a 10) que combina la probabilidad de impacto y la energía cinética del objeto. Se divide en zonas de color:
+
+\begin{itemize}
+  \item \textbf{Blanco (0):} Sin riesgo, o riesgo esencialmente nulo.
+  \item \textbf{Verde (1):} Encuentro de rutina; no hay motivo de preocupación.
+  \item \textbf{Amarillo (2-4):} Encuentros próximos merecedores de atención. Requieren monitoreo.
+  \item \textbf{Naranja (5-7):} Impacto amenazante, con consecuencias regionales a globales.
+  \item \textbf{Rojo (8-10):} Impacto seguro, con catástrofe regional (8), continental (9) o global (10).
+\end{itemize}
+
+La historia de Apophis en la escala de Turín es la más dramática registrada. En diciembre de 2004, tras la detección y las primeras observaciones, la probabilidad de impacto en 2029 se disparó hasta el 2.7\%, lo que llevó al asteroide al nivel \textbf{4} de la escala, convirtiéndose en el único objeto conocido en alcanzar ese nivel en la historia de la astronomía planetaria. Observaciones adicionales pocas semanas después redujeron la probabilidad y el nivel descendió rápidamente hasta 0. No obstante, en 2006 la probabilidad de impacto en 2036 sostuvo brevemente el nivel 1, hasta que finalmente quedó en 0 tras las observaciones de radar de 2013 \cite{binzel1999torino, nasa2025apophisfacts}.
+
+\subsection{Escala de Palermo}
+
+La \textbf{Escala Técnica de Palermo} (\textit{Palermo Technical Impact Hazard Scale}, PTHS) es una escala logarítmica continua diseñada para uso científico, que cuantifica el riesgo de impacto de un objeto respecto al \textit{riesgo de fondo} estadístico de recibir un impacto de igual o mayor energía durante el mismo período de tiempo \cite{chesley2002palermo}. Su fórmula es:
+\begin{equation}
+  PS = \log_{10}\!\left(\frac{p_i}{f_b \, \Delta T}\right),
+\end{equation}
+donde $p_i$ es la probabilidad de impacto del evento específico, $f_b$ es la frecuencia de fondo de impactos con energía $\geq E_i$ (estimada a partir de modelos de la población de NEAs), y $\Delta T$ es el tiempo restante hasta el potencial impacto. Un valor $PS > 0$ significa que el evento es más probable que el riesgo de fondo para ese período, lo cual lo eleva como prioridad máxima de monitoreo.
+
+En el pico de la crisis de Apophis en 2004, el valor de Palermo llegó a $PS \approx +1.10$ para el impacto de 2029, lo que representaba un riesgo más de 10 veces superior al de fondo. Para el escenario de 2036 antes de 2013, el valor fue $PS \approx -3.7$, es decir, el riesgo era $\sim 5000$ veces inferior al de fondo, pero aún monitoreado por ser un objeto identificado. En la actualidad, Apophis figura con $PS < -10$ para todos los escenarios, correspondiente al nivel 0 de Turín \cite{nasa2025apophisfacts, farnocchia2023orbit}.
+
+% ===================================================================
+\section{Determinación de la Órbita: Astrometría Óptica y de Radar}
+% ===================================================================
+
+\subsection{Historia observacional}
+
+Apophis fue detectado por primera vez el 19 de junio de 2004 en el Observatorio Nacional de Kitt Peak por Roy Tucker, David Tholen y Fabrizio Bernardi. La observación inaugural fue seguida rápidamente por redes globales de vigilancia: el programa Spacewatch, LINEAR, Catalina Sky Survey y el astrónomo aficionado australiano Gordon Garradd, entre otros. Hasta la fecha se han acumulado más de 4\,000 observaciones astrométricas ópticas y más de 600 puntos de datos de radar \cite{jpl2024sbdb, brozovic2018radar}.
+
+\subsection{Astrometría de radar}
+
+La astrometría de radar ofrece dos tipos de mediciones:
+\begin{enumerate}
+  \item \textbf{Distancia (\textit{ranging}):} Se mide el retardo del eco radar, que es proporcional a la distancia geocéntrica $\Delta$ con una precisión típica de $\sim 1\;\mu\text{s} \equiv 150\;\text{m}$.
+  \item \textbf{Velocidad radial (\textit{Doppler}):} Se mide el corrimiento en frecuencia del eco, proporcional a la velocidad radial $\dot\Delta$ con precisión de $\sim 1\;\text{mm/s}$.
+\end{enumerate}
+
+Estas dos mediciones son complementarias a la posición angular de la astrometría óptica y permiten determinar las tres componentes de posición y velocidad con gran precisión \cite{naidu2022radar, brozovic2018radar}. Para Apophis, el primer eco de radar fue obtenido por Goldstone en enero de 2005. Las campañas de 2012-2013 con Arecibo y Goldstone arrojaron el conjunto de datos más preciso disponible hasta el momento, suficiente para descartar el keyhole de 2036 y reducir el elipsoide de incertidumbre orbital en varios órdenes de magnitud \cite{brozovic2018radar, farnocchia2013yarkovsky}.
+
+\subsection{Modelo de determinación de órbita y elipsoide de incertidumbre}
+
+La órbita de Apophis se determina mediante un ajuste de mínimos cuadrados ponderado sobre todas las observaciones disponibles. El resultado es un vector de estado $\mathbf{x}_0 = (\mathbf{r}_0, \mathbf{v}_0)$ y su matriz de covarianza $\mathbf{C}$. La propagación de la incertidumbre en el tiempo se realiza a través de la matriz de transición de estado $\Phi(t, t_0)$:
+\begin{equation}
+  \mathbf{C}(t) = \Phi(t,t_0)\,\mathbf{C}(t_0)\,\Phi(t,t_0)^\top.
+\end{equation}
+
+El elipsoide de incertidumbre se proyecta sobre el plano-B para calcular la probabilidad de impacto. Actualmente, la proyección del elipsoide de 3$\sigma$ de Apophis en el plano-B del sobrevuelo de 2029 tiene dimensiones del orden de $700\;\text{km} \times 100\;\text{km}$, completamente alejada de cualquier keyhole \cite{farnocchia2023orbit, naidu2022radar}.
+
+El próximo encuentro cercano (13 de abril de 2029) producirá una amplificación exponencial de la incertidumbre: el elipsoide de posición se estira hasta dimensiones de millones de kilómetros en la dirección a lo largo de la órbita heliocéntrica. Sin embargo, esto se compensa con nuevas observaciones del objeto durante los meses previos al sobrevuelo, incluyendo las misiones RAMSES y OSIRIS-APEX \cite{esa2024ramses, esa2024apophis}.
+
+% ===================================================================
+\section{Mecánica Analítica del Sobrevuelo: El Problema de Dos Cuerpos}
+% ===================================================================
+
+\subsection{Trayectoria hiperbólica geocéntrica}
+
+En el marco de referencia geocéntrico inercial, el movimiento de Apophis durante el sobrevuelo es, en primera aproximación, una hipérbola kepleriana con la Tierra en el foco. Los elementos de esta hipérbola se pueden calcular directamente a partir de las condiciones en el infinito.
+
+La energía específica del movimiento geocéntrico es positiva:
+\begin{equation}
+  \mathcal{E} = \frac{v_\infty^2}{2} = \frac{\mu_\oplus}{2|a_h|},
+\end{equation}
+donde $a_h < 0$ es el semieje de la hipérbola (negativo por convención). El momento angular específico geocéntrico es
+\begin{equation}
+  h = b\,v_\infty,
+\end{equation}
+y la excentricidad hiperbólica es
+\begin{equation}
+  e_h = \sqrt{1 + \frac{b^2 v_\infty^4}{\mu_\oplus^2}}.
+\end{equation}
+
+La distancia de máximo acercamiento (\textit{perigeo hiperbólico}) se obtiene de la ecuación de la cónica evaluada en $f = 0$:
+\begin{equation}
+  r_\text{min} = \frac{h^2/\mu_\oplus}{1 + e_h} = |a_h|(e_h - 1).
+\end{equation}
+
+\subsection{Cambio de velocidad heliocéntrica}
+
+La velocidad heliocéntrica de Apophis se modifica durante el sobrevuelo. Si $\mathbf{V}_\oplus$ es la velocidad orbital terrestre y $\mathbf{v}_\infty$ es la velocidad relativa geocéntrica antes del encuentro, la velocidad heliocéntrica pre-encuentro es $\mathbf{V} = \mathbf{V}_\oplus + \mathbf{v}_\infty$. Después del sobrevuelo, la velocidad relativa geocéntrica se ha rotado un ángulo $\delta$ en el plano de la hipérbola, de modo que \cite{murray1999solar}:
+\begin{equation}
+  \mathbf{V}' = \mathbf{V}_\oplus + R(\delta)\,\mathbf{v}_\infty,
+\end{equation}
+donde $R(\delta)$ es la matriz de rotación por el ángulo de deflexión. El cambio en la velocidad heliocéntrica es $\Delta \mathbf{V} = \mathbf{V}' - \mathbf{V} = (R(\delta) - I)\,\mathbf{v}_\infty$, de módulo
+\begin{equation}
+  |\Delta \mathbf{V}| = 2\,v_\infty\,\sin\frac{\delta}{2} = \frac{2\,\mu_\oplus}{b\,v_\infty}.
+\end{equation}
+
+Para el sobrevuelo de 2029, $|\Delta \mathbf{V}| \approx 1.7\;\text{km/s}$, un cambio enorme en la escala de las velocidades orbitales del sistema solar interior, capaz de alterar irreversiblemente la clasificación orbital y las resonancias futuras \cite{scheeres2023proximity, esa2024apophis}.
+
+\subsection{Esfera de influencia gravitatoria}
+
+La esfera de influencia de la Tierra (esfera de Hill) tiene un radio
+\begin{equation}
+  r_\text{SOI} \approx a_\oplus \left(\frac{M_\oplus}{3 M_\odot}\right)^{1/3} \approx 1.5 \times 10^6\;\text{km},
+\end{equation}
+mientras que la esfera de influencia en el sentido de Laplace es $\approx 9.25 \times 10^5\;\text{km}$. El sobrevuelo nominal de Apophis ocurre a $\sim 38\,800\;\text{km}$, muy dentro de la esfera de influencia, de modo que la descripción del movimiento como hipérbola geocéntrica es totalmente apropiada durante el período del encuentro \cite{murray1999solar, scheeres2023proximity}.
+
+% ===================================================================
+\section{Análisis Detallado de las Fuerzas de Marea}
+% ===================================================================
+
+\subsection{Potencial de marea}
+
+El potencial gravitatorio terrestre evaluado en un punto del cuerpo del asteroide a posición $\mathbf{r}_c$ respecto al centro de masa del asteroide, a su vez ubicado a distancia $d$ del centro de la Tierra, se puede expandir en armónicos zonales. El término dominante de marea (orden 2) es \cite{murray1999solar}:
+\begin{equation}
+  \Phi_\text{tidal}(\mathbf{r}_c) = \frac{GM_\oplus}{d^3}\left[\frac{3}{2}(\hat{d}\cdot \mathbf{r}_c)^2 - \frac{r_c^2}{2}\right],
+\end{equation}
+donde $\hat{d}$ es el vector unitario desde el asteroide hacia la Tierra. La fuerza de marea diferencial sobre un elemento de masa del asteroide es
+\begin{equation}
+  \mathbf{f}_\text{tidal} = -\nabla \Phi_\text{tidal} = \frac{GM_\oplus}{d^3}\left[3(\hat{d}\cdot\mathbf{r}_c)\hat{d} - \mathbf{r}_c\right].
+\end{equation}
+
+Esta fuerza es proporcional a $d^{-3}$, lo que hace que sea extremadamente sensible a la distancia de aproximación. Para el sobrevuelo de 2029 a $d = 6.1\;R_\oplus$, la aceleración de marea en la superficie de Apophis alcanza un máximo de
+\begin{equation}
+  a_\text{tidal, max} = \frac{2\,GM_\oplus\, R_\text{Apo}}{d^3} \approx 2.3\times10^{-5}\;\text{m/s}^2,
+\end{equation}
+que es $\sim 100$ veces mayor que la gravedad superficial propia del asteroide ($g_\text{Apo} \approx 3 \times 10^{-4}\;\text{m/s}^2$). Aunque las fuerzas de marea no son suficientes para desintegrar el asteroide (el límite de Roche fluido se encuentra a $\sim 3.2\;R_\oplus$), son capaces de movilizar material superficial fino y alterar el estado de rotación \cite{kim2023tidal, hirabayashi2024prediction}.
+
+\subsection{Torque de marea y cambio en el momento angular de rotación}
+
+El torque de marea ejercido sobre un cuerpo elipsoidal no esférico induce un cambio neto en el vector de momento angular de rotación del asteroide. El torque dipolar de marea es \cite{hirabayashi2024prediction}:
+\begin{equation}
+  \boldsymbol{\tau}_\text{tidal} = \frac{3\,GM_\oplus}{2d^5}\mathbf{d}\times(\mathbf{I}\cdot\mathbf{d}),
+\end{equation}
+donde $\mathbf{I}$ es el tensor de inercia del asteroide. El cambio acumulado en el momento angular durante el sobrevuelo se obtiene integrando sobre el tiempo del paso hiperbólico:
+\begin{equation}
+  \Delta \mathbf{L} = \int_{-\infty}^{+\infty} \boldsymbol{\tau}_\text{tidal}\,dt.
+\end{equation}
+
+Los modelos numéricos de Hirabayashi (2024) predicen un cambio en el período de rotación de hasta $\Delta P / P \sim 10\%$ y una reorientación del eje de momento angular de varios grados, dependiendo del estado inicial de rotación y las propiedades mecánicas del interior del asteroide \cite{hirabayashi2024prediction}. Este resultado es observable antes y después del sobrevuelo con curvas de luz de telescopios en tierra.
+
+\subsection{Límite de Roche}
+
+El límite de Roche para un satélite fluido es la distancia dentro de la cual la gravedad diferencial de marea supera la autogravedad del cuerpo secundario:
+\begin{equation}
+  d_R = R_\text{Tierra}\left(\frac{2\rho_\oplus}{\rho_\text{Apo}}\right)^{1/3} \approx 2.456\, R_\oplus \left(\frac{\rho_\oplus}{\rho_\text{Apo}}\right)^{1/3}.
+\end{equation}
+
+Para una densidad estimada de Apophis de $\rho_\text{Apo} \approx 2.2\;\text{g/cm}^3$, el límite de Roche fluido es $d_R \approx 3.2\;R_\oplus$. El sobrevuelo ocurrirá a $6.1\;R_\oplus$, es decir, a casi el doble de este límite, por lo que la ruptura catastrófica es altamente improbable \cite{kim2023tidal}. Sin embargo, para un asteroide \textit{rubble-pile} con resistencia tensional prácticamente nula, el límite efectivo puede ser mayor, y la movilización de regolito en laderas inclinadas puede ocurrir para cuerpos a $\sim 5\;R_\oplus$ \cite{kim2023tidal, hirabayashi2024prediction}.
+
+% ===================================================================
+\section{Dinámica de Rotación No-Principal: Tumbling y Ecuaciones de Euler}
+% ===================================================================
+
+\subsection{Las ecuaciones de Euler para la rotación de cuerpo libre}
+
+Un asteroide asimétrico que gira libremente (sin fuerzas de torsión externas), en el marco de referencia del cuerpo (\textit{body frame}), satisface las ecuaciones de Euler:
+\begin{align}
+  I_1\dot\omega_1 &= (I_2 - I_3)\omega_2\omega_3, \\
+  I_2\dot\omega_2 &= (I_3 - I_1)\omega_3\omega_1, \\
+  I_3\dot\omega_3 &= (I_1 - I_2)\omega_1\omega_2,
+\end{align}
+donde $I_1 \leq I_2 \leq I_3$ son los momentos principales de inercia y $(\omega_1, \omega_2, \omega_3)$ son las componentes del vector de velocidad angular en el sistema principal del cuerpo \cite{murray1999solar}.
+
+Si $I_1 < I_2 < I_3$ (cuerpo triaxial), existen dos estados de rotación estables: el modo SAM (\textit{Short-Axis Mode}, eje de mayor momento), en que la rotación se da sobre el eje de mayor inercia $\hat{e}_3$, y el modo LAM (\textit{Long-Axis Mode}, eje de menor momento), inestable para cuerpos elásticos con disipación interna.
+
+\subsection{Estado de tumbling de Apophis}
+
+Apophis presenta un estado de rotación de eje no principal (NPA, Non-Principal Axis), coloquialmente conocido como \textit{tumbling}. En esta condición, el vector de momento angular $\mathbf{L}$ no está alineado con ninguno de los ejes principales de inercia, y el movimiento del cuerpo exhibe tanto una precesión como una nutación acopladas. Las curvas de luz muestran dos periodicidades: una \textit{rotación} de período $P_1 \approx 27.4\;\text{h}$ y una \textit{precesión} de período $P_2 \approx 67.5\;\text{h}$, cuya combinación produce el período de la curva de luz compuesta $P_\Psi \approx 30.56\;\text{h}$ \cite{hirabayashi2024prediction, jpl2024sbdb}.
+
+El tiempo de amortiguación hacia el modo SAM por disipación interna viscoelástica escala como:
+\begin{equation}
+  \tau_\text{damp} \sim \frac{\mu\,Q}{\rho\,R^2\,\omega^3},
+\end{equation}
+donde $\mu$ es el módulo de rigidez del material, $Q$ el factor de calidad, $\rho$ la densidad y $\omega$ la velocidad angular. Para Apophis, con $R \approx 200\;\text{m}$ y parámetros típicos de condritas ordinarias, $\tau_\text{damp} \sim 10^6$--$10^9\;\text{años}$, lo que explica por qué el estado de tumbling puede persistir indefinidamente y fue probablemente inducido por un impacto reciente en escala geológica \cite{hirabayashi2024prediction}.
+
+\subsection{Predicciones del encuentro sobre el estado de rotación}
+
+Las simulaciones de Hirabayashi (2024) predicen que el torque de marea durante el sobrevuelo de 2029 puede modificar el estado de tumbling de manera detectable. En particular, si el módulo de Young del material es bajo ($E \lesssim 10\;\text{kPa}$, consistente con un \textit{rubble-pile} muy suelto), la deformación elástica del cuerpo durante el paso máximo puede inducir un cambio de período de rotación de hasta $\Delta P \approx 1\;\text{h}$ y una nutación adicional de varios grados. Este resultado puede detectarse comparando la fotometría y polarimetría antes y después de 2029 con la precisión de telescopios como LSST/Vera Rubin Observatory o el Telescopio Espacial James Webb \cite{hirabayashi2024prediction, esa2024ramses}.
+
+% ===================================================================
+\section{Observaciones de Radar y Modelo de Forma}
+% ===================================================================
+
+\subsection{Imágenes de radar Doppler-delay}
+
+Las observaciones de radar de apertura sintética utilizan el retardo de tiempo y el corrimiento Doppler del eco para construir imágenes bidimensionales del asteroide. En la imagen, el eje horizontal representa el retardo (proporcional a la componente de posición a lo largo de la línea de visión) y el eje vertical la frecuencia Doppler (proporcional a la velocidad radial de cada faceta del asteroide). La resolución espacial es \cite{brozovic2018radar}:
+\begin{align}
+  \delta r_\text{range} &= \frac{c}{2B} \approx \frac{3\times10^5}{2B}\;\text{km}, \\
+  \delta r_\text{Doppler} &= \frac{\lambda}{2\dot{\theta}\,T} = \frac{v_\text{transversal}}{D\,f_0},
+\end{align}
+donde $B$ es el ancho de banda de la señal transmitida, $\lambda$ la longitud de onda, $T$ la duración de la integración y $D$ el diámetro del telescopio.
+
+Para el telescopio Goldstone (70 m, $\lambda = 3.5\;\text{cm}$, $B = 4\;\text{MHz}$): $\delta r_\text{range} \approx 37.5\;\text{m}$. Las observaciones de Arecibo (305 m efectivos, $\lambda = 12.6\;\text{cm}$, $B = 8\;\text{MHz}$) antes de su colapso en 2020 permitían resoluciones de hasta $\sim 19\;\text{m}$ \cite{brozovic2018radar, vallejo2022conditions}.
+
+\subsection{Modelo de forma bilobulado}
+
+Las imágenes de radar de 2012-2013 revelaron que Apophis tiene una forma elongada e irregular, posiblemente bilobulada (dos lóbulos conectados por una "cintura"), similar a la morfología del asteroide (4179) Toutatis o del núcleo del cometa 67P/Churyumov-Gerasimenko. El modelo de forma preliminar sugiere dimensiones de aproximadamente $450\times170\times170\;\text{m}$ y un eje de rotación inclinado $\sim 80°$ respecto al plano orbital \cite{brozovic2018radar, nasa2025apophisfacts}. Esta geometría irregular amplifica los efectos de Yarkovsky (superficie asimétrica) y los torques de marea durante el sobrevuelo.
+
+\subsection{Observaciones radar biestáticas en 2029}
+
+Vallejo et al. (2022) analizaron en detalle la ventana de observación radar biestática durante el sobrevuelo de 2029, en que un transmisor (p.ej. Goldstone) ilumina el asteroide y múltiples receptores (p.ej. el radiotelescopio FAST de China de 500 m o el Green Bank Telescope de 100 m) reciben el eco \cite{vallejo2022conditions}. En configuración biestática, la resolución angular efectiva es la del instrumento receptor y el flujo del eco es proporcional al producto del diámetro efectivo del transmisor por el del receptor. Para la configuración Goldstone-FAST, la resolución espacial en el plano del cielo alcanzaría $\sim 1.875\;\text{m}$, permitiendo por primera vez obtener imágenes de rasgos topográficos individuales (cráteres, bloques) en la superficie de un asteroide durante un sobrevuelo cercano \cite{vallejo2022conditions, nasa2025apophisfacts}.
+
+% ===================================================================
+\section{Integración Numérica: Simulación del Sobrevuelo con REBOUND}
+% ===================================================================
+
+\subsection{Fundamentos del integrador IAS15}
+
+El paquete de software \textsc{REBOUND} ofrece una variedad de integradores simbólicos y de alto orden para sistemas de N cuerpos \cite{rein2012rebound}. Para el estudio de la aproximación de Apophis, el integrador más apropiado es \textbf{IAS15} (\textit{Integrador Adaptativo de Paso 15 órdenes}), un método implícito de paso variable de orden 15 basado en la serie de Gauss-Radau y sus correcciones. Sus propiedades clave son:
+
+\begin{itemize}
+  \item Error de integración $\sim \mathcal{O}(h^{15})$ por paso, donde $h$ es el tamaño del paso.
+  \item Conservación de energía al nivel de doble precisión ($\sim 10^{-15}$ relativa).
+  \item Adaptación automática del paso para encuentros cercanos (paso se reduce cerca del perigeo).
+  \item Incluye fuerzas adicionales (Yarkovsky, presión de radiación solar) como rutinas extra.
+\end{itemize}
+
+El control del paso de IAS15 está basado en el criterio de Gragg:
+\begin{equation}
+  h_\text{nuevo} = h_\text{viejo} \times \min\!\left(S_f, \left(\frac{\epsilon}{E}\right)^{1/15}\right),
+\end{equation}
+donde $\epsilon$ es la tolerancia del error y $E$ es el error estimado del paso actual \cite{rein2012rebound}.
+
+\subsection{Configuración del sistema para la integración de Apophis}
+
+Para reproducir fielmente el sobrevuelo de 2029, la integración debe incluir:
+\begin{enumerate}
+  \item El Sol, los 8 planetas, la Luna y Plutón (o al menos los planetas terrestres y los gigantes gaseosos más la Luna para la región interior).
+  \item Apophis como partícula de prueba con vector de estado inicial obtenido de JPL Horizons para una época anterior al encuentro.
+  \item La fuerza de Yarkovsky implementada como aceleración adicional $\mathbf{a}_Y = A_2 (\hat{r}_\odot / r_\odot^2)$ con $A_2 = -2.9\times10^{-14}\;\text{UA/día}^2$ (parámetro de Marsden-Farnocchia) \cite{farnocchia2013yarkovsky}.
+\end{enumerate}
+
+El esquema de integración típico es:
+\begin{enumerate}
+  \item Obtener condiciones iniciales de JPL Horizons para Apophis y todos los cuerpos relevantes del sistema solar, por ejemplo en J2000.0 (1 enero 2000, 12:00 TT).
+  \item Integrar hacia adelante hasta la fecha del encuentro (13 de abril de 2029).
+  \item Registrar el vector de estado de Apophis en el fotograma geocéntrico cada pocos minutos durante el sobrevuelo.
+  \item Extraer la distancia mínima, la velocidad al perigeo y los elementos orbitales post-encuentro.
+\end{enumerate}
+
+\subsection{Resultados esperados de la integración}
+
+Comparando la simulación con las efemérides oficiales de JPL Horizons, se espera:
+
+\begin{itemize}
+  \item Distancia mínima: $r_\text{min} \approx 38\,000 \pm 1\,000\;\text{km}$ (el error depende de la precisión de las condiciones iniciales y la inclusión del efecto Yarkovsky).
+  \item Cambio del semieje: $\Delta a \approx +0.177\;\text{UA}$ (de $0.922$ a $1.099\;\text{UA}$).
+  \item Cambio del período orbital: $\Delta T \approx +96\;\text{días}$ (de $323.6$ a $419.6\;\text{días}$).
+  \item Cambio de la excentricidad: $\Delta e \approx -0.02$ (órbita ligeramente menos excéntrica).
+  \item Reclasificación Aten $\to$ Apollo confirmada numéricamente.
+\end{itemize}
+
+Estas magnitudes se pueden comparar con el resultado analítico de la fórmula de asistencia gravitatoria para validar el código \cite{scheeres2023proximity, murray1999solar}.
+
+\subsection{Análisis de sensibilidad y caos}
+
+El sobrevuelo de 2029 actúa como un amplificador caótico de perturbaciones en las condiciones iniciales. La divergencia exponencial de trayectorias cercanas puede cuantificarse mediante el exponente de Lyapunov de tiempo finito:
+\begin{equation}
+  \lambda_\text{Ly}(T) = \frac{1}{T}\ln\frac{|\delta\mathbf{x}(T)|}{|\delta\mathbf{x}(0)|}.
+\end{equation}
+
+Para Apophis, el tiempo de Lyapunov es $\tau_\text{Ly} \approx 30\;\text{años}$ antes del sobrevuelo, y desciende a $\sim 5\;\text{años}$ después del mismo, dificultando las predicciones a largo plazo. Una forma práctica de estudiar este efecto en REBOUND es integrando un conjunto de clones del asteroide con perturbaciones aleatorias en las condiciones iniciales de amplitud $\sim 1\sigma$ del elipsoide de incertidumbre, y observando la dispersión de los estados finales. Este método de Monte Carlo orbital ya fue aplicado por grupos de la ESA y NASA para estudiar los posibles escenarios post-2029 de Apophis \cite{farnocchia2023orbit, esa2024ramses}.
+
+% ===================================================================
+\section{Origen Dinámico: El Cinturón de Flora y las Resonancias de Kirkwood}
+% ===================================================================
+
+\subsection{La familia Flora}
+
+La familia Flora es una de las más grandes del cinturón de asteroides interior, centrada en $a \approx 2.3\;\text{UA}$. Está compuesta por fragmentos de un progenitor de tipo S, coherente con la composición espectrométrica Sq de Apophis (dominada por silicatos ferromagnesianos de olivino y piroxeno, típicos de condritas ordinarias tipo LL) \cite{broz2026apophis}. Los estudios de la distribución de velocidades propias y la composición mineralógica de la familia Flora indican que el origen de Apophis es consistente con la eyección de material por un impacto hace $\sim 500\;\text{Myr}$ \cite{broz2026apophis}.
+
+\subsection{Mecanismo de escape: resonancia $\nu_6$ y efecto Yarkovsky}
+
+El material que escapa del cinturón principal hacia la región de los NEAs debe cruzar alguna resonancia de movimiento medio o secular que le inyecte suficiente excentricidad para alcanzar la zona terrestre ($q < 1.3\;\text{UA}$). Para la familia Flora, el mecanismo principal es:
+
+\begin{enumerate}
+  \item La \textbf{resonancia secular $\nu_6$} (a $a \approx 2.1\;\text{UA}$) eleva la excentricidad de forma casi secular a lo largo de millones de años, inyectando al objeto en una órbita cruzadora de la Tierra.
+  \item El \textbf{efecto Yarkovsky} (sección 3) desplaza gradualmente el semieje mayor del objeto hacia la resonancia $\nu_6$ en un tiempo de $10$--$100\;\text{Myr}$, dependiendo de su tamaño y estado de rotación.
+\end{enumerate}
+
+Este proceso, denominado ``escalera de Yarkovsky'', es el mecanismo dominante de suministro de NEAs desde las familias del cinturón interior \cite{vokrouhlicky2015yarkovsky, broz2026apophis}. Para un objeto del tamaño de Apophis ($\sim 340\;\text{m}$), el tiempo de tránsito desde la familia Flora hasta una órbita NEA típica es de $\sim 30$--$80\;\text{Myr}$ \cite{broz2026apophis}.
+
+\subsection{Frecuencia de impactos de objetos tipo Apophis}
+
+Brož et al. (2026) calcularon que los objetos con órbitas y composición similares a Apophis (es decir, provenientes del cinturón Flora) tienen una probabilidad de impacto con la Tierra de $\sim 19\%$ a lo largo de su vida dinámica de $\sim 30\;\text{Myr}$, siendo el mecanismo de impacto estadísticamente más probable que la eyección hacia órbitas externas \cite{broz2026apophis}. Esto implica que, en escalas de tiempo geológico, la Tierra recibe regularmente impactos de fragmentos de la familia Flora del tamaño de Apophis, con una recurrencia de $\sim 10\,000$ años. Estos impactos liberarían energías del orden de $880\;\text{Mt}$ ($\sim 60\,000$ bombas de Hiroshima), equivalentes a un impacto regional con capacidad de destruir un área continental del tamaño de Francia \cite{nasa2025apophisfacts, broz2026apophis}.
+
+% ===================================================================
+\section{Misiones Científicas: RAMSES y OSIRIS-APEX}
+% ===================================================================
+
+\subsection{RAMSES: observación pre-encuentro en tiempo real}
+
+La misión RAMSES (\textit{Rapid Apophis Mission for Space Safety}) de la ESA fue aprobada en noviembre de 2023 para lanzarse en abril de 2028 \cite{esa2024ramses}. Sus objetivos científicos principales son:
+\begin{itemize}
+  \item Determinar la forma, masa, densidad, composición y estado de rotación de Apophis antes del sobrevuelo de 2029.
+  \item Observar en tiempo real los efectos de marea sobre la superficie durante el sobrevuelo.
+  \item Estudiar los cambios en el estado de rotación y la topografía superficial comparando mediciones pre y post-perigeo.
+\end{itemize}
+
+RAMSES utilizará un sistema de seguimiento de alta precisión para mantenerse en las proximidades de Apophis durante el sobrevuelo, a distancias de $\sim 100\;\text{km}$ del asteroide. Llevará instrumentos de imagenología óptica y espectroscopia en el infrarrojo cercano \cite{esa2024ramses}.
+
+\subsection{OSIRIS-APEX: estudio post-sobrevuelo}
+
+La misión OSIRIS-APEX (\textit{Origins, Spectral Interpretation, Resource Identification and Security – Apophis Explorer}), anteriormente conocida como OSIRIS-REx, completó con éxito la colecta de muestras del asteroide Bennu en septiembre de 2023. Tras liberar la cápsula de muestras, la nave fue redirigida hacia Apophis, con llegada prevista en abril de 2029, días después del perigeo terrestre \cite{esa2024apophis}. Sus objetivos son:
+\begin{itemize}
+  \item Caracterizar los cambios superficiales inducidos por las mareas terrestres.
+  \item Comparar la mineralogía y la microtopografía antes y después del sobrevuelo.
+  \item Medir la masa de Apophis mediante rastreo orbital preciso de la sonda.
+  \item Posiblemente maniobrar cerca de la superficie para estudiar el regolito recién expuesto.
+\end{itemize}
+
+La combinación de datos de RAMSES y OSIRIS-APEX representará la caracterización física más completa jamás obtenida de un asteroide NEA de tamaño medio \cite{esa2024apophis, esa2024ramses}.
+
+% ===================================================================
+\section{Conclusiones de la Parte 2}
+% ===================================================================
+
+Las notas de esta segunda parte han profundizado en los aspectos más técnicos y cuantitativos del evento astronómico de 2029. Los temas tratados demuestran que la mecánica celeste de la aproximación de Apophis trasciende el simple cálculo de una distancia mínima:
+
+\begin{itemize}
+  \item La formalización del encuentro en el plano-B de Öpik permite conectar directamente la precisión en la determinación orbital con el riesgo de impacto futuro.
+  \item El efecto Yarkovsky, aunque diminuto ($\sim 300\;\text{m/año}$ de deriva radial), fue decisivo para descartar el impacto de 2036 y continúa siendo la principal fuente de incertidumbre para predicciones a décadas.
+  \item Las fuerzas de marea del sobrevuelo, aunque insuficientes para la ruptura del cuerpo, son capaces de alterar detectablemente el estado de rotación y refrescar la superficie del asteroide.
+  \item La implementación numérica en REBOUND con el integrador IAS15 y la fuerza de Yarkovsky ofrece una plataforma robusta para reproducir con alta fidelidad la dinámica del sobrevuelo y estudiar escenarios de sensibilidad.
+  \item El origen del cuerpo en la familia Flora, canalizados por la resonancia $\nu_6$, y su probabilidad de impacto del 19\% en su vida dinámica sitúan este evento en el contexto más amplio de la defensa planetaria y la historia geológica de la Tierra.
+\end{itemize}
+
+La aproximación de 2029 es, en definitiva, un experimento natural de mecánica celeste que permitirá validar modelos de deformación, mareas, rotación no principal y caos orbital a una escala sin precedentes. Su estudio integral justifica el uso de todas las herramientas analíticas y numéricas del curso de Mecánica Celeste.
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+\end{document}
