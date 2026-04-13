@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Plan de Acción: Proyecto Apophis}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt}
+
+\begin{document}
+
+\section{Recomendación del profesor}
+
+\textbf{Enunciado}
+
+En abril de 2029 el asteroide (99942) Apophis tendrá \href{https://arxiv.org/pdf/2201.12205}{una aproximación extrema con la Tierra}. Debido al tamaño de este asteroide, dicha aproximación es considerada uno de los eventos astronómicos más importantes de esta década. En esta tarea usaremos los métodos vistos en el curso para estudiar ese encuentro cercano.
+
+Queremos determinar, con nuestros propios medios, la fecha y la hora de mínima distancia a la Tierra, la distancia en ese preciso instante y la velocidad relativa respecto a la Tierra. Además, estudiaremos los posibles cambios que sufrirá la órbita del asteroide después de la aproximación, cuando la masa de nuestro planeta actúe sobre él durante algunas horas.
+
+Lo primero que debemos hacer es obtener el vector de estado (posición y velocidad) y los elementos orbitales del asteroide $\left(a,e,I,\omega,\Omega,M\right)$ para una fecha inicial dada, usando la rutina \texttt{pc.consulta\_horizons}. Use como fecha (época) de referencia la fecha de asignación de esta tarea: 20 de mayo de 2025 a las 2:00 p.m., hora de Colombia. Con el vector de estado y los elementos orbitales estudiaremos la aproximación del asteroide.
+
+\textbf{Procedimiento sugerido}
+
+\begin{enumerate}[leftmargin=*]
+    \item Usando la teoría del problema de los $N$-cuerpos, integre con \texttt{rebound} las posiciones del Sol, los ocho planetas y el asteroide hacia adelante en el tiempo. Grafique la distancia de Apophis a la Tierra como función del tiempo para encontrar \textbf{la fecha y la hora en la que se producirá la aproximación, así como la distancia mínima a la que pasará de la Tierra}. Una vez tenga una fecha aproximada, refine la búsqueda hasta encontrar con precisión el instante de mínima aproximación. Usando las coordenadas cartesianas del asteroide en ese momento, calcule la ascensión recta y la declinación. Luego, con un software de simulación del cielo como \textit{Stellarium}, determine en qué constelación (región del cielo) estará el asteroide y evalúe si será visible desde Colombia durante la noche correspondiente.
+
+    \item Determine, integrando la órbita del asteroide con \texttt{rebound} desde el encuentro y hacia adelante, \textbf{cuánto y cómo cambian los elementos orbitales de Apophis} después de su encuentro con la Tierra. Describa esos cambios e intente interpretarlos usando la teoría del problema de los dos cuerpos.
+
+    \item Usando ahora \textbf{la teoría del problema de los dos cuerpos}, y suponiendo que los elementos orbitales del asteroide no cambian al menos durante un período orbital antes de la fecha prevista, determine la fecha y la distancia de la aproximación de Apophis en 2029 mediante la aproximación del problema de los dos cuerpos. Para ello, deberá consultar los elementos orbitales y el vector de estado comenzando en la fecha de aproximación y retrocediendo un período orbital de Apophis. Puede emplear, por ejemplo, la solución de la ecuación de Kepler, el vector de estado perifocal, el vector de estado rotado y la conversión de elementos orbitales a vector de estado. Puede obtener la posición de la Tierra usando la rutina \texttt{pc.consulta\_horizons}. Compare este cálculo, basado en la teoría de los dos cuerpos, con el obtenido usando la teoría de los $N$-cuerpos.
+
+    \item Una mejor aproximación que la usada en el punto anterior consiste en emplear dos órbitas cónicas en lugar de una: una heliocéntrica, para describir el movimiento del asteroide cuando está lejos de la Tierra y domina la gravedad del Sol, y otra geocéntrica, para describir su movimiento cuando está cerca de la Tierra y la influencia del Sol se vuelve despreciable. \textbf{A esta aproximación se le denomina} \textit{patched conics}. Para ello, repita el procedimiento del punto anterior, pero no hasta la máxima aproximación, sino hasta que el asteroide esté a aproximadamente $0.9$ millones de kilómetros de la Tierra (radio de la \textit{esfera de influencia de la Tierra}). Usando el vector de estado en ese punto, encuentre el vector de estado relativo a la Tierra y calcule los elementos orbitales de la órbita del asteroide respecto a nuestro planeta (debería obtener una hipérbola). Con esta nueva órbita, encuentre la fecha, la hora y la distancia de aproximación, y compare este resultado con los métodos anteriores.
+\end{enumerate}
+
+\section{Sección personal}
+
+\textit{En construcción...}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
