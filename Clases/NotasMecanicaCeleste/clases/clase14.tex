@@ -1,0 +1,141 @@
+\chapter{Clase 14: Sistemas Jerárquicos (parte 2)}
+
+Esta clase es completamente práctica y se desarrolla íntegramente en el cuaderno de Jupyter \texttt{CuadernoClase\_SistemasJerarquicos\_Ejercicio(1).ipynb}. El objetivo es aplicar todo lo visto en la Clase 13: construir explícitamente un sistema jerárquico de tres cuerpos usando coordenadas de Jacobi y simular su evolución dinámica con la librería \texttt{pymcel}.
+
+\section{Definición del sistema jerárquico de tres cuerpos}
+Llamamos al sistema completo \textbf{Zul}. Sus componentes son:
+\begin{itemize}
+    \item \textbf{Zul Aa}: estrella primaria (\(m = 1.0\))
+    \item \textbf{Zul Ab}: planeta (\(m = 0.01\))
+    \item \textbf{Zul B}: estrella secundaria (\(m = 5.0\))
+\end{itemize}
+
+El árbol jerárquico es:
+
+\begin{itemize}[leftmargin=2em,label={}]
+\item \textbf{Zul} (sistema total)
+  \begin{itemize}[leftmargin=2em,label={}]
+  \item \textbf{A} (subsistema interno: Aa + Ab)
+    \begin{itemize}[leftmargin=2em,label={}]
+    \item \textbf{Aa} (estrella primaria, \(m_{\text{Aa}} = 1.0\))
+    \item \textbf{Ab} (planeta, \(m_{\text{Ab}} = 0.01\))
+    \end{itemize}
+  \item \textbf{B} (estrella secundaria, \(m_{\text{B}} = 5.0\))
+  \end{itemize}
+\end{itemize}
+
+\begin{importante}
+Este es un sistema jerárquico típico: un planeta orbita una estrella (subsistema A) y ese subsistema orbita a su vez una estrella más masiva (B). Las masas y distancias están elegidas para que la jerarquía sea estable.
+\end{importante}
+
+\section{Condiciones iniciales en coordenadas de Jacobi}
+Usamos unidades canónicas: \(G = 1\).
+
+\subsection{Subsistema interno A (Aa + Ab)}
+\[
+m_{\text{A}} = m_{\text{Aa}} + m_{\text{Ab}} = 1.01
+\]
+\[
+\vec{r}_{\text{A}} = \begin{pmatrix} 0.1 \\ 0 \\ 0 \end{pmatrix}, \quad
+\vec{v}_{\text{A}} = \begin{pmatrix} 0 \\ 4.0 \\ 0 \end{pmatrix}
+\]
+
+\subsection{Vector relativo entre A y B}
+\[
+\vec{r}_{\text{AB}} = \begin{pmatrix} 2.0 \\ 0 \\ 0 \end{pmatrix}, \quad
+\vec{v}_{\text{AB}} = \begin{pmatrix} 0 \\ 2.0 \\ 0 \end{pmatrix}
+\]
+
+\subsection{Centro de masa total del sistema}
+\[
+\vec{R}_{\text{CM}} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}, \quad
+\vec{V}_{\text{CM}} = \begin{pmatrix} 0.01 \\ 0 \\ 0 \end{pmatrix}
+\]
+
+\section{Descenso por el árbol jerárquico (cálculo paso a paso)}
+
+\subsection{Nivel 1: Posiciones y velocidades del CM de A y de B}
+\[
+\vec{R}_{\text{CM,A}} = \vec{R}_{\text{CM}} + \frac{m_{\text{B}}}{m_{\text{A}} + m_{\text{B}}} \vec{r}_{\text{AB}} = \begin{pmatrix} 1.66389351 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{V}_{\text{CM,A}} = \vec{V}_{\text{CM}} + \frac{m_{\text{B}}}{m_{\text{A}} + m_{\text{B}}} \vec{v}_{\text{AB}} = \begin{pmatrix} 0.01 \\ 1.66389351 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{r}_{\text{B}} = \vec{R}_{\text{CM}} - \frac{m_{\text{A}}}{m_{\text{A}} + m_{\text{B}}} \vec{r}_{\text{AB}} = \begin{pmatrix} -0.33610649 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{v}_{\text{B}} = \vec{V}_{\text{CM}} - \frac{m_{\text{A}}}{m_{\text{A}} + m_{\text{B}}} \vec{v}_{\text{AB}} = \begin{pmatrix} 0.01 \\ -0.33610649 \\ 0 \end{pmatrix}
+\]
+
+\subsection{Nivel 2: Posiciones y velocidades de Aa y Ab dentro de A}
+\[
+\vec{r}_{\text{Aa}} = \vec{R}_{\text{CM,A}} + \frac{m_{\text{Ab}}}{m_{\text{A}}} \vec{r}_{\text{A}} = \begin{pmatrix} 1.66488361 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{v}_{\text{Aa}} = \vec{V}_{\text{CM,A}} + \frac{m_{\text{Ab}}}{m_{\text{A}}} \vec{v}_{\text{A}} = \begin{pmatrix} 0.01 \\ 1.70349747 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{r}_{\text{Ab}} = \vec{R}_{\text{CM,A}} - \frac{m_{\text{Aa}}}{m_{\text{A}}} \vec{r}_{\text{A}} = \begin{pmatrix} 1.56488361 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+\vec{v}_{\text{Ab}} = \vec{V}_{\text{CM,A}} - \frac{m_{\text{Aa}}}{m_{\text{A}}} \vec{v}_{\text{A}} = \begin{pmatrix} 0.01 \\ -2.29650253 \\ 0 \end{pmatrix}
+\]
+
+\begin{importante}
+Estas fórmulas son las coordenadas de Jacobi aplicadas recursivamente. Cada nivel usa el centro de masa del subsistema anterior como nuevo origen.
+\end{importante}
+
+\section{Construcción del sistema para simulación}
+El sistema completo se define como una lista de diccionarios:
+\begin{lstlisting}
+sistema = [
+    dict(m = 1.0,   r = r_Zul_Aa, v = v_Zul_Aa),
+    dict(m = 0.01,  r = r_Zul_Ab, v = v_Zul_Ab),
+    dict(m = 5.0,   r = r_Zul_B,  v = v_Zul_B)
+]
+\end{lstlisting}
+
+Se simula con la función \texttt{ncuerpos\_solución} de \texttt{pymcel} en el intervalo temporal:
+\[
+t \in [0, 50]\qquad \text{con 1000 puntos}
+\]
+
+\section{Resultados de la simulación y visualización}
+La simulación muestra claramente el comportamiento jerárquico esperado:
+\begin{itemize}
+    \item \textbf{Órbita interna rápida}: el planeta Ab describe una órbita casi circular alrededor de Aa (radio \(\approx 0.1\)).
+    \item \textbf{Órbita intermedia}: el subsistema A (Aa + Ab) describe una órbita alrededor del centro de masa total.
+    \item \textbf{Órbita externa}: la estrella B orbita alrededor del centro de masa del sistema completo con un radio mayor (\(\approx 0.336\)).
+\end{itemize}
+
+Se generan gráficas de:
+\begin{itemize}
+    \item Trayectorias en el plano \(xy\) (todas las partículas).
+    \item Trayectorias en el marco del centro de masa.
+    \item Animación con \texttt{celluloid} que muestra el movimiento jerárquico completo.
+\end{itemize}
+
+\begin{importante}
+La simulación numérica confirma que el sistema permanece estable durante el tiempo integrado. Esto valida la aproximación jerárquica y la correcta inicialización con coordenadas de Jacobi.
+\end{importante}
+
+\section{Generalización y consejos prácticos}
+\begin{enumerate}
+    \item Para cualquier sistema jerárquico de \(N\) cuerpos se sigue el mismo procedimiento recursivo: se desciende por el árbol calculando centros de masa y vectores relativos en cada nivel.
+    \item Siempre se debe fijar primero el centro de masa y velocidad total del sistema (\(\vec{R}_{\text{CM}}\), \(\vec{V}_{\text{CM}}\)).
+    \item La librería \texttt{pymcel} facilita enormemente la simulación una vez que se tienen las condiciones iniciales en el formato de lista de diccionarios.
+    \item En sistemas reales (ej. sistemas estelares múltiples, exoplanetas circumbinarios) se usan exactamente estas mismas técnicas para generar condiciones iniciales estables.
+\end{enumerate}
+
+\section{Conclusiones de las Clases 13 y 14}
+Las dos clases juntas muestran el camino completo:
+\begin{itemize}
+    \item Teoría (Clase 13): motivación, autoorganización y coordenadas de Jacobi.
+    \item Práctica (Clase 14): construcción explícita de un sistema jerárquico y simulación numérica.
+\end{itemize}
+
+Esta metodología es la base para estudiar sistemas de \(N\) cuerpos más complejos en las próximas unidades.
+
+
+

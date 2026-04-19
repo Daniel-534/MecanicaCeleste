@@ -1,0 +1,135 @@
+\chapter{Clase 15: El problema relativo de dos cuerpos}
+
+Esta clase, correspondiente a la Unidad 2 del curso (\emph{El problema de 2-Cuerpos}), se centra en la derivación rigurosa del \textbf{problema relativo} a partir del problema de \(N\) cuerpos. El objetivo es mostrar cómo, al considerar únicamente dos cuerpos, es posible reducir el sistema a una ecuación vectorial equivalente al movimiento de un solo cuerpo bajo una fuerza central, facilitando la solución analítica y numérica posterior.
+
+\section{Motivación y contexto}
+En el problema de \(N\) cuerpos (capítulo 6 del libro de texto), las ecuaciones de movimiento son acopladas y no tienen solución analítica general. Para \(N=2\), sin embargo, es posible transformar las ecuaciones a un sistema desacoplado: el movimiento del centro de masa (uniforme rectilíneo) y el movimiento \emph{relativo} entre los dos cuerpos. Este último es el que describe la órbita relativa y es equivalente al problema de Kepler.
+
+El vector relativo se define como:
+\[
+\vec{r} = \vec{r}_1 - \vec{r}_2
+\]
+donde \(\vec{r}_1\) y \(\vec{r}_2\) son las posiciones de los cuerpos 1 y 2 en un marco inercial.
+
+El centro de masa del sistema es:
+\[
+\vec{R}_{\text{CM}} = \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M}, \quad M = m_1 + m_2
+\]
+
+\section{De las posiciones a las velocidades}
+Para expresar las posiciones individuales en términos del vector relativo y del centro de masa, resolvemos el sistema lineal:
+
+\[
+\vec{r}_1 - \vec{r}_2 = \vec{r}
+\]
+\[
+m_1 \vec{r}_1 + m_2 \vec{r}_2 = M \vec{R}_{\text{CM}}
+\]
+
+La solución es:
+\[
+\vec{r}_1 = \vec{R}_{\text{CM}} + \frac{m_2}{M} \vec{r}
+\]
+\[
+\vec{r}_2 = \vec{R}_{\text{CM}} - \frac{m_1}{M} \vec{r}
+\]
+
+Diferenciando con respecto al tiempo (velocidades):
+\[
+\dot{\vec{r}}_1 = \vec{V}_{\text{CM}} + \frac{m_2}{M} \dot{\vec{r}}
+\]
+\[
+\dot{\vec{r}}_2 = \vec{V}_{\text{CM}} - \frac{m_1}{M} \dot{\vec{r}}
+\]
+
+\begin{importante}
+Estas expresiones muestran que el movimiento de cada cuerpo es la superposición del movimiento uniforme del centro de masa más un término proporcional al movimiento relativo. El factor \(\frac{m_2}{M}\) indica que el cuerpo más ligero se mueve más en la coordenada relativa.
+\end{importante}
+
+\section{De las velocidades a las aceleraciones}
+Diferenciando nuevamente obtenemos las aceleraciones:
+\[
+\ddot{\vec{r}}_1 = \frac{m_2}{M} \ddot{\vec{r}}
+\]
+\[
+\ddot{\vec{r}}_2 = -\frac{m_1}{M} \ddot{\vec{r}}
+\]
+
+Estas relaciones son puramente cinemáticas y serán clave para relacionar las ecuaciones de movimiento newtonianas con la ecuación relativa.
+
+\section{Ecuaciones de movimiento de las partículas (problema de \texorpdfstring{$N$}{N} cuerpos)}
+Para dos cuerpos interactuando gravitacionalmente, las ecuaciones del problema de \(N\) cuerpos se reducen a:
+\[
+\ddot{\vec{r}}_i = -\sum_{j \neq i} \frac{G m_j}{r_{ij}^3} \vec{r}_{ij}
+\]
+
+Explicitamente:
+\[
+\ddot{\vec{r}}_1 = -\frac{G m_2}{r^3} (\vec{r}_1 - \vec{r}_2) = -\frac{\mu_2}{r^3} \vec{r}, \quad \mu_2 = G m_2
+\]
+\[
+\ddot{\vec{r}}_2 = -\frac{G m_1}{r^3} (\vec{r}_2 - \vec{r}_1) = +\frac{\mu_1}{r^3} \vec{r}, \quad \mu_1 = G m_1
+\]
+donde \(r = |\vec{r}|\) y \(\vec{r} = \vec{r}_1 - \vec{r}_2\).
+
+\section{Deducción de la ecuación de movimiento relativa}
+Ahora combinamos las expresiones cinemáticas con las dinámicas. Hay dos caminos equivalentes; ambos se presentan para mayor claridad.
+
+\textbf{Vía 1: Diferencia directa de aceleraciones}
+\[
+\ddot{\vec{r}} = \ddot{\vec{r}}_1 - \ddot{\vec{r}}_2 = \left( -\frac{\mu_2}{r^3} \vec{r} \right) - \left( +\frac{\mu_1}{r^3} \vec{r} \right) = -\frac{\mu_1 + \mu_2}{r^3} \vec{r}
+\]
+\[
+\mu = G(m_1 + m_2) \implies \ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}
+\]
+
+\textbf{Vía 2: Reemplazo y resta (como en las láminas de clase)}
+Igualamos las dos expresiones para \(\ddot{\vec{r}}_1\):
+\[
+\frac{m_2}{M} \ddot{\vec{r}} = -\frac{\mu_2}{r^3} \vec{r}
+\]
+y para \(\ddot{\vec{r}}_2\):
+\[
+-\frac{m_1}{M} \ddot{\vec{r}} = +\frac{\mu_1}{r^3} \vec{r}
+\]
+
+Reordenando y restando (o resolviendo directamente) se obtiene el mismo resultado:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}, \quad \mu = G(m_1 + m_2)
+\]
+
+Esta es la \textbf{ecuación del problema de los dos cuerpos relativo}.
+
+\begin{importante}
+La ecuación \(\ddot{\vec{r}} = -\dfrac{\mu}{r^3} \vec{r}\) describe el movimiento relativo como si fuera un cuerpo de masa reducida bajo una fuerza central inversa al cuadrado. Es idéntica a la ecuación de Kepler con parámetro gravitacional efectivo \(\mu = G(m_1 + m_2)\).
+\end{importante}
+
+\section{El problema de los dos cuerpos en coordenadas de Jacobi}
+En el formalismo de Jacobi (útil para generalizaciones a \(N\) cuerpos), el vector relativo se expresa como:
+\[
+\vec{r} = \vec{r}_1 - \vec{r}_2
+\]
+y la ecuación de movimiento es exactamente la misma:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}, \quad \mu \equiv G(m_1 + m_2)
+\]
+
+\textbf{Importante aclaración geométrica:}  
+Al representar gráficamente la órbita relativa (la curva que traza el extremo del vector \(\vec{r}\)), el origen del sistema de coordenadas (el foco de la cónica) \textbf{no coincide con ningún objeto físico}. No es el centro de masa ni la posición del cuerpo más pesado. El punto \( \vec{r} = 0 \) corresponde al caso de colisión (ambos cuerpos en el mismo lugar), y el foco de la elipse/hipérbola es un punto vacío en el espacio físico. Esto evita confusiones comunes con la aproximación \(m_1 \gg m_2\), donde se fija el cuerpo masivo en el origen.
+
+\begin{importante}
+En coordenadas de Jacobi, el problema relativo es independiente del marco de referencia del centro de masa. El movimiento del CM es trivial (rectilíneo uniforme), mientras que toda la dinámica orbital reside en \(\vec{r}\).
+\end{importante}
+
+\section{Síntesis y consecuencias}
+La derivación anterior muestra que:
+\begin{itemize}
+    \item El problema de dos cuerpos se reduce a una ecuación de segundo orden vectorial en 3D (6 variables de estado).
+    \item El centro de masa se mueve con velocidad constante \(\vec{V}_{\text{CM}}\).
+    \item Toda la información orbital (forma, tamaño, orientación) está contenida en la solución de \(\vec{r}(t)\).
+\end{itemize}
+
+Esta ecuación es la base para todos los desarrollos posteriores: ecuación de la trayectoria, anomalías, elementos orbitales, variables universales y perturbaciones (ver Clases 16 y siguientes).
+
+\section{Ejemplo numérico ilustrativo}
+Supongamos dos cuerpos con \(m_1 = 1\,M_\odot\), \(m_2 = 1\,M_\text{Tierra}\), separación inicial \(r = 1\,\text{UA}\), velocidad relativa perpendicular adecuada para órbita circular. La ecuación \(\ddot{\vec{r}} = -\mu/r^3 \vec{r}\) con \(\mu \approx G M_\odot\) (ya que \(m_2 \ll m_1\)) reproduce la órbita kepleriana con error negligible. Para masas comparables (ej. sistema binario), el factor completo \(\mu = G(m_1+m_2)\) es esencial.

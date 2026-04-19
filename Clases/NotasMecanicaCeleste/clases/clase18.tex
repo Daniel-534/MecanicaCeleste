@@ -1,0 +1,159 @@
+\chapter{Clase 18: Geometría de las cónicas (parte 1)}
+
+Esta clase inicia el estudio geométrico de las cónicas desde la perspectiva de la mecánica celeste. Después de haber deducido la ecuación polar de la trayectoria relativa, el siguiente paso es comprender en qué sistema de referencia esa ecuación adopta su forma más simple y cómo se transforma al sistema de referencia del observador. El objetivo es establecer con claridad el \textbf{sistema natural de la cónica} y desarrollar la herramienta algebraica básica para relacionarlo con un sistema externo: la \textbf{rotación plana}.
+
+\section{Introducción y repaso del marco teórico}
+El problema relativo de dos cuerpos, una vez integradas sus cuadraturas, conduce a la ecuación de la trayectoria en coordenadas polares:
+\[
+ r(\theta) = \frac{p}{1 + e\cos\theta}
+\]
+donde \(p = h^2/\mu\) es el parámetro semilatus rectum, \(e = |\vec{e}|\) es la excentricidad y \(\theta\) es la verdadera anomalía medida desde la dirección del vector de Laplace \(\vec{e}\).
+
+Esta expresión describe completamente la forma de la órbita, pero está escrita en un sistema de coordenadas muy particular: aquel cuyo eje polar coincide con la dirección de \(\vec{e}\) y cuyo origen se sitúa en el foco gravitacional. A este marco se le denomina \textbf{sistema natural de la cónica}.
+
+El objetivo analítico de esta clase es formalizar la geometría de las secciones cónicas en su sistema natural, identificar las limitaciones que presenta para la descripción observacional y construir rigurosamente las herramientas de rotación plana necesarias para pasar del sistema natural al sistema de referencia del observador.
+
+\begin{importante}
+La ecuación polar de la cónica no depende solo de la forma geométrica de la órbita, sino también de la elección del sistema de referencia. Su forma simple se obtiene únicamente en el sistema natural alineado con la órbita.
+\end{importante}
+
+\section{El sistema natural de la cónica}
+Toda sección cónica posee una geometría intrínseca que se describe de manera más simple cuando se adopta un sistema de ejes alineado con sus elementos de simetría.
+
+\subsection{Definición del marco natural \texorpdfstring{$(x',y')$}{(x',y')}}
+Se define un sistema cartesiano plano \((x', y')\) con las siguientes características:
+\begin{itemize}
+    \item el eje \(x'\) coincide con el \textbf{eje de simetría} de la cónica,
+    \item el origen puede ubicarse en el \textbf{foco} (sistema focal) o en el \textbf{centro geométrico} (sistema central), dependiendo de la conveniencia analítica,
+    \item el eje \(y'\) es perpendicular a \(x'\) y completa la base ortonormal derecha del plano orbital.
+\end{itemize}
+
+En este sistema, la descripción analítica se simplifica notablemente porque la cónica presenta simetría respecto a \(x'\) y \(y'\).
+
+\subsection{Ecuaciones en el sistema natural}
+Dos descripciones típicas en este sistema son:
+\begin{itemize}
+    \item \textbf{Ecuación polar con origen en el foco:}
+\[
+ r = \frac{p}{1 + e\cos\theta'}
+\]
+    donde \(\theta'\) es el ángulo medido desde el semieje positivo \(x'\) hasta el vector posición \(\vec{r}\).
+    \item \textbf{Ecuaciones paramétricas cartesianas:} dependiendo del tipo de cónica, las coordenadas \((x', y')\) pueden expresarse en función de un parámetro auxiliar. Por ejemplo, para la elipse usando la anomalía excéntrica \(E\):
+\[
+ x' = a(\cos E - e), \quad y' = a\sqrt{1-e^2}\sin E
+\]
+\end{itemize}
+
+Estas expresiones conservan su forma funcional dentro del sistema natural, independientemente de cómo esté orientada la órbita en el espacio físico.
+
+\section{El sistema de referencia del observador y el problema de alineación}
+En la práctica astronómica, las posiciones y velocidades se miden respecto a un sistema de referencia fijo o inercial, denominado \textbf{sistema del observador} $(x,y,z)$. Este sistema puede ser, por ejemplo:
+\begin{itemize}
+    \item el plano ecuatorial terrestre,
+    \item el plano de la eclíptica,
+    \item el plano tangente a la esfera celeste en la dirección de un objeto.
+\end{itemize}
+
+El problema fundamental es que casi nunca el sistema de ejes utilizado en las observaciones coincide con el sistema natural de la órbita. El plano orbital puede estar inclinado respecto al plano de referencia y la línea de ápsides, es decir, la dirección de $\vec{e}$, puede formar un ángulo arbitrario con el eje $x$ del observador.
+
+Por lo tanto, para comparar predicciones teóricas con datos observacionales, es necesario establecer una transformación matemática rigurosa que relacione las coordenadas del sistema natural $(x',y',z')$ con las del sistema del observador $(x,y,z)$. Como el movimiento orbital es estrictamente plano, la transformación se reduce inicialmente a una \textbf{rotación en el plano orbital}, la cual se embebe naturalmente en el espacio tridimensional mediante una rotación alrededor del eje $z$ perpendicular al plano.
+
+\begin{importante}
+La dificultad observacional no está en la ecuación de la órbita, sino en que los datos rara vez están expresados en el sistema donde esa ecuación adopta su forma más simple.
+\end{importante}
+
+\section{Rotación de la cónica en el espacio tridimensional}
+Consideremos dos sistemas cartesianos ortonormales que comparten el mismo origen:
+\begin{itemize}
+    \item sistema del observador: base $\{\hat{i}, \hat{j}, \hat{k}\}$,
+    \item sistema natural de la cónica: base $\{\hat{i}', \hat{j}', \hat{k}'\}$.
+\end{itemize}
+
+El sistema natural está rotado un ángulo $\theta$ respecto al sistema del observador, alrededor del eje $z$, en sentido antihorario. El vector posición $\vec{r}$ es el mismo objeto geométrico, pero sus componentes cambian con la base elegida:
+$$ \vec{r} = x\hat{i} + y\hat{j} + z\hat{k} = x'\hat{i}' + y'\hat{j}' + z'\hat{k}' $$
+
+\subsection{Relación entre vectores unitarios}
+Para expresar los componentes en una base en función de los de la otra, proyectamos los vectores unitarios rotados sobre la base fija. Dado que la rotación ocurre en el plano $x$-$y$, el eje $z$ permanece invariante:
+$$ \hat{i}' = \cos\theta\,\hat{i} + \sin\theta\,\hat{j} $$
+$$ \hat{j}' = -\sin\theta\,\hat{i} + \cos\theta\,\hat{j} $$
+$$ \hat{k}' = \hat{k} $$
+
+Sustituyendo en $\vec{r} = x'\hat{i}' + y'\hat{j}' + z'\hat{k}'$ y agrupando términos respecto a $\hat{i}$, $\hat{j}$ y $\hat{k}$, obtenemos:
+$$ x\hat{i} + y\hat{j} + z\hat{k} = (x'\cos\theta - y'\sin\theta)\hat{i} + (x'\sin\theta + y'\cos\theta)\hat{j} + z'\hat{k} $$
+
+Igualando componentes, se deduce la \textbf{regla de rotación directa en 3D}:
+$$ \begin{cases} 
+ x = x'\cos\theta - y'\sin\theta \\ 
+ y = x'\sin\theta + y'\cos\theta \\ 
+ z = z' 
+\end{cases} $$
+
+\section{Derivación analítica de la matriz de rotación \texorpdfstring{$\mathbf{R}_z(\theta)$}{Rz(theta)}}
+El sistema anterior puede escribirse de manera compacta mediante álgebra matricial. Definimos los vectores columna de coordenadas tridimensionales:
+$$ \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \mathbf{R}_z(\theta)\begin{pmatrix} x' \\ y' \\ z' \end{pmatrix} $$
+
+Aquí, $\mathbf{R}_z(\theta)$ es la \textbf{matriz de rotación en el espacio tridimensional alrededor del eje $z$}:
+$$ \mathbf{R}_z(\theta) = \begin{pmatrix} 
+\cos\theta & -\sin\theta & 0 \\ 
+\sin\theta & \cos\theta & 0 \\ 
+0 & 0 & 1 
+\end{pmatrix} $$
+
+\subsection{Propiedades analíticas de \texorpdfstring{$\mathbf{R}_z(\theta)$}{Rz(theta)}}
+Esta matriz posee propiedades fundamentales en $\mathbb{R}^3$:
+\begin{enumerate}
+    \item \textbf{Ortogonalidad:}
+$$ \mathbf{R}_z^T(\theta)\mathbf{R}_z(\theta) = \mathbf{I}_3 $$
+    lo cual garantiza que la transformación preserva productos escalares, distancias y ángulos en el espacio tridimensional.
+    \item \textbf{Determinante unitario:}
+$$ \det(\mathbf{R}_z) = \cos^2\theta + \sin^2\theta = 1 $$
+    indicando que la rotación es propia y no incluye reflexiones ni inversiones de paridad.
+    \item \textbf{Preservación de la norma:}
+$$ x^2 + y^2 + z^2 = x'^2 + y'^2 + z'^2 $$
+    consistente con la invariancia de la distancia radial $r = |\vec{r}|$ y la estructura métrica euclidiana.
+\end{enumerate}
+
+Esta matriz es la herramienta fundamental para trasladar cualquier descripción geométrica de la cónica desde su sistema natural al sistema del observador, manteniendo la coherencia tridimensional.
+
+\section{La rotación inversa y el cambio de signo angular}
+Con frecuencia necesitamos hacer el camino contrario: dada una posición observada $(x,y,z)$, queremos recuperar sus coordenadas en el sistema natural $(x',y',z')$ para aplicar directamente la ecuación polar o las leyes de Kepler.
+
+La transformación inversa se obtiene multiplicando por la inversa de la matriz de rotación:
+$$ \begin{pmatrix} x' \\ y' \\ z' \end{pmatrix} = \mathbf{R}_z^{-1}(\theta)\begin{pmatrix} x \\ y \\ z \end{pmatrix} $$
+
+Como $\mathbf{R}_z(\theta)$ es ortogonal, su inversa coincide con su traspuesta:
+$$ \mathbf{R}_z^{-1}(\theta) = \mathbf{R}_z^T(\theta) = \begin{pmatrix} 
+\cos\theta & \sin\theta & 0 \\ 
+-\sin\theta & \cos\theta & 0 \\ 
+0 & 0 & 1 
+\end{pmatrix} $$
+
+Analíticamente, esto equivale a cambiar el signo del ángulo:
+$$ \mathbf{R}_z^{-1}(\theta) = \mathbf{R}_z(-\theta) $$
+
+Por tanto, la rotación inversa en 3D se escribe como:
+$$ \begin{cases} 
+ x' = x\cos\theta + y\sin\theta \\ 
+ y' = -x\sin\theta + y\cos\theta \\ 
+ z' = z 
+\end{cases} $$
+
+\subsection{Unicidad de la matriz de transformación}
+Solo existe una matriz de rotación plana que conecta ambos marcos. La misma matriz \(\mathbf{R}_z(\theta)\), o su traspuesta según la dirección del cambio de base, se utiliza tanto para pasar del sistema del observador al sistema natural como para hacer la transformación inversa.
+
+Esta propiedad simplifica el tratamiento analítico y computacional, ya que no se requieren transformaciones distintas para ida y vuelta: basta con ajustar el signo del ángulo o trasponer la matriz.
+
+\section{Síntesis}
+Los resultados centrales de esta clase son:
+\begin{enumerate}
+    \item La ecuación polar \(r(\theta) = p/(1+e\cos\theta)\) y las ecuaciones paramétricas son válidas de forma natural en el sistema alineado con la cónica.
+    \item Las observaciones astronómicas se realizan en un sistema de referencia que, en general, no coincide con el sistema natural de la órbita.
+    \item La relación entre ambos sistemas se resuelve mediante una rotación plana descrita por la matriz \(\mathbf{R}_z(\theta)\), que es ortogonal, de determinante unitario y preserva la métrica euclidiana.
+    \item La transformación inversa se obtiene con \(\theta \to -\theta\), garantizando la reversibilidad analítica del cambio de coordenadas.
+\end{enumerate}
+
+Este marco bidimensional es el primer paso hacia la descripción completa de la órbita en el espacio tridimensional. En clases posteriores, esta rotación plana se combinará con rotaciones adicionales asociadas al nodo ascendente y a la inclinación orbital para construir la matriz completa que conecta el sistema perifocal con un sistema inercial de referencia.
+
+\begin{importante}
+La geometría de las cónicas no solo determina la forma de la trayectoria orbital. También fija la estructura algebraica de las transformaciones de coordenadas que hacen posible comparar teoría, simulación y observación.
+\end{importante}

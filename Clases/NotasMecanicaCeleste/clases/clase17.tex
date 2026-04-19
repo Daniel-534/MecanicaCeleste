@@ -1,0 +1,97 @@
+\chapter{Clase 17: Solución analítica del problema relativo y plano de Laplace}
+
+Esta clase continúa el cierre analítico del problema relativo de dos cuerpos. A partir de las cuadraturas obtenidas en la clase anterior, se reduce el problema al plano orbital y se deriva la ecuación polar de la trayectoria. El objetivo central es mostrar que la solución relativa corresponde siempre a una sección cónica y que su geometría queda completamente determinada por las constantes del movimiento.
+
+\section{Reducción al plano de la trayectoria}
+Partimos del conteo de cuadraturas obtenido en el espacio tridimensional:
+\begin{itemize}
+    \item momento angular relativo específico \(\vec{h}\): 3 componentes,
+    \item energía relativa específica \(\mathcal{E}\): 1 escalar,
+    \item vector de Laplace o de excentricidad \(\vec{e}\): 3 componentes.
+\end{itemize}
+
+En apariencia esto produce 7 constantes, pero una de ellas queda ligada por la relación
+\[
+\vec{h} \cdot \vec{e} = 0,
+\]
+por lo que el sistema tiene finalmente \textbf{6 cuadraturas independientes}.
+
+Al pasar al \textbf{plano de la trayectoria} —también llamado plano orbital o plano perpendicular a \(\vec{h}\)— el problema se reduce a dos dimensiones espaciales. En ese plano, el número de variables dinámicas independientes es \(4\): \((x, y, \dot{x}, \dot{y})\). En consecuencia, basta con describir el movimiento mediante cuatro constantes escalares equivalentes:
+\begin{enumerate}
+    \item \(h = |\vec{h}|\), módulo del momento angular específico,
+    \item \(\mathcal{E}\), energía relativa específica,
+    \item la dirección de \(\vec{e}\) en el plano orbital,
+    \item el módulo \(e = |\vec{e}|\).
+\end{enumerate}
+
+Este marco permite enfocarse exclusivamente en la geometría y dinámica plana de la órbita.
+
+\begin{importante}
+La reducción al plano orbital no es una aproximación. Es una consecuencia exacta de la conservación del momento angular: toda la dinámica relativa ocurre en un único plano fijo.
+\end{importante}
+
+\section{Deducción de la ecuación polar de la trayectoria}
+Proyectamos ahora el vector de Laplace sobre el vector posición \(\vec{r}\) para obtener la relación funcional entre \(r\) y \(\theta\).
+
+\subsection{Proyección geométrica}
+Por definición del producto punto:
+\[
+\vec{e} \cdot \vec{r} = e r \cos\theta
+\]
+donde \(\theta\) es la verdadera anomalía, es decir, el ángulo entre \(\vec{e}\) y \(\vec{r}\).
+
+\subsection{Proyección algebraica}
+Usando la definición del vector \(\vec{e}\):
+\[
+\vec{e} \cdot \vec{r} = \left(\frac{\vec{v} \times \vec{h}}{\mu} - \frac{\vec{r}}{r}\right) \cdot \vec{r}
+\]
+\[
+\vec{e} \cdot \vec{r} = \frac{(\vec{v} \times \vec{h}) \cdot \vec{r}}{\mu} - \frac{\vec{r} \cdot \vec{r}}{r}
+\]
+
+Usando que \((\vec{v} \times \vec{h}) \cdot \vec{r} = h^2\) y que \(\vec{r} \cdot \vec{r} = r^2\), resulta:
+\[
+\vec{e} \cdot \vec{r} = \frac{h^2}{\mu} - r
+\]
+
+\subsection{Igualación y despeje de \texorpdfstring{$r(\theta)$}{r(theta)}}
+Igualando la expresión geométrica con la algebraica:
+\[
+ e r \cos\theta = \frac{h^2}{\mu} - r
+\]
+\[
+ r(1 + e\cos\theta) = \frac{h^2}{\mu}
+\]
+
+Definiendo el \textbf{parámetro} o \textbf{semilatus rectum}
+\[
+ p \equiv \frac{h^2}{\mu},
+\]
+se llega a la ecuación polar final de la trayectoria:
+\[
+\boxed{r(\theta) = \frac{p}{1 + e\cos\theta}}
+\]
+
+Esta es la ecuación general de una sección cónica con un foco en el origen del sistema relativo.
+
+\begin{importante}
+La ecuación \(r(\theta) = \frac{p}{1 + e\cos\theta}\) muestra que el problema relativo de dos cuerpos tiene como soluciones exactas cónicas: circunferencias, elipses, parábolas e hipérbolas aparecen como casos particulares según el valor de \(e\).
+\end{importante}
+
+\section{Resumen de la integración completa}
+Los resultados principales de esta clase pueden sintetizarse así:
+\begin{enumerate}
+    \item El problema relativo de dos cuerpos posee suficientes cuadraturas independientes para ser completamente integrable.
+    \item En el plano orbital, la dinámica queda caracterizada por \(h\), \(\mathcal{E}\), la dirección de \(\vec{e}\) y su magnitud \(e\).
+    \item El vector \(\vec{e}\) fija la orientación de la órbita y su módulo determina la excentricidad geométrica mediante
+\[
+ e^2 = 1 + \frac{2\mathcal{E}h^2}{\mu^2}.
+\]
+    \item La proyección de \(\vec{e}\) sobre \(\vec{r}\) conduce directamente a
+\[
+ r(\theta) = \frac{p}{1 + e\cos\theta},
+\]
+lo que demuestra analíticamente que la trayectoria relativa es siempre una cónica.
+\end{enumerate}
+
+Este desarrollo cierra la solución analítica del problema de dos cuerpos y deja listo el marco conceptual para estudiar con más detalle la geometría orbital, los elementos de la cónica y su representación en distintos sistemas de referencia.

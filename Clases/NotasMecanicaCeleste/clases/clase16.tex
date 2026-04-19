@@ -1,0 +1,290 @@
+\chapter{Clase 16: Cuadraturas del problema relativo de dos cuerpos}
+
+Esta clase continúa el desarrollo analítico del problema relativo de dos cuerpos introducido en la clase anterior. El objetivo es identificar las \textbf{integrales primeras} o \textbf{cuadraturas} que permiten resolver completamente la dinámica relativa y establecer por qué este problema es integrable de forma exacta.
+
+\section{Planteamiento del sistema y necesidad de cuadraturas}
+Partimos de la ecuación diferencial que describe el movimiento relativo entre dos cuerpos sometidos a gravitación mutua:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3}\vec{r}
+\]
+donde \(\mu = G(m_1 + m_2)\) y \(r = |\vec{r}|\).
+
+Esta es una ecuación diferencial vectorial de segundo orden. Al descomponerla en coordenadas cartesianas, el problema queda gobernado por \textbf{6 variables dinámicas independientes} \((x, y, z, \dot{x}, \dot{y}, \dot{z})\). Para integrar completamente el sistema y obtener una solución cerrada, es necesario hallar \textbf{6 cuadraturas} o integrales primeras independientes.
+
+Aunque el problema de \(N\) cuerpos posee constantes de movimiento globales, el problema relativo de dos cuerpos constituye un sistema autónomo nuevo que requiere su propia deducción analítica paso a paso.
+
+\begin{importante}
+La meta de esta clase no es todavía escribir la órbita final en forma cónica, sino mostrar cómo la dinámica admite suficientes constantes de movimiento para cerrar completamente el sistema.
+\end{importante}
+
+\section{Primera cuadratura: momento angular relativo específico}
+\subsection{Obtención mediante factor integrante}
+
+Dado que el término de fuerza es proporcional a $\vec{r}$, el producto vectorial por la izquierda con $\vec{r}$ anula dicho término:
+
+$$
+\vec{r} \times \ddot{\vec{r}} = -\frac{\mu}{r^3}(\vec{r} \times \vec{r})
+$$
+
+Por la propiedad antisimétrica del producto vectorial, el producto de cualquier vector consigo mismo es nulo:
+$$
+\vec{r} \times \vec{r} = \vec{0} \quad \Rightarrow \quad \vec{r} \times \ddot{\vec{r}} = \vec{0}
+$$
+
+El siguiente paso consiste en reconocer que el lado izquierdo de esta igualdad es parte de la derivada temporal de un producto vectorial. Aplicamos la regla de Leibniz para la derivada de un producto cruz:
+$$
+\frac{d}{dt}(\vec{r} \times \dot{\vec{r}}) = \dot{\vec{r}} \times \dot{\vec{r}} + \vec{r} \times \ddot{\vec{r}}
+$$
+El primer término del lado derecho es idénticamente nulo porque el producto vectorial de un vector consigo mismo siempre se anula ($\dot{\vec{r}} \times \dot{\vec{r}} = \vec{0}$). Por lo tanto, la derivada se reduce a:
+$$
+\frac{d}{dt}(\vec{r} \times \dot{\vec{r}}) = \vec{r} \times \ddot{\vec{r}}
+$$
+Sustituyendo en la ecuación obtenida previamente:
+$$
+\frac{d}{dt}(\vec{r} \times \dot{\vec{r}}) = \vec{0}
+$$
+
+Esta igualdad indica que el vector $\vec{r} \times \dot{\vec{r}}$ tiene derivada temporal nula, lo cual implica que es constante en el tiempo. Integrando formalmente respecto al tiempo:
+$$
+\int \frac{d}{dt}(\vec{r} \times \dot{\vec{r}})\, dt = \int \vec{0}\, dt \quad \Rightarrow \quad \vec{r} \times \dot{\vec{r}} = \vec{C}
+$$
+donde $\vec{C}$ es un vector constante de integración. En mecánica celeste, a esta constante se le denomina \textbf{Momento Angular Relativo Específico} y se denota como:
+$$
+\boxed{\vec{h} \equiv \vec{r} \times \vec{v} = \text{cte.}}
+$$
+con $\vec{v} = \dot{\vec{r}}$.
+
+
+Esta integral aporta \textbf{3 cuadraturas} (una por cada componente cartesiana). El vector \(\vec{h}\) es el \textbf{momento angular relativo específico}, es decir, por unidad de masa reducida.
+
+\subsection{Interpretación física y geométrica}
+\begin{itemize}
+    \item \textbf{Movimiento plano:} como \(\vec{h}\) es constante y perpendicular tanto a \(\vec{r}\) como a \(\vec{v}\), el movimiento relativo queda confinado a un plano fijo perpendicular a \(\vec{h}\).
+    \item \textbf{Coordenadas polares:} en el plano orbital, su módulo se expresa como \(h = r^2\dot{\theta}\).
+    
+    \textbf{Demostración}
+    
+    $$\vec{r} = r \vec{e}_r$$
+
+$$\dot{\vec{r}} = \dot{r} \vec{e}_r + r\dot{\theta} \vec{e}_\theta$$
+
+donde $\{\vec{e}_r, \vec{e}_\theta\}$ es la base ortonormal móvil del plano orbital. Calculando el momento angular relativo específico:
+
+$$\vec{h} = \vec{r} \times \dot{\vec{r}} = (r \vec{e}_r) \times (\dot{r} \vec{e}_r + r\dot{\theta} \vec{e}_\theta)$$
+
+Aplicando la distributividad del producto vectorial:
+
+$$\vec{h} = r\dot{r}(\vec{e}_r \times \vec{e}_r) + r^2\dot{\theta}(\vec{e}_r \times \vec{e}_\theta)$$
+
+Dado que $\vec{e}_r \times \vec{e}_r = \vec{0}$ y $\vec{e}_r \times \vec{e}_\theta = \vec{k}$ (vector unitario perpendicular al plano orbital, siguiendo la regla de la mano derecha):
+
+$$\vec{h} = r^2\dot{\theta} \vec{k}$$
+
+El módulo escalar de esta constante vectorial es directamente:
+
+$$h = |\vec{h}| = r^2\dot{\theta}$$
+
+    \item \textbf{Velocidad areal y segunda ley de Kepler:} el área infinitesimal barrida por el radio vector es \(dA = \frac{1}{2}r^2 d\theta\). Derivando respecto al tiempo:
+\end{itemize}
+
+\[
+\frac{dA}{dt} = \frac{1}{2}r^2\dot{\theta} = \frac{h}{2} = \text{cte.}
+\]
+
+Esto demuestra que la velocidad areal es constante. La magnitud de \(h\) controla directamente la tasa de barrido del área, lo cual constituye la formulación dinámica de la segunda ley de Kepler.
+
+\begin{importante}
+La conservación del momento angular específico no solo reduce el número de grados efectivos del problema, sino que además garantiza que toda órbita kepleriana es plana.
+\end{importante}
+
+\section{Segunda cuadratura: energía relativa específica}
+\subsection{Obtención mediante producto escalar}
+Multiplicamos escalarmente la ecuación de movimiento por la velocidad \(\dot{\vec{r}}\):
+\[
+\dot{\vec{r}} \cdot \ddot{\vec{r}} = -\frac{\mu}{r^3}\vec{r} \cdot \dot{\vec{r}}
+\]
+
+\textbf{Deducción analítica del LHS (Término cinético)}
+
+Partimos del producto escalar $\dot{\vec{r}} \cdot \ddot{\vec{r}}$. Recordemos que el cuadrado de la velocidad se define como el producto escalar de la velocidad consigo misma:
+$$
+v^2 \equiv \vec{v} \cdot \vec{v} = \dot{\vec{r}} \cdot \dot{\vec{r}}
+$$
+Diferenciamos esta expresión respecto al tiempo aplicando la regla de la derivada para un producto escalar:
+$$
+\frac{d}{dt}(v^2) = \frac{d}{dt}(\dot{\vec{r}} \cdot \dot{\vec{r}}) = \ddot{\vec{r}} \cdot \dot{\vec{r}} + \dot{\vec{r}} \cdot \ddot{\vec{r}}
+$$
+Dado que el producto escalar es conmutativo ($\vec{a} \cdot \vec{b} = \vec{b} \cdot \vec{a}$), ambos términos son idénticos:
+$$
+\frac{d}{dt}(v^2) = 2(\dot{\vec{r}} \cdot \ddot{\vec{r}})
+$$
+Despejando el producto original:
+$$
+\dot{\vec{r}} \cdot \ddot{\vec{r}} = \frac{1}{2}\frac{d}{dt}(v^2)
+$$
+
+\textbf{Deducción analítica del RHS (Término potencial)}
+
+Partimos de la expresión $-\dfrac{\mu}{r^3}\vec{r} \cdot \dot{\vec{r}}$. Primero relacionamos el producto escalar $\vec{r} \cdot \dot{\vec{r}}$ con la derivada de la distancia $r$. Sabemos que:
+$$
+r^2 = \vec{r} \cdot \vec{r}
+$$
+Diferenciamos implícitamente respecto al tiempo:
+$$
+\frac{d}{dt}(r^2) = \frac{d}{dt}(\vec{r} \cdot \vec{r}) \quad \Rightarrow \quad 2r\dot{r} = 2\vec{r} \cdot \dot{\vec{r}}
+$$
+De aquí se obtiene la identidad fundamental:
+$$
+\vec{r} \cdot \dot{\vec{r}} = r\dot{r}
+$$
+Sustituimos esta identidad en el RHS:
+$$
+-\frac{\mu}{r^3}(\vec{r} \cdot \dot{\vec{r}}) = -\frac{\mu}{r^3}(r\dot{r}) = -\mu\frac{\dot{r}}{r^2}
+$$
+Ahora identificamos la derivada exacta de $1/r$. Aplicando la regla de la cadena:
+$$
+\frac{d}{dt}\left(\frac{1}{r}\right) = \frac{d}{dt}(r^{-1}) = -r^{-2}\frac{dr}{dt} = -\frac{\dot{r}}{r^2}
+$$
+Observamos que el término obtenido en el RHS coincide exactamente con esta derivada. Por lo tanto:
+$$
+-\mu\frac{\dot{r}}{r^2} = \mu\left(-\frac{\dot{r}}{r^2}\right) = \mu\frac{d}{dt}\left(\frac{1}{r}\right)
+$$
+
+\textit{Nota analítica:} El signo negativo presente en la ecuación original se absorbe en la derivada de $1/r$, dando como resultado un coeficiente positivo frente a la derivada exacta. Esto es crucial para obtener la expresión correcta de la energía)
+
+Identificamos las derivadas exactas:
+\[
+\frac{1}{2}\frac{d}{dt}(v^2) = -\mu \frac{d}{dt}\left(\frac{1}{r}\right)
+\]
+
+Reordenando e integrando:
+\[
+\frac{d}{dt}\left(\frac{v^2}{2} - \frac{\mu}{r}\right) = 0
+\]
+
+Definimos la \textbf{energía relativa específica} como la constante resultante:
+\[
+\mathcal{E} \equiv \frac{v^2}{2} - \frac{\mu}{r} = \text{cte.}
+\]
+
+Esta integral escalar aporta \textbf{1 cuadratura} adicional.
+
+\subsection{Interpretación física}
+Representa la conservación de la energía mecánica por unidad de masa reducida. Su valor algebraico clasifica la trayectoria:
+\begin{itemize}
+    \item \(\mathcal{E} < 0\): órbita ligada (elipse).
+    \item \(\mathcal{E} = 0\): caso límite de escape (parábola).
+    \item \(\mathcal{E} > 0\): órbita no ligada (hipérbola).
+\end{itemize}
+
+\begin{importante}
+El signo de \(\mathcal{E}\) permite distinguir si el movimiento permanece acotado o si el cuerpo escapa al infinito, incluso antes de resolver explícitamente la trayectoria.
+\end{importante}
+
+\section{Tercera cuadratura: vector de excentricidad}
+\subsection{Construcción del factor integrante}
+Para completar el sistema, cruzamos la ecuación de movimiento con el vector constante \(\vec{h}\):
+\[
+\ddot{\vec{r}} \times \vec{h} = -\frac{\mu}{r^3}\vec{r} \times (\vec{r} \times \vec{v})
+\]
+
+Aplicamos la identidad del triple producto vectorial (BAC-CAB):
+\[
+\vec{r} \times (\vec{r} \times \vec{v}) = \vec{r}(\vec{r} \cdot \vec{v}) - \vec{v}(\vec{r} \cdot \vec{r}) = r\dot{r}\vec{r} - r^2\vec{v}
+\]
+
+Sustituyendo y simplificando:
+\[
+\ddot{\vec{r}} \times \vec{h} = \mu\left(\frac{\vec{v}}{r} - \frac{\dot{r}\vec{r}}{r^2}\right)
+\]
+
+El término entre paréntesis coincide con la derivada temporal del vector unitario radial \(\hat{r} = \vec{r}/r\):
+\[
+\frac{d}{dt}\left(\frac{\vec{r}}{r}\right) = \frac{\dot{\vec{r}}}{r} - \frac{\vec{r}\dot{r}}{r^2}
+\]
+
+Por tanto, la ecuación se reduce a una derivada total exacta:
+\[
+\frac{d}{dt}(\dot{\vec{r}} \times \vec{h}) = \frac{d}{dt}\left(\mu\frac{\vec{r}}{r}\right)
+\]
+
+Integrando, obtenemos una nueva constante vectorial:
+\[
+\vec{e} \equiv \frac{\vec{v} \times \vec{h}}{\mu} - \frac{\vec{r}}{r} = \text{cte.}
+\]
+
+\subsection{Propiedades del vector de excentricidad}
+Este vector, también llamado \textbf{vector de Laplace} o \textbf{vector de Runge--Lenz}, posee varias propiedades fundamentales:
+\begin{itemize}
+    \item yace en el plano orbital,
+    \item es perpendicular a \(\vec{h}\),
+    \item apunta hacia el periastro,
+    \item su módulo coincide con la excentricidad orbital: \(e = |\vec{e}|\).
+\end{itemize}
+
+Formalmente aporta \textbf{3 cuadraturas}, aunque no todas son independientes de las integrales anteriores.
+
+\begin{importante}
+El vector de excentricidad contiene información geométrica fina sobre la orientación y la forma de la órbita. Mientras \(\vec{h}\) fija el plano orbital, \(\vec{e}\) fija la dirección del periastro dentro de ese plano.
+\end{importante}
+
+\section{Cierre del sistema: conteo de cuadraturas independientes}
+Sumando las constantes obtenidas, tenemos:
+\begin{itemize}
+    \item momento angular relativo específico \(\vec{h}\): 3 componentes,
+    \item energía relativa específica \(\mathcal{E}\): 1 escalar,
+    \item vector de excentricidad \(\vec{e}\): 3 componentes.
+\end{itemize}
+
+El total aparente es de \(7\) ecuaciones. Sin embargo, el sistema no posee siete grados de libertad independientes, porque existen relaciones algebraicas que ligan estas constantes:
+\begin{enumerate}
+    \item ortogonalidad geométrica:
+\end{enumerate}
+\[
+\vec{h} \cdot \vec{e} = 0
+\]
+\begin{enumerate}[resume]
+    \item relación escalar derivada de \(\vec{e} \cdot \vec{e}\):
+\end{enumerate}
+
+$$e^2 = 1 + \frac{2\mathcal{E}h^2}{\mu^2}$$
+
+\textbf{Demostración:}
+
+Partimos de la definición del vector de excentricidad (vector de Laplace):
+$$\vec{e} = \frac{\vec{v} \times \vec{h}}{\mu} - \frac{\vec{r}}{r}$$
+
+Calculamos el producto escalar consigo mismo:
+$$e^2 = \vec{e} \cdot \vec{e} = \left( \frac{\vec{v} \times \vec{h}}{\mu} - \frac{\vec{r}}{r} \right) \cdot \left( \frac{\vec{v} \times \vec{h}}{\mu} - \frac{\vec{r}}{r} \right)$$
+
+Expandiendo algebraicamente:
+$$e^2 = \frac{1}{\mu^2}(\vec{v} \times \vec{h}) \cdot (\vec{v} \times \vec{h}) - \frac{2}{\mu r}(\vec{v} \times \vec{h}) \cdot \vec{r} + \frac{\vec{r} \cdot \vec{r}}{r^2}$$
+
+Evaluamos cada término por separado:
+\begin{itemize}
+	\item $\dfrac{\vec{r} \cdot \vec{r}}{r^2} = \dfrac{r^2}{r^2} = 1$.
+	\item Usando la propiedad cíclica del triple producto escalar, $(\vec{v} \times \vec{h}) \cdot \vec{r} = \vec{h} \cdot (\vec{r} \times \vec{v})$. Por definición $\vec{h} = \vec{r} \times \vec{v}$, luego el producto es $\vec{h} \cdot \vec{h} = h^2$. El término completo queda $-\dfrac{2h^2}{\mu r}$.
+	\item Aplicamos la identidad de Lagrange $|\vec{A} \times \vec{B}|^2 = A^2B^2 - (\vec{A}\cdot\vec{B})^2$:
+   $$(\vec{v} \times \vec{h}) \cdot (\vec{v} \times \vec{h}) = v^2 h^2 - (\vec{v} \cdot \vec{h})^2$$
+   Dado que $\vec{h} = \vec{r} \times \vec{v}$ es ortogonal a $\vec{v}$, se cumple $\vec{v} \cdot \vec{h} = 0$. Así, el término se reduce a $v^2 h^2$.
+\end{itemize}
+
+Sustituyendo los resultados en la expansión:
+$$e^2 = \frac{v^2 h^2}{\mu^2} - \frac{2 h^2}{\mu r} + 1 = 1 + \frac{h^2}{\mu^2}\left( v^2 - \frac{2\mu}{r} \right)$$
+
+Reconocemos la definición de Energía Relativa Específica $\mathcal{E} = \dfrac{v^2}{2} - \dfrac{\mu}{r}$. Multiplicando por 2 obtenemos $2\mathcal{E} = v^2 - \dfrac{2\mu}{r}$. Reemplazando en el paréntesis:
+
+$$e^2 = 1 + \frac{2\mathcal{E}h^2}{\mu^2}$$
+
+Esta expresión demuestra que la excentricidad geométrica es una función exclusiva de las integrales primeras $\mathcal{E}$ y $h$, cerrando analíticamente la relación entre la dinámica y la geometría de la cónica.
+Al restar estas dependencias funcionales, el sistema queda con exactamente \textbf{6 cuadraturas independientes}, que coinciden con el número de variables dinámicas iniciales. Esto demuestra que el problema relativo de dos cuerpos es \textbf{completamente integrable} y permite derivar la ecuación de la trayectoria \(r(\theta)\) sin recurrir, en principio, a métodos numéricos.
+
+\section{Síntesis}
+En esta clase se obtuvo el conjunto fundamental de integrales primeras del problema relativo de dos cuerpos:
+\begin{itemize}
+    \item conservación del momento angular específico,
+    \item conservación de la energía específica,
+    \item conservación del vector de excentricidad.
+\end{itemize}
+
+Estas cuadraturas no solo permiten cerrar analíticamente el sistema, sino que preparan el camino para la deducción explícita de la ecuación de la cónica orbital y el estudio detallado de los elementos orbitales en la clase siguiente.

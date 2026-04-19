@@ -1,0 +1,130 @@
+\chapter{Clase 13: Sistemas Jerárquicos (parte 1)}
+
+Esta clase pertenece a la Unidad 2 (\emph{El problema de 2-Cuerpos}) y constituye la introducción a los sistemas jerárquicos de \(N\) cuerpos. Se parte de la motivación observacional y teórica de por qué los sistemas reales de \(N\) cuerpos tienden a autoorganizarse en estructuras jerárquicas, y se desarrolla la herramienta matemática (coordenadas de Jacobi) que permite modelarlos eficientemente.
+
+\section{Motivación: autoorganización de los sistemas de \texorpdfstring{$N$}{N} cuerpos}
+El problema de \(N\) cuerpos es muy general, pero los sistemas reales tienden a ``autoorganizarse'' después de un tiempo prolongado de interacción.
+
+\begin{itemize}
+    \item Con colisiones: se forman cuerpos grandes que crecen \emph{oligárquicamente} (los más masivos crecen más rápido).
+    \item Sin colisiones: las interacciones por pares expulsan cuerpos y el sistema se relaja hacia una configuración más ordenada.
+\end{itemize}
+
+Las características típicas de estos sistemas autoorganizados son:
+\begin{enumerate}
+    \item Las masas de los cuerpos difieren mucho entre sí (hay cuerpos muy masivos comparados con otros).
+    \item Los cuerpos tienen masas parecidas, pero las distancias entre ellos son muy diferentes (sistemas jerárquicos).
+\end{enumerate}
+
+\begin{importante}
+En el marco del centro de masa, los sistemas jerárquicos de \(N\) cuerpos evidencian una clara organización por pares. Aunque en otros sistemas de referencia parezcan caóticos, en el CM se observa una estructura ordenada de órbitas anidadas.
+\end{importante}
+
+\section{Organización de los sistemas jerárquicos por pares}
+Un sistema jerárquico de \(N\) cuerpos puede modelarse como \textbf{\(N-1\) sistemas de dos cuerpos}.
+
+Cada par forma un subsistema cuya órbita relativa se describe con el problema de dos cuerpos ya estudiado. El árbol jerárquico representa la estructura de contención: el sistema total se divide en subsistemas internos y externos.
+
+Ejemplos astrofísicos reales:
+\begin{itemize}
+    \item Sistema estelar múltiple \textbf{$\alpha$ Gem} (Castor): seis estrellas organizadas en tres pares binarios jerárquicos.
+    \item Sistema \textbf{30 Ari}: doble estrella con subcomponentes.
+    \item Sistemas planetarios y exoplanetas: un planeta orbita una estrella que a su vez orbita otra estrella lejana.
+\end{itemize}
+
+\begin{importante}
+En un sistema jerárquico típico, las órbitas internas son mucho más cerradas (y rápidas) que las órbitas externas. Esto permite tratar cada nivel como un problema de dos cuerpos independiente (aproximación jerárquica).
+\end{importante}
+
+\section{Tipos de sistemas jerárquicos de dos cuerpos}
+Se distinguen dos configuraciones básicas:
+\begin{itemize}
+    \item \textbf{Sistema central}: un cuerpo masivo en el centro con uno o más cuerpos orbitando a su alrededor (ej. estrella + planeta).
+    \item \textbf{Sistema jerárquico propiamente dicho}: dos subsistemas (cada uno con su centro de masa) orbitando mutuamente.
+\end{itemize}
+
+\section{Coordenadas de Jacobi}
+Para describir eficientemente un sistema jerárquico se utilizan las \textbf{coordenadas de Jacobi}.
+
+\subsection{Definición y motivación}
+Normalmente describimos un sistema de \(N\) cuerpos con posiciones \(\vec{r}_i\) respecto a un origen arbitrario (6\(N\) coordenadas).  
+
+En coordenadas de Jacobi se calculan centros de masa de pares sucesivos, de modo que el sistema se describe completamente usando \textbf{solo distancias relativas} (y los centros de masa de los subsistemas).
+
+Para el caso de \textbf{dos cuerpos} (base del método):
+\begin{align*}
+\vec{R}_{\text{CM}} &= \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M} \\
+\vec{r} &= \vec{r}_1 - \vec{r}_2
+\end{align*}
+donde \(M = m_1 + m_2\).
+
+\subsection{Transformación de coordenadas}
+\textbf{De coordenadas convencionales a Jacobi:}
+\[
+\vec{R}_{\text{CM}} = \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M}, \quad
+\vec{r} = \vec{r}_1 - \vec{r}_2
+\]
+
+\textbf{De Jacobi a coordenadas convencionales:}
+\[
+\vec{r}_1 = \vec{R}_{\text{CM}} + \frac{m_2}{M} \vec{r}, \quad
+\vec{r}_2 = \vec{R}_{\text{CM}} - \frac{m_1}{M} \vec{r}
+\]
+
+Estas transformaciones son idénticas a las derivadas en la clase anterior para el problema relativo, pero aquí se enfatiza su uso recursivo en sistemas jerárquicos de \(N > 2\).
+
+\begin{importante}
+Las coordenadas de Jacobi desacoplan el movimiento del centro de masa (rectilíneo uniforme) del movimiento relativo en cada nivel jerárquico. Cada vector relativo \(\vec{r}\) satisface la ecuación del problema de dos cuerpos:
+\[
+\ddot{\vec{r}} = -\frac{\mu}{r^3}\vec{r}, \quad \mu = G(m_1 + m_2)
+\]
+\end{importante}
+
+\section{Ejemplo práctico: sistema jerárquico de tres cuerpos (Zul Aa + Ab + B)}
+En el ejercicio de la clase se construye un sistema jerárquico triple:
+
+\begin{itemize}[leftmargin=2em,label={}]
+\item \textbf{Zul} (sistema total)
+  \begin{itemize}[leftmargin=2em,label={}]
+  \item \textbf{A} (subsistema interno)
+    \begin{itemize}[leftmargin=2em,label={}]
+    \item \textbf{Aa} (estrella primaria, \(m = 1.0\))
+    \item \textbf{Ab} (planeta, \(m = 0.01\))
+    \end{itemize}
+  \item \textbf{B} (estrella secundaria, \(m = 5.0\))
+  \end{itemize}
+\end{itemize}
+
+Se usan coordenadas de Jacobi descendiendo por el árbol:
+\begin{enumerate}
+    \item Fijar \(\vec{R}_{\text{CM}}\) y \(\vec{V}_{\text{CM}}\) del sistema total.
+    \item Calcular posición y velocidad del CM del subsistema A respecto a B.
+    \item Descender al interior de A: posición de Aa y Ab respecto al CM de A.
+\end{enumerate}
+
+Las ecuaciones exactas (implementadas en el cuaderno de clase) son:
+\[
+\vec{R}_{\text{CM,A}} = \vec{R}_{\text{CM,AB}} + \frac{m_B}{m_A + m_B} \vec{r}_{AB}
+\]
+\[
+\vec{r}_B = \vec{R}_{\text{CM,AB}} - \frac{m_A}{m_A + m_B} \vec{r}_{AB}
+\]
+y luego dentro de A:
+\[
+\vec{r}_{\text{Aa}} = \vec{R}_{\text{CM,A}} + \frac{m_{\text{Ab}}}{m_A} \vec{r}_A, \quad
+\vec{r}_{\text{Ab}} = \vec{R}_{\text{CM,A}} - \frac{m_{\text{Aa}}}{m_A} \vec{r}_A
+\]
+
+Este procedimiento se generaliza a cualquier \(N\).
+
+\section{Consecuencias y perspectivas}
+\begin{itemize}
+    \item Los sistemas jerárquicos son la forma natural en que se presentan los sistemas estelares múltiples, planetarios y galácticos.
+    \item Las coordenadas de Jacobi permiten inicializar simulaciones de \(N\) cuerpos de forma estable y física.
+    \item En la parte 2 de la clase (próxima) se profundizará en la simulación numérica y estabilidad de estos sistemas.
+\end{itemize}
+
+\begin{importante}
+La aproximación jerárquica es válida cuando las órbitas internas son mucho más rápidas y cerradas que las externas (condición de estabilidad jerárquica).
+\end{importante}
+
