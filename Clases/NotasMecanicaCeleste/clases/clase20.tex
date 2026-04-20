@@ -1,0 +1,313 @@
+\chapter{Clase 20: Elementos orbitales en el problema de dos cuerpos}
+
+Esta clase cierra el puente entre la solución analítica del problema de dos cuerpos y su uso práctico en astronomía y astrodinámica. Después de haber formulado la órbita en el sistema natural y de haber introducido las rotaciones necesarias para orientarla en el espacio, el siguiente paso es condensar toda esa información en un conjunto mínimo de parámetros geométricos y dinámicos: los \textbf{elementos orbitales}.
+
+\section{Repaso: sistema natural y rotación plana}
+La ecuación de la trayectoria relativa en coordenadas polares se expresa de forma canónica en el \textbf{sistema natural de la cónica}, también llamado sistema perifocal, cuyo eje \(x'\) coincide con la dirección del vector de Laplace \(\vec{e}\) y cuyo origen se sitúa en el foco gravitacional:
+\[
+ r = \frac{p}{1 + e\cos f}
+\]
+donde \(p = h^2/\mu\) es el semilatus rectum, \(e = |\vec{e}|\) la excentricidad y \(f\) la verdadera anomalía.
+
+En este mismo sistema, las coordenadas cartesianas se obtienen proyectando \(\vec{r}\) sobre la base rotada \(\{\hat{i}', \hat{j}'\}\):
+\[
+ x' = r\cos f, \quad y' = r\sin f
+\]
+
+El \textbf{sistema del observador} \(\{\hat{i}, \hat{j}, \hat{k}\}\) rara vez coincide con el sistema natural. En el caso plano, la orientación relativa se describe mediante una rotación dada por
+\[
+\begin{pmatrix} x \\ y \end{pmatrix} =
+\begin{pmatrix}
+\cos\omega & -\sin\omega \\
+\sin\omega & \cos\omega
+\end{pmatrix}
+\begin{pmatrix} x' \\ y' \end{pmatrix}
+\]
+Esta idea es la base para extender el análisis al espacio tridimensional.
+
+\begin{importante}
+Los elementos orbitales surgen precisamente como una manera compacta de describir la forma, la orientación y la posición instantánea del cuerpo dentro de su órbita kepleriana.
+\end{importante}
+
+\section{La pesadilla de los cuadrantes}
+En la determinación analítica de ángulos orbitales, el uso directo de funciones trigonométricas inversas como \(\arccos\) introduce una ambigüedad fundamental: su rango principal está restringido a \([0,\pi]\). Esto impide distinguir entre configuraciones geométricas simétricas respecto al eje de referencia.
+
+\subsection{Ambigüedad en la longitud del nodo ascendente \texorpdfstring{$\Omega$}{Omega}}
+El vector nodo \(\vec{n}\) se define como la intersección del plano orbital con el plano de referencia, proyectada sobre dicho plano:
+\[
+\vec{n} = \hat{k} \times \vec{h}
+\]
+
+Si calculamos
+\[
+\Omega = \arccos\left(\frac{n_x}{n}\right),
+\]
+obtenemos un valor en \([0,\pi]\). Sin embargo, si \(n_y < 0\), el nodo ascendente se encuentra en el semiplano inferior, por lo que el ángulo real debe corregirse:
+\[
+\Omega =
+\begin{cases}
+\arccos(n_x/n), & \text{si } n_y \ge 0 \\
+2\pi - \arccos(n_x/n), & \text{si } n_y < 0
+\end{cases}
+\]
+
+\subsection{Ambigüedad en el argumento del periapsis \texorpdfstring{$\omega$}{omega}}
+De manera análoga,
+\[
+\omega = \arccos\left(\frac{\vec{n}\cdot\vec{e}}{ne}\right)
+\]
+devuelve un valor principal. La corrección de cuadrante depende del signo de la componente \(z\) del vector de excentricidad, o equivalentemente del sentido relativo entre \(\vec{n}\), \(\vec{e}\) y \(\vec{h}\):
+\[
+\omega =
+\begin{cases}
+\arccos\left(\frac{\vec{n}\cdot\vec{e}}{ne}\right), & \text{si } e_z \ge 0 \\
+2\pi - \arccos\left(\frac{\vec{n}\cdot\vec{e}}{ne}\right), & \text{si } e_z < 0
+\end{cases}
+\]
+
+\begin{importante}
+La determinación unívoca de ángulos orbitales requiere usar \(\operatorname{atan2}(y,x)\) o, de forma equivalente, corregir los cuadrantes inspeccionando el signo de las componentes transversales adecuadas.
+\end{importante}
+
+\section{Extensión a tres dimensiones: la cónica levantada}
+Cuando el plano orbital no coincide con el plano de referencia, hacen falta tres rotaciones sucesivas para alinear el sistema perifocal con el sistema del observador. Esta secuencia corresponde a los \textbf{ángulos de Euler} en la convención \(3\)-\(1\)-\(3\), ampliamente usada en mecánica celeste.
+
+\subsection{Línea de nodos y referencia planetaria}
+Introducimos tres objetos geométricos clave:
+\begin{itemize}
+    \item el \textbf{plano de referencia}, usualmente el plano ecuatorial terrestre o el plano de la eclíptica,
+    \item la \textbf{línea de nodos}, intersección entre el plano orbital y el plano de referencia,
+    \item el \textbf{nodo ascendente}, punto donde el cuerpo cruza el plano de referencia moviéndose hacia el hemisferio norte \((z>0)\).
+\end{itemize}
+
+\subsection{Definición de los ángulos de orientación}
+Los ángulos espaciales fundamentales son:
+\begin{enumerate}
+    \item \textbf{Longitud del nodo ascendente \(\Omega\):} ángulo en el plano de referencia desde el eje \(x\) de referencia hasta la línea de nodos.
+    \item \textbf{Inclinación orbital \(I\):} ángulo entre el vector momento angular \(\vec{h}\) y el eje \(z\) de referencia.
+    \item \textbf{Argumento del periapsis \(\omega\):} ángulo medido dentro del plano orbital desde la línea de nodos hasta la dirección del periapsis \((\vec{e})\).
+\end{enumerate}
+
+Estos tres ángulos, junto con \(p\), \(e\) y \(f\), determinan completamente la orientación y forma de la órbita en el espacio tridimensional.
+
+\section{Matriz de rotación de Euler en 3D: Derivación analítica y significado geométrico}
+La transformación desde el sistema perifocal (natural de la cónica) al sistema del observador (inercial o de referencia) se construye mediante una secuencia de tres rotaciones elementales conocida como la convención de Euler 3-1-3. Esta secuencia está diseñada para alinear progresivamente los ejes del marco orbital con los del marco de referencia, respetando la jerarquía geométrica de los elementos orbitales.
+
+\subsection{Secuencia de rotaciones y justificación geométrica}
+Partimos del sistema perifocal $\{ \hat{P}, \hat{Q}, \hat{W} \}$, donde:
+\begin{itemize}
+    \item $\hat{P}$ apunta al periapsis (dirección de $\vec{e}$),
+    \item $\hat{W}$ es normal al plano orbital (dirección de $\vec{h}$),
+    \item $\hat{Q}$ completa el sistema diestro en el plano de la órbita.
+\end{itemize}
+Para llevar este marco al sistema del observador $\{ \hat{i}, \hat{j}, \hat{k} \}$, aplicamos las rotaciones en el siguiente orden:
+\begin{enumerate}
+    \item \textbf{Rotación $\mathbf{R}_z(\omega)$ alrededor de $\hat{W}$:} Gira el sistema perifocal un ángulo $\omega$ (argumento del periapsis) hasta que el eje $\hat{P}$ coincide con la línea de nodos. El eje $\hat{W}$ permanece invariante.
+    \item \textbf{Rotación $\mathbf{R}_x(I)$ alrededor de la línea de nodos:} Inclina el plano orbital un ángulo $I$ (inclinación) hasta que coincide con el plano de referencia. La línea de nodos es el eje invariante de esta rotación.
+    \item \textbf{Rotación $\mathbf{R}_z(\Omega)$ alrededor de $\hat{k}$:} Rota el sistema alrededor del eje $z$ del observador un ángulo $\Omega$ (longitud del nodo ascendente) hasta alinear la línea de nodos con el eje $x$ del observador.
+\end{enumerate}
+Dado que trabajamos con vectores columna y las rotaciones se aplican sucesivamente, la matriz total se obtiene multiplicando las matrices elementales de izquierda a derecha en el orden inverso de aplicación (primera rotación a la derecha):
+\[
+\mathbf{R}_{\text{Euler}} = \mathbf{R}_z(\Omega)\,\mathbf{R}_x(I)\,\mathbf{R}_z(\omega).
+\]
+
+\subsection{Definición de las matrices elementales}
+Utilizando notación trigonométrica explícita, las matrices elementales se definen como:
+\[
+\mathbf{R}_z(\omega) =
+\begin{pmatrix}
+\cos\omega & -\sin\omega & 0 \\
+\sin\omega & \cos\omega & 0 \\
+0 & 0 & 1
+\end{pmatrix}, \quad
+\mathbf{R}_x(I) =
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & \cos I & -\sin I \\
+0 & \sin I & \cos I
+\end{pmatrix}, \quad
+\mathbf{R}_z(\Omega) =
+\begin{pmatrix}
+\cos\Omega & -\sin\Omega & 0 \\
+\sin\Omega & \cos\Omega & 0 \\
+0 & 0 & 1
+\end{pmatrix}.
+\]
+
+\subsection{Derivación paso a paso del producto matricial}
+Primero calculamos el producto intermedio $\mathbf{M} = \mathbf{R}_x(I)\,\mathbf{R}_z(\omega)$:
+\[
+\mathbf{M} =
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & \cos I & -\sin I \\
+0 & \sin I & \cos I
+\end{pmatrix}
+\begin{pmatrix}
+\cos\omega & -\sin\omega & 0 \\
+\sin\omega & \cos\omega & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+\cos\omega & -\sin\omega & 0 \\
+\cos I \sin\omega & \cos I \cos\omega & -\sin I \\
+\sin I \sin\omega & \sin I \cos\omega & \cos I
+\end{pmatrix}.
+\]
+Esta matriz representa la rotación combinada que alinea el periapsis con la línea de nodos e inclina el plano orbital, pero aún sin rotar respecto al eje $z$ del observador.
+
+Ahora aplicamos la rotación final alrededor de $z$:
+\[
+\mathbf{R}_{\text{Euler}} = \mathbf{R}_z(\Omega)\,\mathbf{M} =
+\begin{pmatrix}
+\cos\Omega & -\sin\Omega & 0 \\
+\sin\Omega & \cos\Omega & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+\cos\omega & -\sin\omega & 0 \\
+\cos I \sin\omega & \cos I \cos\omega & -\sin I \\
+\sin I \sin\omega & \sin I \cos\omega & \cos I
+\end{pmatrix}.
+\]
+Realizando la multiplicación fila por columna:
+\begin{itemize}
+    \item Fila 1: $R_{11} = \cos\Omega \cos\omega - \sin\Omega \cos I \sin\omega$, \quad $R_{12} = -\cos\Omega \sin\omega - \sin\Omega \cos I \cos\omega$, \quad $R_{13} = \sin\Omega \sin I$.
+    \item Fila 2: $R_{21} = \sin\Omega \cos\omega + \cos\Omega \cos I \sin\omega$, \quad $R_{22} = -\sin\Omega \sin\omega + \cos\Omega \cos I \cos\omega$, \quad $R_{23} = -\cos\Omega \sin I$.
+    \item Fila 3: $R_{31} = \sin I \sin\omega$, \quad $R_{32} = \sin I \cos\omega$, \quad $R_{33} = \cos I$.
+\end{itemize}
+Reemplazando, obtenemos la forma explícita final:
+\[
+\mathbf{R}_{\text{Euler}} =
+\begin{pmatrix}
+\cos\Omega\cos\omega - \sin\Omega\sin\omega\cos I & -\cos\Omega\sin\omega - \sin\Omega\cos\omega\cos I & \sin\Omega\sin I \\
+\sin\Omega\cos\omega + \cos\Omega\sin\omega\cos I & -\sin\Omega\sin\omega + \cos\Omega\cos\omega\cos I & -\cos\Omega\sin I \\
+\sin\omega\sin I & \cos\omega\sin I & \cos I
+\end{pmatrix}.
+\]
+
+\subsection{Transformación de coordenadas y propiedad de ortogonalidad}
+Dado que $\mathbf{R}_{\text{Euler}}$ es una matriz de rotación propia (ortogonal y con determinante $+1$), satisface:
+\[
+\mathbf{R}_{\text{Euler}}^T \mathbf{R}_{\text{Euler}} = \mathbf{I}, \quad \det(\mathbf{R}_{\text{Euler}}) = 1.
+\]
+Esta propiedad garantiza que la transformación preserva la norma euclidiana $|\vec{r}| = r$, los productos escalares y la orientación diestra del sistema, lo cual es esencial para mantener la consistencia física entre marcos de referencia.
+
+La posición en el sistema del observador se obtiene proyectando el vector perifocal mediante:
+\[
+\vec{r}_{\text{obs}} = \mathbf{R}_{\text{Euler}}\,\vec{r}_{\text{per}},
+\]
+donde $\vec{r}_{\text{per}} = (r\cos f,\; r\sin f,\; 0)^T$ contiene las coordenadas en el plano orbital ($f$ es la verdadera anomalía). La tercera componente es nula porque el movimiento es estrictamente plano en el marco perifocal.
+
+Para la transformación inversa, basta con transponer la matriz:
+\[
+\vec{r}_{\text{per}} = \mathbf{R}_{\text{Euler}}^T\,\vec{r}_{\text{obs}}.
+\]
+Analíticamente, esto equivale a invertir el sentido de cada rotación elemental ($\omega \to -\omega$, $I \to -I$, $\Omega \to -\Omega$) y aplicarlas en orden inverso, operación que se reduce exactamente a la transpuesta gracias a la ortogonalidad. Este formalismo cierra el puente entre la geometría kepleriana y la observación astrométrica, permitiendo pasar unívocamente entre elementos orbitales y coordenadas cartesianas inerciales.
+
+\begin{importante}
+La matriz de Euler resume de manera compacta toda la orientación espacial de la órbita. La forma de la cónica se mantiene intacta; lo que cambia es su orientación con respecto al observador.
+\end{importante}
+
+\section{Elementos orbitales clásicos y sus variantes}
+Los seis parámetros que describen completamente una órbita kepleriana se agrupan en los \textbf{elementos orbitales clásicos}:
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Elemento} & \textbf{Símbolo} & \textbf{Significado geométrico} \\
+Semilatus rectum & \(p\) & tamaño o escala de la cónica \\
+Excentricidad & \(e\) & forma de la cónica \\
+Inclinación & \(I\) & orientación del plano orbital \\
+Longitud del nodo ascendente & \(\Omega\) & orientación de la línea de nodos \\
+Argumento del periapsis & \(\omega\) & orientación del periapsis en el plano \\
+Verdadera anomalía & \(f\) & posición instantánea del cuerpo
+\end{tabular}
+\end{center}
+
+\subsection{Variantes descriptivas}
+Dependiendo del tipo de problema, el parámetro \(p\) puede reemplazarse por otras cantidades de tamaño:
+\begin{itemize}
+    \item \textbf{Elementos asteroidales:} \((a, e, I, \Omega, \omega, f)\), donde \(a\) es el semieje mayor. Son útiles para órbitas cerradas \((e<1)\), con
+\[
+ p = a(1-e^2).
+\]
+    \item \textbf{Elementos cometarios:} \((q, e, I, \Omega, \omega, f)\), donde \(q\) es la distancia al periapsis. Son ventajosos para órbitas casi parabólicas \((e\approx 1)\), con
+\[
+ p = q(1+e).
+\]
+\end{itemize}
+
+\section{Determinación de órbita: del vector de estado a los elementos}
+El vector de estado \(\{\vec{r},\vec{v}\}\) contiene toda la información necesaria para recuperar los elementos orbitales. El procedimiento analítico estándar es el siguiente.
+
+\subsection{Paso 1. Vectores fundamentales}
+\[
+\vec{h} = \vec{r} \times \vec{v}, \qquad
+\vec{e} = \frac{1}{\mu}(\vec{v} \times \vec{h}) - \frac{\vec{r}}{r}, \qquad
+\vec{n} = \hat{k} \times \vec{h}
+\]
+
+\subsection{Paso 2. Parámetros de tamaño y forma}
+\[
+ h = |\vec{h}|, \qquad e = |\vec{e}|, \qquad p = \frac{h^2}{\mu}
+\]
+
+\subsection{Paso 3. Orientación del plano orbital}
+\[
+ I = \arccos\left(\frac{h_z}{h}\right), \qquad n = |\vec{n}|
+\]
+\[
+\Omega =
+\begin{cases}
+\arccos(n_x/n), & n_y \ge 0 \\
+2\pi - \arccos(n_x/n), & n_y < 0
+\end{cases}
+\]
+
+\subsection{Paso 4. Orientación del periapsis y posición instantánea}
+\[
+\omega =
+\begin{cases}
+\arccos\left(\frac{\vec{n}\cdot\vec{e}}{ne}\right), & e_z \ge 0 \\
+2\pi - \arccos\left(\frac{\vec{n}\cdot\vec{e}}{ne}\right), & e_z < 0
+\end{cases}
+\]
+\[
+ f =
+\begin{cases}
+\arccos\left(\frac{\vec{e}\cdot\vec{r}}{er}\right), & \vec{r}\cdot\vec{v} \ge 0 \\
+2\pi - \arccos\left(\frac{\vec{e}\cdot\vec{r}}{er}\right), & \vec{r}\cdot\vec{v} < 0
+\end{cases}
+\]
+
+Este algoritmo permite pasar de \((x,y,z,v_x,v_y,v_z)\) a \((p,e,I,\Omega,\omega,f)\) de manera biunívoca, siempre que se apliquen correctamente las correcciones de cuadrante.
+
+\begin{importante}
+El vector de estado y los elementos orbitales son dos maneras equivalentes de describir la misma órbita kepleriana. Uno privilegia la formulación dinámica instantánea; el otro, la interpretación geométrica global.
+\end{importante}
+
+\section{Órbita osculatriz y elementos osculantes}
+En un sistema real sometido a perturbaciones no keplerianas —por ejemplo, achatamiento terrestre, presión de radiación o terceros cuerpos— la trayectoria no es una cónica exacta. Sin embargo, en cualquier instante \(t_0\), puede construirse la \textbf{órbita osculatriz}: la cónica kepleriana que sería seguida por el cuerpo si, a partir de \(t_0\), desaparecieran todas las perturbaciones.
+
+Sus propiedades principales son:
+\begin{itemize}
+    \item la órbita osculatriz es \textbf{tangente} a la trayectoria real en \(t_0\),
+    \item comparte el mismo vector de estado \(\{\vec{r}(t_0),\vec{v}(t_0)\}\),
+    \item sus elementos \((p(t), e(t), I(t), \Omega(t), \omega(t), f(t))\) dependen del tiempo y se denominan \textbf{elementos osculantes}.
+\end{itemize}
+
+La evolución temporal de estos elementos se describe mediante ecuaciones de variación de parámetros, como las ecuaciones de Lagrange o de Gauss, que relacionan las fuerzas perturbadoras con las derivadas temporales de los elementos orbitales.
+
+\section{Síntesis final}
+El desarrollo de esta clase cierra el puente entre la integración analítica del problema de dos cuerpos y su aplicación observacional:
+\begin{enumerate}
+    \item La geometría de la cónica se parametriza eficientemente mediante seis elementos orbitales.
+    \item La orientación en el espacio se resuelve mediante tres rotaciones de Euler, cuya matriz conecta el sistema perifocal con el sistema del observador.
+    \item La ambigüedad trigonométrica se resuelve mediante correcciones de cuadrante o mediante funciones trigonométricas con información de signo, como \(\operatorname{atan2}\).
+    \item El vector de estado \(\{\vec{r},\vec{v}\}\) es suficiente y necesario para recuperar unívocamente los elementos orbitales.
+    \item El concepto de órbita osculatriz permite extender el formalismo kepleriano a sistemas perturbados, sentando las bases para la teoría de perturbaciones y la propagación numérica de órbitas.
+\end{enumerate}
+
+\begin{importante}
+Este marco constituye una de las columnas vertebrales de la astrodinámica moderna: conecta geometría, dinámica, observación y cómputo en un único lenguaje orbital coherente.
+\end{importante}
