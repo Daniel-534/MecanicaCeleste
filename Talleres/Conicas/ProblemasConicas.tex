@@ -1,0 +1,877 @@
+
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.75\baselineskip}
+
+\newtheoremstyle{prismstyle}
+  {0.8\baselineskip}
+  {0.8\baselineskip}
+  {}
+  {}
+  {\bfseries}
+  {.}
+  {0.5em}
+  {}
+
+\theoremstyle{prismstyle}
+\newtheorem{problem}{Problema}
+
+\newenvironment{solution}[1][Solución]
+  {\par\textbf{#1.}\ }
+  {\par}
+
+\newcommand{\problemsection}[2]{
+  \section{#1}
+  \begin{problem}
+  #2
+  \end{problem}
+}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\title{Problemas de Cónicas}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+
+\problemsection{Problema 1: Otra definición de una elipse}{
+Una elipse se puede definir como el lugar geométrico de los puntos cuya suma de las distancias a dos puntos fijos llamados focos es constante; esto es, si $P$ es un punto de la elipse y $F_1$, $F_2$ son sus focos, entonces
+\[
+F_1P + F_2P = \text{constante}.
+\]
+
+A partir de esta definición y de los parámetros descritos previamente, demuestre lo siguiente:
+
+\begin{enumerate}[label=\alph*)]
+  \item La constante a la que es igual dicha suma es $2a$.
+  \item Los parámetros $a$, $b$ y la distancia focal $c$ satisfacen la relación pitagórica
+  \[
+  a^2 = b^2 + c^2.
+  \]
+  \item A partir de esta definición, la ecuación de la elipse horizontal centrada en $C=(0,0)$ es
+  \[
+  \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1.
+  \]
+  \item La excentricidad también puede calcularse como
+  \[
+  e = \frac{c}{a}.
+  \]
+  \item El semilatus rectum también puede calcularse como
+  \[
+  p = \frac{b^2}{a}.
+  \]
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{Inciso a) Demostración de que la constante es $2a$.}
+
+Colocamos la elipse en un sistema cartesiano con centro en $C(0,0)$ y focos en $F_1(-c,0)$ y $F_2(c,0)$. Los vértices sobre el eje mayor están en $V_1(-a,0)$ y $V_2(a,0)$.
+
+Por definición, para cualquier punto $P$ de la elipse se cumple que $F_1P + F_2P = K$, donde $K$ es constante. Evaluamos la suma en el vértice derecho $V_2(a,0)$:
+\[
+F_1V_2 = \text{distancia}((-c,0),(a,0)) = a-(-c) = a+c,
+\]
+\[
+F_2V_2 = \text{distancia}((c,0),(a,0)) = a-c.
+\]
+Por tanto,
+\[
+K = (a+c) + (a-c) = 2a.
+\]
+Como la suma es constante para toda la curva, concluimos que
+\[
+\boxed{F_1P + F_2P = 2a}.
+\]
+
+\textbf{Inciso b) Demostración de $a^2 = b^2 + c^2$.}
+
+Consideremos el punto $B(0,b)$, extremo del semieje menor. Por simetría, las distancias a los focos son iguales, y además
+\[
+F_1B = \sqrt{(-c-0)^2 + (0-b)^2} = \sqrt{c^2+b^2},
+\]
+\[
+F_2B = \sqrt{(c-0)^2 + (0-b)^2} = \sqrt{c^2+b^2}.
+\]
+Usando el resultado del inciso anterior,
+\[
+F_1B + F_2B = 2\sqrt{b^2+c^2} = 2a.
+\]
+Dividiendo entre $2$ y elevando al cuadrado se obtiene
+\[
+\sqrt{b^2+c^2} = a \quad \Rightarrow \quad \boxed{a^2 = b^2+c^2}.
+\]
+
+\textbf{Inciso c) Derivación de la ecuación canónica.}
+
+Sea $P(x,y)$ un punto genérico de la elipse. Entonces,
+\[
+\sqrt{(x+c)^2 + y^2} + \sqrt{(x-c)^2 + y^2} = 2a.
+\]
+Despejamos uno de los radicales:
+\[
+\sqrt{(x+c)^2 + y^2} = 2a - \sqrt{(x-c)^2 + y^2}.
+\]
+Elevando al cuadrado ambos lados,
+\[
+(x+c)^2 + y^2 = 4a^2 - 4a\sqrt{(x-c)^2 + y^2} + (x-c)^2 + y^2.
+\]
+Al expandir y simplificar,
+\[
+4cx = 4a^2 - 4a\sqrt{(x-c)^2 + y^2}.
+\]
+Dividimos entre $4$ y reordenamos:
+\[
+a^2 - cx = a\sqrt{(x-c)^2 + y^2}.
+\]
+Volvemos a elevar al cuadrado:
+\[
+(a^2-cx)^2 = a^2\bigl((x-c)^2+y^2\bigr).
+\]
+Desarrollando ambos lados,
+\[
+a^4 - 2a^2cx + c^2x^2 = a^2x^2 - 2a^2cx + a^2c^2 + a^2y^2.
+\]
+Cancelando términos comunes y reagrupando,
+\[
+a^2(a^2-c^2) = (a^2-c^2)x^2 + a^2y^2.
+\]
+Como por el inciso b) se tiene $a^2-c^2=b^2$, resulta
+\[
+a^2b^2 = b^2x^2 + a^2y^2.
+\]
+Dividiendo entre $a^2b^2$, obtenemos la ecuación canónica:
+\[
+\boxed{\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1}.
+\]
+
+\textbf{Inciso d) Demostración de $e = c/a$.}
+
+Del inciso b) se sigue que
+\[
+c^2 = a^2-b^2.
+\]
+Por otra parte, en la parametrización usual de la elipse,
+\[
+b^2 = a^2(1-e^2).
+\]
+Sustituyendo en la expresión de $c^2$,
+\[
+c^2 = a^2 - a^2(1-e^2) = a^2e^2.
+\]
+Tomando la raíz positiva,
+\[
+c = ae \quad \Rightarrow \quad \boxed{e = \frac{c}{a}}.
+\]
+
+\textbf{Inciso e) Demostración de $p = b^2/a$.}
+
+El semilatus rectum $p$ es la distancia perpendicular desde un foco hasta la curva; analíticamente corresponde al valor de $|y|$ cuando $x=c$.
+Sustituyendo $x=c$ en la ecuación canónica,
+\[
+\frac{c^2}{a^2} + \frac{y^2}{b^2} = 1.
+\]
+Entonces,
+\[
+\frac{y^2}{b^2} = 1 - \frac{c^2}{a^2} = \frac{a^2-c^2}{a^2}.
+\]
+Usando nuevamente que $a^2-c^2=b^2$,
+\[
+\frac{y^2}{b^2} = \frac{b^2}{a^2} \quad \Rightarrow \quad y^2 = \frac{b^4}{a^2}.
+\]
+Tomando la raíz positiva,
+\[
+\boxed{p = |y| = \frac{b^2}{a}}.
+\]
+\end{solution}
+
+\problemsection{Problema 2: Ecuación de una elipse}{
+Encuentre la ecuación general de la elipse cuyo semilatus rectum valga $9$ y cuya excentricidad sea $0.5$.
+}
+
+\begin{solution}
+Para resolver este problema, partimos de las relaciones geométricas fundamentales de una elipse en su posición canónica, es decir, centrada en el origen y con eje mayor sobre el eje $x$. Adoptamos esta configuración estándar porque el enunciado no indica traslaciones ni rotaciones.
+
+\textbf{Paso 1. Datos conocidos y relaciones básicas.}
+
+Se nos proporcionan los parámetros
+\[
+p = 9, \qquad e = 0.5.
+\]
+En una elipse horizontal se cumplen las relaciones
+\[
+p = a(1-e^2)
+\qquad \text{y} \qquad
+b^2 = a^2(1-e^2).
+\]
+De ellas también se deduce la identidad útil
+\[
+b^2 = ap.
+\]
+
+\textbf{Paso 2. Cálculo del semieje mayor $a$.}
+
+Despejamos $a$ de la fórmula del semilatus rectum:
+\[
+a = \frac{p}{1-e^2} = \frac{9}{1-(0.5)^2} = \frac{9}{0.75} = 12.
+\]
+
+\textbf{Paso 3. Cálculo del semieje menor.}
+
+Usando la relación $b^2 = ap$,
+\[
+b^2 = 12 \cdot 9 = 108.
+\]
+Así, los parámetros principales de la elipse son
+\[
+a^2 = 144, \qquad b^2 = 108.
+\]
+
+\textbf{Paso 4. Ecuación canónica.}
+
+Sustituyendo en la forma estándar de la elipse horizontal,
+\[
+\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1,
+\]
+obtenemos
+\[
+\frac{x^2}{144} + \frac{y^2}{108} = 1.
+\]
+
+\textbf{Paso 5. Conversión a la ecuación general.}
+
+Multiplicamos toda la ecuación por el mínimo común múltiplo de $144$ y $108$, que es $432$:
+\[
+432\left(\frac{x^2}{144}\right) + 432\left(\frac{y^2}{108}\right) = 432.
+\]
+Entonces,
+\[
+3x^2 + 4y^2 = 432.
+\]
+Llevando todos los términos al mismo lado,
+\[
+\boxed{3x^2 + 4y^2 - 432 = 0}.
+\]
+
+\textbf{Verificación.}
+
+Comprobamos que la ecuación obtenida reproduce los datos del problema:
+\[
+e = \sqrt{1-\frac{b^2}{a^2}} = \sqrt{1-\frac{108}{144}} = \sqrt{0.25} = 0.5,
+\]
+y además
+\[
+p = \frac{b^2}{a} = \frac{108}{12} = 9.
+\]
+Ambos valores coinciden con el enunciado, así que la ecuación es correcta.
+\end{solution}
+
+\problemsection{Problema 3: Parámetros geométricos}{
+Defina conceptualmente a qué corresponden cada uno de los siguientes parámetros en el caso de una elipse:
+\begin{enumerate}[label=\alph*)]
+  \item defina $F$
+  \item defina $e$
+  \item defina $p$
+  \item defina $C$
+  \item defina $a$
+  \item defina $b$
+  \item defina $r$
+  \item defina $f$
+  \item defina $E$
+\end{enumerate}
+}
+
+\begin{solution}
+A continuación se presenta la definición conceptual de cada parámetro, estructurada en una tabla que integra su significado geométrico, su relación matemática principal y su interpretación en mecánica celeste.
+
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+{\footnotesize
+\begin{longtable}{@{}L{0.11\textwidth}L{0.08\textwidth}L{0.23\textwidth}L{0.24\textwidth}L{0.22\textwidth}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Símbolo} & \textbf{Definición conceptual} & \textbf{Relación matemática / propiedad geométrica} & \textbf{Interpretación en mecánica celeste} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Parámetro} & \textbf{Símbolo} & \textbf{Definición conceptual} & \textbf{Relación matemática / propiedad geométrica} & \textbf{Interpretación en mecánica celeste} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\textbf{Foco} & $F$ & Punto fijo del plano respecto al cual se construye la elipse mediante la propiedad de suma constante de distancias. Es el origen del sistema de coordenadas polares perifocales. & Distancia al centro: $c = ae$. Existen dos focos simétricos respecto a $C$. En el problema de dos cuerpos, el foco activo coincide con la posición del cuerpo masivo. & Centro de atracción gravitacional. El vector posición $\vec{r}$ se mide desde este punto. \\
+\textbf{Excentrici-}\textbf{dad} & $e$ & Parámetro adimensional que cuantifica el grado de achatamiento o desviación de la elipse respecto a una circunferencia. & $e = \dfrac{c}{a} = \sqrt{1-\dfrac{b^2}{a^2}}$, con $0 \le e < 1$ para elipses. Si $e=0$, la elipse degenera en circunferencia. & Clasifica el tipo de cónica y determina la variación radial entre periapsis y apoapsis. \\
+\textbf{Semilatus rectum} & $p$ & Distancia perpendicular desde un foco hasta la curva, medida a lo largo de una recta paralela al eje menor. Caracteriza la apertura de la cónica en la vecindad del foco. & $p = a(1-e^2) = \dfrac{b^2}{a}$. Aparece en la ecuación polar $r(\theta) = \dfrac{p}{1+e\cos f}$. & Se relaciona con el momento angular específico $h$ y el parámetro gravitacional $\mu$ mediante $p = h^2/\mu$. \\
+\textbf{Centro geométrico} & $C$ & Punto de intersección de los ejes de simetría mayor y menor. Es el centro de simetría puntual de la figura. & En coordenadas cartesianas canónicas, $(x_C,y_C)=(0,0)$. La distancia a cada foco es $c = ae$. & Referencia para la descripción cartesiana de la elipse. No coincide con el centro de fuerzas gravitacionales. \\
+\textbf{Semieje mayor} & $a$ & Mitad de la longitud máxima de la elipse a lo largo de su eje principal. Representa la escala característica de tamaño de la órbita. & $a = \dfrac{p}{1-e^2} = \dfrac{r_{\text{peri}} + r_{\text{apo}}}{2}$ y satisface $a^2 = b^2 + c^2$. & Parámetro fundamental en la tercera ley de Kepler: $n^2 a^3 = \mu$. También define la energía específica $\mathcal{E} = -\mu/(2a)$. \\
+\textbf{Semieje menor} & $b$ & Mitad de la longitud máxima a lo largo del eje secundario, perpendicular al eje mayor. Cuantifica la extensión transversal de la órbita. & $b = a\sqrt{1-e^2}$. Corresponde a la coordenada $y$ cuando $x=0$ en el sistema centrado en $C$. & Determina el área total de la elipse, $A = \pi ab$, y se vincula con la velocidad areal constante. \\
+\textbf{Radio vector} & $r$ & Distancia instantánea desde el foco $F$ hasta un punto arbitrario sobre la elipse. Es la magnitud del vector posición $\vec{r}$. & $r = \|\vec{r}\| = a(1-e\cos E) = \dfrac{p}{1+e\cos f}$, con $a(1-e) \le r \le a(1+e)$. & Evoluciona en el tiempo según la segunda ley de Kepler y su variación está acotada por los ápsides. \\
+\textbf{Anomalía verdadera} & $f$ & Ángulo polar medido desde la dirección del periapsis hasta el vector posición $\vec{r}$. Indica la posición angular real del cuerpo. & $0 \le f < 2\pi$. Se relaciona con $E$ mediante $\tan\dfrac{f}{2} = \sqrt{\dfrac{1+e}{1-e}}\tan\dfrac{E}{2}$. & Es el parámetro natural para la ecuación polar y describe la geometría instantánea observada desde el foco. \\
+\textbf{Anomalía excéntrica} & $E$ & Parámetro angular auxiliar definido geométricamente proyectando el punto de la elipse sobre una circunferencia auxiliar de radio $a$ centrada en $C$. & $0 \le E < 2\pi$. Vincula tiempo y posición mediante la ecuación de Kepler: $M = E - e\sin E$. & Variable intermedia esencial para resolver el problema de Kepler en función del tiempo. \\
+\end{longtable}
+}
+
+\textbf{Análisis complementario y relaciones estructurales.}
+
+Los nueve parámetros enumerados no son independientes; forman un sistema algebraico y geométrico cohesionado que permite transitar entre descripciones cartesianas, polares y temporales de la elipse.
+
+\begin{enumerate}
+  \item \textbf{Tríada geométrica básica.} Los parámetros $a$, $b$ y $c$ satisfacen la relación
+  \[
+  a^2 = b^2 + c^2,
+  \]
+  donde $c = ae$ es la distancia entre el foco y el centro.
+
+  \item \textbf{Transición polar-cartesiana.} El radio vector $r$ y la anomalía verdadera $f$ determinan completamente la posición en coordenadas polares focales. Para integrar la dinámica temporal se introduce la anomalía excéntrica $E$, con la cual el área barrida se expresa como
+  \[
+  \Delta A = \frac{ab}{2}(E - e\sin E).
+  \]
+  Al compararla con la ley de áreas, se obtiene la ecuación de Kepler.
+
+  \item \textbf{Invariancia del semilatus rectum.} El parámetro $p$ encapsula la conservación del momento angular específico, pues
+  \[
+  p = \frac{h^2}{\mu}.
+  \]
+
+  \item \textbf{Jerarquía de dependencia.} En la práctica teórica y computacional, los parámetros pueden organizarse en niveles: geométrico primario $(a,e)$; derivado directo $b = a\sqrt{1-e^2}$, $c = ae$, $p = a(1-e^2)$; cinemático $r(f)$, $r(E)$, $f(E)$, $E(t)$; y energético $\mathcal{E} = -\mu/(2a)$, $h = \sqrt{\mu p}$.
+\end{enumerate}
+
+Esta estructura paramétrica permite reconstruir la geometría orbital y predecir la posición futura del sistema a partir de un conjunto reducido de parámetros fundamentales.
+\end{solution}
+
+\problemsection{Problema 6: Órbitas de cometas}{
+El semieje mayor de un cometa es de $20\ \text{UA}$ y la distancia entre el foco y el perihelio es de $1\ \text{UA}$.
+\begin{enumerate}[label=\alph*)]
+  \item ¿Cuál es la excentricidad de la órbita?
+  \item ¿Cuánto vale el semieje menor?
+  \item ¿Cuánto vale el semilatus rectum?
+  \item Escriba la ecuación de este cometa en coordenadas polares.
+  \item Haga un bosquejo de la situación medianamente a escala.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{Datos iniciales.}
+\[
+a = 20\ \text{UA},
+\qquad
+q = 1\ \text{UA},
+\]
+donde $q$ representa la distancia foco-perihelio, es decir, el radio periapsidal.
+
+\textbf{Inciso a) Cálculo de la excentricidad $e$.}
+
+En una elipse, la distancia desde el foco hasta el perihelio satisface
+\[
+q = a(1-e).
+\]
+Despejando la excentricidad,
+\[
+e = 1 - \frac{q}{a} = 1 - \frac{1}{20} = 0.95.
+\]
+Por tanto,
+\[
+\boxed{e = 0.95}.
+\]
+Este valor, cercano a $1$, indica una órbita muy elongada, como es típico en muchos cometas.
+
+\textbf{Inciso b) Cálculo del semieje menor $b$.}
+
+Usamos la relación
+\[
+b = a\sqrt{1-e^2}.
+\]
+Sustituyendo los datos,
+\[
+b = 20\sqrt{1-(0.95)^2} = 20\sqrt{1-0.9025} = 20\sqrt{0.0975}.
+\]
+Numéricamente,
+\[
+b \approx 20(0.31225) \approx 6.245\ \text{UA}.
+\]
+En consecuencia,
+\[
+\boxed{b \approx 6.245\ \text{UA}}.
+\]
+
+\textbf{Inciso c) Cálculo del semilatus rectum $p$.}
+
+El semilatus rectum se relaciona con $a$ y $e$ mediante
+\[
+p = a(1-e^2).
+\]
+Entonces,
+\[
+p = 20(1-0.9025) = 20(0.0975) = 1.95\ \text{UA}.
+\]
+Por tanto,
+\[
+\boxed{p = 1.95\ \text{UA}}.
+\]
+Como verificación adicional, también se cumple $p = q(1+e)$, y en efecto
+\[
+p = 1(1+0.95) = 1.95\ \text{UA}.
+\]
+
+\textbf{Inciso d) Ecuación en coordenadas polares.}
+
+Con el foco en el origen y el eje polar apuntando hacia el perihelio, la ecuación polar de la órbita es
+\[
+r(\theta) = \frac{p}{1+e\cos\theta}.
+\]
+Sustituyendo los valores obtenidos,
+\[
+\boxed{r(\theta) = \frac{1.95}{1+0.95\cos\theta}}.
+\]
+Aquí $r$ está medido en unidades astronómicas y $\theta$ representa la anomalía verdadera medida desde la dirección del perihelio.
+
+\textbf{Inciso e) Bosquejo medianamente a escala.}
+
+Como $c = ae = 19\ \text{UA}$, el centro de la elipse queda en $(19,0)$ si ubicamos el foco en el origen y el perihelio en $(1,0)$. Además, el afelio queda en $(39,0)$ y el semieje menor vale aproximadamente $6.245\ \text{UA}$. El siguiente esquema respeta esas proporciones de manera aproximada:
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[x=0.18cm,y=0.18cm]
+  \draw[->] (-2,0) -- (42,0) node[right] {$x$};
+  \draw[->] (0,-9) -- (0,9) node[above] {$y$};
+  \draw[thick,blue] (19,0) ellipse [x radius=20, y radius=6.245];
+  \fill (0,0) circle (0.28) node[below left] {$F$};
+  \fill (19,0) circle (0.22) node[below] {$C$};
+  \fill (1,0) circle (0.22) node[below] {Perihelio};
+  \fill (39,0) circle (0.22) node[below] {Afelio};
+  \draw[dashed] (19,-6.245) -- (19,6.245);
+  \node[right] at (19,6.245) {$b \approx 6.245$};
+  \draw[<->] (0,-7.5) -- (19,-7.5) node[midway,below] {$c=19$};
+  \draw[<->] (19,-8.5) -- (39,-8.5) node[midway,below] {$a=20$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+\end{solution}
+
+\problemsection{Problema 7: Órbita lunar}{
+Sobre una órbita lunar, el punto más cercano al satélite se conoce como \textbf{periselenio} y el más lejano como \textbf{aposelenio}. La nave Apolo 11 fue puesta en una órbita elíptica alrededor de la Luna con una altitud respecto a la superficie lunar de $110\ \text{km}$ en el periselenio y de $314\ \text{km}$ en el aposelenio. Encuentre la ecuación de esta elipse en coordenadas polares si el radio de la Luna es de $1728\ \text{km}$ y el centro de la Luna se encuentra en uno de los focos de la elipse. Haga un bosquejo de la situación medianamente a escala.
+}
+
+\begin{solution}
+\textbf{1. Datos del problema.}
+
+Se tienen los siguientes datos:
+\[
+R_L = 1728\ \text{km},
+\qquad
+h_p = 110\ \text{km},
+\qquad
+h_a = 314\ \text{km}.
+\]
+
+\textbf{2. Distancias desde el centro de la Luna.}
+
+Como el centro de la Luna ocupa uno de los focos de la elipse, las distancias radiales en periselenio y aposelenio son
+\[
+r_p = R_L + h_p = 1728 + 110 = 1838\ \text{km},
+\]
+\[
+r_a = R_L + h_a = 1728 + 314 = 2042\ \text{km}.
+\]
+
+\textbf{3. Ecuación polar de la cónica.}
+
+La ecuación de una cónica en coordenadas polares con origen en el foco es
+\[
+r = \frac{p}{1+e\cos f},
+\]
+donde $p$ es el semilatus rectum, $e$ la excentricidad y $f$ la anomalía verdadera medida desde el periselenio.
+
+\textbf{4. Cálculo de la excentricidad $e$.}
+
+Evaluamos la ecuación polar en los dos extremos de la órbita:
+\[
+r_p = \frac{p}{1+e}
+\qquad (f=0),
+\]
+\[
+r_a = \frac{p}{1-e}
+\qquad (f=\pi).
+\]
+Despejando $p$ de ambas expresiones e igualando,
+\[
+r_p(1+e) = r_a(1-e).
+\]
+Desarrollando,
+\[
+r_p + r_pe = r_a - r_ae,
+\]
+\[
+e(r_p+r_a) = r_a-r_p.
+\]
+Por tanto,
+\[
+\boxed{e = \frac{r_a-r_p}{r_a+r_p}}.
+\]
+Sustituyendo valores numéricos,
+\[
+e = \frac{2042-1838}{2042+1838} = \frac{204}{3880} = 0{,}052577 \approx \boxed{0{,}0526}.
+\]
+
+\textbf{5. Cálculo del semilatus rectum $p$.}
+
+Usando la expresión del periselenio,
+\[
+p = r_p(1+e) = 1838(1+0{,}052577) = 1838(1{,}052577) \approx \boxed{1934{,}64\ \text{km}}.
+\]
+Como verificación,
+\[
+p = r_a(1-e) = 2042(1-0{,}052577) = 2042(0{,}947423) \approx 1934{,}64\ \text{km}.
+\]
+
+\textbf{6. Semieje mayor $a$.}
+
+Para una elipse,
+\[
+a = \frac{r_p+r_a}{2} = \frac{1838+2042}{2} = \boxed{1940\ \text{km}}.
+\]
+Además, se verifica la consistencia con
+\[
+p = a(1-e^2).
+\]
+En efecto,
+\[
+p = 1940\left(1-(0{,}052577)^2\right) \approx 1940(0{,}997236) \approx 1934{,}64\ \text{km}.
+\]
+
+\textbf{7. Ecuación final en coordenadas polares.}
+
+Sustituyendo los valores obtenidos en la ecuación polar,
+\[
+\boxed{r(f) = \frac{1934{,}64\ \text{km}}{1+0{,}0526\cos f}}.
+\]
+Aquí $f$ se mide desde la dirección del periselenio.
+
+\textbf{8. Parámetros geométricos adicionales para el bosquejo.}
+
+El semieje menor es
+\[
+b = a\sqrt{1-e^2} = 1940\sqrt{1-0{,}002764} \approx 1937{,}3\ \text{km}.
+\]
+La distancia foco-centro resulta
+\[
+c = ae = 1940(0{,}0526) \approx 102{,}0\ \text{km}.
+\]
+
+\textbf{9. Bosquejo medianamente a escala.}
+
+Tomando el foco lunar en el origen, el periselenio queda en $(1838,0)$ y el aposelenio en $(-2042,0)$. El centro geométrico de la órbita se ubica aproximadamente en $(-102,0)$ y la Luna puede representarse como un círculo de radio $1728\ \text{km}$ centrado en el foco. El siguiente esquema refleja esta geometría de manera aproximada:
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[x=0.0018cm,y=0.0018cm]
+  \draw[->] (-2600,0) -- (2400,0) node[right] {$x$};
+  \draw[->] (0,-2300) -- (0,2300) node[above] {$y$};
+  \draw[fill=gray!15] (0,0) circle[radius=1728];
+  \draw[thick,blue] (-102,0) ellipse [x radius=1940, y radius=1937.3];
+  \fill (0,0) circle (60) node[above right] {Centro lunar / foco};
+  \fill (1838,0) circle (40) node[below right] {Periselenio};
+  \fill (-2042,0) circle (40) node[below left] {Aposelenio};
+  \fill (-102,0) circle (35) node[above] {$C$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+\end{solution}
+
+\problemsection{Problema 8: Anomalías}{
+Demuestre que, para una elipse:
+\begin{enumerate}[label=\alph*)]
+  \item la distancia radial $r$ está relacionada con la anomalía excéntrica $E$ por medio de la expresión
+  \[
+  r = a(1 - e\cos E),
+  \]
+  \item y que la anomalía verdadera se relaciona con la anomalía excéntrica a través de
+  \[
+  \tan\frac{f}{2} = \sqrt{\frac{1+e}{1-e}}\tan\frac{E}{2}.
+  \]
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{Inciso a) Demostración de $r = a(1 - e\cos E)$.}
+
+\textbf{Paso 1. Configuración geométrica y parametrización.}
+
+Colocamos el centro de la elipse en el origen de un sistema cartesiano $(x_c,y_c)$. Los focos se ubican en $F_1(-ae,0)$ y $F_2(ae,0)$, donde $a$ es el semieje mayor, $e$ la excentricidad y $c=ae$ la distancia del centro a cada foco. Además,
+\[
+b^2 = a^2(1-e^2).
+\]
+
+La elipse puede parametrizarse mediante la circunferencia auxiliar de radio $a$. Un punto $P$ sobre la elipse tiene coordenadas
+\[
+x_c = a\cos E,
+\qquad
+y_c = b\sin E,
+\]
+donde $E$ es la anomalía excéntrica.
+
+\textbf{Paso 2. Expresión de la distancia radial $r$.}
+
+Tomamos como origen polar el foco derecho $F_2$, ubicado en $x=ae$. Entonces la distancia radial desde el foco hasta el punto $P$ es
+\[
+r = \sqrt{(x_c-ae)^2 + y_c^2}.
+\]
+Sustituyendo la parametrización,
+\[
+r^2 = (a\cos E-ae)^2 + (b\sin E)^2.
+\]
+
+\textbf{Paso 3. Expansión y simplificación algebraica.}
+
+Desarrollamos:
+\[
+r^2 = a^2\cos^2 E - 2a^2e\cos E + a^2e^2 + b^2\sin^2 E.
+\]
+Sustituimos $b^2 = a^2(1-e^2)$:
+\[
+r^2 = a^2\cos^2 E - 2a^2e\cos E + a^2e^2 + a^2(1-e^2)\sin^2 E.
+\]
+Factorizando $a^2$,
+\[
+r^2 = a^2\left[\cos^2 E + \sin^2 E - e^2\sin^2 E - 2e\cos E + e^2\right].
+\]
+Usamos la identidad $\cos^2 E + \sin^2 E = 1$:
+\[
+r^2 = a^2\left[1 - e^2\sin^2 E - 2e\cos E + e^2\right].
+\]
+Ahora agrupamos los términos con $e^2$ y empleamos $1-\sin^2 E = \cos^2 E$:
+\[
+r^2 = a^2\left[1 - 2e\cos E + e^2(1-\sin^2 E)\right]
+= a^2\left[1 - 2e\cos E + e^2\cos^2 E\right].
+\]
+Reconocemos un cuadrado perfecto:
+\[
+r^2 = a^2(1-e\cos E)^2.
+\]
+
+\textbf{Paso 4. Extracción de la raíz.}
+
+Como $0 \le e < 1$, el factor $1-e\cos E$ es positivo. Entonces,
+\[
+\boxed{r = a(1-e\cos E)}.
+\]
+Esta expresión muestra que la distancia radial toma su mínimo en el periapsis, $r_{\min}=a(1-e)$, y su máximo en el apoapsis, $r_{\max}=a(1+e)$.
+
+\textbf{Inciso b) Demostración de $\tan\frac{f}{2} = \sqrt{\frac{1+e}{1-e}}\tan\frac{E}{2}$.}
+
+\textbf{Paso 1. Igualación de expresiones radiales.}
+
+La ecuación polar de la elipse en función de la anomalía verdadera $f$ es
+\[
+r = \frac{a(1-e^2)}{1+e\cos f}.
+\]
+Igualamos esta expresión con la obtenida en el inciso anterior:
+\[
+a(1-e\cos E) = \frac{a(1-e^2)}{1+e\cos f}.
+\]
+Cancelando $a$ y despejando,
+\[
+1+e\cos f = \frac{1-e^2}{1-e\cos E}.
+\]
+
+\textbf{Paso 2. Despeje de $\cos f$.}
+
+Restamos $1$ y simplificamos:
+\[
+e\cos f = \frac{1-e^2}{1-e\cos E} - 1
+= \frac{1-e^2-(1-e\cos E)}{1-e\cos E}
+= \frac{e(\cos E-e)}{1-e\cos E}.
+\]
+Dividiendo entre $e$,
+\[
+\cos f = \frac{\cos E-e}{1-e\cos E}.
+\]
+
+\textbf{Paso 3. Aplicación de la identidad del ángulo mitad.}
+
+Usamos
+\[
+\tan^2\frac{f}{2} = \frac{1-\cos f}{1+\cos f}.
+\]
+Sustituyendo la expresión anterior para $\cos f$,
+\[
+\tan^2\frac{f}{2} = \frac{1-\dfrac{\cos E-e}{1-e\cos E}}{1+\dfrac{\cos E-e}{1-e\cos E}}.
+\]
+
+\textbf{Paso 4. Simplificación de numerador y denominador.}
+
+Para el numerador,
+\[
+1-\cos f = \frac{(1-e\cos E) - (\cos E-e)}{1-e\cos E}
+= \frac{(1+e)(1-\cos E)}{1-e\cos E}.
+\]
+Para el denominador,
+\[
+1+\cos f = \frac{(1-e\cos E) + (\cos E-e)}{1-e\cos E}
+= \frac{(1-e)(1+\cos E)}{1-e\cos E}.
+\]
+Por tanto,
+\[
+\tan^2\frac{f}{2}
+= \frac{\dfrac{(1+e)(1-\cos E)}{1-e\cos E}}{\dfrac{(1-e)(1+\cos E)}{1-e\cos E}}
+= \frac{1+e}{1-e}\cdot\frac{1-\cos E}{1+\cos E}.
+\]
+
+\textbf{Paso 5. Reconocimiento de la identidad para $E/2$.}
+
+Observamos que
+\[
+\frac{1-\cos E}{1+\cos E} = \tan^2\frac{E}{2}.
+\]
+Así,
+\[
+\tan^2\frac{f}{2} = \frac{1+e}{1-e}\tan^2\frac{E}{2}.
+\]
+Tomando la raíz positiva,
+\[
+\boxed{\tan\frac{f}{2} = \sqrt{\frac{1+e}{1-e}}\tan\frac{E}{2}}.
+\]
+
+\textbf{Interpretación analítica.}
+
+Esta relación permite convertir el ángulo auxiliar $E$, medido desde el centro geométrico, en la anomalía verdadera $f$, medida desde el foco gravitacional. El factor
+\[
+\sqrt{\frac{1+e}{1-e}} > 1
+\]
+para toda elipse no circular, lo que refleja la distinta rapidez angular del cuerpo a lo largo de la órbita, en concordancia con la segunda ley de Kepler.
+\end{solution}
+
+\problemsection{Problema 10: Elementos orbitales}{
+Para un satélite en órbita alrededor de la Tierra se tienen los siguientes elementos orbitales:
+\[
+a=8016{,}0\ \text{km},
+\quad e=0{,}06,
+\quad I=50^\circ,
+\quad \Omega=0{,}0^\circ,
+\quad \omega=30^\circ,
+\quad f=20^\circ.
+\]
+Encuentre el vector de posición en el plano fundamental del ecuador terrestre.
+}
+
+\begin{solution}
+\textbf{Paso 1. Cálculo de la distancia radial $r$.}
+
+La ecuación polar de la trayectoria relativa en coordenadas perifocales es
+\[
+r = \frac{p}{1+e\cos f},
+\]
+donde el semilatus rectum se calcula mediante
+\[
+p = a(1-e^2).
+\]
+Sustituyendo los valores dados,
+\[
+p = 8016{,}0(1-0{,}06^2) = 8016{,}0(0{,}9964) = 7987{,}1424\ \text{km}.
+\]
+Entonces,
+\[
+r = \frac{7987{,}1424}{1+0{,}06\cos 20^\circ}
+= \frac{7987{,}1424}{1+0{,}06(0{,}9396926)}
+\approx 7560{,}84\ \text{km}.
+\]
+
+\textbf{Paso 2. Vector posición en el sistema perifocal.}
+
+En el sistema perifocal $\mathcal{F}_{PQW}$, con el eje $\hat{P}$ dirigido al periapsis y el eje $\hat{Q}$ contenido en el plano orbital, el vector posición es
+\[
+\vec{r}_{PQW} =
+\begin{pmatrix}
+r\cos f \\
+r\sin f \\
+0
+\end{pmatrix}.
+\]
+
+\textbf{Paso 3. Transformación al sistema ecuatorial terrestre.}
+
+Para pasar del sistema perifocal al sistema ecuatorial inercial se usa la rotación de Euler
+\[
+\mathbf{R}_{ECI \leftarrow PQW} = \mathbf{R}_z(\Omega)\mathbf{R}_x(I)\mathbf{R}_z(\omega).
+\]
+De esta transformación se obtienen las componentes cartesianas
+\[
+\begin{cases}
+x = r\left[\cos\Omega\cos(\omega+f) - \cos I\sin\Omega\sin(\omega+f)\right], \\
+y = r\left[\sin\Omega\cos(\omega+f) + \cos I\cos\Omega\sin(\omega+f)\right], \\
+z = r\left[\sin I\sin(\omega+f)\right].
+\end{cases}
+\]
+Como $\Omega=0^\circ$, se tiene $\cos\Omega=1$ y $\sin\Omega=0$, de modo que las expresiones se simplifican a
+\[
+\begin{cases}
+x = r\cos(\omega+f), \\
+y = r\cos I\sin(\omega+f), \\
+z = r\sin I\sin(\omega+f).
+\end{cases}
+\]
+
+\textbf{Paso 4. Sustitución numérica.}
+
+Primero calculamos el ángulo compuesto:
+\[
+\omega+f = 30^\circ + 20^\circ = 50^\circ.
+\]
+Luego,
+\[
+\cos 50^\circ \approx 0{,}6427876,
+\qquad
+\sin 50^\circ \approx 0{,}7660444.
+\]
+Como además $I=50^\circ$, se tiene también
+\[
+\cos I = \cos 50^\circ \approx 0{,}6427876,
+\qquad
+\sin I = \sin 50^\circ \approx 0{,}7660444.
+\]
+Sustituyendo en las componentes del vector posición,
+\[
+x = 7560{,}84(0{,}6427876) \approx 4860{,}0\ \text{km},
+\]
+\[
+y = 7560{,}84(0{,}6427876)(0{,}7660444) \approx 3722{,}8\ \text{km},
+\]
+\[
+z = 7560{,}84(0{,}7660444)(0{,}7660444) \approx 4436{,}9\ \text{km}.
+\]
+
+\textbf{Resultado final.}
+
+El vector de posición del satélite en el sistema de referencia ecuatorial terrestre es
+\[
+\boxed{\vec{r} \approx
+\begin{pmatrix}
+4860{,}0 \\
+3722{,}8 \\
+4436{,}9
+\end{pmatrix}\ \text{km}}.
+\]
+Este vector tiene magnitud radial aproximada $r\approx 7560{,}8\ \text{km}$ y es consistente con la inclinación orbital de $50^\circ$ respecto del plano ecuatorial.
+\end{solution}
+
+
+\end{document}
