@@ -1,0 +1,644 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[spanish, es-nodecimaldot]{babel} 
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}   
+\usepackage{amssymb}   
+\usepackage{mathtools} 
+\usepackage{graphicx}  
+\usepackage{float}     
+\usepackage[margin=2cm]{geometry}
+\usepackage{parskip}    % Espacio entre párrafos en lugar de sangría (opcional, más limpio)
+\begin{document}
+
+% Título del documento
+\title{Taller de Mecánica Celeste: Problema de los Dos Cuerpos}
+\author{Daniel Soto Villada}
+\date{\today}
+\maketitle
+
+\section{El momento angular del problema de los dos cuerpos} 
+
+Dado un sistema de dos cuerpos con posiciones $\vec{r}_1$ y $\vec{r}_2$ respecto a un sistema de referencia con origen $O$, cuyo centro de masa se encuentra en $\vec{R}$, demuestre que el vector de momento angular total en el sistema de referencia de laboratorio es igual a la suma del momento angular del centro de masa más el momento angular de un cuerpo de masa reducida
+
+$$m_r = \frac{m_1 m_2}{m_1 + m_2},$$
+con respecto a un sistema de referencia con origen en el centro de masa. Es decir,
+$$\vec{L} = M \vec{R} \times \dot{\vec{R}} + m_r \vec{r} \times \dot{\vec{r}},$$
+donde $M = m_1 + m_2$ y $\vec{r} = \vec{r}_1 - \vec{r}_2$.
+
+\section*{Solución del Problema 1}
+
+\subsection{Marco Teórico y Referencias al Libro Guía}
+Este resultado constituye una piedra angular en la reducción del problema de $N$ cuerpos al problema equivalente de un solo cuerpo. La descomposición general del momento angular de un sistema de partículas se encuentra desarrollada en el Capítulo 5 del libro de Zuluaga, específicamente en la Sección 5.4.4 (Dinámica referida al centro de masa). Allí, el autor demuestra que para un sistema de $N$ partículas, el momento angular total medido en un sistema inercial se puede escribir como la suma del momento angular del centro de masa y el momento angular interno medido en el sistema del centro de masa (Ecuación 5.45 de Zuluaga):
+$$ \vec{L} = \vec{R} \times \vec{P}_{\text{CM}} + \sum_{i=1}^N \vec{r}'_i \times \vec{p}'_i, $$
+donde las cantidades primadas denotan medidas respecto al centro de masa. En el caso particular de $N=2$, esta expresión se simplifica notablemente y conduce directamente al resultado solicitado. 
+
+Adicionalmente, las definiciones de coordenadas del centro de masa y coordenadas relativas se introducen en la Sección 5.4.2 (Centro de masa de un sistema de dos partículas), y la aplicación directa al problema de los dos cuerpos, incluyendo la noción de masa reducida y la separación de grados de libertad, se consolida en el Capítulo 7, Sección 7.2 (El problema relativo de dos cuerpos). La demostración que sigue reproduce y detalla paso a paso la construcción algebraica implícita en dichas secciones.
+
+\subsection{Definiciones y Transformaciones de Coordenadas}
+Partimos de las definiciones fundamentales del centro de masa y del vector relativo establecidas en la Sección 5.4.2 de Zuluaga:
+$$ \vec{R} = \frac{m_1 \vec{r}_1 + m_2 \vec{r}_2}{M}, \quad \vec{r} = \vec{r}_1 - \vec{r}_2. $$
+Nuestro objetivo es expresar las posiciones individuales $\vec{r}_1$ y $\vec{r}_2$ en función de $\vec{R}$ y $\vec{r}$. Resolviendo este sistema lineal de ecuaciones vectoriales, obtenemos las ecuaciones de transformación inversa:
+$$ \vec{r}_1 = \vec{R} + \frac{m_2}{M} \vec{r}, \quad \vec{r}_2 = \vec{R} - \frac{m_1}{M} \vec{r}. $$
+Dado que las masas $m_1$ y $m_2$ son constantes en el tiempo (supuesto estándar en mecánica newtoniana para partículas puntuales, como se establece en la Nota de la Sección 5.3.2 de Zuluaga), la derivación temporal de estas expresiones proporciona directamente las velocidades de cada partícula:
+$$ \dot{\vec{r}}_1 = \dot{\vec{R}} + \frac{m_2}{M} \dot{\vec{r}}, \quad \dot{\vec{r}}_2 = \dot{\vec{R}} - \frac{m_1}{M} \dot{\vec{r}}. $$
+
+\subsection{Desarrollo Analítico del Momento Angular Total}
+Por definición, el momento angular total de un sistema de dos partículas en el sistema de referencia de laboratorio es la suma de los momentos angulares individuales respecto al origen $O$:
+$$ \vec{L} = \sum_{i=1}^2 \vec{r}_i \times \vec{p}_i = m_1 \left( \vec{r}_1 \times \dot{\vec{r}}_1 \right) + m_2 \left( \vec{r}_2 \times \dot{\vec{r}}_2 \right). $$
+Sustituimos las expresiones de $\vec{r}_1, \dot{\vec{r}}_1, \vec{r}_2, \dot{\vec{r}}_2$ derivadas en la sección anterior:
+$$ \vec{L} = m_1 \left[ \left( \vec{R} + \frac{m_2}{M} \vec{r} \right) \times \left( \dot{\vec{R}} + \frac{m_2}{M} \dot{\vec{r}} \right) \right] + m_2 \left[ \left( \vec{R} - \frac{m_1}{M} \vec{r} \right) \times \left( \dot{\vec{R}} - \frac{m_1}{M} \dot{\vec{r}} \right) \right]. $$
+Aplicamos la propiedad distributiva del producto vectorial, $(\vec{A}+\vec{B}) \times (\vec{C}+\vec{D}) = \vec{A}\times\vec{C} + \vec{A}\times\vec{D} + \vec{B}\times\vec{C} + \vec{B}\times\vec{D}$, a cada término:
+
+\textbf{Término correspondiente a la partícula 1:}
+$$ m_1 \left[ \vec{R} \times \dot{\vec{R}} + \frac{m_2}{M} (\vec{R} \times \dot{\vec{r}}) + \frac{m_2}{M} (\vec{r} \times \dot{\vec{R}}) + \left(\frac{m_2}{M}\right)^2 (\vec{r} \times \dot{\vec{r}}) \right]. $$
+
+\textbf{Término correspondiente a la partícula 2:}
+$$ m_2 \left[ \vec{R} \times \dot{\vec{R}} - \frac{m_1}{M} (\vec{R} \times \dot{\vec{r}}) - \frac{m_1}{M} (\vec{r} \times \dot{\vec{R}}) + \left(\frac{m_1}{M}\right)^2 (\vec{r} \times \dot{\vec{r}}) \right]. $$
+
+Ahora, sumamos algebraicamente ambos términos agrupando por tipo de producto vectorial:
+
+\begin{itemize}
+    \item \textbf{Coeficiente de $\vec{R} \times \dot{\vec{R}}$:}
+    $$ m_1 + m_2 = M. $$
+    Este término representa el momento angular de una partícula puntual de masa $M$ localizada en el centro de masa y moviéndose con velocidad $\dot{\vec{R}}$.
+
+    \item \textbf{Coeficiente de $\vec{R} \times \dot{\vec{r}}$:}
+    $$ m_1 \left( \frac{m_2}{M} \right) - m_2 \left( \frac{m_1}{M} \right) = \frac{m_1 m_2 - m_2 m_1}{M} = 0. $$
+    Los términos cruzados que mezclan la posición del centro de masa con la velocidad relativa se cancelan exactamente.
+
+    \item \textbf{Coeficiente de $\vec{r} \times \dot{\vec{R}}$:}
+    $$ m_1 \left( \frac{m_2}{M} \right) - m_2 \left( \frac{m_1}{M} \right) = 0. $$
+    De manera análoga, los términos que mezclan la posición relativa con la velocidad del centro de masa también se anulan. Esta cancelación es una consecuencia algebraica directa de la definición del centro de masa y garantiza la separación limpia de los grados de libertad traslacionales e internos.
+
+    \item \textbf{Coeficiente de $\vec{r} \times \dot{\vec{r}}$:}
+    $$ m_1 \left( \frac{m_2}{M} \right)^2 + m_2 \left( \frac{m_1}{M} \right)^2 = \frac{m_1 m_2^2 + m_2 m_1^2}{M^2} = \frac{m_1 m_2 (m_2 + m_1)}{M^2}. $$
+    Dado que $m_1 + m_2 = M$, simplificamos la expresión:
+    $$ \frac{m_1 m_2 M}{M^2} = \frac{m_1 m_2}{M} \equiv m_r. $$
+\end{itemize}
+
+\subsection{Resultado Final e Interpretación Física}
+Reensamblando los términos no nulos obtenidos tras la expansión y simplificación, llegamos a la expresión demostrada:
+$$ \vec{L} = M \left( \vec{R} \times \dot{\vec{R}} \right) + m_r \left( \vec{r} \times \dot{\vec{r}} \right). $$
+Esta igualdad demuestra rigurosamente la descomposición solicitada en el enunciado.
+
+\textbf{Interpretación física y conexión con la mecánica celeste:}
+\begin{enumerate}
+    \item El primer término, $\vec{L}_{\text{CM}} = M \vec{R} \times \dot{\vec{R}}$, corresponde al \textit{momento angular orbital del centro de masa}. Describe el movimiento del sistema como si toda su masa estuviera concentrada en un único punto localizado en $\vec{R}$. En un sistema aislado o bajo fuerzas externas centrales, este término se conserva si no hay torcas externas netas, tal como se discute en el Teorema de conservación del momento angular (Proposición 5.5) de Zuluaga.
+    
+    \item El segundo término, $\vec{L}_{\text{rel}} = m_r \vec{r} \times \dot{\vec{r}}$, corresponde al \textit{momento angular interno o relativo}. Representa la rotación de las partículas alrededor del centro de masa. Matemáticamente, es idéntico al momento angular de una única partícula ficticia de masa $m_r$ (la masa reducida) que se mueve con vector de posición $\vec{r}$ y velocidad $\dot{\vec{r}}$. 
+    
+    Esta reducción es fundamental para resolver analíticamente el problema de los dos cuerpos, como se expone en la Sección 7.3.1 (Momento angular específico relativo), donde se introduce el vector $\vec{h} = \vec{r} \times \dot{\vec{r}}$ como una constante de movimiento clave. La separación de $\vec{L}$ en estas dos componentes independientes permite tratar la dinámica traslacional del sistema (gobernada por $\vec{R}$) y la dinámica interna (gobernada por $\vec{r}$) por separado. Esta independencia es la base matemática que justifica por qué el problema de los dos cuerpos puede reducirse a un problema de un solo cuerpo efectivo sometido a una fuerza central, tal como se detalla en el Capítulo 7, Sección 7.2 del libro guía.
+\end{enumerate}
+
+
+\section{Magnitud del vector de excentricidad.} 
+
+Partiendo de la definición del vector de excentricidad
+$$\vec{e} = \frac{\dot{\vec{r}} \times \vec{h}}{\mu} - \hat{r},$$
+resuelva los siguientes incisos:
+\begin{enumerate}
+    \item[a)] Demuestre que la magnitud de $\vec{e}$ satisface
+    $$e = \sqrt{1 + \frac{2\epsilon h^2}{\mu^2}},$$
+    donde $\epsilon$ es la energía específica relativa de dos cuerpos, $h = \|\vec{h}\|$ es la magnitud del momento angular específico relativo, $\mu = GM$ y $M = m_1 + m_2$ es la masa total del sistema.
+    \item[b)] Muestre que $\dot{\vec{e}} = \vec{0}$,
+    y explique el significado físico y geométrico de este resultado.
+\end{enumerate}
+
+\section*{Solución del Problema 2}
+
+\subsection*{Inciso a) Demostración de la magnitud del vector de excentricidad}
+
+Para demostrar la relación solicitada, partimos de la definición del vector de excentricidad tal como se introduce en la mecánica celeste (véase Zuluaga, Sección 7.3.3: \textit{El vector de excentricidad}):
+$$
+\vec{e} = \frac{\dot{\vec{r}} \times \vec{h}}{\mu} - \frac{\vec{r}}{r},
+$$
+donde $\vec{h} = \vec{r} \times \dot{\vec{r}}$ es el momento angular específico relativo (Sección 7.3.1), $\mu = G(m_1 + m_2)$ es el parámetro gravitacional del sistema, y $r = \|\vec{r}\|$ es la magnitud del vector posición relativa.
+
+La magnitud al cuadrado del vector se obtiene mediante el producto escalar consigo mismo:
+$$
+e^2 = \vec{e} \cdot \vec{e} = \left( \frac{\dot{\vec{r}} \times \vec{h}}{\mu} - \frac{\vec{r}}{r} \right) \cdot \left( \frac{\dot{\vec{r}} \times \vec{h}}{\mu} - \frac{\vec{r}}{r} \right).
+$$
+Expandiendo el producto punto utilizando la propiedad distributiva, obtenemos tres términos:
+$$
+e^2 = \frac{1}{\mu^2} (\dot{\vec{r}} \times \vec{h}) \cdot (\dot{\vec{r}} \times \vec{h}) - \frac{2}{\mu} (\dot{\vec{r}} \times \vec{h}) \cdot \frac{\vec{r}}{r} + \frac{\vec{r}}{r} \cdot \frac{\vec{r}}{r}.
+$$
+Analizamos cada término por separado aplicando identidades vectoriales fundamentales:
+
+\textbf{Término 1:} Utilizamos la identidad de Lagrange para el producto escalar de dos productos cruz:
+$$
+(\vec{A} \times \vec{B}) \cdot (\vec{C} \times \vec{D}) = (\vec{A} \cdot \vec{C})(\vec{B} \cdot \vec{D}) - (\vec{A} \cdot \vec{D})(\vec{B} \cdot \vec{C}).
+$$
+Tomando $\vec{A} = \vec{C} = \dot{\vec{r}}$ y $\vec{B} = \vec{D} = \vec{h}$, se tiene:
+$$
+(\dot{\vec{r}} \times \vec{h}) \cdot (\dot{\vec{r}} \times \vec{h}) = (\dot{\vec{r}} \cdot \dot{\vec{r}})(\vec{h} \cdot \vec{h}) - (\dot{\vec{r}} \cdot \vec{h})^2.
+$$
+Por definición de $\vec{h} = \vec{r} \times \dot{\vec{r}}$, el vector $\vec{h}$ es perpendicular al plano orbital formado por $\vec{r}$ y $\dot{\vec{r}}$, por lo que $\dot{\vec{r}} \cdot \vec{h} = 0$. Además, $\dot{\vec{r}} \cdot \dot{\vec{r}} = v^2$ (rapidez al cuadrado) y $\vec{h} \cdot \vec{h} = h^2$. Por tanto:
+$$
+(\dot{\vec{r}} \times \vec{h}) \cdot (\dot{\vec{r}} \times \vec{h}) = v^2 h^2.
+$$
+
+\textbf{Término 2:} Aplicamos la propiedad cíclica del producto mixto $\vec{A} \cdot (\vec{B} \times \vec{C}) = \vec{B} \cdot (\vec{C} \times \vec{A})$:
+$$
+(\dot{\vec{r}} \times \vec{h}) \cdot \frac{\vec{r}}{r} = \frac{1}{r} \vec{h} \cdot (\vec{r} \times \dot{\vec{r}}).
+$$
+Dado que $\vec{r} \times \dot{\vec{r}} = \vec{h}$, la expresión se reduce a:
+$$
+\frac{1}{r} \vec{h} \cdot \vec{h} = \frac{h^2}{r}.
+$$
+
+\textbf{Término 3:} Es simplemente el producto punto del vector unitario consigo mismo:
+$$
+\frac{\vec{r}}{r} \cdot \frac{\vec{r}}{r} = \frac{r^2}{r^2} = 1.
+$$
+
+Reensamblando los tres términos en la expresión para $e^2$:
+$$
+e^2 = \frac{v^2 h^2}{\mu^2} - \frac{2}{\mu} \left( \frac{h^2}{r} \right) + 1.
+$$
+Factorizando $\frac{h^2}{\mu^2}$ en los dos primeros términos:
+$$
+e^2 = 1 + \frac{h^2}{\mu^2} \left( v^2 - \frac{2\mu}{r} \right).
+$$
+Recordemos la definición de la energía específica relativa (Zuluaga, Sección 7.3.2: \textit{Energía específica relativa}):
+$$
+\epsilon = \frac{1}{2} v^2 - \frac{\mu}{r} \quad \Longrightarrow \quad 2\epsilon = v^2 - \frac{2\mu}{r}.
+$$
+Sustituyendo esta identidad en la expresión de $e^2$, obtenemos directamente:
+$$
+e^2 = 1 + \frac{2\epsilon h^2}{\mu^2}.
+$$
+Tomando la raíz cuadrada positiva (dado que $e$ es una magnitud geométrica no negativa), se concluye:
+$$
+e = \sqrt{1 + \frac{2\epsilon h^2}{\mu^2}}.
+$$
+$\square$
+
+\subsection*{Inciso b) Demostración de la conservación y significado físico-geométrico}
+
+\textbf{Demostración analítica de $\dot{\vec{e}} = \vec{0}$:}
+Para probar que el vector de excentricidad es una constante de movimiento, derivamos su definición respecto al tiempo:
+$$
+\dot{\vec{e}} = \frac{d}{dt} \left( \frac{\dot{\vec{r}} \times \vec{h}}{\mu} - \frac{\vec{r}}{r} \right).
+$$
+Dado que $\mu$ es una constante del sistema y el momento angular específico $\vec{h}$ se conserva en el problema relativo de dos cuerpos ($\dot{\vec{h}} = \vec{0}$, véase Zuluaga, Sección 7.3.1), el primer término se simplifica a:
+$$
+\frac{d}{dt} \left( \frac{\dot{\vec{r}} \times \vec{h}}{\mu} \right) = \frac{\ddot{\vec{r}} \times \vec{h}}{\mu}.
+$$
+Para el segundo término, aplicamos la regla del cociente:
+$$
+\frac{d}{dt} \left( \frac{\vec{r}}{r} \right) = \frac{\dot{\vec{r}} r - \vec{r} \dot{r}}{r^2} = \frac{\dot{\vec{r}}}{r} - \frac{\vec{r} \dot{r}}{r^2},
+$$
+donde $\dot{r} = \frac{d}{dt} \sqrt{\vec{r} \cdot \vec{r}} = \frac{\vec{r} \cdot \dot{\vec{r}}}{r}$ es la componente radial de la velocidad.
+
+Ahora, sustituimos la ecuación de movimiento del problema relativo de dos cuerpos (Zuluaga, Sección 7.2: \textit{El problema relativo de dos cuerpos}), que establece $\ddot{\vec{r}} = -\frac{\mu}{r^3} \vec{r}$, en el primer término:
+$$
+\frac{\ddot{\vec{r}} \times \vec{h}}{\mu} = \frac{1}{\mu} \left( -\frac{\mu}{r^3} \vec{r} \right) \times \vec{h} = -\frac{1}{r^3} \vec{r} \times (\vec{r} \times \dot{\vec{r}}).
+$$
+Aplicamos la identidad del triple producto vectorial $\vec{A} \times (\vec{B} \times \vec{C}) = \vec{B}(\vec{A} \cdot \vec{C}) - \vec{C}(\vec{A} \cdot \vec{B})$ con $\vec{A} = \vec{C} = \vec{r}$ y $\vec{B} = \dot{\vec{r}}$:
+$$
+-\frac{1}{r^3} \left[ \vec{r}(\vec{r} \cdot \dot{\vec{r}}) - \dot{\vec{r}}(\vec{r} \cdot \vec{r}) \right] = -\frac{1}{r^3} \left[ \vec{r}(r \dot{r}) - \dot{\vec{r}} r^2 \right] = -\frac{\vec{r} \dot{r}}{r^2} + \frac{\dot{\vec{r}}}{r}.
+$$
+Observamos que esta expresión es idéntica a la derivada del segundo término, pero con signo contrario. Por lo tanto:
+$$
+\dot{\vec{e}} = \left( -\frac{\vec{r} \dot{r}}{r^2} + \frac{\dot{\vec{r}}}{r} \right) - \left( \frac{\dot{\vec{r}}}{r} - \frac{\vec{r} \dot{r}}{r^2} \right) = \vec{0}.
+$$
+Esto demuestra rigurosamente que $\vec{e}$ es un vector constante en el tiempo.
+
+\textbf{Significado físico y geométrico:}
+La conservación de $\vec{e}$ tiene implicaciones profundas en la descripción de la dinámica orbital, las cuales se detallan en Zuluaga, Sección 7.3.3 y Sección 7.4 (\textit{La ecuación de la trayectoria}):
+
+\begin{enumerate}
+    \item \textbf{Constante de movimiento adicional:} A diferencia del problema de $N$ cuerpos, donde solo existen 10 cuadraturas clásicas, el problema relativo de dos cuerpos posee esta integral vectorial adicional (conocida históricamente como el vector de Laplace-Runge-Lenz). Su existencia refleja una simetría dinámica oculta en los potenciales centrales que varían como $1/r$, lo que implica que las órbitas cerradas son posibles y no precesan (excepto bajo perturbaciones externas o correcciones relativistas).
+    
+    \item \textbf{Dirección y orientación orbital:} Al ser constante, $\vec{e}$ define una dirección fija en el plano orbital. Al proyectarlo sobre el vector posición $\vec{r}$, se obtiene la relación $\vec{e} \cdot \vec{r} = \frac{h^2}{\mu} - r$. Despejando $r$, se recupera inmediatamente la ecuación de la cónica en coordenadas polares:
+    $$
+    r = \frac{h^2/\mu}{1 + e \cos f},
+    $$
+    donde $f$ es el ángulo entre $\vec{e}$ y $\vec{r}$ (la anomalía verdadera). Esto demuestra que $\vec{e}$ apunta exactamente hacia el periapsis de la trayectoria. Por tanto, su dirección fija la orientación espacial de la órbita dentro del plano orbital, reemplazando la necesidad de definir un ángulo de argumento del periapsis de manera arbitraria.
+    
+    \item \textbf{Magnitud y tipo de cónica:} Como se demostró en el inciso a), $e = \|\vec{e}\| = \sqrt{1 + \frac{2\epsilon h^2}{\mu^2}}$. Su valor numérico determina exclusivamente la forma geométrica de la trayectoria: $e=0$ (circunferencia), $0<e<1$ (elipse), $e=1$ (parábola) y $e>1$ (hipérbola). Físicamente, esto vincula directamente la geometría de la órbita con el signo de la energía específica $\epsilon$: sistemas ligados ($\epsilon < 0$) producen elipses, sistemas críticos ($\epsilon = 0$) parábolas, y sistemas no ligados ($\epsilon > 0$) hipérbolas.
+    
+    \item \textbf{Independencia del centro de fuerza:} Geométricamente, $\vec{e}$ es el único vector constante que no está alineado con $\vec{h}$ (que es perpendicular al plano orbital). Mientras $\vec{h}$ define el plano de movimiento, $\vec{e}$ define la línea de los ápsides dentro de ese plano. Su conservación garantiza que la línea de ápsides no rota en el tiempo bajo una fuerza newtoniana pura, una propiedad que se rompe cuando se introducen perturbaciones (como la precesión del perihelio en relatividad general, discutida en Zuluaga, Sección 9.8.8).
+\end{enumerate}
+
+En síntesis, $\dot{\vec{e}} = \vec{0}$ no es solo una curiosidad algebraica, sino la manifestación matemática de que el problema de los dos cuerpos bajo gravedad newtoniana es completamente integrable, y que la geometría de la trayectoria (su forma, orientación y tamaño relativo) permanece inmutable en el tiempo.
+
+
+
+
+\section{Elementos geométricos de la elipse.} Considere una elipse centrada en el origen, con semieje mayor $a$, semieje menor $b$, focos $F_1 = (-c, 0)$ y $F_2 = (c, 0)$, y un punto genérico $P = (x, y)$ sobre la curva. La excentricidad se define por $e = c/a$. Recuerde que la elipse puede definirse como el lugar geométrico de los puntos cuya suma de distancias a los focos es constante:
+$$F_1P + F_2P = k.$$
+En la figura, el segmento vertical trazado desde el foco $F_2$ hasta la elipse representa el semilatus rectum $p$.
+\begin{enumerate}
+    \item[a)] Demuestre que la constante de la definición cumple $k = 2a$ y que los parámetros de la elipse satisfacen $a^2 = b^2 + c^2$.
+    \item[b)] Pruebe que el semilatus rectum es
+    $$p = \frac{b^2}{a} = a(1 - e^2).$$
+\end{enumerate}
+
+
+\section*{Solución del Problema 3}
+
+\subsection*{Inciso a) Demostración de la constante $k = 2a$ y la relación $a^2 = b^2 + c^2$}
+
+Para demostrar las propiedades geométricas fundamentales de la elipse, partimos de su definición clásica como lugar geométrico: el conjunto de todos los puntos $P(x,y)$ en el plano tales que la suma de sus distancias a dos puntos fijos (los focos $F_1$ y $F_2$) es una constante $k$. Matemáticamente, esta condición se expresa como:
+$$
+\|P - F_1\| + \|P - F_2\| = k, \quad \forall P \in \text{elipse}.
+$$
+Esta definición corresponde directamente a la formulación geométrica original presentada en la Sección 4.2.1 del libro de Zuluaga. Dado que la igualdad debe cumplirse para \textit{cualquier} punto sobre la curva, podemos seleccionar posiciones particulares que simplifiquen drásticamente el cálculo algebraico y nos permitan identificar explícitamente el valor de $k$ y las relaciones entre los parámetros $a$, $b$ y $c$.
+
+\paragraph{Paso 1: Determinación de la constante $k$.}
+Elegimos como punto de evaluación uno de los vértices situados sobre el eje mayor. Sin pérdida de generalidad, tomemos el vértice derecho $V_2 = (a, 0)$. Por construcción geométrica, la distancia desde el centro hasta este vértice es exactamente el semieje mayor $a$. Las coordenadas de los focos son $F_1 = (-c, 0)$ y $F_2 = (c, 0)$. Calculamos las distancias euclidianas:
+$$
+F_1V_2 = \sqrt{(a - (-c))^2 + (0 - 0)^2} = a + c,
+$$
+$$
+F_2V_2 = \sqrt{(a - c)^2 + (0 - 0)^2} = a - c.
+$$
+Aplicando la definición de la elipse en este punto específico:
+$$
+k = F_1V_2 + F_2V_2 = (a + c) + (a - c) = 2a.
+$$
+Hemos demostrado rigurosamente que la constante de la definición geométrica es exactamente el doble del semieje mayor:
+$$
+\boxed{k = 2a}.
+$$
+Este resultado es coherente con la interpretación geométrica de la Sección 4.2.6, donde se muestra que el eje mayor completo mide $2a$, y la propiedad de la suma constante de distancias a los focos es justamente la longitud de dicho eje.
+
+\paragraph{Paso 2: Relación entre $a$, $b$ y $c$.}
+Para establecer la relación entre los semiejes y la distancia focal, evaluamos nuevamente la condición de la elipse en otro punto estratégicamente conveniente: el extremo del semieje menor, o co-vértice, ubicado en $B = (0, b)$. Por simetría, las distancias desde $B$ hacia cada foco son idénticas. Calculamos la distancia $F_2B$ usando la métrica euclidiana:
+$$
+F_2B = \sqrt{(0 - c)^2 + (b - 0)^2} = \sqrt{c^2 + b^2}.
+$$
+De igual manera, $F_1B = \sqrt{c^2 + b^2}$. Sustituyendo en la definición de la elipse y usando el resultado previo $k = 2a$:
+$$
+F_1B + F_2B = 2\sqrt{b^2 + c^2} = 2a.
+$$
+Dividiendo ambos lados entre 2 y elevando al cuadrado, obtenemos inmediatamente:
+$$
+\sqrt{b^2 + c^2} = a \quad \Longrightarrow \quad a^2 = b^2 + c^2.
+$$
+Esta identidad pitagórica es fundamental en la geometría de las cónicas y se discute explícitamente en la Sección 4.2.7 de Zuluaga, donde se demuestra que el semieje mayor actúa como la hipotenusa de un triángulo rectángulo cuyos catetos son el semieje menor $b$ y la distancia focal $c$. Además, introduce naturalmente la excentricidad $e = c/a$, permitiendo reescribir la relación como $b^2 = a^2(1 - e^2)$, la cual será crucial para el siguiente inciso.
+
+\subsection*{Inciso b) Demostración de la expresión para el semilatus rectum $p$}
+
+El semilatus rectum, denotado por $p$, se define geométricamente como la distancia perpendicular desde un foco hasta la curva de la elipse. En el sistema de coordenadas centrado en el origen con ejes alineados a los ejes de simetría de la cónica, este segmento corresponde a la ordenada $y$ del punto de la elipse cuya abscisa coincide con la coordenada $x$ del foco. Es decir, evaluamos la curva en $x = c$ (o equivalentemente $x = -c$).
+
+\paragraph{Paso 1: Ecuación algebraica de la elipse respecto al centro.}
+Como se deduce en la Sección 4.2.6 del texto guía, al trasladar el origen del sistema de coordenadas al centro de simetría $C = (0,0)$, la ecuación de la elipse adopta su forma canónica más simétrica:
+$$
+\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1. \quad \text{(Ec. 4.75 de Zuluaga)}
+$$
+Esta expresión es equivalente a la definición geométrica inicial, pero algebraicamente más manejable para cálculos de coordenadas específicas.
+
+\paragraph{Paso 2: Cálculo de $p$ mediante sustitución directa.}
+Por definición del semilatus rectum, consideramos el punto $P$ sobre la elipse tal que $x = c$ y $y = p$ (tomamos la raíz positiva por convención geométrica). Sustituimos estas coordenadas en la ecuación canónica:
+$$
+\frac{c^2}{a^2} + \frac{p^2}{b^2} = 1.
+$$
+Despejamos $p^2$ mediante operaciones algebraicas elementales:
+$$
+\frac{p^2}{b^2} = 1 - \frac{c^2}{a^2} = \frac{a^2 - c^2}{a^2}.
+$$
+Utilizando la relación pitagórica demostrada en el inciso anterior ($a^2 - c^2 = b^2$), sustituimos en el numerador:
+$$
+\frac{p^2}{b^2} = \frac{b^2}{a^2}.
+$$
+Multiplicando ambos lados por $b^2$ y extrayendo la raíz cuadrada positiva:
+$$
+p^2 = \frac{b^4}{a^2} \quad \Longrightarrow \quad p = \frac{b^2}{a}.
+$$
+Hemos obtenido la primera forma solicitada para el semilatus rectum. Este parámetro es de vital importancia en mecánica celeste, ya que aparece directamente en la ecuación polar de la trayectoria $r = p / (1 + e \cos f)$, como se establece en la Sección 4.2.13 y en la deducción de la ecuación de la cónica en coordenadas cilíndricas.
+
+\paragraph{Paso 3: Expresión de $p$ en términos de $a$ y $e$.}
+Para obtener la segunda igualdad, recurrimos a la relación entre los semiejes y la excentricidad. De la identidad $a^2 = b^2 + c^2$ y la definición $e = c/a$, podemos expresar $b^2$ exclusivamente en función de $a$ y $e$:
+$$
+b^2 = a^2 - c^2 = a^2 - (ae)^2 = a^2(1 - e^2).
+$$
+Esta sustitución es estándar y se presenta explícitamente en la Ec. (4.76) de la Sección 4.2.7. Reemplazando $b^2$ en la expresión de $p$:
+$$
+p = \frac{a^2(1 - e^2)}{a} = a(1 - e^2).
+$$
+Con esto completamos la demostración analítica de ambas formas del semilatus rectum:
+$$
+\boxed{p = \frac{b^2}{a} = a(1 - e^2)}.
+$$
+
+\paragraph{Observaciones finales y conexión con el libro guía.}
+Los resultados obtenidos en este problema constituyen la base geométrica para la descripción de órbitas keplerianas. Como se detalla en la Sección 4.2.3 y 4.2.10, el parámetro $p$ (junto con la excentricidad $e$) parametriza completamente la forma y tamaño de cualquier cónica. En el contexto del problema de los dos cuerpos (Capítulo 7), $p$ se relaciona directamente con el momento angular específico relativo $h$ y el parámetro gravitacional $\mu$ mediante la identidad $p = h^2/\mu$ (Ec. 7.18 y Sección 7.4). Esta conexión puentea la geometría pura de las cónicas con la dinámica newtoniana, demostrando que las constantes de movimiento del sistema orbital determinan exclusivamente la geometría de la trayectoria descrita por el vector relativo.
+
+
+
+\section{Parámetros de una elipse rotada.} Considere una cónica escrita en la forma cuadrática general
+$$Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0.$$
+Para una elipse rotada un ángulo $\theta$, los coeficientes pueden escribirse como
+\begin{align*}
+A &= 1 - e^2 \cos^2 \theta, & B &= e^2 \sin 2\theta, & C &= 1 - e^2 \sin^2 \theta, \\
+D &= 2t_y \sin \theta - 2p \cos\theta + 2t_x \cos\theta(1 - e^2), \\
+E &= 2t_y \cos\theta + 2p \sin\theta - 2t_x \sin \theta(1 - e^2), \\
+F &= t_x^2(1 - e^2) - 2pt_x + t_y^2.
+\end{align*}
+Además, al combinar los coeficientes cuadráticos se obtiene
+$$\eta = 1 - (A + C),$$
+y la orientación de la cónica satisface
+$$\tan 2\theta = \frac{B}{C - A}.$$
+Deduzca y exprese las coordenadas $(t_x, t_y)$ del vértice de la elipse rotada en términos de los coeficientes, $\theta$ y de los parámetros de la elipse.
+
+
+\section*{Solución del Problema 4}
+
+\subsection*{1. Planteamiento del sistema algebraico}
+El problema nos proporciona las expresiones analíticas para los coeficientes lineales $D$ y $E$ de la ecuación cuadrática general de una cónica rotada y trasladada. Estas ecuaciones dependen explícitamente de los parámetros geométricos de la elipse (excentricidad $e$ y semilatus rectum $p$), del ángulo de rotación $\theta$, y de las coordenadas de traslación $(t_x, t_y)$. Para aislar $(t_x, t_y)$, reescribimos las dos ecuaciones dadas agrupando los términos que multiplican a cada incógnita:
+
+$$
+\begin{aligned}
+D &= 2(1-e^2)\cos\theta \, t_x + 2\sin\theta \, t_y - 2p\cos\theta, \\
+E &= -2(1-e^2)\sin\theta \, t_x + 2\cos\theta \, t_y + 2p\sin\theta.
+\end{aligned}
+$$
+
+Introducimos la notación compacta $K \equiv 1-e^2$, la cual es estrictamente positiva para una elipse ($0 \leq e < 1$). Trasladando los términos independientes al lado derecho, obtenemos un sistema lineal de dos ecuaciones con dos incógnitas:
+
+$$
+\begin{cases}
+2K\cos\theta \, t_x + 2\sin\theta \, t_y = D + 2p\cos\theta, \\
+-2K\sin\theta \, t_x + 2\cos\theta \, t_y = E - 2p\sin\theta.
+\end{cases}
+$$
+
+\subsection*{2. Resolución analítica del sistema}
+Para resolver este sistema, calculamos primero el determinante de la matriz de coeficientes $\Delta$:
+
+$$
+\Delta = \begin{vmatrix} 2K\cos\theta & 2\sin\theta \\ -2K\sin\theta & 2\cos\theta \end{vmatrix} = (2K\cos\theta)(2\cos\theta) - (2\sin\theta)(-2K\sin\theta).
+$$
+
+Factorizando $4K$ y aplicando la identidad trigonométrica fundamental $\cos^2\theta + \sin^2\theta = 1$, obtenemos:
+
+$$
+\Delta = 4K(\cos^2\theta + \sin^2\theta) = 4K = 4(1-e^2).
+$$
+
+Dado que $e \neq 1$ para una elipse, $\Delta \neq 0$ y el sistema tiene solución única. Aplicamos la regla de Cramer para despejar $t_x$ y $t_y$.
+
+\paragraph{Cálculo de $t_x$:}
+Sustituimos la primera columna de la matriz de coeficientes por el vector de términos independientes:
+
+$$
+t_x = \frac{1}{\Delta} \begin{vmatrix} D + 2p\cos\theta & 2\sin\theta \\ E - 2p\sin\theta & 2\cos\theta \end{vmatrix}.
+$$
+
+Desarrollando el determinante:
+
+$$
+\begin{aligned}
+t_x &= \frac{1}{4(1-e^2)} \left[ 2\cos\theta(D + 2p\cos\theta) - 2\sin\theta(E - 2p\sin\theta) \right] \\
+&= \frac{1}{2(1-e^2)} \left[ D\cos\theta + 2p\cos^2\theta - E\sin\theta + 2p\sin^2\theta \right] \\
+&= \frac{1}{2(1-e^2)} \left[ D\cos\theta - E\sin\theta + 2p(\cos^2\theta + \sin^2\theta) \right].
+\end{aligned}
+$$
+
+Simplificando con la identidad trigonométrica:
+
+$$
+t_x = \frac{D\cos\theta - E\sin\theta + 2p}{2(1-e^2)}.
+$$
+
+\paragraph{Cálculo de $t_y$:}
+Sustituimos la segunda columna de la matriz de coeficientes por el vector de términos independientes:
+
+$$
+t_y = \frac{1}{\Delta} \begin{vmatrix} 2K\cos\theta & D + 2p\cos\theta \\ -2K\sin\theta & E - 2p\sin\theta \end{vmatrix}.
+$$
+
+Desarrollando el determinante:
+
+$$
+\begin{aligned}
+t_y &= \frac{1}{4K} \left[ 2K\cos\theta(E - 2p\sin\theta) - (-2K\sin\theta)(D + 2p\cos\theta) \right] \\
+&= \frac{1}{2} \left[ \cos\theta(E - 2p\sin\theta) + \sin\theta(D + 2p\cos\theta) \right] \\
+&= \frac{1}{2} \left[ E\cos\theta - 2p\sin\theta\cos\theta + D\sin\theta + 2p\sin\theta\cos\theta \right].
+\end{aligned}
+$$
+
+Los términos que contienen $p$ se cancelan exactamente, quedando:
+
+$$
+t_y = \frac{D\sin\theta + E\cos\theta}{2}.
+$$
+
+\subsection*{3. Resultado final y verificación}
+Las coordenadas de traslación $(t_x, t_y)$ quedan expresadas explícitamente en términos de los coeficientes de la forma cuadrática, el ángulo de rotación y los parámetros intrínsecos de la elipse:
+
+$$
+\boxed{t_x = \frac{D\cos\theta - E\sin\theta + 2p}{2(1-e^2)}}, \quad \boxed{t_y = \frac{D\sin\theta + E\cos\theta}{2}}.
+$$
+
+Para verificar la consistencia algebraica, sustituimos estas expresiones en la ecuación original de $D$:
+$$
+2(1-e^2)\cos\theta \left( \frac{D\cos\theta - E\sin\theta + 2p}{2(1-e^2)} \right) + 2\sin\theta \left( \frac{D\sin\theta + E\cos\theta}{2} \right) - 2p\cos\theta = D(\cos^2\theta+\sin^2\theta) - E\sin\theta\cos\theta + 2p\cos\theta + E\sin\theta\cos\theta - 2p\cos\theta = D.
+$$
+La verificación es exitosa. Un procedimiento análogo confirma la ecuación para $E$.
+
+\subsection*{4. Interpretación geométrica y conexión con el libro guía}
+Los parámetros $t_x$ y $t_y$ representan las coordenadas del centro de simetría de la elipse en el sistema de referencia original antes de aplicar la rotación. Este procedimiento de aislamiento algebraico se enmarca directamente en la teoría desarrollada en el libro de Zuluaga:
+
+\begin{itemize}
+    \item \textbf{Sección 4.2.6 (Ecuación respecto al centro):} Allí se establece que mediante una traslación adecuada del origen de coordenadas, es posible eliminar los términos lineales $Dx$ y $Ey$ de la ecuación general, centrando la cónica en su centro geométrico $(t_x, t_y)$. Las fórmulas derivadas aquí constituyen la inversión explícita de ese proceso de traslación.
+    
+    \item \textbf{Sección 4.2.9 (Rotación de las cónicas en el plano):} Se introduce la matriz de rotación $R_z(\theta)$ y se demuestra cómo los términos cuadráticos y lineales se transforman al pasar de un sistema alineado con los ejes de simetría a uno rotado un ángulo $\theta$. La expresión para $\tan 2\theta = B/(C-A)$ proporcionada en el enunciado es justamente la condición necesaria para diagonalizar la parte cuadrática, eliminando el término mixto $Bxy$.
+    
+    \item \textbf{Sección 4.2.10 (Ecuación general de las cónicas):} En esta sección se recopilan las relaciones explícitas entre los coeficientes $A, B, C, D, E, F$ y los parámetros geométricos $(p, e, \theta, t_x, t_y)$. Las ecuaciones de $D$ y $E$ utilizadas aquí corresponden exactamente a las Ecs. (4.89) de dicha sección. El despeje realizado demuestra que, conocidos los coeficientes observables de la cónica en un marco arbitrario, es posible reconstruir inequívocamente su centro de simetría y su orientación espacial.
+\end{itemize}
+
+Finalmente, cabe notar que el denominador $2(1-e^2)$ en la expresión de $t_x$ refleja la influencia directa de la excentricidad en la traslación del centro respecto a los coeficientes lineales. En el límite $e \to 0$ (circunferencia), $1-e^2 \to 1$ y la expresión se simplifica, recuperando la simetría isotrópica esperada. Este resultado analítico completo permite, por tanto, pasar de la representación algebraica implícita de una elipse rotada a su descripción geométrica parametrizada, cumpliendo rigurosamente con los formalismos expuestos en el Capítulo 4 del texto de referencia.
+
+
+\section{Área de un sector de hipérbola.} Demuestre que el área de un sector de hipérbola, es decir, el área de la región sombreada en la Figura 1, está dada por
+$$\Delta A_{\text{hipérbola}} = \frac{1}{2} \beta |a| (e \sinh F - F).$$
+
+\section*{Solución del Problema 5}
+
+\subsection*{1. Configuración geométrica y parámetros fundamentales}
+Para abordar la demostración de manera rigurosa, es necesario establecer primero el marco geométrico y las convenciones algebraicas utilizadas en la mecánica celeste para el tratamiento de trayectorias hiperbólicas. De acuerdo con la Sección 4.2.8 del libro de Zuluaga (\textit{Parámetros de la hipérbola}), una hipérbola centrada en el origen de coordenadas $C$ y con su eje de simetría alineado con el eje $x$ satisface la ecuación algebraica canónica:
+$$
+\frac{x_c^2}{a^2} - \frac{y_c^2}{\beta^2} = 1,
+$$
+donde $a$ representa el semieje mayor (que en la convención orbital para hipérbolas cumple $a < 0$, por lo que en cálculos de distancia se utiliza $|a|$), $\beta$ es el semieje conjugado (o parámetro de apertura), y $e > 1$ es la excentricidad. La relación geométrica fundamental entre estos parámetros, derivada en la Ec. (4.79) de Zuluaga, es:
+$$
+\beta = |a|\sqrt{e^2 - 1}.
+$$
+El foco $F$ de la hipérbola se localiza en $(c, 0)$, con $c = |a|e$. La distancia desde el vértice $O$ (localizado en $x = |a|$) hasta el foco $F$ se conoce como la distancia al periapsis $q$, y satisface:
+$$
+q = c - |a| = |a|(e - 1).
+$$
+Para parametrizar los puntos sobre la rama derecha de la hipérbola, se introduce la \textit{anomalía hiperbólica} $F$, definida mediante las ecuaciones paramétricas (Sección 4.2.14, Ecs. 4.99):
+$$
+x_c = |a|\cosh F, \quad y_c = \beta\sinh F.
+$$
+Esta parametrización garantiza que cualquier punto $P$ sobre la curva puede describirse unívocamente mediante un único parámetro real $F \geq 0$.
+
+\subsection*{2. Descomposición del área del sector}
+El objetivo es calcular el área $\Delta A_{\text{hipérbola}}$ comprendida entre el radio vector que une el foco $F$ con el vértice $O$, el radio vector que une el foco $F$ con un punto arbitrario $P(x_c, y_c)$ sobre la hipérbola, y el arco de la curva entre $O$ y $P$. Siguiendo la construcción geométrica detallada en la Figura 4.21 (panel inferior izquierdo) y el desarrollo de la Sección 4.2.15 de Zuluaga, esta área puede descomponerse algebraicamente en la suma de dos regiones elementales:
+$$
+\Delta A_{\text{hipérbola}} = A_{\triangle PFQ} + A_{PQO},
+$$
+donde:
+\begin{itemize}
+    \item $A_{\triangle PFQ}$ es el área del triángulo formado por el foco $F$, el punto $P$ sobre la hipérbola, y la proyección $Q$ de $P$ sobre el eje $x$ (coordenada $(x_c, 0)$).
+    \item $A_{PQO}$ es el área bajo la curva hiperbólica, delimitada por el eje $x$, la ordenada $PQ$ y el vértice $O$.
+\end{itemize}
+Esta descomposición es estratégicamente útil porque transforma un problema de cálculo de áreas curvilíneas complejas en la evaluación de una expresión geométrica exacta más una integral definida manejable.
+
+\subsection*{3. Cálculo analítico del área triangular $A_{\triangle PFQ}$}
+El triángulo $\triangle PFQ$ tiene como base el segmento horizontal $FQ$ y como altura la coordenada $y_c$ del punto $P$. La abscisa del foco es $x_F = |a|e$, y la abscisa del punto $P$ es $x_c = |a|\cosh F$. Por tanto, la longitud de la base es:
+$$
+\text{Base} = x_F - x_c = |a|e - |a|\cosh F = |a|(e - \cosh F).
+$$
+La altura del triángulo corresponde a la ordenada de $P$:
+$$
+\text{Altura} = y_c = \beta\sinh F.
+$$
+El área del triángulo se calcula entonces como:
+$$
+A_{\triangle PFQ} = \frac{1}{2} (\text{Base}) (\text{Altura}) = \frac{1}{2} |a| (e - \cosh F) (\beta\sinh F).
+$$
+Desarrollando el producto:
+$$
+A_{\triangle PFQ} = \frac{1}{2} |a|\beta \left( e\sinh F - \sinh F \cosh F \right).
+$$
+
+\subsection*{4. Cálculo del área bajo la curva $A_{PQO}$ mediante integración}
+El área $A_{PQO}$ corresponde a la integral definida de la función $y_c(x)$ desde el vértice $x = |a|$ hasta la abscisa del punto $x_c = |a|\cosh F$. Despejando $y_c$ de la ecuación canónica de la hipérbola:
+$$
+y_c(x) = \beta \sqrt{\frac{x^2}{|a|^2} - 1}.
+$$
+La integral queda planteada como:
+$$
+A_{PQO} = \int_{|a|}^{|a|\cosh F} \beta \sqrt{\frac{x^2}{|a|^2} - 1} \, dx.
+$$
+Para resolver esta integral de manera analítica y elegante, realizamos el cambio de variable propuesto por la parametrización hiperbólica. Sea $x = |a|\cosh u$, entonces $dx = |a|\sinh u \, du$. Los límites de integración se transforman de la siguiente manera: cuando $x = |a|$, $u = 0$; cuando $x = |a|\cosh F$, $u = F$. Sustituyendo en la integral:
+$$
+A_{PQO} = \int_{0}^{F} \beta \sqrt{\cosh^2 u - 1} \, (|a|\sinh u) \, du.
+$$
+Utilizando la identidad hiperbólica fundamental $\cosh^2 u - 1 = \sinh^2 u$, y dado que $u \geq 0$ en esta rama de la hipérbola ($\sinh u \geq 0$), la raíz cuadrada se simplifica a $\sinh u$. La integral se reduce a:
+$$
+A_{PQO} = |a|\beta \int_{0}^{F} \sinh^2 u \, du.
+$$
+Para integrar $\sinh^2 u$, empleamos la identidad de reducción $\sinh^2 u = \frac{\cosh(2u) - 1}{2}$, o directamente la fórmula tabulada $\int \sinh^2 u \, du = \frac{1}{2}(\sinh u \cosh u - u)$. Aplicando los límites:
+$$
+A_{PQO} = |a|\beta \left[ \frac{1}{2}(\sinh u \cosh u - u) \right]_{0}^{F} = \frac{1}{2} |a|\beta \left( \sinh F \cosh F - F \right).
+$$
+
+\subsection*{5. Síntesis algebraica y obtención de la expresión final}
+Sumando las dos contribuciones calculadas en las secciones anteriores, el área total del sector hiperbólico es:
+$$
+\Delta A_{\text{hipérbola}} = A_{\triangle PFQ} + A_{PQO}.
+$$
+Sustituyendo las expresiones analíticas obtenidas:
+$$
+\Delta A_{\text{hipérbola}} = \frac{1}{2} |a|\beta \left( e\sinh F - \sinh F \cosh F \right) + \frac{1}{2} |a|\beta \left( \sinh F \cosh F - F \right).
+$$
+Observamos que los términos cruzados $-\frac{1}{2}|a|\beta\sinh F\cosh F$ y $+\frac{1}{2}|a|\beta\sinh F\cosh F$ se cancelan exactamente. Este resultado de cancelación no es casual; refleja la coherencia geométrica de la parametrización hiperbólica y garantiza que el área dependa únicamente de la excentricidad y de la anomalía hiperbólica, sin términos mixtos trascendentales adicionales.
+Factorizando $\frac{1}{2}|a|\beta$ de los términos restantes:
+$$
+\Delta A_{\text{hipérbola}} = \frac{1}{2} |a|\beta \left( e\sinh F - F \right).
+$$
+Reordenando los factores para coincidir con la notación estándar del enunciado, se obtiene finalmente:
+$$
+\Delta A_{\text{hipérbola}} = \frac{1}{2} \beta |a| (e \sinh F - F).
+$$
+Lo cual completa la demostración de manera analítica y rigurosa.
+
+\subsection*{6. Referencias al libro guía de Zuluaga}
+La deducción presentada se fundamenta directamente en los conceptos y desarrollos expuestos en el Capítulo 4 del texto de referencia:
+\begin{itemize}
+    \item \textbf{Sección 4.2.8 (\textit{Parámetros de la hipérbola}):} Proporciona la definición algebraica de $\beta$, la relación $\beta = |a|\sqrt{e^2-1}$, la ubicación del foco $c = |a|e$, y la interpretación geométrica de la distancia al periapsis $q = |a|(e-1)$.
+    \item \textbf{Sección 4.2.14 (\textit{Anomalías}):} Introduce la anomalía hiperbólica $F$ y las ecuaciones paramétricas $x_c = |a|\cosh F$, $y_c = \beta\sinh F$, esenciales para el cambio de variable en la integración.
+    \item \textbf{Sección 4.2.15 (\textit{Área de las cónicas}):} Presenta la construcción geométrica de descomposición del sector ($\Delta A = A_{PFQ} + A_{PQO}$), detalla el planteamiento de la integral bajo la curva y establece explícitamente la fórmula final en la Ec. (4.108): $\Delta A_{\text{hiperbola}} = \frac{1}{2}\|a\|\beta(e\sinh F - F)$. La notación $\|a\|$ utilizada en el libro equivale a $|a|$ para enfatizar que se trata de la magnitud del semieje mayor, dado que $a < 0$ en la convención hiperbólica.
+\end{itemize}
+Esta demostración no solo valida la expresión geométrica solicitada, sino que sienta las bases para la posterior deducción de la \textit{Ecuación de Kepler hiperbólica} (Sección 7.10.2), donde el área del sector se relaciona directamente con el tiempo transcurrido mediante el teorema de áreas, cerrando así el vínculo entre geometría cónica y dinámica temporal en el problema de los dos cuerpos.
+
+
+\section{Aceleración en coordenadas cilíndricas.} Considere el sistema de coordenadas cilíndricas $(r, \theta, z)$, con vectores unitarios $\hat{e}_r$, $\hat{e}_\theta$ y $\hat{e}_z$.
+\begin{enumerate}
+    \item[a)] Demuestre que la aceleración de una partícula en coordenadas cilíndricas está dada por
+    $$\vec{a} = (\ddot{r} - r\dot{\theta}^2)\hat{e}_r + (r\ddot{\theta} + 2\dot{r}\dot{\theta})\hat{e}_\theta + \ddot{z}\hat{e}_z.$$
+    \item[b)] Suponga que el movimiento está determinado por una aceleración general $\ddot{\vec{r}} = \vec{a}(t, \vec{r})$. Si esta aceleración tiene componentes cilíndricas
+    $$\vec{a}(t, \vec{r}) = a_r(t, r, \theta, z)\hat{e}_r + a_\theta(t, r, \theta, z)\hat{e}_\theta + a_z(t, r, \theta, z)\hat{e}_z,$$
+    escriba el sistema de ecuaciones diferenciales de movimiento en coordenadas cilíndricas. Es decir, obtenga explícitamente las ecuaciones para $r(t)$, $\theta(t)$ y $z(t)$.
+    \item[c)] Escriba la forma reducida de primer orden del sistema anterior introduciendo variables auxiliares para las velocidades. Por ejemplo,
+    $$v_r = \dot{r}, \quad \omega = \dot{\theta}, \quad v_z = \dot{z}.$$
+    Con estas variables, escriba el sistema como un conjunto de ecuaciones diferenciales de primer orden.
+\end{enumerate}
+
+
+\section{El hodógrafo en el problema de los dos cuerpos.} En el problema de los dos cuerpos, considere el movimiento relativo de una partícula bajo una fuerza central gravitacional. Sea $\mu$ el parámetro gravitacional, $h$ el momento angular específico, $e$ la excentricidad orbital y $f$ la anomalía verdadera. La posición en el plano orbital puede escribirse como
+$$x = r \cos f, \quad y = r \sin f.$$
+Además, para una órbita kepleriana se tiene
+$$r = \frac{h^2/\mu}{1 + e \cos f}.$$
+\begin{enumerate}
+    \item[a)] Demuestre que las componentes cartesianas de la velocidad relativa pueden escribirse como
+    $$v_x = -\frac{\mu}{h} \sin f, \quad v_y = \frac{\mu}{h} (e + \cos f).$$
+    \item[b)] A partir de estas expresiones, demuestre que la curva descrita por la velocidad en el plano $(v_x, v_y)$ es una circunferencia dada por
+    $$v_x^2 + \left(v_y - \frac{\mu e}{h}\right)^2 = \left(\frac{\mu}{h}\right)^2.$$
+    Por lo tanto, el hodógrafo de la órbita kepleriana es una circunferencia con centro $\left(0, \frac{\mu e}{h}\right)$ y radio $\frac{\mu}{h}$.
+\end{enumerate}
+
+
+\section{De elementos orbitales a componentes cartesianas de la velocidad.} Considere una órbita kepleriana descrita por los elementos orbitales
+$$e, i, \Omega, \omega, f,$$
+donde $e$ es la excentricidad, $i$ la inclinación, $\Omega$ la longitud del nodo ascendente, $\omega$ el argumento del periapsis y $f$ la anomalía verdadera. Sea además $\mu$ el parámetro gravitacional y $h$ el momento angular específico. Teniendo en cuenta las componentes de la velocidad obtenidas en el hodógrafo del punto anterior,
+$$v'_x = -\frac{\mu}{h} \sin f, \quad v'_y = \frac{\mu}{h} (e + \cos f),$$
+halle las componentes cartesianas de la velocidad en el sistema inercial y demuestre que están dadas por
+\begin{align*}
+\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega + f) - \cos i \sin\Omega \cos(\omega + f) \right] + \frac{\mu e}{h} (\cos\Omega \sin \omega + \cos\omega \cos i \sin\Omega), \\
+\dot{y} &= \frac{\mu}{h} \left[ -\sin\Omega \sin(\omega + f) + \cos i \cos\Omega \cos(\omega + f) \right] + \frac{\mu e}{h} (-\sin\Omega \sin \omega + \cos\omega \cos i \cos\Omega), \\
+\dot{z} &= \frac{\mu}{h} \left[ \sin i \cos(\omega + f) + e \cos\omega \sin i \right].
+\end{align*}
+Para la demostración, use la rotación desde el sistema perifocal al sistema inercial mediante los ángulos $\omega, i$ y $\Omega$.
+
+
+\section{Ecuación de Kepler para una órbita hiperbólica.} Considere una órbita hiperbólica con semieje real $a < 0$, excentricidad $e > 1$, semieje conjugado $\beta$ y anomalía hiperbólica $H$. El área de un sector de hipérbola está dada por
+$$\Delta A_{\text{hipérbola}} = \frac{1}{2} |a| \beta (e \sinh H - H).$$
+\begin{enumerate}
+    \item[a)] Use esta fórmula para deducir la ecuación de Kepler en el caso hiperbólico. Es decir, demuestre que puede definirse una anomalía media hiperbólica $M_h$ mediante
+    $$M_h = e \sinh H - H,$$
+    y que esta satisface $M_h = n(t - \tau)$, donde $\tau$ es el tiempo de paso por el periapsis y $n$ es el movimiento medio hiperbólico.
+    \item[b)] A partir del resultado anterior, pruebe la forma hiperbólica del teorema armónico, es decir, muestre que el movimiento medio hiperbólico satisface
+    $$n^2 |a|^3 = \mu,$$
+    o equivalentemente, $n = \sqrt{\frac{\mu}{|a|^3}}$. Aquí $\mu$ es el parámetro gravitacional del problema de los dos cuerpos.
+\end{enumerate}
+
+
+\section{Tiempo por encima de cierta altitud.} Un satélite está en órbita alrededor de la Tierra con una altitud, respecto a la superficie terrestre, de $250$ km en el perigeo y de $650$ km en el apogeo. Encuentre el intervalo de tiempo durante el cual el satélite se mantiene por encima de una altitud de $450$ km. ¿A qué fracción del período orbital equivale ese tiempo?
+
+
+\section{Satélite en órbita elíptica.} Un satélite se encuentra en una órbita elíptica alrededor de la Tierra con un período orbital $T = 15,7430$ horas y una distancia al perigeo $r_p = 12\,756$ km, medida desde el centro de la Tierra. Calcule las siguientes cantidades cinemáticas y dinámicas en el instante $t = 10$ horas después del paso por el perigeo:
+\begin{enumerate}
+    \item[a)] La distancia radial $r$.
+    \item[b)] La magnitud de la velocidad $v$.
+    \item[c)] La anomalía excéntrica $E$.
+    \item[d)] La anomalía verdadera $f$.
+    \item[e)] La anomalía media $M$.
+    \item[f)] La excentricidad orbital $e$.
+    \item[g)] La energía específica relativa $\epsilon$.
+    \item[h)] La velocidad en el apogeo $v_a$.
+    \item[i)] La distancia al apogeo $r_a$.
+    \item[j)] El tiempo restante para llegar al apogeo.
+\end{enumerate}
+Considere el radio terrestre $R_T \approx 6\,378$ km y el parámetro gravitacional terrestre $\mu_E \approx 398\,600$ km$^3$/s$^2$.
+
+
+\section{Cometa de alta excentricidad.} Las órbitas cometarias suelen presentar excentricidades muy altas, cercanas a la unidad o incluso superiores. El cometa C/2020 F3 (NEOWISE) tiene un período orbital estimado de $P = 6\,912,75$ años y una excentricidad $e = 0,999188$. Suponiendo conocida la masa del Sol $M_{\odot}$, responda:
+\begin{enumerate}
+    \item[a)] Determine el semieje mayor $a$ de la órbita del cometa.
+    \item[b)] Calcule la distancia del cometa al Sol en el perihelio ($q$) y en el afelio ($Q$).
+\end{enumerate}
+Utilice $\mu_{\odot} \approx 1,327 \times 10^{11}$ km$^3$/s$^2$ y considere $1 \text{ año} \approx 3,15576 \times 10^7$ s.
+
+
+
+
+\end{document}
