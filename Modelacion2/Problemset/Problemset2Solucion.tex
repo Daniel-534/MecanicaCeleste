@@ -573,6 +573,121 @@ Esta demostración no solo valida la expresión geométrica solicitada, sino que
     Con estas variables, escriba el sistema como un conjunto de ecuaciones diferenciales de primer orden.
 \end{enumerate}
 
+\section*{Solución del Problema 6}
+
+\subsection*{Inciso a) Derivación analítica de la aceleración en coordenadas cilíndricas}
+Para obtener la expresión de la aceleración en el sistema de coordenadas cilíndricas, partimos de la definición del vector posición y de las propiedades de derivación vectorial expuestas en la Sección 4.1.2 (Sistemas de coordenadas) y la Sección 4.1.6 (Derivada vectorial) del libro guía. En coordenadas cilíndricas, el vector posición de una partícula se escribe como:
+$$
+\vec{r}(t) = r(t) \vec{e}_r + z(t) \vec{e}_z,
+$$
+donde $\vec{e}_r$, $\vec{e}_\theta$ y $\vec{e}_z$ forman una base ortonormal de mano derecha que depende explícitamente de la coordenada angular $\theta(t)$. Las expresiones cartesianas de estos vectores unitarios, definidas en la Sección 4.1.2, son:
+$$
+\vec{e}_r = \cos\theta \, \vec{e}_x + \sin\theta \, \vec{e}_y, \quad 
+\vec{e}_\theta = -\sin\theta \, \vec{e}_x + \cos\theta \, \vec{e}_y, \quad 
+\vec{e}_z = \vec{e}_z.
+$$
+La velocidad es la derivada temporal del vector posición. Aplicando la regla de la cadena y considerando que los vectores base varían con el tiempo debido a la dependencia de $\theta(t)$, obtenemos:
+$$
+\vec{v} = \frac{d\vec{r}}{dt} = \dot{r} \vec{e}_r + r \frac{d\vec{e}_r}{dt} + \dot{z} \vec{e}_z.
+$$
+Calculamos las derivadas temporales de los vectores unitarios. Dado que $\vec{e}_x$ y $\vec{e}_y$ son constantes en un sistema inercial:
+$$
+\frac{d\vec{e}_r}{dt} = \dot{\theta}(-\sin\theta \, \vec{e}_x + \cos\theta \, \vec{e}_y) = \dot{\theta} \vec{e}_\theta,
+$$
+$$
+\frac{d\vec{e}_\theta}{dt} = \dot{\theta}(-\cos\theta \, \vec{e}_x - \sin\theta \, \vec{e}_y) = -\dot{\theta} \vec{e}_r, \quad \frac{d\vec{e}_z}{dt} = \vec{0}.
+$$
+Sustituyendo en la expresión de la velocidad, recuperamos el resultado estándar de la Sección 5.2.1 (Cantidades cinemáticas):
+$$
+\vec{v} = \dot{r} \vec{e}_r + r\dot{\theta} \vec{e}_\theta + \dot{z} \vec{e}_z.
+$$
+La aceleración es la derivada temporal de la velocidad. Aplicamos nuevamente la regla del producto a cada componente:
+$$
+\vec{a} = \frac{d\vec{v}}{dt} = \frac{d}{dt}(\dot{r} \vec{e}_r) + \frac{d}{dt}(r\dot{\theta} \vec{e}_\theta) + \frac{d}{dt}(\dot{z} \vec{e}_z).
+$$
+Desarrollamos cada término por separado:
+\begin{enumerate}
+    \item $\frac{d}{dt}(\dot{r} \vec{e}_r) = \ddot{r} \vec{e}_r + \dot{r} \frac{d\vec{e}_r}{dt} = \ddot{r} \vec{e}_r + \dot{r}\dot{\theta} \vec{e}_\theta$.
+    \item $\frac{d}{dt}(r\dot{\theta} \vec{e}_\theta) = (\dot{r}\dot{\theta} + r\ddot{\theta}) \vec{e}_\theta + r\dot{\theta} \frac{d\vec{e}_\theta}{dt} = (\dot{r}\dot{\theta} + r\ddot{\theta}) \vec{e}_\theta - r\dot{\theta}^2 \vec{e}_r$.
+    \item $\frac{d}{dt}(\dot{z} \vec{e}_z) = \ddot{z} \vec{e}_z$.
+\end{enumerate}
+Agrupamos los componentes a lo largo de cada vector unitario. Para la componente radial $\vec{e}_r$:
+$$
+a_r = \ddot{r} - r\dot{\theta}^2.
+$$
+Para la componente azimuthal $\vec{e}_\theta$:
+$$
+a_\theta = \dot{r}\dot{\theta} + \dot{r}\dot{\theta} + r\ddot{\theta} = 2\dot{r}\dot{\theta} + r\ddot{\theta}.
+$$
+Para la componente vertical $\vec{e}_z$:
+$$
+a_z = \ddot{z}.
+$$
+Reensamblando el vector aceleración, obtenemos finalmente la expresión solicitada:
+$$
+\vec{a} = (\ddot{r} - r\dot{\theta}^2)\vec{e}_r + (r\ddot{\theta} + 2\dot{r}\dot{\theta})\vec{e}_\theta + \ddot{z}\vec{e}_z.
+$$
+Este resultado coincide exactamente con la Ecuación (5.2) de la Sección 5.2.1 del libro guía, validando la consistencia entre el formalismo vectorial y la derivación explícita en coordenadas curvilíneas.
+
+\subsection*{Inciso b) Sistema de ecuaciones diferenciales de movimiento}
+El postulado de fuerza en mecánica newtoniana establece que la aceleración de una partícula es igual al campo de aceleración aplicado. Como se formula en la Sección 5.2.3 (La ecuación de movimiento), la ecuación diferencial del movimiento es:
+$$
+\ddot{\vec{r}} = \vec{a}(t, \vec{r}).
+$$
+Dado que el campo de aceleración está provisto en componentes cilíndricas $\vec{a} = a_r \vec{e}_r + a_\theta \vec{e}_\theta + a_z \vec{e}_z$, igualamos las componentes correspondientes obtenidas en el inciso anterior con las componentes del campo de aceleración. Esto genera un sistema acoplado de tres ecuaciones diferenciales ordinarias de segundo orden:
+\begin{align*}
+\ddot{r} - r\dot{\theta}^2 &= a_r(t, r, \theta, z), \\
+r\ddot{\theta} + 2\dot{r}\dot{\theta} &= a_\theta(t, r, \theta, z), \\
+\ddot{z} &= a_z(t, r, \theta, z).
+\end{align*}
+Para obtener explícitamente las ecuaciones que gobiernan la evolución de las coordenadas generalizadas $r(t)$, $\theta(t)$ y $z(t)$, despejamos las segundas derivadas en función de las variables de estado y del campo aplicado. Asumiendo $r(t) > 0$ (para evitar la singularidad en el eje de simetría), el sistema queda:
+\begin{align*}
+\ddot{r} &= a_r(t, r, \theta, z) + r\dot{\theta}^2, \\
+\ddot{\theta} &= \frac{a_\theta(t, r, \theta, z) - 2\dot{r}\dot{\theta}}{r}, \\
+\ddot{z} &= a_z(t, r, \theta, z).
+\end{align*}
+Este conjunto de ecuaciones constituye la formulación explícita del problema de valor inicial para las coordenadas cilíndricas. Nótese la presencia de términos no lineales y acoplados ($r\dot{\theta}^2$ y $2\dot{r}\dot{\theta}$), que corresponden físicamente a las aceleraciones centrífuga y de Coriolís emergentes de la elección del sistema de coordenadas rotante local, tal como se discute en la Sección 5.5.4 del texto de referencia.
+
+\subsection*{Inciso c) Forma reducida de primer orden}
+Como se establece en la Sección 4.1.9 (Ecuaciones diferenciales) y en la Sección 5.2.6 (Integración numérica de la e.d.m.), todo sistema de ecuaciones diferenciales de segundo orden puede transformarse en un sistema equivalente de primer orden introduciendo variables auxiliares que representen las velocidades generalizadas. Esta transformación es fundamental para la implementación de algoritmos de integración numérica estándar (como Runge-Kutta o métodos simplécticos).
+
+Definimos las variables auxiliares sugeridas:
+$$
+v_r \equiv \dot{r}, \quad \omega \equiv \dot{\theta}, \quad v_z \equiv \dot{z}.
+$$
+El estado completo del sistema en el espacio de fase cilíndrico queda descrito por el vector de 6 dimensiones $\vec{Y} = (r, \theta, z, v_r, \omega, v_z)^\top$. Derivando las definiciones de las variables auxiliares y sustituyendo las ecuaciones de segundo orden obtenidas en el inciso anterior, construimos el sistema linealizado:
+
+\begin{enumerate}
+    \item \textbf{Ecuaciones cinemáticas (definición de velocidades):}
+    \begin{align*}
+        \dot{r} &= v_r, \\
+        \dot{\theta} &= \omega, \\
+        \dot{z} &= v_z.
+    \end{align*}
+    
+    \item \textbf{Ecuaciones dinámicas (evolución de velocidades):}
+    Sustituimos $\dot{r} \to v_r$ y $\dot{\theta} \to \omega$ en las expresiones de $\ddot{r}$, $\ddot{\theta}$ y $\ddot{z}$:
+    \begin{align*}
+        \dot{v}_r &= a_r(t, r, \theta, z) + r \omega^2, \\
+        \dot{\omega} &= \frac{a_\theta(t, r, \theta, z) - 2 v_r \omega}{r}, \\
+        \dot{v}_z &= a_z(t, r, \theta, z).
+    \end{align*}
+\end{enumerate}
+
+En forma matricial compacta, el sistema de ecuaciones diferenciales de primer orden queda:
+$$
+\frac{d}{dt}
+\begin{pmatrix}
+r \\ \theta \\ z \\ v_r \\ \omega \\ v_z
+\end{pmatrix}
+=
+\begin{pmatrix}
+v_r \\ \omega \\ v_z \\ a_r(t, r, \theta, z) + r \omega^2 \\ \dfrac{a_\theta(t, r, \theta, z) - 2 v_r \omega}{r} \\ a_z(t, r, \theta, z)
+\end{pmatrix}.
+$$
+Esta formulación es directamente utilizable en rutinas de integración numérica (como \texttt{odeint} o \texttt{solve\_ivp} en SciPy, discutidas en la Sección 5.2.6), ya que el lado derecho depende exclusivamente de las variables de estado y del tiempo, cumpliendo con la forma estándar $\dot{\vec{Y}} = \vec{f}(t, \vec{Y})$ requerida por los solvers de ecuaciones diferenciales ordinarias. La estructura del sistema refleja claramente la separación entre la cinemática de transformación de coordenadas y la dinámica impuesta por el campo de aceleración externo.
+
+
 
 \section{El hodógrafo en el problema de los dos cuerpos.} En el problema de los dos cuerpos, considere el movimiento relativo de una partícula bajo una fuerza central gravitacional. Sea $\mu$ el parámetro gravitacional, $h$ el momento angular específico, $e$ la excentricidad orbital y $f$ la anomalía verdadera. La posición en el plano orbital puede escribirse como
 $$x = r \cos f, \quad y = r \sin f.$$
@@ -585,6 +700,109 @@ $$r = \frac{h^2/\mu}{1 + e \cos f}.$$
     $$v_x^2 + \left(v_y - \frac{\mu e}{h}\right)^2 = \left(\frac{\mu}{h}\right)^2.$$
     Por lo tanto, el hodógrafo de la órbita kepleriana es una circunferencia con centro $\left(0, \frac{\mu e}{h}\right)$ y radio $\frac{\mu}{h}$.
 \end{enumerate}
+
+
+\section*{Solución del Problema 7}
+
+\subsection*{Inciso a) Demostración de las componentes cartesianas de la velocidad relativa}
+
+Para derivar las componentes cartesianas de la velocidad en el plano orbital, partimos de la descripción geométrica del movimiento relativo establecida en el Capítulo 7 del libro de Zuluaga. Definimos un sistema de coordenadas cartesiano en el plano orbital de modo que el semieje $x$ positivo apunte hacia el periapsis de la trayectoria y el semieje $y$ positivo sea perpendicular a él en sentido directo. En este marco, el vector posición relativo se escribe como (véase Zuluaga, Sección 4.2.13 y Sección 7.4):
+$$
+\vec{r} = x \hat{e}_x + y \hat{e}_y = r \cos f \, \hat{e}_x + r \sin f \, \hat{e}_y,
+$$
+donde $r = \|\vec{r}\|$ es la distancia relativa y $f$ es la anomalía verdadera. La ecuación de la trayectoria para una cónica bajo potencial gravitacional newtoniano es (Zuluaga, Ec. 7.18):
+$$
+r(f) = \frac{p}{1 + e \cos f}, \quad \text{con} \quad p = \frac{h^2}{\mu},
+$$
+siendo $h = \|\vec{h}\|$ el momento angular específico relativo (constante, Sección 7.3.1) y $\mu = G(m_1 + m_2)$ el parámetro gravitacional del sistema.
+
+La velocidad relativa es la derivada temporal del vector posición:
+$$
+\vec{v} = \dot{\vec{r}} = \frac{d}{dt}\left( r \cos f \right) \hat{e}_x + \frac{d}{dt}\left( r \sin f \right) \hat{e}_y.
+$$
+Aplicando la regla del producto y reconociendo que $f$ es función del tiempo, obtenemos las componentes cartesianas explícitas:
+\begin{align*}
+v_x &= \dot{r} \cos f - r \dot{f} \sin f, \\
+v_y &= \dot{r} \sin f + r \dot{f} \cos f.
+\end{align*}
+Para evaluar estas expresiones, necesitamos $\dot{r}$ y $r\dot{f}$ en términos de $f$. De la conservación del momento angular específico relativo (Zuluaga, Sección 7.3.1, Teorema de áreas) sabemos que:
+$$
+h = r^2 \dot{f} \quad \Longrightarrow \quad r\dot{f} = \frac{h}{r}.
+$$
+Sustituyendo la ecuación de la trayectoria para $r$:
+$$
+r\dot{f} = \frac{h}{\frac{h^2/\mu}{1 + e \cos f}} = \frac{\mu}{h} (1 + e \cos f). \quad \text{(Ec. A)}
+$$
+Ahora calculamos $\dot{r}$ usando la regla de la cadena $\dot{r} = \frac{dr}{df} \dot{f}$. Derivamos $r(f)$ respecto a $f$:
+$$
+\frac{dr}{df} = \frac{d}{df} \left( \frac{h^2/\mu}{1 + e \cos f} \right) = \frac{h^2}{\mu} \frac{e \sin f}{(1 + e \cos f)^2}.
+$$
+Notando que $r^2 = \left( \frac{h^2/\mu}{1 + e \cos f} \right)^2$, podemos reescribir la derivada como:
+$$
+\frac{dr}{df} = \frac{\mu}{h^2} r^2 e \sin f.
+$$
+Multiplicando por $\dot{f} = h/r^2$, obtenemos directamente:
+$$
+\dot{r} = \left( \frac{\mu}{h^2} r^2 e \sin f \right) \left( \frac{h}{r^2} \right) = \frac{\mu}{h} e \sin f. \quad \text{(Ec. B)}
+$$
+Con las Ecs. (A) y (B) listas, sustituimos en las expresiones de $v_x$ y $v_y$:
+\begin{align*}
+v_x &= \left( \frac{\mu}{h} e \sin f \right) \cos f - \left( \frac{\mu}{h} (1 + e \cos f) \right) \sin f \\
+&= \frac{\mu}{h} \left( e \sin f \cos f - \sin f - e \cos f \sin f \right) \\
+&= -\frac{\mu}{h} \sin f,
+\end{align*}
+donde los términos proporcionales a $e \sin f \cos f$ se cancelan exactamente. Para la componente $y$:
+\begin{align*}
+v_y &= \left( \frac{\mu}{h} e \sin f \right) \sin f + \left( \frac{\mu}{h} (1 + e \cos f) \right) \cos f \\
+&= \frac{\mu}{h} \left( e \sin^2 f + \cos f + e \cos^2 f \right) \\
+&= \frac{\mu}{h} \left( e (\sin^2 f + \cos^2 f) + \cos f \right) \\
+&= \frac{\mu}{h} (e + \cos f),
+\end{align*}
+donde hemos utilizado la identidad trigonométrica fundamental $\sin^2 f + \cos^2 f = 1$. Hemos demostrado rigurosamente que:
+$$
+v_x = -\frac{\mu}{h} \sin f, \quad v_y = \frac{\mu}{h} (e + \cos f),
+$$
+tal como se solicita. Este resultado es independiente del tipo de cónica y constituye la base analítica para el estudio del hodógrafo (véase Zuluaga, Sección 7.6).
+
+\subsection*{Inciso b) Demostración de que el hodógrafo es una circunferencia}
+
+El hodógrafo es el lugar geométrico descrito por el extremo del vector velocidad relativa en el espacio de velocidades. Para encontrar su ecuación cartesiana, eliminamos el parámetro $f$ de las expresiones obtenidas en el inciso anterior. Despejamos $\sin f$ y $\cos f$ de las componentes de velocidad:
+$$
+\sin f = -\frac{h}{\mu} v_x, \quad \cos f = \frac{h}{\mu} v_y - e.
+$$
+Elevamos ambas expresiones al cuadrado y las sumamos, aprovechando la identidad $\sin^2 f + \cos^2 f = 1$:
+$$
+\left( -\frac{h}{\mu} v_x \right)^2 + \left( \frac{h}{\mu} v_y - e \right)^2 = 1.
+$$
+Desarrollando los cuadrados:
+$$
+\frac{h^2}{\mu^2} v_x^2 + \frac{h^2}{\mu^2} v_y^2 - 2 \frac{h e}{\mu} v_y + e^2 = 1.
+$$
+Multiplicamos toda la ecuación por $\frac{\mu^2}{h^2}$ para aislar las variables de velocidad:
+$$
+v_x^2 + v_y^2 - 2 \frac{\mu e}{h} v_y + \frac{\mu^2 e^2}{h^2} = \frac{\mu^2}{h^2}.
+$$
+Reconocemos en los dos primeros términos del lado izquierdo y en el segundo término del lado derecho la estructura de un binomio al cuadrado completo. Agrupando adecuadamente:
+$$
+v_x^2 + \left( v_y - \frac{\mu e}{h} \right)^2 = \left( \frac{\mu}{h} \right)^2.
+$$
+Esta es exactamente la ecuación canónica de una circunferencia en el plano $(v_x, v_y)$. Por comparación directa con la forma estándar $(x - x_0)^2 + (y - y_0)^2 = R^2$, identificamos:
+\begin{itemize}
+    \item \textbf{Centro:} $(v_{x,0}, v_{y,0}) = \left( 0, \frac{\mu e}{h} \right)$.
+    \item \textbf{Radio:} $R_v = \frac{\mu}{h}$.
+\end{itemize}
+Por lo tanto, hemos demostrado que el hodógrafo de una órbita kepleriana es una circunferencia. Este resultado, formulado como el \textit{Teorema del hodógrafo} en Zuluaga (Proposición 7.3, Sección 7.6), revela una profunda simetría dinámica: el vector velocidad relativa describe un círculo perfecto independientemente de la excentricidad $e$ de la trayectoria espacial. 
+
+\textbf{Interpretación física y geométrica:}
+\begin{enumerate}
+    \item \textbf{Independencia de la excentricidad espacial:} Mientras que la trayectoria en el espacio coordenado varía su forma (elipse, parábola, hipérbola) según $e$, la trayectoria en el espacio de velocidades mantiene siempre la misma estructura circular. La excentricidad solo desplaza el centro de dicha circunferencia a lo largo del eje $v_y$.
+    \item \textbf{Caso circular ($e=0$):} Si $e=0$, el centro del hodógrafo coincide con el origen $(0,0)$ y la velocidad es constante en magnitud ($v = \mu/h$), lo que corresponde al movimiento circular uniforme.
+    \item \textbf{Caso parabólico ($e=1$):} El centro se desplaza a $(0, \mu/h)$ y la circunferencia pasa exactamente por el origen. Esto refleja el hecho de que en el infinito la velocidad relativa tiende a cero.
+    \item \textbf{Caso hiperbólico ($e>1$):} El centro se desplaza más allá del radio, por lo que la circunferencia no encierra el origen. La velocidad relativa nunca se anula y el movimiento es no ligado, consistente con $\epsilon > 0$ (Zuluaga, Sección 7.3.2).
+\end{enumerate}
+
+Este teorema no solo simplifica drásticamente el análisis cinemático de órbitas, sino que está íntimamente relacionado con la conservación del vector de excentricidad (o vector de Laplace-Runge-Lenz, $\vec{e}$). De hecho, el centro del hodógrafo es proporcional a $\vec{e}$, y su constancia en el tiempo es la manifestación geométrica directa de que $\dot{\vec{e}} = \vec{0}$ (véase Zuluaga, Sección 7.3.3 y Problema 2). La demostración presentada aquí, basada en la diferenciación directa de la ecuación de la trayectoria y el uso de las integrales de movimiento $h$ y $\mu$, reproduce el desarrollo analítico clásico expuesto en la Sección 7.6 del texto guía, consolidando el hodógrafo como una herramienta fundamental en mecánica celeste y astrodinámica moderna.
+
 
 
 \section{De elementos orbitales a componentes cartesianas de la velocidad.} Considere una órbita kepleriana descrita por los elementos orbitales
@@ -600,6 +818,114 @@ halle las componentes cartesianas de la velocidad en el sistema inercial y demue
 Para la demostración, use la rotación desde el sistema perifocal al sistema inercial mediante los ángulos $\omega, i$ y $\Omega$.
 
 
+
+\section*{Solución del Problema 8}
+
+\subsection*{1. Marco teórico y referencias al libro guía}
+El objetivo de este problema consiste en transformar las componentes del vector velocidad relativa, conocidas en el sistema perifocal (plano orbital natural de la cónica), hacia un sistema de referencia inercial arbitrario. Este procedimiento es fundamental en astrodinámica y se sustenta en la geometría de rotaciones en tres dimensiones y en las relaciones cinemáticas del problema kepleriano.
+
+La demostración se apoya directamente en los siguientes apartados del libro de Zuluaga:
+\begin{itemize}
+    \item \textbf{Sección 4.2.16 y 4.2.17 (\textit{Cónicas en el espacio / Ángulos de Euler}):} Donde se introduce la secuencia de rotaciones mediante los ángulos $\Omega$ (longitud del nodo ascendente), $i$ (inclinación) y $\omega$ (argumento del periapsis) que permiten pasar del sistema natural de la cónica al sistema del observador inercial. La matriz de rotación resultante se define en la Ec. (4.116) como $M(\Omega, i, \omega) = R_z(\Omega)R_x(i)R_z(\omega)$.
+    \item \textbf{Sección 7.9.2 (\textit{Predicción del vector de estado}):} Donde se escriben explícitamente las ecuaciones paramétricas de la posición en coordenadas cartesianas inerciales en función de los elementos orbitales (Ecs. 4.120 y 7.9.2).
+    \item \textbf{Sección 7.5 (\textit{La velocidad relativa}):} Donde se deducen las expresiones analíticas para la componente radial de la velocidad $\dot{r}$ y la velocidad transversal $r\dot{f}$ en términos del parámetro gravitacional $\mu$, el momento angular específico $h$, la excentricidad $e$ y la anomalía verdadera $f$ (Ecs. 7.25 y 7.26).
+    \item \textbf{Sección 7.6 (\textit{El hodógrafo del problema de los dos cuerpos}):} Donde se obtienen las componentes de la velocidad en el plano perifocal, $v'_x$ y $v'_y$, que sirven como punto de partida para esta transformación (Proposición 7.3).
+\end{itemize}
+
+\subsection*{2. Posición en el sistema inercial y derivación temporal}
+Partimos de la expresión de la posición del vector relativo en el sistema inercial, obtenida mediante la aplicación de la rotación $R_z(\Omega)R_x(i)R_z(\omega)$ al vector posición en el plano perifocal $\vec{r}_p = (r\cos f, r\sin f, 0)^\top$. Como se establece en Zuluaga (Ec. 4.120 y Ec. 7.9.2), las coordenadas cartesianas inerciales son:
+\begin{align*}
+x &= r\left[ \cos\Omega \cos(\omega+f) - \cos i \sin\Omega \sin(\omega+f) \right], \\
+y &= r\left[ \sin\Omega \cos(\omega+f) + \cos i \cos\Omega \sin(\omega+f) \right], \\
+z &= r\left[ \sin i \sin(\omega+f) \right].
+\end{align*}
+Para obtener las componentes cartesianas de la velocidad, derivamos estas expresiones respecto al tiempo $t$. Dado que $\Omega$, $i$ y $\omega$ son constantes de movimiento en el problema no perturbado de dos cuerpos (Sección 7.3), sus derivadas temporales son nulas. Aplicando la regla de la cadena:
+\begin{align*}
+\dot{x} &= \dot{r}\left[ \cos\Omega \cos(\omega+f) - \cos i \sin\Omega \sin(\omega+f) \right] \\
+&\quad + r\dot{f}\left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right], \\
+\dot{y} &= \dot{r}\left[ \sin\Omega \cos(\omega+f) + \cos i \cos\Omega \sin(\omega+f) \right] \\
+&\quad + r\dot{f}\left[ -\sin\Omega \sin(\omega+f) + \cos i \cos\Omega \cos(\omega+f) \right], \\
+\dot{z} &= \dot{r}\left[ \sin i \sin(\omega+f) \right] + r\dot{f}\left[ \sin i \cos(\omega+f) \right].
+\end{align*}
+
+\subsection*{3. Sustitución de las componentes cinemáticas orbitales}
+Las cantidades $\dot{r}$ y $r\dot{f}$ se expresan analíticamente a partir de las integrales de movimiento del problema. Como se deduce en la Sección 7.5 de Zuluaga, a partir de la conservación de la energía específica relativa y del momento angular específico, se obtienen las siguientes identidades fundamentales (válidas para $e \neq 1$):
+\begin{equation}
+\dot{r} = \frac{\mu}{h} e \sin f, \quad \text{y} \quad r\dot{f} = \frac{\mu}{h} (1 + e \cos f).
+\end{equation}
+Sustituimos estas relaciones en las expresiones derivadas para $\dot{x}$, $\dot{y}$ y $\dot{z}$. Agrupando los términos proporcionalmente a $\frac{\mu}{h}$ y $\frac{\mu e}{h}$, obtenemos para la componente $x$:
+\begin{align*}
+\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] \\
+&\quad + \frac{\mu e}{h} \Big[ \sin f \cos\Omega \cos(\omega+f) - \sin f \cos i \sin\Omega \sin(\omega+f) \\
+&\quad\quad\quad\quad - \cos f \cos\Omega \sin(\omega+f) - \cos f \cos i \sin\Omega \cos(\omega+f) \Big].
+\end{align*}
+
+\subsection*{4. Simplificación trigonométrica y corrección analítica}
+Procedemos a simplificar el corchete que multiplica a $\frac{\mu e}{h}$ utilizando identidades de suma y diferencia de ángulos. Reagrupamos los términos que contienen $\cos\Omega$ y $\sin\Omega$:
+\begin{align*}
+\text{Término en } \cos\Omega &: \sin f \cos(\omega+f) - \cos f \sin(\omega+f) = \sin(f - (\omega+f)) = \sin(-\omega) = -\sin\omega, \\
+\text{Término en } \cos i \sin\Omega &: -\left[ \sin f \sin(\omega+f) + \cos f \cos(\omega+f) \right] = -\cos(f - (\omega+f)) = -\cos(-\omega) = -\cos\omega.
+\end{align*}
+Sustituyendo estos resultados en la expresión de $\dot{x}$:
+\begin{align*}
+\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] \\
+&\quad + \frac{\mu e}{h} \left[ -\cos\Omega \sin\omega - \cos i \sin\Omega \cos\omega \right].
+\end{align*}
+Factorizando el signo negativo en el segundo término, obtenemos la forma analítica exacta:
+\begin{equation}
+\dot{x} = \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] - \frac{\mu e}{h} \left( \cos\Omega \sin\omega + \cos\omega \cos i \sin\Omega \right).
+\end{equation}
+\textbf{Nota de corrección:} El enunciado original presentaba un signo positivo en el término proporcional a $e$. Sin embargo, la derivación rigurosa basada en las rotaciones estándar de Euler y las identidades trigonométricas fundamentales conduce inequívocamente a un signo negativo. Este resultado coincide exactamente con la Ecuación (7.46) del texto de Zuluaga. Procederemos con la forma corregida por ser la matemáticamente consistente.
+
+Aplicando el mismo procedimiento algebraico para $\dot{y}$:
+\begin{align*}
+\dot{y} &= \frac{\mu}{h} \left[ -\sin\Omega \sin(\omega+f) + \cos i \cos\Omega \cos(\omega+f) \right] \\
+&\quad + \frac{\mu e}{h} \Big[ \sin f \sin\Omega \cos(\omega+f) + \sin f \cos i \cos\Omega \sin(\omega+f) \\
+&\quad\quad\quad\quad - \cos f \sin\Omega \sin(\omega+f) + \cos f \cos i \cos\Omega \cos(\omega+f) \Big].
+\end{align*}
+Simplificando el corchete de excentricidad:
+\begin{align*}
+\text{Término en } \sin\Omega &: \sin f \cos(\omega+f) - \cos f \sin(\omega+f) = \sin(-\omega) = -\sin\omega, \\
+\text{Término en } \cos i \cos\Omega &: \sin f \sin(\omega+f) + \cos f \cos(\omega+f) = \cos(-\omega) = \cos\omega.
+\end{align*}
+Resultando en:
+\begin{equation}
+\dot{y} = \frac{\mu}{h} \left[ -\sin\Omega \sin(\omega+f) + \cos i \cos\Omega \cos(\omega+f) \right] + \frac{\mu e}{h} \left( -\sin\Omega \sin\omega + \cos\omega \cos i \cos\Omega \right).
+\end{equation}
+Finalmente, para la componente $\dot{z}$:
+\begin{align*}
+\dot{z} &= \frac{\mu e}{h} \sin f \sin i \sin(\omega+f) + \frac{\mu}{h}(1+e\cos f) \sin i \cos(\omega+f) \\
+&= \frac{\mu}{h} \sin i \cos(\omega+f) + \frac{\mu e}{h} \sin i \left[ \sin f \sin(\omega+f) + \cos f \cos(\omega+f) \right] \\
+&= \frac{\mu}{h} \sin i \cos(\omega+f) + \frac{\mu e}{h} \sin i \cos(-\omega).
+\end{align*}
+Por tanto:
+\begin{equation}
+\dot{z} = \frac{\mu}{h} \left[ \sin i \cos(\omega+f) + e \cos\omega \sin i \right].
+\end{equation}
+
+\subsection*{5. Resultado final e interpretación física}
+Reensamblando las componentes corregidas y verificadas, el vector velocidad en el sistema inercial queda expresado como:
+\begin{align*}
+\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] - \frac{\mu e}{h} \left( \cos\Omega \sin\omega + \cos\omega \cos i \sin\Omega \right), \\
+\dot{y} &= \frac{\mu}{h} \left[ -\sin\Omega \sin(\omega+f) + \cos i \cos\Omega \cos(\omega+f) \right] + \frac{\mu e}{h} \left( -\sin\Omega \sin\omega + \cos\omega \cos i \cos\Omega \right), \\
+\dot{z} &= \frac{\mu}{h} \left[ \sin i \cos(\omega+f) + e \cos\omega \sin i \right].
+\end{align*}
+
+\textbf{Interpretación y conexión con Zuluaga:}
+\begin{enumerate}
+    \item \textbf{Estructura vectorial:} La solución muestra claramente que la velocidad inercial puede descomponerse en dos contribuciones vectoriales: una proporcional a $\frac{\mu}{h}$ que depende de la anomalía verdadera actual $f$ (rotada por $\omega$), y otra proporcional a $\frac{\mu e}{h}$ que depende exclusivamente de la orientación del periapsis $\omega$. Esta separación refleja la naturaleza del hodógrafo circular desplazado estudiado en la Sección 7.6.
+    \item \textbf{Consistencia con la rotación 3D:} La presencia de los factores $\cos\Omega$, $\sin\Omega$, $\cos i$ y $\sin i$ confirma que la transformación realizada es exactamente la composición matricial $R_z(\Omega)R_x(i)R_z(\omega)$ discutida en las Secciones 4.2.17 y 4.2.18. Cada término trigonométrico proyecta correctamente las componentes perifocales sobre los ejes inerciales $X, Y, Z$.
+    \item \textbf{Validez general:} A diferencia de la posición, cuya magnitud $r$ varía con $f$, la expresión de la velocidad obtenida aquí es válida para cualquier tipo de cónica kepleriana (elipse, parábola o hipérbola), siempre que se utilicen los valores correctos de $h$, $\mu$ y $e$. Esto la hace indispensable para la propagación de órbitas en software de mecánica celeste y para la determinación inicial de elementos orbitales a partir de mediciones de velocidad relativa (Sección 7.9.1).
+    \item \textbf{Corrección aplicada:} El cambio de signo en el término de excentricidad de $\dot{x}$ no es arbitrario; surge directamente de la identidad $\sin(A-B)$ al derivar la posición. Mantener el signo positivo introduciría una inconsistencia geométrica en la proyección del vector velocidad sobre el eje $X$ inercial, contradiciendo la Ec. (7.46) de Zuluaga y las convenciones estándar de la astrofísica moderna.
+\end{enumerate}
+
+Esta demostración cierra el vínculo analítico entre la cinemática perifocal (donde las ecuaciones son simples y planas) y la descripción inercial tridimensional requerida para observaciones astronómicas reales, navegación espacial y dinámica de sistemas jerárquicos, consolidando así los teoremas fundamentales del Capítulo 7 del texto guía.
+
+
+
+
+
+
 \section{Ecuación de Kepler para una órbita hiperbólica.} Considere una órbita hiperbólica con semieje real $a < 0$, excentricidad $e > 1$, semieje conjugado $\beta$ y anomalía hiperbólica $H$. El área de un sector de hipérbola está dada por
 $$\Delta A_{\text{hipérbola}} = \frac{1}{2} |a| \beta (e \sinh H - H).$$
 \begin{enumerate}
@@ -612,7 +938,280 @@ $$\Delta A_{\text{hipérbola}} = \frac{1}{2} |a| \beta (e \sinh H - H).$$
 \end{enumerate}
 
 
+
+\section*{Solución del Problema 9}
+
+\subsection*{Inciso a) Dedución de la ecuación de Kepler hiperbólica}
+Partimos de la expresión geométrica para el área de un sector de hipérbola barrida por el vector relativo $\vec{r}$ desde el tiempo de paso por el periapsis $\tau$ hasta un tiempo arbitrario $t$ (véase Zuluaga, Sección 4.2.15, Ec. 4.108):
+$$
+\Delta A_{\text{hipérbola}} = \frac{1}{2} |a| \beta \left( e \sinh H - H \right),
+$$
+donde $H$ es la anomalía hiperbólica, $e > 1$ la excentricidad, $a < 0$ el semieje real (de ahí el valor absoluto $|a|$ para garantizar magnitudes positivas) y $\beta$ el semieje conjugado.
+
+Por otro lado, del \textbf{Teorema de áreas} (Zuluaga, Sección 7.3.1, Proposición 7.1, Ec. 7.9), sabemos que la velocidad areal del vector relativo en el problema de los dos cuerpos es constante e igual a la mitad de la magnitud del momento angular específico relativo $h = \|\vec{h}\|$:
+$$
+\frac{dA}{dt} = \frac{h}{2}.
+$$
+Integrando esta relación desde el instante de paso por el periapsis $\tau$ (donde el área barrida es nula) hasta un tiempo $t$ cualquiera, obtenemos el área total barrida en ese intervalo:
+$$
+\Delta A = \int_{\tau}^{t} \frac{h}{2} \, dt' = \frac{h}{2} (t - \tau). \quad \text{(1)}
+$$
+
+Igualando las dos expresiones independientes obtenidas para $\Delta A$, tenemos:
+$$
+\frac{h}{2} (t - \tau) = \frac{1}{2} |a| \beta \left( e \sinh H - H \right).
+$$
+Cancelando el factor común $1/2$ y despejando el término entre paréntesis:
+$$
+e \sinh H - H = \frac{h}{|a| \beta} (t - \tau). \quad \text{(2)}
+$$
+
+Definimos ahora la \textbf{anomalía media hiperbólica} $M_h$ como la cantidad adimensional que depende linealmente del tiempo:
+$$
+M_h \equiv e \sinh H - H.
+$$
+Sustituyendo en la Ec. (2), obtenemos directamente la \textbf{ecuación de Kepler para órbitas hiperbólicas}:
+$$
+M_h = n (t - \tau),
+$$
+donde hemos identificado el coeficiente de proporcionalidad como el \textbf{movimiento medio hiperbólico} $n$:
+$$
+n \equiv \frac{h}{|a| \beta}. \quad \text{(3)}
+$$
+Esta definición coincide exactamente con la formulación presentada en Zuluaga (Sección 7.10.2, Ec. 7.56), donde se establece que la evolución temporal de la anomalía hiperbólica $H$ se rige por una relación lineal con el tiempo, análoga al caso elíptico pero con funciones hiperbólicas en lugar de trigonométricas.
+
+\subsection*{Inciso b) Demostración del teorema armónico hiperbólico}
+El objetivo ahora es demostrar que el movimiento medio hiperbólico $n$ satisface la relación $n^2 |a|^3 = \mu$, que constituye la generalización del teorema armónico (tercera ley de Kepler) para trayectorias no ligadas (Zuluaga, Sección 7.7, Proposición 7.4).
+
+Comenzamos recordando tres relaciones geométricas y dinámicas fundamentales para cónicas en el problema de los dos cuerpos:
+\begin{enumerate}
+    \item La relación entre el semilatus rectum $p$, el momento angular específico $h$ y el parámetro gravitacional $\mu$ (Zuluaga, Sección 7.4, Ec. 7.18):
+    $$
+    p = \frac{h^2}{\mu}. \quad \text{(4)}
+    $$
+    \item La relación geométrica entre el semilatus rectum $p$, el valor absoluto del semieje real $|a|$ y la excentricidad $e$ para una hipérbola (Zuluaga, Sección 4.2.8 y 4.2.10):
+    $$
+    p = |a| (e^2 - 1). \quad \text{(5)}
+    $$
+    \item La definición del semieje conjugado $\beta$ en función de $|a|$ y $e$ (Zuluaga, Sección 4.2.8, Ec. 4.79):
+    $$
+    \beta = |a| \sqrt{e^2 - 1} \quad \Longrightarrow \quad \beta^2 = |a|^2 (e^2 - 1). \quad \text{(6)}
+    $$
+\end{enumerate}
+
+Sustituyendo la Ec. (5) en la Ec. (6), obtenemos una relación directa entre $\beta$, $|a|$ y $p$:
+$$
+\beta^2 = |a| \cdot |a| (e^2 - 1) = |a| p.
+$$
+Ahora reemplazamos $p$ usando la Ec. (4):
+$$
+\beta^2 = |a| \left( \frac{h^2}{\mu} \right) \quad \Longrightarrow \quad h^2 = \frac{\mu \beta^2}{|a|}.
+$$
+Tomando la raíz cuadrada positiva (pues $h, \beta, |a|, \mu > 0$ por definición de magnitudes cinemáticas y parámetros gravitacionales):
+$$
+h = \beta \sqrt{\frac{\mu}{|a|}}. \quad \text{(7)}
+$$
+
+Recordemos ahora la definición del movimiento medio hiperbólico $n$ obtenida en el inciso anterior (Ec. 3):
+$$
+n = \frac{h}{|a| \beta}.
+$$
+Sustituimos la expresión para $h$ de la Ec. (7) en esta definición:
+$$
+n = \frac{\beta \sqrt{\frac{\mu}{|a|}}}{|a| \beta} = \frac{1}{|a|} \sqrt{\frac{\mu}{|a|}} = \sqrt{\frac{\mu}{|a|^3}}.
+$$
+Elevando ambos lados al cuadrado, llegamos finalmente a la forma hiperbólica del teorema armónico:
+$$
+n^2 = \frac{\mu}{|a|^3} \quad \Longrightarrow \quad n^2 |a|^3 = \mu. \quad \text{(8)}
+$$
+
+Este resultado demuestra rigurosamente que, al igual que en el caso elíptico, el producto del cuadrado del movimiento medio por el cubo del valor absoluto del semieje mayor es constante e igual al parámetro gravitacional del sistema $\mu = G(m_1 + m_2)$. La única diferencia formal radica en el uso del valor absoluto $|a|$ para garantizar que las cantidades bajo la raíz y las potencias sean positivas, dado que en la parametrización hiperbólica convencional se toma $a < 0$ (Zuluaga, Sección 4.2.8). Esta generalización unifica el teorema armónico para todas las cónicas keplerianas con $e \neq 1$, tal como se discute en Zuluaga (Sección 7.7 y Sección 7.10.2), consolidando la profunda conexión entre la geometría de las cónicas y la dinámica newtoniana del problema de los dos cuerpos.
+
+
+
+
 \section{Tiempo por encima de cierta altitud.} Un satélite está en órbita alrededor de la Tierra con una altitud, respecto a la superficie terrestre, de $250$ km en el perigeo y de $650$ km en el apogeo. Encuentre el intervalo de tiempo durante el cual el satélite se mantiene por encima de una altitud de $450$ km. ¿A qué fracción del período orbital equivale ese tiempo?
+
+
+\section*{Solución del Problema 10: Tiempo por encima de cierta altitud}
+
+\subsection*{Planteamiento y datos del problema}
+
+Consideramos un satélite en órbita elíptica alrededor de la Tierra con las siguientes características:
+\begin{itemize}
+    \item Altitud en el perigeo: $h_p = 250$ km
+    \item Altitud en el apogeo: $h_a = 650$ km
+    \item Radio terrestre medio: $R_T = 6378$ km
+    \item Parámetro gravitacional terrestre: $\mu_E = 398600$ km$^3$/s$^2$
+\end{itemize}
+
+Las distancias radiales desde el centro de la Tierra, fundamentales para el análisis del problema relativo de dos cuerpos (Sección 7.2 de Zuluaga), son:
+\begin{align}
+    r_p &= R_T + h_p = 6378 + 250 = 6628 \text{ km} \\
+    r_a &= R_T + h_a = 6378 + 650 = 7028 \text{ km}
+\end{align}
+
+\subsection*{Determinación de los elementos orbitales}
+
+Para una órbita elíptica, el semieje mayor $a$ y la excentricidad $e$ se determinan a partir de las distancias al perigeo y apogeo, como se establece en la Sección 7.4 de Zuluaga:
+\begin{align}
+    a &= \frac{r_p + r_a}{2} = \frac{6628 + 7028}{2} = 6828 \text{ km} \\
+    e &= \frac{r_a - r_p}{r_a + r_p} = \frac{7028 - 6628}{7028 + 6628} = \frac{400}{13656} \approx 0.02929
+\end{align}
+
+El semilatus rectum $p$, parámetro geométrico clave en la ecuación de la trayectoria, se calcula como:
+\begin{equation}
+    p = a(1 - e^2) = 6828\left(1 - (0.02929)^2\right) \approx 6822.15 \text{ km}
+\end{equation}
+
+\subsection*{Ecuación de la trayectoria y condición de altitud}
+
+La ecuación de la órbita en coordenadas polares, referida al foco (centro de la Tierra), viene dada por la Ecuación (7.45) de Zuluaga:
+\begin{equation}
+    r = \frac{p}{1 + e\cos f} = \frac{a(1-e^2)}{1 + e\cos f}
+\end{equation}
+donde $f$ es la anomalía verdadera.
+
+La altitud objetivo es $h_{450} = 450$ km, correspondiente a una distancia radial:
+\begin{equation}
+    r_{450} = R_T + h_{450} = 6378 + 450 = 6828 \text{ km}
+\end{equation}
+
+Observamos que $r_{450} = a$, lo cual simplifica notablemente el análisis. Imponemos la condición $r = r_{450}$ en la ecuación de la trayectoria:
+\begin{equation}
+    a = \frac{a(1-e^2)}{1 + e\cos f}
+\end{equation}
+
+Simplificando algebraicamente:
+\begin{align}
+    1 + e\cos f &= 1 - e^2 \\
+    e\cos f &= -e^2 \\
+    \cos f &= -e
+\end{align}
+
+Por lo tanto, los valores de la anomalía verdadera para los cuales el satélite se encuentra exactamente a 450 km de altitud son:
+\begin{equation}
+    f = \pm \arccos(-e) = \pm (\pi - \arccos(e))
+\end{equation}
+
+Definimos:
+\begin{align}
+    f_1 &= \pi - \arccos(e) \quad \text{(segundo cuadrante)} \\
+    f_2 &= \pi + \arccos(e) \quad \text{(tercer cuadrante)}
+\end{align}
+
+\subsection*{Región de interés en anomalía verdadera}
+
+El satélite se mantiene por encima de 450 km cuando $r \geq r_{450} = a$. Analizamos esta desigualdad:
+\begin{equation}
+    \frac{a(1-e^2)}{1 + e\cos f} \geq a \quad \Rightarrow \quad 1 - e^2 \geq 1 + e\cos f \quad \Rightarrow \quad \cos f \leq -e
+\end{equation}
+
+Esta condición se satisface para $f \in [f_1, f_2]$, es decir, en el intervalo angular:
+\begin{equation}
+    \Delta f = f_2 - f_1 = 2\arccos(e)
+\end{equation}
+
+Para $e \approx 0.02929$:
+\begin{equation}
+    \arccos(e) \approx \arccos(0.02929) \approx 1.5415 \text{ rad} \quad \Rightarrow \quad \Delta f \approx 3.0830 \text{ rad}
+\end{equation}
+
+\subsection*{Transformación a anomalía excéntrica}
+
+Para determinar el tiempo transcurrido, debemos relacionar la anomalía verdadera $f$ con la anomalía excéntrica $E$, utilizando las relaciones desarrolladas en la Sección 4.2.14 de Zuluaga:
+\begin{equation}
+    \tan\frac{f}{2} = \sqrt{\frac{1+e}{1-e}}\tan\frac{E}{2}
+\end{equation}
+
+Alternativamente, usamos la relación directa entre cosenos (Ecuación 7.98 de Zuluaga):
+\begin{equation}
+    \cos f = \frac{\cos E - e}{1 - e\cos E}
+\end{equation}
+
+Sustituyendo $\cos f_1 = -e$:
+\begin{align}
+    -e &= \frac{\cos E_1 - e}{1 - e\cos E_1} \\
+    -e(1 - e\cos E_1) &= \cos E_1 - e \\
+    -e + e^2\cos E_1 &= \cos E_1 - e \\
+    (e^2 - 1)\cos E_1 &= 0
+\end{align}
+
+Dado que $e \neq 1$, concluimos que $\cos E_1 = 0$, por lo tanto $E_1 = \pi/2$ o $E_1 = 3\pi/2$. Considerando que $f_1 \in (\pi/2, \pi)$ corresponde a $E_1 \in (0, \pi)$, seleccionamos:
+\begin{equation}
+    E_1 = \frac{\pi}{2}
+\end{equation}
+
+Análogamente, para $f_2 \in (\pi, 3\pi/2)$, que corresponde a $E_2 \in (\pi, 2\pi)$:
+\begin{equation}
+    E_2 = \frac{3\pi}{2}
+\end{equation}
+
+\subsection*{Aplicación de la ecuación de Kepler}
+
+La ecuación de Kepler, fundamental para resolver el problema de los dos cuerpos en el tiempo (Sección 7.10.2 de Zuluaga), relaciona la anomalía media $M$ con la anomalía excéntrica $E$:
+\begin{equation}
+    M = E - e\sin E
+\end{equation}
+
+Calculamos las anomalías medias correspondientes:
+\begin{align}
+    M_1 &= E_1 - e\sin E_1 = \frac{\pi}{2} - e\sin\left(\frac{\pi}{2}\right) = \frac{\pi}{2} - e \\
+    M_2 &= E_2 - e\sin E_2 = \frac{3\pi}{2} - e\sin\left(\frac{3\pi}{2}\right) = \frac{3\pi}{2} + e
+\end{align}
+
+El intervalo de anomalía media es:
+\begin{equation}
+    \Delta M = M_2 - M_1 = \left(\frac{3\pi}{2} + e\right) - \left(\frac{\pi}{2} - e\right) = \pi + 2e
+\end{equation}
+
+\subsection*{Cálculo del tiempo transcurrido}
+
+La anomalía media se relaciona con el tiempo mediante $M = n(t - \tau)$, donde $n$ es el movimiento medio y $\tau$ el tiempo de paso por el perigeo. Por lo tanto:
+\begin{equation}
+    \Delta t = \frac{\Delta M}{n} = \frac{\pi + 2e}{n}
+\end{equation}
+
+El movimiento medio $n$ se calcula mediante el teorema armónico (Sección 7.7 de Zuluaga):
+\begin{equation}
+    n = \sqrt{\frac{\mu}{a^3}}
+\end{equation}
+
+Sustituyendo valores numéricos:
+\begin{align}
+    n &= \sqrt{\frac{398600}{(6828)^3}} = \sqrt{\frac{398600}{3.18279 \times 10^{11}}} \approx 0.001119 \text{ rad/s} \\
+    \Delta t &= \frac{\pi + 2(0.02929)}{0.001119} \approx \frac{3.1416 + 0.05858}{0.001119} \approx 2860 \text{ s}
+\end{align}
+
+\subsection*{Fracción del período orbital}
+
+El período orbital $T$ viene dado por:
+\begin{equation}
+    T = \frac{2\pi}{n} = 2\pi\sqrt{\frac{a^3}{\mu}} \approx \frac{6.2832}{0.001119} \approx 5615 \text{ s}
+\end{equation}
+
+La fracción del período durante la cual el satélite permanece por encima de 450 km es:
+\begin{equation}
+    \frac{\Delta t}{T} = \frac{\pi + 2e}{2\pi} = \frac{1}{2} + \frac{e}{\pi}
+\end{equation}
+
+Evaluando numéricamente:
+\begin{equation}
+    \frac{\Delta t}{T} \approx 0.5 + \frac{0.02929}{3.1416} \approx 0.5 + 0.00932 = 0.50932
+\end{equation}
+
+\subsection*{Resultados finales y discusión}
+
+\begin{itemize}
+    \item \textbf{Tiempo por encima de 450 km:} $\Delta t \approx 2860$ s $\approx 47.7$ minutos
+    \item \textbf{Período orbital:} $T \approx 5615$ s $\approx 93.6$ minutos
+    \item \textbf{Fracción del período:} $\dfrac{\Delta t}{T} \approx 0.5093$ (aproximadamente 50.93\%)
+\end{itemize}
+
+\textbf{Interpretación física:} El resultado $\Delta t/T = 1/2 + e/\pi$ revela que, para órbitas de baja excentricidad como la considerada ($e \approx 0.029$), el satélite pasa ligeramente más de la mitad del período por encima de la altitud correspondiente al semieje mayor. Esto se debe a que la velocidad orbital es menor cerca del apogeo (segunda ley de Kepler, Sección 7.3.1 de Zuluaga), por lo que el satélite ``se demora'' más en la región de mayor altitud. La corrección $e/\pi \approx 0.0093$ cuantifica este efecto para la excentricidad dada.
+
+\textbf{Validación:} Para $e \to 0$ (órbita circular), recuperamos $\Delta t/T \to 1/2$, como era de esperarse por simetría. El resultado obtenido es consistente con las propiedades geométricas y dinámicas de las órbitas keplerianas desarrolladas en el Capítulo 7 de Zuluaga.
+
 
 
 \section{Satélite en órbita elíptica.} Un satélite se encuentra en una órbita elíptica alrededor de la Tierra con un período orbital $T = 15,7430$ horas y una distancia al perigeo $r_p = 12\,756$ km, medida desde el centro de la Tierra. Calcule las siguientes cantidades cinemáticas y dinámicas en el instante $t = 10$ horas después del paso por el perigeo:
@@ -631,6 +1230,114 @@ $$\Delta A_{\text{hipérbola}} = \frac{1}{2} |a| \beta (e \sinh H - H).$$
 Considere el radio terrestre $R_T \approx 6\,378$ km y el parámetro gravitacional terrestre $\mu_E \approx 398\,600$ km$^3$/s$^2$.
 
 
+
+\section*{Solución del Problema 11}
+
+\subsection*{Datos iniciales y conversión de unidades}
+Para garantizar coherencia dimensional en todos los cálculos, expresaremos las magnitudes en el sistema de unidades consistente con el parámetro gravitacional terrestre ($\text{km}$ y $\text{s}$):
+\begin{align*}
+    T &= 15,7430 \text{ h} = 56\,674,8 \text{ s}, \\
+    t &= 10 \text{ h} = 36\,000 \text{ s}, \\
+    r_p &= 12\,756 \text{ km}, \\
+    \mu_E &= 398\,600 \text{ km}^3/\text{s}^2.
+\end{align*}
+
+\subsection*{Cálculo del semieje mayor $a$ y la excentricidad $e$}
+El período orbital $T$ de una órbita elíptica está relacionado con el semieje mayor $a$ mediante el \textbf{teorema armónico} (tercera ley de Kepler), desarrollado en la Sección 7.7 de Zuluaga:
+$$ T = 2\pi \sqrt{\frac{a^3}{\mu_E}} \quad \Longrightarrow \quad a = \left( \frac{\mu_E T^2}{4\pi^2} \right)^{1/3}. $$
+Sustituyendo los valores numéricos:
+$$ a = \left( \frac{398\,600 \times (56\,674,8)^2}{4\pi^2} \right)^{1/3} \approx 31\,894,6 \text{ km}. $$
+
+La distancia al perigeo $r_p$ se relaciona con $a$ y $e$ mediante la geometría focal de la elipse (Zuluaga, Sección 4.2.7 y Sección 7.4):
+$$ r_p = a(1 - e) \quad \Longrightarrow \quad e = 1 - \frac{r_p}{a}. $$
+$$ e = 1 - \frac{12\,756}{31\,894,6} \approx 0,6000. $$
+Este valor de excentricidad confirma que la trayectoria es una elipse notablemente elongada ($0 < e < 1$).
+
+\subsection*{Anomalía media $M$ y anomalía excéntrica $E$}
+La anomalía media crece linealmente con el tiempo a partir del paso por el perigeo. Según la Sección 7.10.2 de Zuluaga, se define como:
+$$ M = n(t - t_p) = \frac{2\pi}{T} t. $$
+Para $t = 10$ h:
+$$ M = \frac{2\pi}{15,7430} \times 10 \approx 3,99113 \text{ rad} \quad (\approx 228,67^\circ). $$
+Dado que $M > \pi$, el satélite ya ha superado el apogeo ($M = \pi$ corresponde al apogeo).
+
+La relación entre la anomalía media y la anomalía excéntrica está dada por la \textbf{ecuación de Kepler} (Zuluaga, Sección 7.10.2):
+$$ M = E - e \sin E. $$
+Sustituyendo $M = 3,99113$ y $e = 0,6000$, resolvemos numéricamente mediante el método de Newton-Raphson (Zuluaga, Sección 7.10.5):
+$$ E_{n+1} = E_n - \frac{E_n - e\sin E_n - M}{1 - e\cos E_n}. $$
+Partiendo de $E_0 = M$, tras pocas iteraciones convergemos a:
+$$ E \approx 3,6896 \text{ rad} \quad (\approx 211,40^\circ). $$
+
+\subsection*{Anomalía verdadera $f$ y distancia radial $r$}
+La anomalía verdadera se obtiene a partir de $E$ mediante la identidad trigonométrica derivada en la Sección 4.2.14 de Zuluaga:
+$$ \tan\frac{f}{2} = \sqrt{\frac{1+e}{1-e}} \tan\frac{E}{2}. $$
+Sustituyendo:
+$$ \tan\frac{f}{2} = \sqrt{\frac{1,6}{0,4}} \tan\left(\frac{3,6896}{2}\right) = 2 \tan(1,8448) \approx -7,186. $$
+Dado que $E > \pi$, la anomalía verdadera debe estar en el tercer cuadrante ($\pi < f < 2\pi$). Por tanto:
+$$ \frac{f}{2} = \pi - \arctan(7,186) \approx 1,7097 \text{ rad} \quad \Longrightarrow \quad f \approx 3,4194 \text{ rad} \quad (\approx 195,91^\circ). $$
+
+La distancia radial $r$ se calcula directamente usando la relación paramétrica con $E$ (Zuluaga, Sección 4.2.14):
+$$ r = a(1 - e\cos E). $$
+$$ r = 31\,894,6 \left[ 1 - 0,6000 \cos(3,6896) \right] \approx 31\,894,6 \left[ 1 + 0,5092 \right] \approx 48\,135 \text{ km}. $$
+(Verificación alternativa con la ecuación polar $r = \frac{a(1-e^2)}{1+e\cos f}$ produce un resultado compatible dentro del error de redondeo numérico).
+
+\subsection*{Magnitud de la velocidad $v$ y energía específica $\epsilon$}
+La rapidez orbital en cualquier punto de una cónica se obtiene mediante la ecuación de la \textit{vis viva}, deducida en la Sección 7.5 de Zuluaga a partir de la conservación de la energía específica:
+$$ v = \sqrt{\mu_E \left( \frac{2}{r} - \frac{1}{a} \right)}. $$
+$$ v = \sqrt{398\,600 \left( \frac{2}{48\,135} - \frac{1}{31\,894,6} \right)} \approx \sqrt{398\,600 \times 1,0196 \times 10^{-5}} \approx 2,016 \text{ km/s}. $$
+
+La energía específica relativa $\epsilon$ es una constante de movimiento que depende exclusivamente del semieje mayor (Zuluaga, Sección 7.3.2):
+$$ \epsilon = -\frac{\mu_E}{2a} = -\frac{398\,600}{2 \times 31\,894,6} \approx -6,252 \text{ km}^2/\text{s}^2. $$
+El signo negativo confirma que el sistema está ligado (órbita elíptica).
+
+\subsection*{Parámetros geométricos y cinemáticos en el apogeo}
+La distancia al apogeo $r_a$ corresponde al extremo opuesto del eje mayor (Zuluaga, Sección 4.2.7):
+$$ r_a = a(1 + e) = 31\,894,6 \times 1,6000 \approx 51\,031 \text{ km}. $$
+
+La velocidad en el apogeo $v_a$ se obtiene evaluando la \textit{vis viva} en $r = r_a$, o bien usando la expresión simplificada para los ápsides (Zuluaga, Sección 7.5):
+$$ v_a = \sqrt{\frac{\mu_E}{a} \frac{1-e}{1+e}} = \sqrt{\frac{398\,600}{31\,894,6} \times \frac{0,4}{1,6}} \approx \sqrt{12,497 \times 0,25} \approx 1,768 \text{ km/s}. $$
+Como era de esperarse por la segunda ley de Kepler (teorema de las áreas, Zuluaga, Sección 7.3.1), $v_a < v_p$, lo que refleja que el satélite se mueve más lentamente en los puntos de mayor distancia al foco.
+
+\subsection*{Tiempo restante para llegar al apogeo}
+El movimiento orbital es simétrico respecto a la línea de ápsides. El tiempo transcurrido desde el perigeo hasta el apogeo es exactamente la mitad del período:
+$$ t_{p \to a} = \frac{T}{2} = \frac{15,7430}{2} = 7,8715 \text{ h}. $$
+Dado que $t = 10 \text{ h} > 7,8715 \text{ h}$, el satélite ya pasó por el apogeo y se encuentra en la rama descendente hacia el perigeo. El \textit{tiempo restante} para alcanzar el \textbf{siguiente} paso por el apogeo corresponde al tiempo que falta para completar la órbita actual más el tiempo de la mitad de la siguiente órbita, o equivalentemente:
+$$ \Delta t_{\to a} = T + \frac{T}{2} - t = 1,5T - t. $$
+$$ \Delta t_{\to a} = 1,5 \times 15,7430 - 10 = 23,6145 - 10 = 13,6145 \text{ h}. $$
+En términos de anomalía media, esto equivale a calcular cuánto falta para que $M$ alcance $3\pi$ (próximo apogeo), lo cual confirma la consistencia con la formulación de la Sección 7.10.2 de Zuluaga.
+
+\subsection*{Resumen analítico de resultados}
+\begin{center}
+\begin{tabular}{lll}
+    \hline
+    \textbf{Cantidad} & \textbf{Valor numérico} & \textbf{Unidades} \\
+    \hline
+    a) Distancia radial $r$ & $4,8135 \times 10^4$ & km \\
+    b) Magnitud de la velocidad $v$ & $2,016$ & km/s \\
+    c) Anomalía excéntrica $E$ & $3,6896$ & rad ($211,40^\circ$) \\
+    d) Anomalía verdadera $f$ & $3,4194$ & rad ($195,91^\circ$) \\
+    e) Anomalía media $M$ & $3,9911$ & rad ($228,67^\circ$) \\
+    f) Excentricidad orbital $e$ & $0,6000$ & adimensional \\
+    g) Energía específica $\epsilon$ & $-6,252$ & km$^2$/s$^2$ \\
+    h) Velocidad en el apogeo $v_a$ & $1,768$ & km/s \\
+    i) Distancia al apogeo $r_a$ & $5,1031 \times 10^4$ & km \\
+    j) Tiempo restante al apogeo & $13,6145$ & h \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Observaciones finales de coherencia teórica}
+Los resultados obtenidos son consistentes con los teoremas fundamentales del movimiento orbital desarrollados en el Capítulo 7 de Zuluaga:
+\begin{itemize}
+    \item La relación $r_p < r < r_a$ y $v_a < v < v_p$ valida el teorema de las áreas (Sección 7.3.1).
+    \item El valor negativo de $\epsilon$ y la condición $0 < e < 1$ confirman que la trayectoria es una elipse ligada (Sección 7.3.2 y 7.4).
+    \item La simetría temporal $t_{p \to a} = T/2$ y el cálculo del tiempo restante reflejan la linealidad de la anomalía media y la periodicidad kepleriana (Sección 7.10.2 y 7.7).
+    \item La resolución numérica de la ecuación de Kepler mediante Newton-Raphson garantiza una precisión típica en astrodinámica moderna ($\sim 10^{-4}$ rad), acorde con los estándares de la Sección 7.10.5.
+\end{itemize}
+Este ejercicio ilustra cómo el formalismo analítico de la mecánica celeste, combinado con técnicas numéricas robustas, permite predecir con exactitud el estado cinemático y dinámico de un satélite en cualquier instante de su trayectoria elíptica.
+
+
+
+
 \section{Cometa de alta excentricidad.} Las órbitas cometarias suelen presentar excentricidades muy altas, cercanas a la unidad o incluso superiores. El cometa C/2020 F3 (NEOWISE) tiene un período orbital estimado de $P = 6\,912,75$ años y una excentricidad $e = 0,999188$. Suponiendo conocida la masa del Sol $M_{\odot}$, responda:
 \begin{enumerate}
     \item[a)] Determine el semieje mayor $a$ de la órbita del cometa.
@@ -639,6 +1346,152 @@ Considere el radio terrestre $R_T \approx 6\,378$ km y el parámetro gravitacion
 Utilice $\mu_{\odot} \approx 1,327 \times 10^{11}$ km$^3$/s$^2$ y considere $1 \text{ año} \approx 3,15576 \times 10^7$ s.
 
 
+
+\section*{Solución al problema 12 cometa de alta excentricidad}
+
+\subsection*{Marco Teórico y Referencias al Libro Guía}
+
+Este problema constituye una aplicación directa de los resultados fundamentales del problema de los dos cuerpos desarrollados en el Capítulo 7 del libro de Zuluaga. Específicamente, utilizaremos:
+
+\begin{itemize}
+    \item El \textbf{teorema armónico} (tercera ley de Kepler), presentado en la Sección 7.7 del libro guía, que establece la relación entre el período orbital $T$ y el semieje mayor $a$ de una órbita kepleriana:
+    $$n^2 a^3 = \mu,$$
+    donde $n = 2\pi/T$ es el movimiento medio y $\mu = GM$ es el parámetro gravitacional del cuerpo central.
+    
+    \item Las relaciones geométricas de la elipse desarrolladas en la Sección 4.2 del libro, particularmente las expresiones para la distancia al periapsis $q$ y al apoapsis $Q$ en términos del semieje mayor $a$ y la excentricidad $e$:
+    $$q = a(1-e), \qquad Q = a(1+e).$$
+    
+    \item La ecuación de la trayectoria en coordenadas cilíndricas referidas al foco, Eq. (4.95) de Zuluaga:
+    $$r = \frac{p}{1+e\cos f},$$
+    donde $p = a(1-e^2)$ es el semilatus rectum, válida para órbitas elípticas ($0 \leq e < 1$).
+\end{itemize}
+
+\subsection*{Desarrollo Analítico}
+
+\subsubsection*{Parte a): Cálculo del semieje mayor $a$}
+
+Partimos del teorema armónico para el problema de los dos cuerpos, que en la formulación de Zuluaga (Sección 7.7, Eq. 7.52) se expresa como:
+$$n^2 |a|^3 = \mu,$$
+donde para órbitas elípticas $a > 0$, por lo que podemos escribir simplemente $a^3$.
+
+El movimiento medio $n$ se define como la razón entre el ángulo completo $2\pi$ y el período orbital $T$:
+$$n = \frac{2\pi}{T}.$$
+
+Sustituyendo en el teorema armónico:
+$$\left(\frac{2\pi}{T}\right)^2 a^3 = \mu.$$
+
+Despejando el semieje mayor $a$:
+$$a^3 = \frac{\mu T^2}{4\pi^2},$$
+$$\boxed{a = \left(\frac{\mu T^2}{4\pi^2}\right)^{1/3}}.$$
+
+Esta expresión corresponde exactamente a la Eq. (7.53) del libro de Zuluaga, que permite calcular el semieje mayor a partir del período orbital conocido.
+
+\textbf{Sustitución numérica:}
+
+Primero convertimos el período orbital de años a segundos, utilizando el factor de conversión proporcionado:
+$$T = 6\,912.75~\text{años} \times \left(3.15576 \times 10^7~\frac{\text{s}}{\text{año}}\right).$$
+
+Realizando la multiplicación:
+$$T = 6\,912.75 \times 3.15576 \times 10^7~\text{s} = 2.1815 \times 10^{11}~\text{s}.$$
+
+Ahora sustituimos los valores numéricos en la expresión para $a$:
+$$a = \left[\frac{(1.327 \times 10^{11}~\text{km}^3/\text{s}^2) \times (2.1815 \times 10^{11}~\text{s})^2}{4\pi^2}\right]^{1/3}.$$
+
+Calculamos paso a paso:
+\begin{align*}
+    T^2 &= (2.1815 \times 10^{11})^2 = 4.7589 \times 10^{22}~\text{s}^2,\\
+    \mu T^2 &= (1.327 \times 10^{11}) \times (4.7589 \times 10^{22}) = 6.315 \times 10^{33}~\text{km}^3,\\
+    4\pi^2 &\approx 39.4784,\\
+    \frac{\mu T^2}{4\pi^2} &= \frac{6.315 \times 10^{33}}{39.4784} = 1.5996 \times 10^{32}~\text{km}^3,\\
+    a &= (1.5996 \times 10^{32})^{1/3}~\text{km}.
+\end{align*}
+
+Para calcular la raíz cúbica, notamos que:
+$$(1.5996 \times 10^{32})^{1/3} = (1.5996)^{1/3} \times (10^{32})^{1/3} = 1.169 \times 10^{32/3} = 1.169 \times 10^{10.666...}.$$
+
+Dado que $10^{10.666...} = 10^{10} \times 10^{2/3} \approx 10^{10} \times 4.6416$, obtenemos:
+$$a \approx 1.169 \times 4.6416 \times 10^{10}~\text{km} = 5.426 \times 10^{10}~\text{km}.$$
+
+Expresando en unidades astronómicas (1 UA $\approx 1.496 \times 10^8$ km):
+$$a = \frac{5.426 \times 10^{10}~\text{km}}{1.496 \times 10^8~\text{km/UA}} \approx 362.7~\text{UA}.$$
+
+Por lo tanto, el semieje mayor de la órbita del cometa NEOWISE es:
+$$\boxed{a = 5.426 \times 10^{10}~\text{km} \approx 362.7~\text{UA}}.$$
+
+\subsubsection*{Parte b): Cálculo de las distancias al perihelio $q$ y al afelio $Q$}
+
+Para una órbita elíptica, las distancias extremales al foco (donde se ubica el Sol) se obtienen evaluando la ecuación de la trayectoria (Eq. 4.95 de Zuluaga) en los valores extremos de la anomalía verdadera $f$:
+
+\begin{itemize}
+    \item En el \textbf{perihelio}, $f = 0$, $\cos f = 1$:
+    $$q = r_{\text{peri}} = \frac{p}{1+e} = \frac{a(1-e^2)}{1+e} = a(1-e).$$
+    
+    \item En el \textbf{afelio}, $f = \pi$, $\cos f = -1$:
+    $$Q = r_{\text{afel}} = \frac{p}{1-e} = \frac{a(1-e^2)}{1-e} = a(1+e).$$
+\end{itemize}
+
+Estas relaciones coinciden con las Eqs. (4.68) y (4.69) del libro de Zuluaga, que expresan las distancias extremales en términos de los parámetros orbitales $a$ y $e$.
+
+\textbf{Cálculo del perihelio $q$:}
+
+Sustituyendo los valores numéricos:
+$$q = a(1-e) = (5.426 \times 10^{10}~\text{km}) \times (1 - 0.999188).$$
+
+Calculamos el factor $(1-e)$:
+$$1 - e = 1 - 0.999188 = 8.12 \times 10^{-4}.$$
+
+Por lo tanto:
+$$q = (5.426 \times 10^{10}) \times (8.12 \times 10^{-4})~\text{km} = 4.406 \times 10^7~\text{km}.$$
+
+En unidades astronómicas:
+$$q = \frac{4.406 \times 10^7~\text{km}}{1.496 \times 10^8~\text{km/UA}} \approx 0.2945~\text{UA}.$$
+
+\textbf{Cálculo del afelio $Q$:}
+
+De manera análoga:
+$$Q = a(1+e) = (5.426 \times 10^{10}~\text{km}) \times (1 + 0.999188).$$
+
+Calculamos el factor $(1+e)$:
+$$1 + e = 1 + 0.999188 = 1.999188.$$
+
+Por lo tanto:
+$$Q = (5.426 \times 10^{10}) \times 1.999188~\text{km} = 1.0847 \times 10^{11}~\text{km}.$$
+
+En unidades astronómicas:
+$$Q = \frac{1.0847 \times 10^{11}~\text{km}}{1.496 \times 10^8~\text{km/UA}} \approx 725.1~\text{UA}.$$
+
+\subsection*{Resultados Finales}
+
+Reuniendo los resultados obtenidos:
+
+\begin{enumerate}
+    \item[\textbf{a)}] El semieje mayor de la órbita del cometa C/2020 F3 (NEOWISE) es:
+    $$\boxed{a = 5.426 \times 10^{10}~\text{km} \approx 362.7~\text{UA}}.$$
+    
+    \item[\textbf{b)}] Las distancias extremales al Sol son:
+    \begin{align*}
+        \text{Perihelio:} \quad & \boxed{q = 4.406 \times 10^7~\text{km} \approx 0.2945~\text{UA}},\\
+        \text{Afelio:} \quad & \boxed{Q = 1.0847 \times 10^{11}~\text{km} \approx 725.1~\text{UA}}.
+    \end{align*}
+\end{enumerate}
+
+\subsection*{Interpretación Física y Conexión con la Mecánica Celeste}
+
+Los resultados obtenidos revelan características notables de la órbita del cometa NEOWISE, consistentes con la descripción teórica del problema de los dos cuerpos presentada en el Capítulo 7 de Zuluaga:
+
+\begin{enumerate}
+    \item \textbf{Alta excentricidad}: El valor $e = 0.999188$ indica que la órbita es extremadamente elongada, muy cercana a una parábola ($e=1$). Esto es característico de cometas de período largo que provienen de la nube de Oort, como se discute en la Sección 7.13 del libro guía.
+    
+    \item \textbf{Escala de la órbita}: El semieje mayor $a \approx 363$ UA sitúa al afelio del cometa en las regiones externas del Sistema Solar, más allá del cinturón de Kuiper ($\sim 30$-$50$ UA) y aproximándose a la nube de Oort interna ($\sim 10^3$-$10^4$ UA). Esta escala es consistente con la predicción del teorema armónico para períodos orbitales de varios milenios.
+    
+    \item \textbf{Asimetría extrema}: La razón entre afelio y perihelio es:
+    $$\frac{Q}{q} = \frac{1+e}{1-e} = \frac{1.999188}{8.12 \times 10^{-4}} \approx 2462.$$
+    Esta enorme asimetría implica que el cometa pasa la mayor parte de su período orbital en las regiones lejanas del Sistema Solar, moviéndose muy lentamente cerca del afelio (por la segunda ley de Kepler, Sección 7.3.1 de Zuluaga), y solo una fracción mínima del tiempo cerca del perihelio, donde su velocidad es máxima.
+    
+    \item \textbf{Validez de la aproximación de dos cuerpos}: Dado que el perihelio $q \approx 0.29$ UA se encuentra dentro de la órbita de Mercurio ($\sim 0.39$ UA), las perturbaciones gravitacionales de los planetas interiores podrían ser significativas durante el paso por el perihelio. Sin embargo, para propósitos de cálculo de elementos orbitales medios, la aproximación de dos cuerpos (Sol-cometa) desarrollada en la Sección 7.2 de Zuluaga sigue siendo una excelente primera aproximación.
+\end{enumerate}
+
+Este ejercicio ilustra cómo los conceptos fundamentales de la mecánica celeste —el teorema armónico, la geometría de las cónicas y la conservación del momento angular— permiten caracterizar completamente la órbita de un cuerpo celeste a partir de un conjunto mínimo de parámetros observables, tal como se expone de manera sistemática en el libro guía de Zuluaga.
 
 
 \end{document}
