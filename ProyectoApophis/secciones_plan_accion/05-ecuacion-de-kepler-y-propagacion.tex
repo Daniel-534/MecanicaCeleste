@@ -1,0 +1,13 @@
+\section{Ecuación de Kepler y propagación temporal}
+
+\subsection{Resolver la ecuación de Kepler para Apophis}
+
+Calcular la anomalía media $M$, resolver numéricamente $M = E - e \sin E$ ---tanto con Newton--Raphson como con el método del punto fijo--- para obtener $E$, y a partir de ahí calcular la anomalía verdadera $f$. Comparar la solución con la posición real obtenida con \texttt{REBOUND}. Incluir una gráfica de convergencia de Newton--Raphson.
+
+\subsection{Predicción analítica vs. numérica del encuentro}
+
+Usar solo la teoría de 2 cuerpos y la ecuación de Kepler para predecir la posición de Apophis en la fecha del encuentro, el 13 de abril de 2029. Comparar con la posición obtenida con \texttt{REBOUND} en una simulación de $N$ cuerpos y calcular la discrepancia en kilómetros.
+
+\subsection{Propagación hacia atrás en el tiempo}
+
+Retroceder un período orbital completo de Apophis (aproximadamente 323 días) desde la fecha del encuentro usando la ecuación de Kepler. Verificar que se regresa a las condiciones iniciales con buena precisión y comparar con la integración numérica de $N$ cuerpos.

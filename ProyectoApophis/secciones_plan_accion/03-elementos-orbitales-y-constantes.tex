@@ -1,0 +1,17 @@
+\section{Elementos orbitales y constantes de movimiento}
+
+\subsection{Verificación de integrales del movimiento}
+
+Calcular a lo largo de toda la simulación el módulo del momento angular $h = |\vec{h}|$, la energía específica $\mathcal{E}$ y el módulo del vector de excentricidad $e = |\vec{e}|$. Graficar su variación temporal y verificar que en la simulación de 2 cuerpos son constantes, mientras que en $N$ cuerpos oscilan debido a las perturbaciones.
+
+\subsection{Cambio de elementos orbitales durante el encuentro}
+
+Calcular los elementos orbitales $(a, e, I, \Omega, \omega, f)$ de Apophis en cada paso de la simulación de $N$ cuerpos. Graficar su evolución temporal y mostrar el cambio abrupto que ocurre durante el encuentro cercano de 2029. Cuantificar, por ejemplo, el cambio en el semieje mayor y en la excentricidad.
+
+\subsection{\texorpdfstring{Conversión estado $\rightarrow$ elementos $\rightarrow$ estado}{Conversión estado a elementos a estado}}
+
+Tomar el vector de estado de Apophis en un instante dado, convertirlo a elementos orbitales usando el algoritmo visto en clase ---con las matrices de rotación de Euler $R_z(\Omega) R_x(I) R_z(\omega)$--- y luego reconvertirlo al vector de estado. Verificar que se recuperan los mismos valores con error numérico menor que $10^{-10}$.
+
+\subsection{Visualización del vector de excentricidad}
+
+Graficar el vector $\vec{e}$ de Apophis en el plano orbital a lo largo de su órbita. Mostrar que apunta siempre hacia el perihelio en un sistema de 2 cuerpos y cómo precesa lentamente cuando se incluyen los planetas.

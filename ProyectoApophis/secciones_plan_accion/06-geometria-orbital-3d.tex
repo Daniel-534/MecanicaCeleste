@@ -1,0 +1,17 @@
+\section{Geometría orbital 3D}
+
+\subsection{Visualización del sistema perifocal}
+
+Mostrar en 3D los vectores $\hat{p}$ (hacia el perihelio), $\hat{q}$ (perpendicular dentro del plano orbital) y $\hat{w} = \vec{h}/h$ (normal al plano) para la órbita de Apophis. Relacionar estos vectores con los ángulos $\Omega$, $I$ y $\omega$, y con el sistema de referencia eclíptico.
+
+\subsection{Plano orbital vs. plano de la eclíptica}
+
+Construir una visualización 3D que muestre el plano orbital de Apophis inclinado $3.34^{\circ}$ respecto al plano de la eclíptica, junto con la línea de nodos como intersección entre ambos planos. Mostrar a la Tierra cruzando esa línea durante el encuentro de 2029.
+
+\subsection{Aplicación de las matrices de Euler}
+
+Tomar las coordenadas en el sistema perifocal, $\vec{r}_{pf} = (r \cos f, r \sin f, 0)$, y aplicar explícitamente la transformación
+\[
+\vec{r}_{obs} = R_z(\Omega)\, R_x(I)\, R_z(\omega)\, \vec{r}_{pf}.
+\]
+Verificar que el resultado coincide con las coordenadas entregadas por \texttt{REBOUND}.

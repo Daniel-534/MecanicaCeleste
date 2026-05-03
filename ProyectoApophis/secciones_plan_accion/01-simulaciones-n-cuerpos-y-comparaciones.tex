@@ -1,0 +1,13 @@
+\section{Simulaciones N-cuerpos y comparaciones}
+
+\subsection{Comparación N-cuerpos vs. 2 cuerpos}
+
+Simular el sistema completo (Sol + 8 planetas + Apophis) con \texttt{REBOUND} y compararlo con la simulación simple Sol--Apophis. Graficar la distancia mínima de aproximación a la Tierra en ambos casos y cuantificar cuánto ``se equivoca'' la aproximación de 2 cuerpos.
+
+\subsection{Jerarquía de perturbaciones}
+
+Ir añadiendo cuerpos progresivamente: primero Sol + Tierra + Apophis, luego añadir Júpiter, luego Venus y Marte, luego la Luna y, finalmente, todos los planetas. Graficar cómo cambia la distancia mínima a la Tierra como función del número de perturbadores incluidos. Identificar cuál planeta tiene más impacto.
+
+\subsection{Sensibilidad a condiciones iniciales (tipo mariposa)}
+
+Variar ligeramente la posición o velocidad inicial de Apophis (por ejemplo, $\pm 1\,\mathrm{km}$ en posición) y ver cómo divergen las trayectorias hacia 2029. Calcular un exponente de Lyapunov aproximado para el sistema. Esta idea puede visualizarse de forma muy clara si se grafican muchas trayectorias juntas.
