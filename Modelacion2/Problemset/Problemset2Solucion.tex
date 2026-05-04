@@ -811,9 +811,9 @@ donde $e$ es la excentricidad, $i$ la inclinación, $\Omega$ la longitud del nod
 $$v'_x = -\frac{\mu}{h} \sin f, \quad v'_y = \frac{\mu}{h} (e + \cos f),$$
 halle las componentes cartesianas de la velocidad en el sistema inercial y demuestre que están dadas por
 \begin{align*}
-\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega + f) - \cos i \sin\Omega \cos(\omega + f) \right] + \frac{\mu e}{h} (\cos\Omega \sin \omega + \cos\omega \cos i \sin\Omega), \\
-\dot{y} &= \frac{\mu}{h} \left[ -\sin\Omega \sin(\omega + f) + \cos i \cos\Omega \cos(\omega + f) \right] + \frac{\mu e}{h} (-\sin\Omega \sin \omega + \cos\omega \cos i \cos\Omega), \\
-\dot{z} &= \frac{\mu}{h} \left[ \sin i \cos(\omega + f) + e \cos\omega \sin i \right].
+\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] - \frac{\mu e}{h} \left( \cos\Omega \sin\omega + \cos\omega \cos i \sin\Omega \right), \\
+\dot{y} &= \frac{\mu}{h} \left[ -\sin\Omega \sin(\omega+f) + \cos i \cos\Omega \cos(\omega+f) \right] + \frac{\mu e}{h} \left( -\sin\Omega \sin\omega + \cos\omega \cos i \cos\Omega \right), \\
+\dot{z} &= \frac{\mu}{h} \left[ \sin i \cos(\omega+f) + e \cos\omega \sin i \right].
 \end{align*}
 Para la demostración, use la rotación desde el sistema perifocal al sistema inercial mediante los ángulos $\omega, i$ y $\Omega$.
 
@@ -863,19 +863,23 @@ Sustituimos estas relaciones en las expresiones derivadas para $\dot{x}$, $\dot{
 \subsection*{4. Simplificación trigonométrica y corrección analítica}
 Procedemos a simplificar el corchete que multiplica a $\frac{\mu e}{h}$ utilizando identidades de suma y diferencia de ángulos. Reagrupamos los términos que contienen $\cos\Omega$ y $\sin\Omega$:
 \begin{align*}
-\text{Término en } \cos\Omega &: \sin f \cos(\omega+f) - \cos f \sin(\omega+f) = \sin(f - (\omega+f)) = \sin(-\omega) = -\sin\omega, \\
-\text{Término en } \cos i \sin\Omega &: -\left[ \sin f \sin(\omega+f) + \cos f \cos(\omega+f) \right] = -\cos(f - (\omega+f)) = -\cos(-\omega) = -\cos\omega.
+\text{Término en } \cos\Omega &: \sin f \cos(\omega+f) - \cos f \sin(\omega+f) \\
+&= \sin\!\big(f - (\omega+f)\big) = \sin(-\omega) = -\sin\omega, \\[6pt]
+\text{Término en } \cos i \sin\Omega &: -\!\Big[ \sin f \sin(\omega+f) + \cos f \cos(\omega+f) \Big] \\
+&= -\cos\!\big(f - (\omega+f)\big) = -\cos(-\omega) = -\cos\omega.
 \end{align*}
 Sustituyendo estos resultados en la expresión de $\dot{x}$:
 \begin{align*}
-\dot{x} &= \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] \\
-&\quad + \frac{\mu e}{h} \left[ -\cos\Omega \sin\omega - \cos i \sin\Omega \cos\omega \right].
+\dot{x} &= \frac{\mu}{h} \Big[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \Big] \\
+&\quad + \frac{\mu e}{h} \Big[ -\cos\Omega \sin\omega - \cos i \sin\Omega \cos\omega \Big].
 \end{align*}
 Factorizando el signo negativo en el segundo término, obtenemos la forma analítica exacta:
 \begin{equation}
-\dot{x} = \frac{\mu}{h} \left[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \right] - \frac{\mu e}{h} \left( \cos\Omega \sin\omega + \cos\omega \cos i \sin\Omega \right).
+\dot{x} = \frac{\mu}{h} \Big[ -\cos\Omega \sin(\omega+f) - \cos i \sin\Omega \cos(\omega+f) \Big] 
+- \frac{\mu e}{h} \Big( \cos\Omega \sin\omega + \cos\omega \cos i \sin\Omega \Big).
 \end{equation}
-\textbf{Nota de corrección:} El enunciado original presentaba un signo positivo en el término proporcional a $e$. Sin embargo, la derivación rigurosa basada en las rotaciones estándar de Euler y las identidades trigonométricas fundamentales conduce inequívocamente a un signo negativo. Este resultado coincide exactamente con la Ecuación (7.46) del texto de Zuluaga. Procederemos con la forma corregida por ser la matemáticamente consistente.
+
+\textbf{Nota de corrección:} El enunciado original (en una versión pasada) presentaba un signo positivo en el término proporcional a $e$. Sin embargo, la derivación rigurosa basada en las rotaciones estándar de Euler y las identidades trigonométricas fundamentales conduce inequívocamente a un signo negativo. Este resultado coincide exactamente con la Ecuación (7.46) del texto de Zuluaga. Procederemos con la forma corregida por ser la matemáticamente consistente.
 
 Aplicando el mismo procedimiento algebraico para $\dot{y}$:
 \begin{align*}
