@@ -1,0 +1,179 @@
+\documentclass[12pt,addpoints]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+
+\title{\textbf{Quiz 10: Aplicaciones CRTBP y Formalismo Lagrangiano}}
+\author{Mecánica Celeste}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{headandfoot}
+\runningheadrule
+\header{}{Quiz 10 -- Mecánica Celeste}{}
+\footer{}{Página \thepage\ de \numpages}{}
+
+\begin{center}
+\fbox{\parbox{0.95\textwidth}{\centering 
+\textbf{Instrucciones:} Lea cuidadosamente cada enunciado. Las expresiones matemáticas han sido tipografiadas correctamente a partir del documento original para garantizar legibilidad y compilación. \textbf{Este cuestionario no incluye soluciones.} Marque o encierre en un círculo la opción que considere correcta, o complete las tabillas según corresponda.}}
+\end{center}
+
+\vspace{0.5cm}
+\begin{questions}
+
+\question En la deducción de las ecuaciones de Lagrange, ¿a qué equivale el siguiente término: $\dot{\mathbf{p}}_i \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_j}$?
+\begin{choices}
+\choice $\dfrac{d}{dt}\left(m_i \dot{\mathbf{r}}_i \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_j}\right)$
+\choice $m_i \ddot{\mathbf{r}}_i \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_j}$
+\choice $\dfrac{d}{dt}\left(\dfrac{\partial T}{\partial \dot{q}_j}\right)$
+\choice $\dfrac{\partial T}{\partial q_j}$
+\end{choices}
+
+\question El radio de Roche es:
+\begin{choices}
+\choice El radio de una esfera cuyo volumen es igual al volumen contenido dentro de la superficie de cero velocidad correspondiente a la constante de Jacobi para L1 alrededor de uno de los cuerpos.
+\choice El radio de la esfera de Hill que rodea el cuerpo secundario en un sistema CRTBP y dentro del cual las partículas de prueba tienden a caer hacia esa partícula.
+\choice El radio más grande que debe tener una estrella para que su esfera de Hill sea mayor que el lóbulo de Roche que la rodea.
+\choice El radio de una esfera dentro de la cual una pequeña luna se destruye por efecto de las mareas gravitacionales del planeta.
+\end{choices}
+
+\question La regla de cancelación de puntos establece que:
+\begin{choices}
+\choice $\dfrac{\partial \mathbf{r}_i}{\partial q_j} \cdot \dfrac{\partial \mathbf{r}_i}{\partial \dot{q}_k} = 0$
+\choice $\dfrac{\partial \dot{\mathbf{r}}_i}{\partial q_j} = \dfrac{d}{dt} \left( \dfrac{\partial \mathbf{r}_i}{\partial q_j} \right)$
+\choice $\sum_i m_i \dfrac{\partial \mathbf{r}_i}{\partial q_j} \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_k} = g_{jk}$
+\choice $\dfrac{\partial}{\partial q_j} \left( \dfrac{\partial \mathbf{r}_i}{\partial q_k} \right) = \dfrac{\partial}{\partial q_k} \left( \dfrac{\partial \mathbf{r}_i}{\partial q_j} \right)$
+\end{choices}
+
+\question ¿A qué distancia está el punto de Lagrange L1 del sistema Sol-Tierra?
+\begin{choices}
+\choice $\sim 1.5$ millones de km
+\choice $\sim 150,000$ km
+\choice $\sim 15$ millones de km
+\choice $\sim 0.001$ au
+\end{choices}
+
+\question La fuerza generalizada asociada a la $j$-ésima variable generalizada es:
+\begin{choices}
+\choice $Q_j = \sum_i \mathbf{F}_i \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_j}$
+\choice $Q_j = \sum_i \mathbf{F}_i \cdot \dfrac{\partial \dot{\mathbf{r}}_i}{\partial \dot{q}_j}$
+\choice $Q_j = -\dfrac{\partial V}{\partial q_j}$
+\choice $Q_j = \dfrac{d}{dt} \left( \dfrac{\partial L}{\partial \dot{q}_j} \right)$
+\end{choices}
+
+\question ¿Qué es una restricción holonómica?
+\begin{choices}
+\choice Una restricción que puede escribirse como una condición de igualdad con las coordenadas del sistema.
+\choice Una restricción que se escribe como una desigualdad que cumplen las coordenadas del sistema.
+\choice Una restricción que solo aplica sobre la energía del sistema (del griego \textit{holos} que significa energía).
+\choice Una restricción que permite aumentar el número de grados de libertad de un sistema para facilitar la solución.
+\end{choices}
+
+\question Es bien sabido que entre los anillos de Saturno se encuentran lunas del planeta. Sin embargo, los anillos se encuentran todos a una distancia menor que el límite de Roche. ¿Cómo es posible que hayan entonces lunas enteras?
+\begin{choices}
+\choice La densidad de las lunas que están entre los anillos es seguramente mayor que la del cuerpo o cuerpos que lo formaron.
+\choice Las lunas que hay entre los anillos giran muy rápido y eso les permite sobrevivir a la gravedad del planeta.
+\choice Las lunas que están entre los anillos no son sólidas, están hechas exclusivamente de grumos de polvo capturado de los anillos.
+\choice La densidad de Saturno era mucho más alta cuando se formaron los anillos que en el tiempo presente.
+\end{choices}
+
+\question En la deducción de las ecuaciones de Lagrange, el término mostrado en la imagen original es igual a: \textit{(Ver material de clase)}
+\begin{choices}
+\choice $\dfrac{d}{dt} \left( m_i \dot{\mathbf{r}}_i \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_j} \right)$
+\choice $m_i \dot{\mathbf{r}}_i \cdot \dfrac{d}{dt} \left( \dfrac{\partial \mathbf{r}_i}{\partial q_j} \right)$
+\choice $\dfrac{\partial}{\partial q_j} \left( \dfrac{1}{2} m_i \dot{\mathbf{r}}_i^2 \right)$
+\choice $\mathbf{F}_i \cdot \dfrac{\partial \mathbf{r}_i}{\partial q_j}$
+\end{choices}
+
+\question La función Lagrangiana del péndulo simple, con $q$ el ángulo medido respecto al punto de oscilación de la cuerda, eje $y$ hacia arriba y origen en ese punto, es:
+\begin{choices}
+\choice $L = \dfrac{1}{2} m l^2 \dot{q}^2 + m g l \cos q$
+\choice $L = \dfrac{1}{2} m l^2 \dot{q}^2 - m g l \cos q$
+\choice $L = -\dfrac{1}{2} m l^2 \dot{q}^2 + m g q$
+\choice $L = -\dfrac{1}{2} m u^2 + m g q^2$
+\end{choices}
+
+\question Ordene los pasos para la deducción del formalismo Lagrangiano marcando con una ``X'' la casilla correspondiente a cada paso (1 a 6):
+\begin{center}
+\begin{tabular}{p{0.65\textwidth} c c c c c c}
+\toprule
+\textbf{Paso} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\
+\midrule
+Identificación del número de grados de libertad & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Elección de las variables generalizadas independientes & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Deducción de la función de energía cinética e identificación de si las fuerzas generalizadas son derivables de un potencial & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Definición de las transformaciones de variables generalizadas a coordenadas y de las fuerzas generalizadas & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Deducción de la función Lagrangiana & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Deducción de las ecuaciones de movimiento & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\question ¿Cuál de las siguientes afirmaciones sobre las órbitas ``alrededor'' de los puntos de Lagrange es cierta?
+\begin{choices}
+\choice Las órbitas periódicas alrededor de los puntos L1 y L2 se llaman órbitas halo y no tienen centro en los puntos.
+\choice No todas las órbitas alrededor de los puntos de Lagrange son periódicas.
+\choice Las órbitas alrededor de los puntos L1, L2 y L3 son típicamente inestables.
+\choice Todas las afirmaciones son ciertas.
+\end{choices}
+
+\question Un péndulo cilíndrico está formado por una partícula que puede oscilar alrededor de la vertical pero sin la restricción de estar en un plano. ¿Cuántos grados de libertad tiene este sistema?
+\begin{choices}
+\choice 3
+\choice 1
+\choice 2
+\choice 4
+\end{choices}
+
+\question Son ventajas del formalismo Lagrangiano frente al formalismo newtoniano. Marque \textbf{``Esto es cierto''} o \textbf{``Esto no es correcto''} para cada afirmación:
+\begin{center}
+\begin{tabular}{p{0.75\textwidth} c c}
+\toprule
+\textbf{Afirmación} & \textbf{Cierto} & \textbf{No correcto} \\
+\midrule
+El formalismo lagrangiano tiene ecuaciones escalares (como el principio de Lagrange) en lugar de ecuaciones vectoriales (como la segunda ley de Newton). & $\square$ & $\square$ \\
+El formalismo lagrangiano se puede aplicar a otras áreas distintas de la mecánica (cuántica, relatividad general, óptica, electromagnetismo). & $\square$ & $\square$ \\
+El formalismo lagrangiano es un formalismo que se realiza en espacios que tienen siempre menos dimensiones. & $\square$ & $\square$ \\
+El formalismo lagrangiano produce ecuaciones de movimiento completamente nuevas y distintas de las ecuaciones que se obtienen con el formalismo newtoniano. & $\square$ & $\square$ \\
+En el formalismo lagrangiano no es necesario conocer o modelar todas las fuerzas que actúan en las partículas del sistema. & $\square$ & $\square$ \\
+El formalismo lagrangiano permite describir fenómenos mecánicos completamente desconocidos e imposibles de describir con ningún otro formalismo. & $\square$ & $\square$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\question El principio de d'Alembert-Lagrange se escribe matemáticamente como:
+\begin{choices}
+\choice $\sum_i (\mathbf{F}_i - \dot{\mathbf{p}}_i) \cdot \delta \mathbf{r}_i = 0$
+\choice $\sum_i (\mathbf{F}_i + \dot{\mathbf{p}}_i) \cdot d\mathbf{r}_i = 0$
+\choice $\delta \int_{t_1}^{t_2} L \, dt = 0$
+\choice $\sum_i (\mathbf{F}_i - m_i \ddot{\mathbf{r}}_i) \cdot \delta \mathbf{r}_i = 0$
+\end{choices}
+
+\question En la imagen se muestra el Lagrangiano del péndulo elástico. ¿Cuál de los siguientes corresponde a la cantidad $\dfrac{\partial L}{\partial q_2}$?
+\begin{center}
+$L = -\dfrac{1}{2} m \left[ (L + q_2)^2 \dot{q}_1^2 + \dot{q}_2^2 \right] + W (L + q_2) \cos q_1 - \dfrac{1}{2} k q_2^2$
+\end{center}
+\begin{choices}
+\choice $-k q_2$
+\choice $m (L + q_2) \dot{q}_1^2 + W \cos q_1 - k q_2$
+\choice $m q_2 \dot{q}_1^2 + W \cos q_1 - k q_2$
+\choice $-m (L + q_2) \dot{q}_1^2 + W \cos q_1 - k q_2$
+\end{choices}
+
+\end{questions}
+
+\vspace{1.5cm}
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{\centering \textit{Fin del Quiz 10. Documento generado sin soluciones para fines de estudio y evaluación.}}}
+\end{center}
+\end{document}
