@@ -1,0 +1,176 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, mathrsfs}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica Celeste}
+\fancyhead[c]{Problemset 3}
+
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\Large Universidad de Antioquia\par}
+  \vspace{2cm}
+  {\huge\bfseries Física Matemática I\par}
+  \vspace{0.4cm}
+  {\Large Solución al Taller 8 \par}
+  \vspace{2.5cm}
+  {\large Autor:\par}
+  \vspace{0.2cm}
+  {\large Daniel Soto Villada\par}
+  {\large Estudiante de Astronomía\par}
+  \vfill
+  {\large \today\par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Problema 1: El problema de los dos cuerpos en el formalismo lagrangiano.}
+
+El problema de dos cuerpos en movimiento, sometidos a su mutua gravedad, puede descomponerse en el movimiento del centro de masa, con velocidad constante, y el de la masa reducida $m_r$, que se encuentra en una posición $r$ respecto a un centro de fuerza. El lagrangiano, escrito en términos de las coordenadas generalizadas $(r, \theta)$, es
+$$L = \frac{1}{2}m_r \left(\dot{r}^2 + r^2\dot{\theta}^2\right) + \frac{k}{r}.$$
+
+\begin{enumerate}[a)]
+    \item Demuestre que la cantidad conservada asociada a la variable cíclica $\theta$ es el momento angular definido como
+    $$l = m_r r^2 \dot{\theta}.$$
+    
+    \item Partiendo de la ecuación
+    $$\dot{r}^2 = \frac{2}{m_r} \left[E - U_{\text{eff}}(r)\right], \qquad U_{\text{eff}}(r) = \frac{l^2}{2m_r r^2} - \frac{k}{r},$$
+    e introduciendo la nueva variable $u = 1/r$, demuestre que la energía orbital de la masa reducida se escribe, en las variables $u$ y $\theta$, como
+    $$E = \frac{l^2}{2m_r} \left[ \left(\frac{du}{d\theta}\right)^2 + u^2 \right] - ku.$$
+    
+    \item Teniendo en cuenta la conservación de la energía en todos los puntos de la órbita, es decir, $dE/d\theta = 0$, demuestre que la ecuación diferencial de la órbita es
+    $$\frac{d^2u}{d\theta^2} + u = \frac{km_r}{l^2}.$$
+    
+    \item Muestre, por sustitución directa, que la solución de esta ecuación es
+    $$u = \frac{m_r k}{l^2} + A\cos(\theta + \theta_0),$$
+    donde $A$ y $\theta_0$ son constantes determinadas por las condiciones iniciales.
+    
+    \item Finalmente, regrese a la variable original $r$ utilizando $u(\theta) = 1/r(\theta)$ y demuestre que la masa $m_r$ describe una órbita cónica alrededor del centro de fuerzas.
+\end{enumerate}
+
+
+\section{Problema 2: Partícula en campo electromagnético.}
+
+Considere una partícula de masa $m$ y carga $q$ moviéndose con velocidad $\vec{v}$ en presencia de un campo electromagnético. Su dinámica puede describirse mediante el siguiente lagrangiano
+$$L = \frac{1}{2}mv^2 - q\phi + \frac{q}{c}\vec{A} \cdot \vec{v},$$
+donde los campos eléctrico $\vec{E}$ y magnético $\vec{B}$ se derivan de los potenciales escalar $\phi$ y vectorial $\vec{A}$ como
+$$\vec{E} = -\vec{\nabla}\phi - \frac{1}{c}\frac{\partial \vec{A}}{\partial t}, \qquad \vec{B} = \vec{\nabla} \times \vec{A}.$$
+
+\begin{enumerate}[a)]
+  \item Encuentre las ecuaciones de Euler--Lagrange para la partícula. Hágalo explícitamente para una sola coordenada generalizada, por ejemplo $x$, y luego generalice el resultado a tres dimensiones. Verifique que se recuperan las ecuaciones de Lorentz para la fuerza electromagnética.
+  
+  \item Demuestre que, si $L(q_i, \dot{q}_i, t)$ es un lagrangiano para un sistema con $n$ grados de libertad que conduce a las ecuaciones de Euler--Lagrange, entonces el lagrangiano modificado
+  $$L'(q_i, \dot{q}_i, t) = L(q_i, \dot{q}_i, t) + \frac{d}{dt}F(q_1, q_2, \dots, q_n, t),$$
+  donde $F$ es una función arbitraria, pero diferenciable, de las coordenadas generalizadas $q_i$ y del tiempo $t$, produce las mismas ecuaciones de movimiento que $L$. Es decir, muestre que la adición de la derivada total de $F$ al lagrangiano no altera las ecuaciones de Euler--Lagrange.
+  
+  \item Usando el resultado anterior, estudie la invarianza del campo electromagnético bajo la siguiente transformación \textit{gauge} de los potenciales escalar y vectorial:
+  $$\vec{A} \rightarrow \vec{A} + \vec{\nabla}\psi(\vec{r}, t), \qquad \phi \rightarrow \phi - \frac{1}{c}\frac{\partial \psi}{\partial t},$$
+  donde $\psi(\vec{r}, t)$ es una función arbitraria, pero diferenciable. ¿Qué efecto tiene esta transformación \textit{gauge} sobre el lagrangiano de la partícula en el campo electromagnético? ¿Se ve afectado el movimiento de la partícula?
+\end{enumerate}
+
+\section{Problema 3: Péndulo doble.}
+
+El péndulo doble está formado por dos péndulos simples de longitudes $l_1$ y $l_2$, de los que cuelgan masas puntuales $m_1$ y $m_2$. En un instante de tiempo $t$, los hilos inextensibles forman ángulos $\theta_1$ y $\theta_2$ con la vertical.
+
+\begin{enumerate}[a)]
+    \item Encuentre las ecuaciones de movimiento del sistema utilizando el formalismo lagrangiano, tomando como coordenadas generalizadas los ángulos $\theta_1(t)$ y $\theta_2(t)$.
+    
+    \item Resuelva numéricamente las ecuaciones del péndulo doble y grafique su movimiento en el espacio de configuración $(\theta_1, \theta_2)$. Luego, estudie el caos en este sistema: grafique simultáneamente dos péndulos dobles que comiencen con condiciones iniciales muy cercanas, de modo que se aprecie cómo sus trayectorias divergen con el tiempo (puede presentar también una bella animación).
+\end{enumerate}
+
+
+\section{Problema 4: Principio de acción mínima en un campo gravitatorio uniforme.}
+
+Considere una partícula de masa $m$ que se mueve en la dirección vertical $y$ bajo la acción de un campo gravitatorio uniforme de aceleración $g$. El sistema está descrito por el lagrangiano
+$$L(y, \dot{y}, t) = \frac{1}{2}m\dot{y}^2 - mgy.$$
+
+La partícula se mueve entre dos instantes fijos $t = 0$ y $t = T$, cumpliendo las condiciones de frontera
+$$y(0) = 0, \qquad y(T) = 0.$$
+
+Se proponen las siguientes trayectorias posibles entre los puntos extremos:
+\begin{itemize}
+    \item Trayectoria de caída libre, parabólica,
+    $$y_{\text{libre}}(t) = v_0t - \frac{1}{2}gt^2,$$
+    donde la velocidad inicial $v_0$ se fija de modo que se cumpla $y(T) = 0$.
+    
+    \item Movimiento rectilíneo uniforme por tramos: la partícula asciende con velocidad constante hasta una altura máxima $H$ en $t = T/2$ y luego desciende uniformemente hasta $y(T) = 0$,
+    $$y_{\text{recta}}(t) = \begin{cases} 
+        \frac{2H}{T}t, & 0 \le t \le \frac{T}{2}, \\ 
+        \frac{2H}{T}(T - t), & \frac{T}{2} \le t \le T. 
+    \end{cases}$$
+    
+    \item Trayectoria perturbada, definida como una variación de la solución de caída libre,
+    $$y_{\text{pert}}(t) = y_{\text{libre}}(t) + \varepsilon f(t),$$
+    donde $\varepsilon$ es un parámetro pequeño y la función $f(t)$ satisface $f(0) = f(T) = 0$. Un ejemplo típico es
+    $$f(t) = \sin\left(\frac{\pi t}{T}\right).$$
+\end{itemize}
+
+\begin{enumerate}[a)]
+    \item Calcule explícitamente la acción
+    $$S = \int_{0}^{T} L \, dt$$
+    para cada una de las trayectorias propuestas: caída libre, rectilínea por tramos y trayectoria perturbada.
+    
+    \item Analice los resultados obtenidos y demuestre que la trayectoria de caída libre, que satisface las ecuaciones de Euler-Lagrange, corresponde a un mínimo de la acción.
+    
+    \item Proponga una trayectoria alternativa que cumpla las condiciones de frontera $y(0) = 0$ y $y(T) = 0$, calcule su acción y compárela con las acciones obtenidas para las trayectorias anteriores.
+\end{enumerate}
+
+
+\section{Problema 5: Ecuaciones de movimiento en el problema de los dos cuerpos.}
+
+\begin{enumerate}[a)]
+    \item Demuestre que el Hamiltoniano para el problema de dos cuerpos de masas $m_1$ y $m_2$ en órbita alrededor de su centro de masa común está dado por
+    $$H(x, y, z, p_x, p_y, p_z) = \frac{1}{2m_r} \left(p_x^2 + p_y^2 + p_z^2\right) - \frac{\mu m_r}{\sqrt{x^2 + y^2 + z^2}},$$
+    donde $\mu = G(m_1 + m_2)$ y $m_r$ es la masa reducida. Deduzca las ecuaciones hamiltonianas de movimiento para este sistema.
+\end{enumerate}
+
+\section{Problema 6: Problema restringido de los tres cuerpos circulares (CRTBP).}
+
+Considere el problema restringido de los tres cuerpos circulares, en el cual dos cuerpos primarios de masas $m_1$ y $m_2$ describen órbitas circulares alrededor de su centro de masas, mientras que un tercer cuerpo de masa despreciable se mueve bajo su influencia gravitacional sin perturbar el movimiento de los primarios. El análisis se realiza en un sistema de referencia rotante que gira con la misma velocidad angular que los cuerpos primarios y utilizando unidades canónicas.
+
+\begin{enumerate}[a)]
+    \item Escriba el Hamiltoniano del CRTBP en el sistema rotante, expresándolo en unidades canónicas e identificando claramente los términos cinéticos, gravitacionales y los asociados a la rotación del sistema.
+    
+    \item A partir del Hamiltoniano obtenido, derive las ecuaciones del movimiento del tercer cuerpo utilizando las ecuaciones de Hamilton.
+    
+    \item Demuestre la relación entre el Hamiltoniano del sistema y la constante de Jacobi, estableciendo explícitamente que
+    $$C = -2H,$$
+    y discuta el significado físico de esta constante en el contexto del movimiento del tercer cuerpo.
+\end{enumerate}
+
+\section{Problema 7: Hamiltoniano, energía y corchetes de Poisson.}
+
+\begin{enumerate}[a)]
+    \item Discuta bajo qué circunstancias el Hamiltoniano de un sistema corresponde a la energía del mismo y bajo qué condiciones el Hamiltoniano es una cantidad conservada. Esto último puede demostrarlo valiéndose de los corchetes de Poisson.
+    
+    \item Muestre que el corchete de Poisson de dos constantes de movimiento es también una constante de movimiento, incluso cuando las constantes iniciales dependen explícitamente del tiempo.
+    
+    \item Como ilustración del resultado anterior, considere el movimiento uniforme de una partícula libre de masa $m$. El Hamiltoniano es una cantidad conservada y existe una constante de movimiento
+    $$F = x - \frac{pt}{m}.$$
+    Verifique que $F$ es constante de movimiento y analice cómo este ejemplo ilustra la propiedad de los corchetes de Poisson entre constantes de movimiento.
+\end{enumerate}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
