@@ -1,0 +1,41 @@
+\documentclass[12pt,letterpaper]{article}
+
+% Paquetes de matemáticas básicos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+% Configuración de márgenes
+\usepackage[margin=1in]{geometry}
+
+% Para usar codificación estándar (acentos y eñes si es necesario)
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\title{Ecuaciones de Hamilton: Oscilador Armónico}
+\author{Daniel Soto Villada -- 1000534026}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Hamiltoniano del Sistema}
+
+\begin{equation}
+\mathcal{H} = \frac{1}{2}\frac{p_x^2}{m} + \frac{1}{2}kx^2
+\end{equation}
+
+\subsection{Ecuación para el momento lineal}
+
+\begin{equation}
+\frac{dp_x}{dt} = -\frac{\partial\mathcal{H}}{\partial x} = -kx
+\end{equation}
+
+\subsection{Ecuación para la posición}
+
+\begin{equation}
+\frac{dx}{dt} = \frac{\partial\mathcal{H}}{\partial p_x} = \frac{p_x}{m}
+\end{equation}
+
+\end{document}
