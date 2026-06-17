@@ -57,8 +57,8 @@ Interpretación breve: Ritmo muy constante y sostenible durante el semestre.
 
 > Al no haber habido retroalimentación previa, el componente "Mejoras implementadas" se fusiona con "Aspectos positivos" (peso combinado 80 %).
 
-- Aspectos positivos (primer entregable): 3.50 (80%)
+- Aspectos positivos (primer entregable): 4.00 (80%)
 - Aplicación al repositorio: 5.00 (10%)
 - Valoración global: 3.00 (10%)
 
-**Nota final (redondeada)**: 0.8×3.50 + 0.1×5.00 + 0.1×3.00 = (redondeado) 3.6
+**Nota final (redondeada)**: 0.8×4.00 + 0.1×5.00 + 0.1×3.00 = (redondeado) 4.0
