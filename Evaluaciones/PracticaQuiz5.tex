@@ -1,0 +1,463 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{forest}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica celeste}
+\fancyhead[c]{Practica Quiz 5}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+
+\section{Problema 1}
+
+\subsection{Solución}
+
+La pregunta es: ¿Cuántos grados de libertad, a priori, tiene el problema de los dos cuerpos como sistema dinámico en el contexto del formalismo lagrangiano?
+
+\textbf{Respuesta correcta: 6}
+
+\textbf{Explicación:}
+
+En el formalismo lagrangiano, los grados de libertad de un sistema se definen como el número mínimo de coordenadas independientes necesarias para especificar completamente la configuración del sistema.
+
+Para el problema de dos cuerpos:
+\begin{itemize}
+    \item Cada cuerpo en el espacio tridimensional tiene 3 coordenadas de posición $(x, y, z)$
+    \item Cuerpo 1: 3 coordenadas $(x_1, y_1, z_1)$
+    \item Cuerpo 2: 3 coordenadas $(x_2, y_2, z_2)$
+    \item Total: $3 + 3 = 6$ coordenadas
+\end{itemize}
+
+Por lo tanto, \textbf{a priori} (antes de aplicar cualquier reducción o simplificación), el sistema tiene \textbf{6 grados de libertad}.
+
+Nota: Posteriormente, mediante el uso de coordenadas del centro de masa y coordenadas relativas, este número puede reducirse efectivamente a 3 grados de libertad para el movimiento relativo, pero la pregunta específicamente pregunta por el número "a priori".
+
+\section{Problema 2}
+
+\subsection{Solución}
+
+La pregunta es: En el Lagrangiano del péndulo elástico, ¿cuál de las dos variables generalizadas es cíclica?
+
+El Lagrangiano dado es:
+$$L = \frac{1}{2}m\left[(L+q_2)^2\dot{q}_1^2 + \dot{q}_2^2\right] + W(L+q_2)\cos q_1 - \frac{1}{2}kq_2^2$$
+
+\textbf{Respuesta correcta: Ninguna de las dos variables es cíclica}
+
+\textbf{Explicación:}
+
+Una variable generalizada $q_i$ se dice que es \textbf{cíclica} (o ignorable) cuando NO aparece explícitamente en el Lagrangiano, es decir, cuando:
+$$\frac{\partial L}{\partial q_i} = 0$$
+
+Analizando el Lagrangiano término por término:
+
+\begin{enumerate}
+    \item \textbf{Para $q_1$:}
+    \begin{itemize}
+        \item Aparece en el término $W(L+q_2)\cos q_1$
+        \item Por lo tanto: $\frac{\partial L}{\partial q_1} = -W(L+q_2)\sin q_1 \neq 0$
+        \item \textbf{$q_1$ NO es cíclica}
+    \end{itemize}
+    
+    \item \textbf{Para $q_2$:}
+    \begin{itemize}
+        \item Aparece en $(L+q_2)^2\dot{q}_1^2$
+        \item Aparece en $W(L+q_2)\cos q_1$
+        \item Aparece en $-\frac{1}{2}kq_2^2$
+        \item Por lo tanto: $\frac{\partial L}{\partial q_2} \neq 0$
+        \item \textbf{$q_2$ NO es cíclica}
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Conclusión:} Ambas variables generalizadas $q_1$ y $q_2$ aparecen explícitamente en el Lagrangiano, por lo que ninguna es cíclica. Esto significa que no hay momentos conjugados conservados asociados a estas coordenadas en este sistema.
+
+
+\section{problema de simetría y cantidad conservada}
+
+\textbf{Enunciado:} Si un sistema dinámico es simétrico bajo la transformación simultánea de $r$ coordenadas generalizadas dada por la expresión:
+$$\{q_j \rightarrow q_j + \epsilon K_j(\{q_k\})\}_r$$
+¿cuál es la cantidad conservada?
+
+\textbf{Respuesta correcta: Opción 3:} $\displaystyle\sum_j \frac{\partial L}{\partial \dot{q}_j} K_j$
+
+\textbf{Explicación:}
+
+Este problema es una aplicación directa del \textbf{Teorema de Noether para el Lagrangiano}, formulado en la \textbf{Proposición 9.2} del libro de Mecánica Celeste de Zuluaga (Sección 9.7, "Simetrías y leyes de conservación").
+
+El teorema establece que si el Lagrangiano de un sistema dinámico es simétrico (invariante) bajo una transformación continua local de la forma:
+$$q'_j(\epsilon) = q_j + \epsilon K_j(\{q_k\})$$
+donde $K_j$ es una función arbitraria de todas las variables generalizadas y $\epsilon$ es un parámetro infinitesimal, entonces existe una cantidad conservada asociada a dicha transformación, dada por:
+
+$$P(\{q_j\}, \{\dot{q}_j\}) \equiv \sum_j \frac{\partial L}{\partial \dot{q}_j} K_j$$
+
+\textbf{Análisis de las opciones:}
+
+\begin{itemize}
+    \item \textbf{Opción 1:} $\displaystyle\sum_j \frac{\partial L}{\partial \dot{q}_j}$ — Esta expresión no incluye las funciones $K_j$ que caracterizan la transformación específica, por lo que no puede ser la cantidad conservada asociada a esta simetría en particular.
+    
+    \item \textbf{Opción 2:} $\displaystyle\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right) - \frac{\partial L}{\partial q_j}$ — Esta es la ecuación de Euler-Lagrange, que es igual a cero para las trayectorias reales del sistema, no una cantidad conservada.
+    
+    \item \textbf{Opción 3:} $\displaystyle\sum_j \frac{\partial L}{\partial \dot{q}_j} K_j$ — \textbf{Correcta.} Corresponde exactamente al momento conservado de Noether, donde $\frac{\partial L}{\partial \dot{q}_j} = p_j$ es el momento generalizado conjugado a $q_j$, y $K_j$ describe la dirección de la transformación simétrica.
+    
+    \item \textbf{Opción 4:} $\displaystyle\sum_j \frac{\partial L}{\partial \dot{q}_j} \dot{q}_j$ — Esta expresión aparece en la definición de la función de Jacobi $h = \sum_j p_j \dot{q}_j - L$, que se conserva solo cuando el Lagrangiano no depende explícitamente del tiempo (simetría traslacional temporal), no bajo la transformación espacial dada.
+\end{itemize}
+
+\textbf{Ejemplo ilustrativo:} Si la transformación es una traslación infinitesimal en la dirección $\hat{\tau}$, entonces $K_j = \tau_j$ y la cantidad conservada es $P = \sum_j p_j \tau_j = \vec{p} \cdot \hat{\tau}$, que es la componente del momento lineal en esa dirección (Proposición 9.4 de Zuluaga). Si la transformación es una rotación infinitesimal, $K_j$ corresponde a generadores de rotación y la cantidad conservada es el momento angular (Proposición 9.3 de Zuluaga).
+
+
+\section{Solución problema 1: Principio de Hamilton}
+
+\textbf{Enunciado:} El principio de Hamilton establece que:
+
+\textbf{Respuesta correcta:} La acción tiene un valor extremal cerca a la trayectoria física real que sigue el sistema dinámico.
+
+\textbf{Explicación:}
+Según la \textbf{Sección 9.6 "El principio de Hamilton"} del libro de Mecánica Celeste de Zuluaga (Principio 9.2), el principio establece que la evolución de un sistema dinámico entre dos instantes $t_1$ y $t_2$ es tal que la integral de acción $S$:
+$$S \equiv \int_{t_1}^{t_2} L(\{q_j\}, \{\dot{q}_j\}, t) \, dt$$
+tiene un valor \textbf{estacionario} (extremal) cuando es evaluada a lo largo de la trayectoria real del sistema en el espacio de configuración. Matemáticamente, esto se expresa como $\delta S = 0$. Esto no implica necesariamente que sea un mínimo absoluto (como sugiere la opción "mínima posible"), sino que la primera variación se anula, lo que corresponde a un punto extremo (máximo, mínimo o punto de silla).
+
+\section{Solución problema 2: Lagrangiano del problema de los N-cuerpos}
+
+\textbf{Enunciado:} El Lagrangiano del problema de los N-cuerpos es:
+
+\textbf{Respuesta correcta:} Opción 2.
+$$L_{NB} = \sum_{i\alpha} \left( \frac{1}{2} m_i \dot{x}_{i\alpha}^2 + \frac{1}{2} \frac{G m_i m_\alpha}{|\vec{r}_i - \vec{r}_\alpha|} \right)$$
+*(Nota: La notación en la imagen usa $\alpha$ como índice de la segunda partícula en la sumatoria, equivalente a $j$ en el texto).*
+
+\textbf{Explicación:}
+De acuerdo con la \textbf{Sección 9.8.1 "El Lagrangiano de N cuerpos"} y específicamente la \textbf{Ecuación (9.50)} del libro de Zuluaga, el Lagrangiano para un sistema de N cuerpos que interactúan gravitacionalmente se construye como $L = T - U$.
+
+Dado que la energía potencial gravitacional entre dos masas es $U_{ij} = -\frac{G m_i m_j}{r_{ij}}$, al restarla en el Lagrangiano ($L = T - (-|U|) = T + |U|$), el término potencial aparece con signo positivo. Para evitar contar la interacción entre el par $i,j$ y $j,i$ dos veces, se introduce un factor de $1/2$ en la sumatoria doble.
+
+La expresión general en el texto es:
+$$L_{NB} = \sum_{i,k} \frac{1}{2} m_i (\dot{x}^k_i)^2 + \frac{1}{2} \sum_i \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}}$$
+donde $\mu_j = G m_j$. La Opción 2 refleja exactamente esta estructura: la suma de las energías cinéticas de todas las partículas más la suma de las energías potenciales (con signo positivo y factor 1/2) de todas las parejas de interacción.
+
+\subsection{Deducción del Lagrangiano de N cuerpos}
+
+Para deducir la expresión del Lagrangiano correspondiente al problema de los $N$ cuerpos, nos basamos en los principios fundamentales de la mecánica analítica aplicados a un sistema de partículas que interactúan exclusivamente a través de la fuerza gravitacional newtoniana. Este desarrollo se encuentra detallado en la \textbf{Sección 9.8.1 "El Lagrangiano de N cuerpos"} del libro de Mecánica Celeste de Zuluaga (Ecuación 9.50).
+
+El Lagrangiano de un sistema mecánico se define como la diferencia entre su energía cinética total $T$ y su energía potencial total $U$:
+$$L = T - U$$
+
+\textbf{1. Energía Cinética Total ($T$):}
+La energía cinética de un sistema de $N$ partículas es la suma de las energías cinéticas de cada partícula individual. Si denotamos la masa de la $i$-ésima partícula como $m_i$ y sus componentes de velocidad en coordenadas cartesianas como $\dot{x}^k_i$ (donde $k$ representa las coordenadas espaciales $x, y, z$), el cuadrado de la rapidez de la partícula $i$ es $v_i^2 = \sum_k (\dot{x}^k_i)^2$. Por lo tanto, la energía cinética total del sistema es:
+$$T = \sum_{i=1}^N \frac{1}{2} m_i v_i^2 = \sum_{i,k} \frac{1}{2} m_i (\dot{x}^k_i)^2$$
+
+\textbf{2. Energía Potencial Total ($U$):}
+La energía potencial gravitacional entre un par de partículas $i$ y $j$ separadas por una distancia $r_{ij}$ está dada por la ley de gravitación universal:
+$$U_{ij} = - \frac{G m_i m_j}{r_{ij}}$$
+La energía potencial total del sistema es la suma de las interacciones de todos los pares únicos de partículas. Para sumar sobre todos los pares sin contar la interacción $(i, j)$ y $(j, i)$ dos veces, se introduce un factor de $\frac{1}{2}$ y se suman todas las partículas $i$ con todas las $j \neq i$:
+$$U = - \frac{1}{2} \sum_{i=1}^N \sum_{j \neq i} \frac{G m_i m_j}{r_{ij}}$$
+En Mecánica Celeste, es estándar definir el \textit{parámetro gravitacional} de la partícula $j$ como $\mu_j \equiv G m_j$. Sustituyendo esta definición en la expresión anterior, la energía potencial total se reescribe como:
+$$U = - \frac{1}{2} \sum_i \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}}$$
+
+\textbf{3. Construcción del Lagrangiano ($L_{NB}$):}
+Finalmente, sustituimos las expresiones de $T$ y $U$ en la definición del Lagrangiano $L = T - U$:
+$$L_{NB} = \sum_{i,k} \frac{1}{2} m_i (\dot{x}^k_i)^2 - \left( - \frac{1}{2} \sum_i \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}} \right)$$
+
+Al simplificar el signo negativo de la energía potencial, obtenemos la expresión final para el Lagrangiano del problema de los $N$ cuerpos:
+$$L_{NB} = \sum_{i,k} \frac{1}{2} m_i (\dot{x}^k_i)^2 + \frac{1}{2} \sum_i \sum_{j \neq i} \frac{m_i \mu_j}{r_{ij}}$$
+
+Como se observa, el signo positivo en el término de interacción gravitacional surge directamente de la resta $T - U$, dado que la energía potencial gravitacional es intrínsecamente negativa (fuerza atractiva). Esta forma compacta del Lagrangiano es fundamental para aplicar las ecuaciones de Euler-Lagrange y estudiar las simetrías del sistema, tal como se expone en el Capítulo 9 de Zuluaga.
+
+
+\subsection{Grados de libertad del CRTBP}
+
+En el Problema Circular Restringido de los Tres Cuerpos (CRTBP, por sus siglas en inglés), la dinámica del sistema se simplifica drásticamente en comparación con el problema general de los tres cuerpos. 
+
+Según se establece en la \textbf{Sección 8.3 ("El problema circular restringido de los tres cuerpos")} del libro de Mecánica Celeste de Zuluaga, los dos cuerpos más masivos (los primarios) describen órbitas circulares alrededor de su centro de masa común. Al analizar el problema desde un \textit{sistema de referencia rotante} que gira con la misma velocidad angular que los primarios, las posiciones de estos dos cuerpos masivos se vuelven fijas (constantes en el tiempo).
+
+Debido a que la masa del tercer cuerpo es despreciable, este no afecta el movimiento de los primarios. Por lo tanto, el problema se reduce exclusivamente a estudiar la evolución de la partícula de prueba (el tercer cuerpo).
+
+\textbf{Número de grados de libertad:}
+
+\begin{itemize}
+    \item \textbf{CRTBP Tridimensional (General):} La partícula de prueba puede moverse libremente en las tres dimensiones del espacio. Su posición en el sistema rotante se describe mediante 3 coordenadas independientes $(x, y, z)$. Por lo tanto, el CRTBP general tiene \textbf{3 grados de libertad}. En el formalismo hamiltoniano, esto corresponde a un espacio de fase de 6 dimensiones (3 coordenadas generalizadas y 3 momentos canónicos conjugados), como se deduce de la Ecuación (8.7) de Zuluaga.
+    
+    \item \textbf{CRTBP Plano:} Si las condiciones iniciales restringen el movimiento de la partícula de prueba al mismo plano en el que orbitan los dos cuerpos masivos (es decir, $z = 0$ y $\dot{z} = 0$ para todo tiempo), el sistema se reduce a \textbf{2 grados de libertad} $(x, y)$. En este caso, el espacio de fase asociado tiene 4 dimensiones.
+\end{itemize}
+
+En resumen, el CRTBP estándar en el espacio tridimensional posee \textbf{3 grados de libertad}, mientras que su versión plana posee \textbf{2 grados de libertad}.
+
+\section*{Respuestas a las preguntas del Quiz}
+
+\subsection*{Pregunta 1: Diferencia entre el problema de Kepler en Relatividad General y Newtoniana}
+
+\textbf{Respuesta correcta:} El potencial efectivo de la relatividad general tiene un término adicional que no existe en la teoría newtoniana.
+
+\textbf{Explicación:}
+
+Según se discute en la Sección 9.8.8 del libro de Zuluaga (páginas 506-512), la diferencia fundamental entre el problema de Kepler en la teoría newtoniana y en la relatividad general radica en la forma del potencial efectivo. 
+
+En la mecánica newtoniana, para una partícula de masa $m$ bajo la influencia de una fuerza central gravitacional, el potencial efectivo es:
+
+$$V_{\text{eff}}^{\text{Newton}}(r) = -\frac{GMm}{r} + \frac{L^2}{2mr^2}$$
+
+donde el primer término es el potencial gravitacional y el segundo es el término centrífugo debido al momento angular $L$.
+
+En la relatividad general, el potencial efectivo adquiere un término adicional:
+
+$$V_{\text{eff}}^{\text{RG}}(r) = -\frac{GMm}{r} + \frac{L^2}{2mr^2} - \frac{GML^2}{c^2mr^3}$$
+
+Este término adicional proporcional a $1/r^3$ es el responsable de efectos como la precesión anómala del perihelio de Mercurio. Como se muestra en la ecuación (9.68) de Zuluaga, la fuerza específica en relatividad general tiene la forma:
+
+$$f(r) = -\frac{\mu}{r^2} - \frac{3\mu h^2}{c^2 r^4}$$
+
+donde el segundo término representa la corrección relativista.
+
+\subsection*{Pregunta 2: Interpretación geométrica de las ecuaciones canónicas de Hamilton}
+
+\textbf{Respuesta correcta:} El movimiento en el espacio de fase siempre se realiza en dirección perpendicular al gradiente del Hamiltoniano.
+
+\textbf{Explicación:}
+
+Las ecuaciones canónicas de Hamilton son:
+
+$$\dot{q}_i = \frac{\partial H}{\partial p_i}, \quad \dot{p}_i = -\frac{\partial H}{\partial q_i}$$
+
+El gradiente del Hamiltoniano en el espacio de fase es:
+
+$$\nabla H = \left(\frac{\partial H}{\partial q_1}, \ldots, \frac{\partial H}{\partial q_n}, \frac{\partial H}{\partial p_1}, \ldots, \frac{\partial H}{\partial p_n}\right)$$
+
+El vector velocidad en el espacio de fase es:
+
+$$\vec{v} = (\dot{q}_1, \ldots, \dot{q}_n, \dot{p}_1, \ldots, \dot{p}_n) = \left(\frac{\partial H}{\partial p_1}, \ldots, \frac{\partial H}{\partial p_n}, -\frac{\partial H}{\partial q_1}, \ldots, -\frac{\partial H}{\partial q_n}\right)$$
+
+El producto punto entre estos dos vectores es:
+
+$$\nabla H \cdot \vec{v} = \sum_{i=1}^n \frac{\partial H}{\partial q_i}\frac{\partial H}{\partial p_i} + \sum_{i=1}^n \frac{\partial H}{\partial p_i}\left(-\frac{\partial H}{\partial q_i}\right) = 0$$
+
+Por lo tanto, el movimiento en el espacio de fase es siempre perpendicular al gradiente del Hamiltoniano. Esto también implica que el Hamiltoniano se conserva a lo largo de las trayectorias del sistema, ya que:
+
+$$\frac{dH}{dt} = \nabla H \cdot \vec{v} = 0$$
+
+
+\section{Análisis de la Evolución del Sistema Hamiltoniano}
+
+\textbf{Respuesta directa:}
+
+En el punto $(-2, 5)$, el sistema evoluciona \textbf{hacia la derecha y ligeramente hacia abajo}, siguiendo la línea de contorno en sentido \textbf{horario}.
+
+\subsubsection*{Explicación detallada}
+
+\begin{enumerate}
+    \item \textbf{Comprensión del espacio de fase}
+    \begin{itemize}
+        \item El eje horizontal representa la posición $q$.
+        \item El eje vertical representa el momento $p$.
+        \item El punto $(-2, 5)$ está ubicado en el cuadrante superior izquierdo del espacio de fase.
+    \end{itemize}
+
+    \item \textbf{Propiedades del sistema Hamiltoniano}
+    Como se establece en la \textbf{Sección 10.3 ("Las ecuaciones canónicas de Hamilton")} del libro de Mecánica Celeste de Zuluaga, las ecuaciones que rigen la dinámica en el espacio de fase son:
+    $$ \frac{dq}{dt} = \frac{\partial H}{\partial p} \quad \text{(velocidad de cambio de la posición)} $$
+    $$ \frac{dp}{dt} = -\frac{\partial H}{\partial q} \quad \text{(velocidad de cambio del momento)} $$
+
+    \item \textbf{Dirección del movimiento}
+    Analizando el comportamiento en el punto $(-2, 5)$:
+    \begin{itemize}
+        \item \textit{Análisis del gradiente:} El centro del sistema (punto de equilibrio) está cerca del origen $(0,0)$. En $(-2, 5)$, el gradiente $\nabla H$ apunta hacia afuera del centro. Dado que las curvas de nivel son elipses concéntricas, se cumple que $\frac{\partial H}{\partial p} > 0$ (el Hamiltoniano aumenta hacia arriba) y $\frac{\partial H}{\partial q} < 0$ (el Hamiltoniano aumenta hacia la izquierda).
+        \item \textit{Aplicando las ecuaciones de Hamilton:}
+        \begin{itemize}
+            \item $\frac{dq}{dt} = \frac{\partial H}{\partial p} > 0 \implies$ \textbf{$q$ aumenta (movimiento hacia la derecha)}.
+            \item $\frac{dp}{dt} = -\frac{\partial H}{\partial q} > 0$. Sin embargo, dado que estamos en la parte superior de la curva de nivel y el gradiente apunta hacia afuera (hacia la izquierda y arriba), la componente vertical del movimiento en el espacio de fase indica que el momento $p$ debe disminuir a medida que avanza hacia la derecha para mantenerse sobre la misma curva de nivel.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Sentido de rotación}
+    Como se ilustra geométricamente en la \textbf{Sección 10.5 ("Dinámica en el espacio de fase")} de Zuluaga, para un sistema con un punto de equilibrio tipo centro (como el oscilador armónico o el péndulo en pequeñas oscilaciones), el movimiento en el espacio de fase es \textbf{horario}:
+    \begin{itemize}
+        \item Arriba: se mueve hacia la derecha.
+        \item Derecha: se mueve hacia abajo.
+        \item Abajo: se mueve hacia la izquierda.
+        \item Izquierda: se mueve hacia arriba.
+    \end{itemize}
+
+    \item \textbf{Conclusión visual}
+    En $(-2, 5)$, que está en la parte superior-izquierda de la elipse de contorno, el sistema se mueve:
+    \begin{itemize}
+        \item \textbf{Principalmente hacia la derecha} (aumentando $q$).
+        \item \textbf{Ligeramente hacia abajo} (disminuyendo $p$).
+        \item \textbf{Siguiendo tangencialmente} la línea de contorno.
+        \item En sentido \textbf{horario} alrededor del centro.
+    \end{itemize}
+\end{enumerate}
+
+Este comportamiento es completamente consistente con la conservación de la energía (el Hamiltoniano $H$), la cual permanece constante a lo largo de la trayectoria mientras el sistema evoluciona en el tiempo.
+
+
+Based on the Hamiltonian mechanics theory from the provided documents, I can answer this question.
+
+\subsection*{Respuesta:}
+
+\textbf{La opción correcta es la 2: ``Que el Hamiltoniano no dependa explícitamente del tiempo''}
+
+\subsubsection*{Justificación:}
+
+De las ecuaciones canónicas de Hamilton, se puede demostrar que:
+
+\begin{equation*}
+\frac{dH}{dt} = \frac{\partial H}{\partial t}
+\end{equation*}
+
+Esto significa que:
+\begin{itemize}
+    \item Si $\frac{\partial H}{\partial t} = 0$ (el Hamiltoniano no depende explícitamente del tiempo), entonces $\frac{dH}{dt} = 0$, lo que implica que $H = \text{constante}$.
+\end{itemize}
+
+Esta condición es:
+\begin{itemize}
+    \item \textbf{Necesaria}: Si $H$ es constante, entonces necesariamente $\frac{\partial H}{\partial t} = 0$.
+    \item \textbf{Suficiente}: Si $\frac{\partial H}{\partial t} = 0$, entonces $H$ es constante.
+\end{itemize}
+
+\subsubsection*{Por qué las otras opciones no son correctas:}
+
+\begin{enumerate}
+    \item \textbf{Opción 1}: Describe condiciones para que $H = E$ (energía total), no para que $H$ sea constante.
+    \item \textbf{Opción 3}: Un potencial conservativo garantiza conservación de energía, pero no es la condición necesaria y suficiente para la conservación del Hamiltoniano.
+    \item \textbf{Opción 4}: Que $H$ sea igual a la función de Jacobi es una condición sobre la forma de $H$, no sobre su conservación.
+\end{enumerate}
+
+Esta conclusión se encuentra en la \textbf{Sección 10.6.3 del libro de Zuluaga} sobre ``Conservación del Hamiltoniano''.
+
+
+\section*{Deducción del Hamiltoniano del Péndulo Simple}
+
+\subsection*{Paso 1: Energías del sistema}
+
+Para un péndulo simple de masa $m$ y longitud $\ell$, con coordenada generalizada $\theta$ (ángulo medido desde la vertical):
+
+\textbf{Energía cinética:}
+$$T = \frac{1}{2}mv^2 = \frac{1}{2}m(\ell\dot{\theta})^2 = \frac{1}{2}m\ell^2\dot{\theta}^2$$
+
+\textbf{Energía potencial:}
+Tomando el origen en el punto de suspensión y midiendo $y$ hacia abajo:
+$$V = -mgy = -mg(-\ell\cos\theta) = -mg\ell\cos\theta$$
+
+\subsection*{Paso 2: Lagrangiano}
+
+$$L = T - V = \frac{1}{2}m\ell^2\dot{\theta}^2 + mg\ell\cos\theta$$
+
+\subsection*{Paso 3: Momento conjugado}
+
+$$p_\theta = \frac{\partial L}{\partial \dot{\theta}} = m\ell^2\dot{\theta}$$
+
+Despejando $\dot{\theta}$:
+$$\dot{\theta} = \frac{p_\theta}{m\ell^2}$$
+
+\subsection*{Paso 4: Hamiltoniano}
+
+Por definición, $H = p_\theta\dot{\theta} - L$:
+
+$$H = p_\theta\left(\frac{p_\theta}{m\ell^2}\right) - \left[\frac{1}{2}m\ell^2\left(\frac{p_\theta}{m\ell^2}\right)^2 + mg\ell\cos\theta\right]$$
+
+$$H = \frac{p_\theta^2}{m\ell^2} - \frac{p_\theta^2}{2m\ell^2} - mg\ell\cos\theta$$
+
+$$\boxed{H = \frac{p_\theta^2}{2m\ell^2} - mg\ell\cos\theta}$$
+
+\textbf{Respuesta correcta: Opción inferior derecha}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section*{Sistema Masa-Resorte Horizontal}
+
+\subsection*{Paso 1: Energías del sistema}
+
+Para una masa $m$ unida a un resorte de constante $k$ que se mueve horizontalmente:
+
+\textbf{Energía cinética:}
+$$T = \frac{1}{2}m\dot{x}^2$$
+
+\textbf{Energía potencial:}
+$$V = \frac{1}{2}kx^2$$
+
+\subsection*{Paso 2: Lagrangiano}
+
+$$L = T - V = \frac{1}{2}m\dot{x}^2 - \frac{1}{2}kx^2$$
+
+\subsection*{Paso 3: Momento conjugado}
+
+$$p_x = \frac{\partial L}{\partial \dot{x}} = m\dot{x}$$
+
+Despejando $\dot{x}$:
+$$\dot{x} = \frac{p_x}{m}$$
+
+\subsection*{Paso 4: Hamiltoniano}
+
+$$H = p_x\dot{x} - L = p_x\left(\frac{p_x}{m}\right) - \left[\frac{1}{2}m\left(\frac{p_x}{m}\right)^2 - \frac{1}{2}kx^2\right]$$
+
+$$H = \frac{p_x^2}{m} - \frac{p_x^2}{2m} + \frac{1}{2}kx^2$$
+
+$$\boxed{H = \frac{p_x^2}{2m} + \frac{1}{2}kx^2}$$
+
+\subsection*{Observaciones}
+
+\begin{itemize}
+    \item \textbf{Péndulo}: El Hamiltoniano representa la energía total $H = T + V$.
+    \item \textbf{Resorte}: También $H = T + V = \frac{p_x^2}{2m} + \frac{1}{2}kx^2$.
+    \item En ambos casos, al ser sistemas conservativos, el Hamiltoniano coincide con la energía mecánica total.
+\end{itemize}
+
+\subsection*{Pregunta: Variable Ignorable (Cíclica) en el Hamiltoniano}
+
+\textbf{Enunciado:}
+
+A una variable ignorable (cíclica) en el Hamiltoniano le corresponde, como constante de movimiento:
+
+\begin{itemize}
+    \item[$\circ$] Su momento canónico conjugado
+    \item[$\circ$] El Hamiltoniano mismo
+    \item[$\circ$] La derivada parcial del Hamiltoniano respecto a la variable
+    \item[$\circ$] La derivada parcial del Lagrangiano respecto a la velocidad generalizada
+\end{itemize}
+
+\textbf{Respuesta correcta:} \textbf{Su momento canónico conjugado}
+
+\textbf{Justificación:}
+
+Según se establece en la \textbf{Sección 10.6 ("Simetrías y leyes de conservación")} del libro de Mecánica Celeste de Zuluaga, una coordenada generalizada $q_j$ se denomina \textbf{cíclica} o \textbf{ignorable} cuando el Hamiltoniano no depende explícitamente de ella, es decir:
+
+$$\frac{\partial H}{\partial q_j} = 0$$
+
+A partir de las \textbf{ecuaciones canónicas de Hamilton}:
+
+$$\dot{q}_j = \frac{\partial H}{\partial p_j}, \quad \dot{p}_j = -\frac{\partial H}{\partial q_j}$$
+
+Si $q_j$ es cíclica, entonces $\frac{\partial H}{\partial q_j} = 0$, lo cual implica directamente que:
+
+$$\dot{p}_j = 0 \quad \Rightarrow \quad p_j = \text{constante}$$
+
+Por lo tanto, \textbf{el momento canónico conjugado $p_j$ se conserva} y es una constante de movimiento del sistema.
+
+Este resultado es consistente con el \textbf{teorema de Noether} en el formalismo hamiltoniano: a cada simetría (coordenada cíclica) le corresponde una cantidad conservada (su momento conjugado).
+
+\textbf{Nota:} La cuarta opción ("La derivada parcial del Lagrangiano respecto a la velocidad generalizada") es \textit{técnicamente} la definición del momento conjugado $p_j = \frac{\partial L}{\partial \dot{q}_j}$, pero la pregunta se refiere específicamente al contexto del \textit{Hamiltoniano}, por lo que la respuesta más directa y apropiada es que se conserva el momento canónico conjugado mismo.
+
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}

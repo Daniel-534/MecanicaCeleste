@@ -1,0 +1,441 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{parskip}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{forest}
+
+
+
+% cabecera
+\pagestyle{fancy}
+\fancyhead[l]{Mecánica celeste}
+\fancyhead[c]{Notas para Quiz 5}
+\fancyhead[r]{\today}
+\fancyfoot[c]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt} % linea horizontal
+
+
+\begin{document}
+
+\begin{center}
+    \huge\textbf{Demostraciones Importantes para el Quiz Final} \\
+    \large Basado en el libro de Mecánica Celeste de Zuluaga
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Llegar a la Mínima Acción desde Euler-Lagrange}
+
+\subsection*{Desarrollo}
+
+Partimos de las ecuaciones de Euler-Lagrange (Zuluaga, Sección 9.4):
+
+\begin{equation}
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right) - \frac{\partial L}{\partial q_j} = 0
+\end{equation}
+
+\textbf{Paso 1:} Integrar y multiplicar por $-\eta_j$ las E-L:
+
+\begin{equation}
+\int_{t_1}^{t_2} \left[\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right) - \frac{\partial L}{\partial q_j}\right](-\eta_j) dt = 0
+\end{equation}
+
+\textbf{Paso 2:} Integración por partes del primer término:
+
+\begin{align}
+\int_{t_1}^{t_2} \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right)(-\eta_j) dt &= 
+\left.-\frac{\partial L}{\partial \dot{q}_j}\eta_j\right|_{t_1}^{t_2} + \int_{t_1}^{t_2} \frac{\partial L}{\partial \dot{q}_j}\dot{\eta}_j dt
+\end{align}
+
+\textbf{Paso 3:} Condiciones en los extremos (Zuluaga, Sección 9.6):
+
+\begin{equation}
+\eta(t_1) = \eta(t_2) = 0 \quad \text{(se anula en extremos)}
+\end{equation}
+
+Por lo tanto, el término de frontera se anula:
+
+\begin{equation}
+\left.-\frac{\partial L}{\partial \dot{q}_j}\eta_j\right|_{t_1}^{t_2} = 0
+\end{equation}
+
+\textbf{Paso 4:} Derivar las simetrías para despejar $\eta_j$ y reemplazar:
+
+\begin{equation}
+\int_{t_1}^{t_2} \left[\frac{\partial L}{\partial \dot{q}_j}\dot{\eta}_j + \frac{\partial L}{\partial q_j}\eta_j\right] dt = 0
+\end{equation}
+
+\textbf{Paso 5:} Identificar derivada total de $L$:
+
+\begin{equation}
+\frac{dL}{dt} = \sum_j \left(\frac{\partial L}{\partial q_j}\dot{q}_j + \frac{\partial L}{\partial \dot{q}_j}\ddot{q}_j\right) + \frac{\partial L}{\partial t}
+\end{equation}
+
+\textbf{Paso 6:} Definir la acción (Zuluaga, Ec. 9.40):
+
+\begin{equation}
+S = \int_{t_1}^{t_2} L(q_j, \dot{q}_j, t) dt
+\end{equation}
+
+La variación de la acción es:
+
+\begin{equation}
+\delta S = \int_{t_1}^{t_2} \sum_j \left(\frac{\partial L}{\partial q_j} - \frac{d}{dt}\frac{\partial L}{\partial \dot{q}_j}\right)\eta_j dt = 0
+\end{equation}
+
+Esto demuestra el \textbf{Principio de Hamilton}: la trayectoria real hace estacionaria la acción.
+
+\section{Cuadratura de Simetrías Espaciales de Noether}
+
+\subsection*{Desarrollo}
+
+Según el teorema de Noether (Zuluaga, Sección 9.7), para cada simetría continua existe una cantidad conservada.
+
+\textbf{Paso 1:} Identificar el generador de la transformación en la simetría:
+
+Para una transformación infinitesimal:
+\begin{equation}
+q_j \rightarrow q_j + \varepsilon K_j(q)
+\end{equation}
+donde $K_j$ es el generador de la transformación.
+
+\textbf{Paso 2:} Derivada total respecto a $\varepsilon$ de $L$:
+
+\begin{equation}
+\frac{dL}{d\varepsilon} = \sum_j \left(\frac{\partial L}{\partial q_j}\frac{\partial q_j}{\partial \varepsilon} + \frac{\partial L}{\partial \dot{q}_j}\frac{\partial \dot{q}_j}{\partial \varepsilon}\right)
+\end{equation}
+
+\textbf{Paso 3:} Derivar simetrías para despejar $K_j$ y reemplazar:
+
+Para una simetría, $L$ es invariante bajo la transformación:
+\begin{equation}
+\frac{dL}{d\varepsilon} = 0
+\end{equation}
+
+\textbf{Paso 4:} Identificar el término de E-L y reemplazarlo:
+
+Usando las ecuaciones de Euler-Lagrange:
+\begin{equation}
+\frac{\partial L}{\partial q_j} = \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right)
+\end{equation}
+
+\textbf{Paso 5:} Tenemos una derivada de producto (la cuadratura):
+
+\begin{align}
+0 &= \sum_j \left[\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right)K_j + \frac{\partial L}{\partial \dot{q}_j}\dot{K}_j\right] \\
+&= \frac{d}{dt}\left[\sum_j \frac{\partial L}{\partial \dot{q}_j}K_j\right]
+\end{align}
+
+Por lo tanto, la \textbf{cantidad conservada} es (Zuluaga, Ec. 9.45):
+
+\begin{equation}
+P = \sum_j \frac{\partial L}{\partial \dot{q}_j}K_j = \text{constante}
+\end{equation}
+
+\section{Lagrangiano 2C en Coordenadas de Jacobi}
+
+\subsection*{Desarrollo}
+
+Para el problema de dos cuerpos, introducimos las coordenadas de Jacobi (Zuluaga, Sección 9.8.4):
+
+\begin{align}
+\vec{r}_{CM} &= \frac{m_1\vec{r}_1 + m_2\vec{r}_2}{m_1 + m_2} \\
+\vec{r} &= \vec{r}_1 - \vec{r}_2
+\end{align}
+
+El Lagrangiano del sistema es:
+
+\begin{equation}
+L_{2D} = \frac{1}{2}M\dot{\vec{r}}_{CM}^2 + \frac{1}{2}m_r\dot{\vec{r}}^2 + \frac{GMm_r}{r}
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $M = m_1 + m_2$ (masa total)
+    \item $m_r = \frac{m_1m_2}{m_1+m_2}$ (masa reducida)
+    \item $r = |\vec{r}|$ (distancia relativa)
+\end{itemize}
+
+\textbf{Nota:} Este Lagrangiano es covariante bajo cualquier rotación.
+
+\subsection*{¿No se usa la demostración anterior?}
+
+En realidad, sí se puede usar. La derivación completa parte de:
+
+\begin{equation}
+L = \frac{1}{2}m_1\dot{\vec{r}}_1^2 + \frac{1}{2}m_2\dot{\vec{r}}_2^2 + \frac{Gm_1m_2}{|\vec{r}_1 - \vec{r}_2|}
+\end{equation}
+
+Sustituyendo las coordenadas de Jacobi y simplificando, se obtiene el Lagrangiano separado en movimiento del centro de masa y movimiento relativo.
+
+\section{Invariante Temporal y Función de Jacobi}
+
+\subsection*{Desarrollo}
+
+\textbf{Paso 1:} Traslación temporal $t' = t + \varepsilon$, $\frac{\partial L}{\partial t} = 0$
+
+Cuando el Lagrangiano no depende explícitamente del tiempo, existe una cantidad conservada.
+
+\textbf{Paso 2:} Derivada total (Zuluaga, Sección 9.7.4):
+
+\begin{equation}
+\frac{dL}{dt} = \sum_j \left(\frac{\partial L}{\partial q_j}\dot{q}_j + \frac{\partial L}{\partial \dot{q}_j}\ddot{q}_j\right) + \frac{\partial L}{\partial t}
+\end{equation}
+
+\textbf{Paso 3:} Identificar término de E-L y sustituirlo:
+
+Usando $\frac{\partial L}{\partial q_j} = \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right)$:
+
+\begin{align}
+\frac{dL}{dt} &= \sum_j \left[\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right)\dot{q}_j + \frac{\partial L}{\partial \dot{q}_j}\ddot{q}_j\right] + \frac{\partial L}{\partial t} \\
+&= \frac{d}{dt}\left[\sum_j \frac{\partial L}{\partial \dot{q}_j}\dot{q}_j\right] + \frac{\partial L}{\partial t}
+\end{align}
+
+\textbf{Paso 4:} $\frac{\partial L}{\partial t}$ menos derivada de un producto, definir $h$ (Zuluaga, Ec. 9.47):
+
+\begin{equation}
+h = \sum_j \frac{\partial L}{\partial \dot{q}_j}\dot{q}_j - L
+\end{equation}
+
+Entonces:
+\begin{equation}
+\frac{dh}{dt} = -\frac{\partial L}{\partial t}
+\end{equation}
+
+Si $\frac{\partial L}{\partial t} = 0$, entonces $h = \text{cte}$ (función de Jacobi conservada).
+
+\section{Invariancia Rotacional (2C)}
+
+\subsection*{Desarrollo}
+
+Para rotaciones en el plano, el momento angular se conserva.
+
+\textbf{Paso 1:} Identificar generadores $K$ de la simetría:
+
+Para una rotación infinitesimal en el plano $xy$:
+\begin{align}
+x &\rightarrow x + \varepsilon(-y) \\
+y &\rightarrow y + \varepsilon(x)
+\end{align}
+
+Los generadores son:
+\begin{equation}
+K_x = -y, \quad K_y = x
+\end{equation}
+
+\textbf{Paso 2:} Aplicar cuadratura de Noether como invariantes:
+
+\begin{align}
+P &= \sum_j \frac{\partial L}{\partial \dot{q}_j}K_j \\
+&= \frac{\partial L}{\partial \dot{x}}(-y) + \frac{\partial L}{\partial \dot{y}}(x) \\
+&= p_x(-y) + p_y(x) \\
+&= xp_y - yp_x
+\end{align}
+
+Por lo tanto, el \textbf{momento angular} se conserva:
+
+\begin{equation}
+L_z = xp_y - yp_x = \text{constante}
+\end{equation}
+
+Para el problema de dos cuerpos en coordenadas polares:
+
+\begin{equation}
+L_z = m_r r^2 \dot{\theta} = \text{constante}
+\end{equation}
+
+\section{Función de Jacobi Igual a Energía}
+
+\subsection*{Desarrollo}
+
+Demostraremos que $h = T + U = E$ bajo ciertas condiciones (Zuluaga, Proposición 9.5).
+
+\textbf{Paso 1:} Partir de la definición (Zuluaga, Ec. 9.47):
+
+\begin{equation}
+h = \sum_j \frac{\partial L}{\partial \dot{q}_j}\dot{q}_j - L
+\end{equation}
+
+\textbf{Paso 2:} Reemplazar $L = T - U$:
+
+\begin{equation}
+h = \sum_j \frac{\partial (T-U)}{\partial \dot{q}_j}\dot{q}_j - (T-U)
+\end{equation}
+
+\textbf{Paso 3:} Para demostrar que es homogénea de grado 2:
+
+Si $T$ es cuadrática en las velocidades:
+\begin{equation}
+T = \frac{1}{2}\sum_i m_i (\vec{v}_i \cdot \vec{v}_i)
+\end{equation}
+
+En coordenadas generalizadas:
+\begin{equation}
+\vec{v}_i = \sum_j \frac{\partial \vec{r}_i}{\partial q_j}\dot{q}_j
+\end{equation}
+
+\textbf{Paso 4:} Teorema de Euler para funciones homogéneas:
+
+Si $f(\lambda x) = \lambda^k f(x)$, entonces:
+\begin{equation}
+\sum_j x_j \frac{\partial f}{\partial x_j} = k f
+\end{equation}
+
+Para $T$ homogénea de grado 2 en $\dot{q}_j$:
+\begin{equation}
+\sum_j \dot{q}_j \frac{\partial T}{\partial \dot{q}_j} = 2T
+\end{equation}
+
+\textbf{Paso 5:} Sustituir (Zuluaga, Sección 9.7.4):
+
+\begin{align}
+h &= \sum_j \frac{\partial T}{\partial \dot{q}_j}\dot{q}_j - (T-U) \\
+&= 2T - T + U \\
+&= T + U = E
+\end{align}
+
+Por lo tanto, \textbf{la función de Jacobi es igual a la energía total} cuando:
+\begin{itemize}
+    \item $T$ es homogénea de grado 2 en $\dot{q}_j$
+    \item $U$ no depende de $\dot{q}_j$
+    \item Las transformaciones no dependen explícitamente de $t$
+\end{itemize}
+
+\section{Constante de Jacobi}
+
+\subsection*{Desarrollo}
+
+La constante de Jacobi $C_J$ es fundamental en el problema restringido de los tres cuerpos (Zuluaga, Sección 8.7).
+
+\textbf{Paso 1:} Expresar $h$ como $\sum_i \frac{\partial L}{\partial \dot{q}_i}\dot{q}_i - L$, reemplazar cada derivada:
+
+En el sistema rotante del CRTBP con coordenadas $(x, y, z)$:
+
+\begin{equation}
+h = \frac{1}{2}(\dot{x}^2 + \dot{y}^2 + \dot{z}^2) + V_{mod}(x,y,z)
+\end{equation}
+
+donde $V_{mod}$ es el potencial modificado.
+
+\textbf{Paso 2:} Llegamos a (Zuluaga, Ec. 8.23):
+
+\begin{equation}
+h = \frac{1}{2}(\dot{x}^2 + \dot{y}^2 + \dot{z}^2) + V_{mod} = \frac{1}{2}\vec{v}^2 + V_{mod}
+\end{equation}
+
+\textbf{Paso 3:} La constante de Jacobi (Zuluaga, Ec. 8.24):
+
+\begin{equation}
+C_J = 2\left(\frac{1-\alpha}{r_1} + \frac{\alpha}{r_2}\right) + (x^2 + y^2) - \vec{v}^2
+\end{equation}
+
+Comparando con $h$:
+\begin{align}
+C_J &= 2\left[\frac{1-\alpha}{r_1} + \frac{\alpha}{r_2} + \frac{1}{2}(x^2+y^2)\right] - \vec{v}^2 \\
+&= 2V_{mod} - \vec{v}^2 \\
+&= -2\left[\frac{1}{2}\vec{v}^2 - V_{mod}\right] \\
+&= -2h
+\end{align}
+
+Por lo tanto:
+\begin{equation}
+\boxed{C_J = -2h}
+\end{equation}
+
+\textbf{Nota:} Nos tendrían que dar esto para usar.
+
+\section{Ecuaciones Canónicas de Hamilton}
+
+\subsection*{Desarrollo}
+
+\textbf{Paso 1:} Tomar la definición de $dH$ por derivada total y por $H = \sum p_i\dot{q}_i - L$ derivada:
+
+(A) Derivada total de $H$:
+\begin{equation}
+dH = \sum_j \left(\frac{\partial H}{\partial q_j}dq_j + \frac{\partial H}{\partial p_j}dp_j\right) + \frac{\partial H}{\partial t}dt
+\end{equation}
+
+(B) De la definición $H = \sum p_i\dot{q}_i - L$:
+\begin{align}
+dH &= \sum_j (p_j d\dot{q}_j + \dot{q}_j dp_j) - dL \\
+&= \sum_j (p_j d\dot{q}_j + \dot{q}_j dp_j) - \sum_j \left(\frac{\partial L}{\partial q_j}dq_j + \frac{\partial L}{\partial \dot{q}_j}d\dot{q}_j\right) - \frac{\partial L}{\partial t}dt
+\end{align}
+
+\textbf{Paso 2:} Sustituir los momentos conjugados de la derivada total de $L$ en (B):
+
+Recordando que $p_j = \frac{\partial L}{\partial \dot{q}_j}$:
+
+\begin{equation}
+dH = \sum_j (\dot{q}_j dp_j - \frac{\partial L}{\partial q_j}dq_j) - \frac{\partial L}{\partial t}dt
+\end{equation}
+
+\textbf{Paso 3:} Al desarrollar la derivada de producto de (B) se anulan términos con la derivada total de $-L$:
+
+Los términos $p_j d\dot{q}_j$ y $-\frac{\partial L}{\partial \dot{q}_j}d\dot{q}_j$ se cancelan porque $p_j = \frac{\partial L}{\partial \dot{q}_j}$.
+
+\textbf{Paso 4:} (B) se convierte en (Zuluaga, Sección 10.3):
+
+\begin{equation}
+dH = \sum_j (\dot{q}_j dp_j - \dot{p}_j dq_j) - \frac{\partial L}{\partial t}dt
+\end{equation}
+
+usando $\frac{\partial L}{\partial q_j} = \dot{p}_j$ (Euler-Lagrange).
+
+\textbf{Paso 5:} Comparar término a término (A) y (B):
+
+i) Coeficiente de $dt$:
+\begin{equation}
+\frac{\partial H}{\partial t} = -\frac{\partial L}{\partial t}
+\end{equation}
+
+ii) Coeficiente de $dq_j$:
+\begin{equation}
+\frac{\partial H}{\partial q_j} = -\dot{p}_j
+\end{equation}
+
+iii) Coeficiente de $dp_j$:
+\begin{equation}
+\frac{\partial H}{\partial p_j} = \dot{q}_j
+\end{equation}
+
+Estas son las \textbf{ecuaciones canónicas de Hamilton} (Zuluaga, Ecs. 10.10-10.11):
+
+\begin{equation}
+\boxed{
+\begin{aligned}
+\dot{q}_j &= \frac{\partial H}{\partial p_j} \\
+\dot{p}_j &= -\frac{\partial H}{\partial q_j} \\
+\frac{\partial H}{\partial t} &= -\frac{\partial L}{\partial t}
+\end{aligned}}
+\end{equation}
+
+\section*{Referencias}
+
+Todas las demostraciones están basadas en el libro \textbf{``Mecánica Celeste: Teoría, algoritmos y problemas''} de Jorge I. Zuluaga, Universidad de Antioquia, 2020.
+
+\begin{itemize}
+    \item Sección 9.4: Ecuaciones de Lagrange
+    \item Sección 9.6: Principio de Hamilton
+    \item Sección 9.7: Simetrías y leyes de conservación
+    \item Sección 9.8: Mecánica celeste en el formalismo Lagrangiano
+    \item Sección 10.3: Ecuaciones canónicas de Hamilton
+    \item Sección 8.7: La constante de Jacobi
+\end{itemize}
+
+\end{document}
+\bibliographystyle{plainurl}
+\bibliography{bibliografia} 
+\end{document}
