@@ -458,6 +458,52 @@ Este resultado es consistente con el \textbf{teorema de Noether} en el formalism
 
 \textbf{Nota:} La cuarta opción ("La derivada parcial del Lagrangiano respecto a la velocidad generalizada") es \textit{técnicamente} la definición del momento conjugado $p_j = \frac{\partial L}{\partial \dot{q}_j}$, pero la pregunta se refiere específicamente al contexto del \textit{Hamiltoniano}, por lo que la respuesta más directa y apropiada es que se conserva el momento canónico conjugado mismo.
 
+
+
+\subsection{Solución problema 1}
+
+A continuación se presenta el análisis analítico y extensivo de las cuestiones planteadas sobre el primer problema, fundamentado rigurosamente en el texto \textit{Mecánica Celeste} de Jorge I. Zuluaga.
+
+\subsubsection*{1. ¿Por qué razón el momento canónico conjugado es constante?}
+El momento canónico conjugado asociado a la coordenada angular $\theta$, definido como $p_\theta = \frac{\partial L}{\partial \dot{\theta}} = m_r r^2 \dot{\theta} \equiv l$, es una constante de movimiento debido a que la coordenada generalizada $\theta$ no aparece explícitamente en la expresión del Lagrangiano $L$. 
+
+En el lenguaje del formalismo analítico, a esta coordenada se le denomina \textit{variable cíclica} o \textit{ignorable}. De acuerdo con la \textbf{Definición 9.10} y la \textbf{Sección 9.7.3} del libro de Zuluaga, cuando se cumple que $\frac{\partial L}{\partial q_j} = 0$, la ecuación de Euler-Lagrange correspondiente:
+$$ \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right) - \frac{\partial L}{\partial q_j} = 0 $$
+se reduce inmediatamente a $\frac{d p_j}{dt} = 0$, lo que implica que $p_j$ es constante. 
+
+Físicamente, este resultado es una manifestación directa del \textbf{Teorema de Noether} (desarrollado en la \textbf{Sección 9.7} y la \textbf{Proposición 9.2} de Zuluaga). La invariancia del Lagrangiano bajo rotaciones espaciales (es decir, la simetría esférica o circular del potencial gravitacional newtoniano $U = -k/r$) garantiza la conservación del momento angular específico del sistema.
+
+\subsubsection*{2. ¿Por qué razón la $h$ de la función de Jacobi en este caso es constante?}
+La función de Jacobi, definida como $h = \sum_j \dot{q}_j \frac{\partial L}{\partial \dot{q}_j} - L$, es constante en este problema porque el Lagrangiano del sistema no depende \textit{explícitamente} del tiempo, es decir, $\frac{\partial L}{\partial t} = 0$. 
+
+Según la \textbf{Sección 9.7.4} del texto de Zuluaga, si calculamos la derivada total de la función de Jacobi respecto al tiempo a lo largo de las trayectorias reales del sistema (usando las ecuaciones de Euler-Lagrange), obtenemos la relación fundamental:
+$$ \frac{dh}{dt} = -\frac{\partial L}{\partial t} $$
+Dado que ni la energía cinética en coordenadas polares ni el potencial gravitacional contienen al tiempo $t$ de forma explícita en sus fórmulas, se garantiza que $\frac{\partial L}{\partial t} = 0$. En consecuencia, $\frac{dh}{dt} = 0$, lo que convierte a $h$ en una cuadratura o constante de movimiento del sistema dinámico.
+
+\subsubsection*{3. ¿Por qué razón $h=E=T+U$?}
+La igualdad entre la función de Jacobi $h$ y la energía mecánica total $E = T + U$ no es una identidad universal para cualquier sistema; requiere que se cumplan condiciones específicas establecidas en el \textbf{Teorema de conservación de la energía mecánica (Proposición 9.5 de Zuluaga)}. 
+
+Para que $h$ coincida exactamente con $E$, el sistema debe satisfacer simultáneamente las siguientes condiciones:
+\begin{enumerate}
+    \item La energía potencial $U$ debe depender únicamente de las coordenadas generalizadas y no de las velocidades (lo cual se cumple para la gravedad newtoniana $U(r) = -k/r$).
+    \item Las ecuaciones de transformación de las coordenadas cartesianas a las generalizadas no deben depender explícitamente del tiempo. Esto significa que las restricciones del sistema son \textit{esclerónomas}.
+\end{enumerate}
+
+En el problema de los dos cuerpos reducido a coordenadas polares $(r, \theta)$, la transformación geométrica $\vec{r} = r\hat{e}_r$ es independiente de $t$. Bajo esta condición de restricciones esclerónomas, la energía cinética $T$ se comporta como una \textit{función homogénea de grado 2} respecto a las velocidades generalizadas $(\dot{r}, \dot{\theta})$. 
+
+Aplicando el \textbf{Teorema de Euler para funciones homogéneas (Sección 4.1.5 y Sección 9.7.4 en Zuluaga)}, se tiene la identidad matemática:
+$$ \sum_j \dot{q}_j \frac{\partial T}{\partial \dot{q}_j} = 2T $$
+Sustituyendo esto en la definición general de la función de Jacobi $h = \sum \dot{q}_j \frac{\partial L}{\partial \dot{q}_j} - L$, y recordando que $L = T - U$, obtenemos:
+$$ h = 2T - (T - U) = T + U = E $$
+Por lo tanto, la función de Jacobi representa exactamente la energía mecánica total del sistema relativo, la cual se conserva a lo largo de toda la órbita.
+
+\subsubsection*{4. Conclusión breve del resultado (la ecuación diferencial a la que llegamos)}
+La ecuación diferencial obtenida, $\frac{d^2u}{d\theta^2} + u = \frac{km_r}{l^2}$ (donde $u = 1/r$), es la \textit{ecuación de la forma orbital} para un potencial central. 
+
+Este resultado es de una importancia fundamental en la mecánica celeste. Como se discute en la \textbf{Sección 9.8.7} y la \textbf{Sección 7.4 (Primer teorema del movimiento orbital)} de Zuluaga, esta ecuación demuestra analíticamente que la trayectoria relativa de dos cuerpos sometidos a una fuerza central inversamente proporcional al cuadrado de la distancia es invariablemente una \textbf{cónica} (elipse, parábola o hipérbola) con el centro de fuerzas ubicado en uno de sus focos. 
+
+En conclusión, esta ecuación diferencial no solo describe la geometría del movimiento, sino que constituye la demostración rigurosa y analítica de la \textbf{Primera Ley de Kepler}, emergiendo de manera natural y elegante a partir de las simetrías y las leyes de conservación del formalismo lagrangiano, evitando por completo la compleja y engorrosa geometría vectorial de la mecánica newtoniana tradicional.
+
 \bibliographystyle{plainurl}
 \bibliography{bibliografia} 
 \end{document}
