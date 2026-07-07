@@ -90,10 +90,10 @@
 % =========================
 \begin{abstract}
 \noindent
-Este reporte presenta una implementación del Problema Circular Restringido de Tres Cuerpos (CRTBP) aplicada al sistema Sol--Júpiter y a un conjunto de partículas de prueba asociadas a la dinámica joviana: 624 Hektor, 153 Hilda, 617 Patroclus y la sonda espacial Lucy. A partir de efemérides obtenidas con JPL Horizons, se construyen condiciones iniciales en un marco inercial, se transforman al sistema rotante baricéntrico y se expresan en unidades canónicas. Con este marco se estudian las ecuaciones de movimiento, el potencial modificado y la constante de Jacobi como herramienta para identificar regiones permitidas y regiones de exclusión. El análisis confirma la utilidad del CRTBP para interpretar la estabilidad de troyanos en torno a los puntos triangulares de Lagrange y para describir, de forma aproximada, la navegación de Lucy por corredores dinámicos de baja energía.
+Este reporte presenta una implementación del Problema Circular Restringido de Tres Cuerpos (CRTBP) aplicada al sistema Sol--Júpiter y a un conjunto de partículas de prueba asociadas a la dinámica joviana: 624 Hektor, 153 Hilda, 617 Patroclus y la sonda espacial Lucy. A partir de efemérides obtenidas con JPL Horizons, se construyen condiciones iniciales en un marco inercial, se transforman al sistema rotante baricéntrico y se expresan en unidades canónicas. Con este marco se estudian las ecuaciones de movimiento, el potencial modificado y la constante de Jacobi como herramienta para identificar regiones permitidas y regiones de exclusión. Adicionalmente, se realiza un experimento numérico exploratorio de \emph{captura balística temporal} cerca del punto de Lagrange \(L_1\), usando la energía de Hilda como referencia. El análisis confirma la utilidad del CRTBP para interpretar la estabilidad de troyanos en torno a los puntos triangulares de Lagrange y para describir, de forma aproximada, la navegación de Lucy por corredores dinámicos de baja energía.
 
 \medskip
-\noindent\textbf{Palabras clave:} CRTBP, misión Lucy, asteroides troyanos, Júpiter, constante de Jacobi, regiones de exclusión, JPL Horizons.
+\noindent\textbf{Palabras clave:} CRTBP, misión Lucy, asteroides troyanos, Júpiter, constante de Jacobi, regiones de exclusión, captura balística, punto de Lagrange \(L_1\), JPL Horizons.
 \end{abstract}
 
 \newpage
@@ -120,6 +120,7 @@ Modelar y analizar la dinámica de cuerpos asociados al entorno joviano en el ma
   \item Transformar vectores de estado inerciales al marco rotante baricéntrico del CRTBP.
   \item Calcular constantes de Jacobi para comparar el confinamiento dinámico de asteroides y sonda.
   \item Identificar regiones permitidas y regiones de exclusión mediante superficies de cero velocidad.
+  \item Explorar, de forma cualitativa, un escenario de captura balística temporal cerca del punto de Lagrange \(L_1\), usando la energía de Hilda como referencia.
 \end{enumerate}
 
 \section{Marco teórico}
@@ -178,6 +179,13 @@ v^2=\frac{2(1-\alpha)}{r_1}+\frac{2\alpha}{r_2}+x^2+y^2-C_J.
 \end{equation}
 La condición física \(v^2\geq0\) determina las regiones permitidas del espacio. Las fronteras \(v^2=0\) definen superficies de cero velocidad, mientras que las zonas con \(v^2<0\) son regiones de exclusión dinámicamente inaccesibles para una partícula con ese valor de \(C_J\).
 
+\subsection{Aproximación de Euler para el punto \(L_1\)}
+Para \(\mu\ll1\), la posición del punto colineal \(L_1\) (entre el secundario y el primario) puede aproximarse a primer orden mediante la fórmula de Euler,
+\begin{equation}
+x_{L_1}\approx (1-\alpha)-\left(\frac{\alpha}{3}\right)^{1/3},
+\end{equation}
+válida solo como primera aproximación y no como solución exacta de la condición de equilibrio \(\nabla V_{mod}=0\) del CRTBP. Esta aproximación se utiliza únicamente con fines exploratorios en la Sección~\ref{sec:captura}.
+
 \section{Metodología}
 \subsection{Consulta de efemérides con Horizons}
 Las condiciones iniciales se obtuvieron mediante la función \texttt{pc.consulta\_horizons}, usando efemérides del sistema JPL Horizons \cite{jpl_horizons,giorgini1996horizons}. Se definió un intervalo de un año, desde el 16 de junio de 2026 hasta el 16 de junio de 2027, con paso temporal de 5 días. Para cada cuerpo se almacenaron tablas de efemérides, tiempos en día juliano y vectores de estado.
@@ -227,6 +235,21 @@ con \(\vec r_{rot}=R(-\theta)\vec r_{can}\). Esta corrección es esencial para c
 
 \subsection{Evaluación de regiones permitidas}
 Con el valor de \(C_J\) de Lucy se evalúa la expresión de \(v^2\) en una malla del plano orbital \(z=0\). Los puntos con \(v^2<0\) se interpretan como regiones de exclusión, mientras que el contorno \(v^2=0\) define la superficie de cero velocidad. Adicionalmente, se evaluaron puntos de prueba en \((x,y)=(-0.25,-0.6)\) y \((x,y)=(-0.25,-1.6)\) para ilustrar la clasificación local entre región permitida y región prohibida.
+
+\subsection{Experimento exploratorio de captura balística cerca de \(L_1\)}
+\label{sec:metodologia_captura}
+Como complemento cualitativo al análisis anterior, se diseñó un experimento numérico para ilustrar el concepto de \emph{captura balística temporal}. El procedimiento fue el siguiente:
+
+\begin{enumerate}
+  \item Se calculó \(x_{L_1}\) mediante la aproximación de Euler y se evaluó allí la constante de Jacobi, \(C_J^{(L_1)}=2\,\Omega(\vec r_{L_1})\), con \(\Omega\) el potencial efectivo.
+  \item Se tomó como referencia energética la constante de Jacobi real de 153 Hilda, \(C_J^{(\text{Hilda})}\), calculada a partir de su vector de estado ya obtenido en la transformación al marco rotante.
+  \item Se definió una partícula de prueba ubicada a una distancia \texttt{offset} de \(L_1\) (lado solar), con velocidad perpendicular al eje Sol--Júpiter. La magnitud de la velocidad se obtuvo despejando \(v\) de \(C_J=2\,\Omega(\vec r)-v^2\), usando como objetivo el mínimo entre \(C_J^{(\text{Hilda})}\) y un valor ligeramente inferior a \(C_J^{(L_1)}\) (parámetro \texttt{margen}).
+  \item Se realizó un barrido de fuerza bruta sobre combinaciones de \texttt{offset} (\(0.005\)--\(0.02\)) y \texttt{margen} (\(0.0001\)--\(0.015\)), integrando cada combinación en ventanas cortas y contando heurísticamente el número de vueltas alrededor de Júpiter (cruces sucesivos del eje \(y=0\) mientras la partícula permanece a menos de \(0.15\) unidades canónicas de Júpiter) antes del escape.
+  \item La combinación ganadora se validó integrando a tiempo largo (\(t\in[0,40]\)) para confirmar un escape real y no una órbita cuasi-estable atrapada indefinidamente.
+  \item Se verificó la conservación de \(C_J\) a lo largo de la trayectoria final como control de calidad numérico.
+\end{enumerate}
+
+\textbf{Nota metodológica.} Este experimento es exploratorio y no constituye un cálculo riguroso de mecánica celeste: el punto \(L_1\) usado es una aproximación de primer orden en \(\mu\) (no la solución exacta de equilibrio del CRTBP); la partícula de prueba \emph{no es} 153 Hilda, sino un cuerpo ficticio que solo toma su \(C_J\) real como referencia energética (físicamente, Hilda se encuentra en resonancia 3:2 con Júpiter, lejos de la región de \(L_1\)); y la búsqueda de parámetros es un barrido tipo \emph{curve-fitting} por fuerza bruta, no una derivación a partir de variedades invariantes de una órbita periódica alrededor de \(L_1\). Por lo tanto, los resultados de esta sección deben interpretarse como una demostración ilustrativa del concepto, no como una predicción física validada.
 
 \section{Resultados}
 \subsection{Parámetros canónicos del sistema}
@@ -288,8 +311,54 @@ Lucy & 2.68375426 \\
 \end{tabular}
 \end{table}
 
+\subsection{Experimento exploratorio: captura balística temporal cerca de \(L_1\)}
+\label{sec:captura}
+Siguiendo el procedimiento descrito en la Sección~\ref{sec:metodologia_captura}, la Tabla~\ref{tab:captura_ref} resume los valores de referencia empleados para construir la condición inicial cerca de \(L_1\), mientras que la Tabla~\ref{tab:captura_resultado} presenta los parámetros óptimos hallados en el barrido y los resultados de la validación a tiempo largo.
+
+\begin{table}[H]
+\centering
+\caption{Valores de referencia usados para la construcción de la condición inicial cerca de \(L_1\).}
+\label{tab:captura_ref}
+\begin{tabular}{lr}
+\toprule
+\textbf{Cantidad} & \textbf{Valor} \\
+\midrule
+\(C_J\) real de Hilda & 3.02921 \\
+\(C_J\) en \(L_1\) (aprox.\ de Euler) & 3.03878 \\
+Posición inicial de prueba \((x,y,z)\) & \((0.9208,\ 0,\ 0)\) \\
+Velocidad inicial de prueba \((v_x,v_y,v_z)\) & \((0,\ 0.1037,\ 0)\) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Parámetros óptimos del barrido y resultados de la validación a tiempo largo.}
+\label{tab:captura_resultado}
+\begin{tabular}{lr}
+\toprule
+\textbf{Parámetro / Resultado} & \textbf{Valor} \\
+\midrule
+\texttt{offset} óptimo & 0.005 \\
+\texttt{margen} óptimo (respecto a \(C_J^{(L_1)}\)) & 0.015 \\
+\(C_J\) objetivo final & 3.02378 \\
+Vueltas alrededor de Júpiter & 7 \\
+Tiempo de escape & \(t\approx13.02\) (unid.\ canónicas) \\
+Rango en \(x\) alcanzado & \(-1.22\) a \(1.26\) \\
+Deriva máxima de \(C_J\) (control numérico) & \(2.04\times10^{-5}\) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La Figura~\ref{fig:zoom_captura} muestra el detalle de la fase de captura previa al escape confirmado en \(t\approx13.02\).
+
+\placeholderfigure{Fase de captura de la partícula de prueba (energía \(C_J\) inspirada en Hilda) en la vecindad de Júpiter, previa al escape en \(t\approx13\). La trayectoria (cian) realiza varias vueltas alrededor de Júpiter (círculo azul) cerca del punto de Lagrange \(L_1\) (cruz negra), antes de abandonar la región de captura. Resultado de un experimento numérico exploratorio, no una predicción física validada.}{fig_ZoomFaseDeCaptura.png}
+\label{fig:zoom_captura}
+
+La deriva máxima de \(C_J\) a lo largo de la integración (\(2.04\times10^{-5}\)) es varios órdenes de magnitud menor que el margen energético empleado (0.015), lo que respalda que el número de vueltas y el tiempo de escape reportados no son artefactos numéricos del integrador.
+
 \subsection{Espacios reservados para visualizaciones}
-Las figuras aún no se han anexado al proyecto. Por ello, se dejan espacios reservados con nombres de archivo sugeridos para incorporar posteriormente las visualizaciones producidas por el análisis numérico.
+Las figuras restantes aún no se han anexado al proyecto. Por ello, se dejan espacios reservados con nombres de archivo sugeridos para incorporar posteriormente las visualizaciones producidas por el análisis numérico.
 
 \placeholderfigure{Trayectorias de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco inercial.}{fig_trayectorias_inercial.png}
 
@@ -297,13 +366,13 @@ Las figuras aún no se han anexado al proyecto. Por ello, se dejan espacios rese
 
 \placeholderfigure{Mapa del potencial modificado del CRTBP en el plano orbital con posiciones de los primarios y puntos de Lagrange.}{fig_potencial_modificado.png}
 
-\placeholderfigure{Zoom de la fase de captura.}{fig_ZoomFaseDeCaptura.png}
-
 \section{Discusión}
 \subsection{Interpretación dinámica}
 Los resultados muestran que el CRTBP ofrece una representación compacta de la dinámica dominante en el sistema Sol--Júpiter. La transformación al marco rotante permite que las regiones de libración, las barreras energéticas y las trayectorias relativas se interpreten con mayor claridad que en un marco puramente inercial. En particular, los troyanos 624 Hektor y 617 Patroclus se asocian con regiones de atrapamiento alrededor de los puntos triangulares, mientras que 153 Hilda representa un caso más complejo por su relación con la resonancia 3:2 con Júpiter.
 
 La constante de Jacobi funciona como un diagnóstico global del presupuesto dinámico de cada partícula. Un valor menor de \(C_J\), como el de Lucy, abre más regiones permitidas en el espacio de configuración, mientras que valores más altos restringen el movimiento a zonas más confinadas. Esta diferencia es útil para interpretar por qué una misión espacial puede transitar entre regiones dinámicas que no están igualmente disponibles para asteroides con distinta energía efectiva.
+
+El experimento exploratorio de la Sección~\ref{sec:captura} ilustra, de forma cualitativa, cómo una partícula de prueba con energía comparable a la de Hilda puede quedar temporalmente confinada cerca de Júpiter al iniciar su movimiento en la vecindad de \(L_1\), realizando varias vueltas antes de escapar. Este comportamiento es consistente con la existencia de corredores dinámicos de baja energía alrededor de los puntos colineales, ampliamente documentados en la literatura de transferencias de baja energía, aunque el presente análisis no pretende derivarlos rigurosamente.
 
 \subsection{Limitaciones del modelo}
 \begin{itemize}
@@ -311,6 +380,7 @@ La constante de Jacobi funciona como un diagnóstico global del presupuesto din�
   \item Las masas de asteroides y sonda se consideran despreciables, por lo que no hay retroacción sobre los primarios.
   \item No se incluyen perturbaciones de otros planetas, radiación solar ni maniobras de navegación de Lucy.
   \item La dinámica de 153 Hilda requiere modelos resonantes de mayor fidelidad para un análisis de largo plazo.
+  \item El experimento de captura cerca de \(L_1\) usa una aproximación de primer orden para la posición de \(L_1\) y un barrido por fuerza bruta, sin recurrir a variedades invariantes ni a una órbita periódica exacta alrededor de \(L_1\); por lo tanto, no debe interpretarse como una predicción física sobre el comportamiento real de 153 Hilda.
 \end{itemize}
 
 \subsection{Trabajo futuro}
@@ -319,6 +389,7 @@ La constante de Jacobi funciona como un diagnóstico global del presupuesto din�
   \item Comparar el CRTBP con un modelo elíptico restringido o con integración N-cuerpo completa.
   \item Evaluar cuantitativamente la conservación de \(C_J\) durante la integración numérica.
   \item Explorar la apertura y cierre de cuellos dinámicos cerca de \(L_1\) y \(L_2\) para distintos valores de \(C_J\).
+  \item Calcular la posición exacta de \(L_1\) y construir órbitas periódicas (por ejemplo, tipo Lyapunov) junto con sus variedades invariantes, para sustentar dinámicamente el fenómeno de captura observado de forma heurística.
 \end{enumerate}
 
 \section{Conclusiones}
@@ -328,7 +399,10 @@ La constante de Jacobi funciona como un diagnóstico global del presupuesto din�
   \item La transformación de velocidades al marco rotante, incluyendo el término \(-\hat e_z\times\vec r\), es necesaria para obtener diagnósticos energéticos consistentes.
   \item La constante de Jacobi permite identificar regiones permitidas, regiones de exclusión y superficies de cero velocidad sin integrar exhaustivamente todas las trayectorias posibles.
   \item Lucy presenta un valor de \(C_J\) menor que los asteroides analizados, lo que sugiere mayor acceso a corredores dinámicos dentro del modelo simplificado.
+  \item El experimento exploratorio cerca de \(L_1\), con energía inspirada en Hilda, produjo una condición inicial (\texttt{offset}=0.005, \texttt{margen}=0.015) que genera 7 vueltas alrededor de Júpiter antes de escapar en \(t\approx13\), con una deriva de \(C_J\) despreciable, lo que ilustra cualitativamente el fenómeno de captura balística temporal sin constituir una predicción física rigurosa.
 \end{enumerate}
+
+\noindent\textit{Nota:} es posible ver la animación completa del proceso de captura y escape en el repositorio de GitHub del proyecto (enlace disponible al inicio del notebook asociado a este reporte).
 
 \clearpage
 \phantomsection
