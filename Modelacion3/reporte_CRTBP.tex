@@ -1,0 +1,340 @@
+\documentclass[12pt,a4paper]{article}
+
+% Codificación y tipografía
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{lmodern}
+
+% Geometría
+\usepackage[margin=2cm]{geometry}
+
+% Matemáticas y utilidades
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{xurl}
+
+% Hipervínculos y referencias
+\usepackage[colorlinks=true,linkcolor=black,citecolor=green!50!black,urlcolor=blue!70!black,hypertexnames=false]{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+
+% Configuración siunitx
+\sisetup{per-mode=symbol,detect-all}
+
+% Encabezado
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Mecánica Celeste — Instituto de Física, UdeA}
+\rhead{\small CRTBP Sol--Júpiter y misión Lucy}
+\cfoot{\thepage}
+\setlength{\headheight}{14.5pt}
+\hbadness=10000
+
+\newcommand{\placeholderfigure}[2]{%
+\begin{figure}[H]
+\centering
+\fbox{%
+  \begin{minipage}[c][6.2cm][c]{0.86\textwidth}
+  \centering
+  \vspace{0.2cm}
+  \textbf{Espacio reservado para figura}\\[0.3cm]
+  #1\\[0.2cm]
+  \small Archivo sugerido: \texttt{\detokenize{#2}}
+  \vspace{0.2cm}
+  \end{minipage}}
+\caption{#1}
+\end{figure}}
+
+\begin{document}
+\sloppy
+
+% =========================
+% PORTADA
+% =========================
+
+\begin{titlepage}
+  \centering
+
+  \vspace*{1.2cm}
+  {\Large \textbf{Universidad de Antioquia}}\\[0.2cm]
+  {\large Facultad de Ciencias Exactas y Naturales}\\[0.1cm]
+  {\large Instituto de Física}\\[0.1cm]
+  {\large Curso: Mecánica Celeste}\\[1.1cm]
+
+  \rule{\linewidth}{1pt}\\[0.6cm]
+
+  {\LARGE \bfseries Dinámica de asteroides troyanos y la misión Lucy\\[0.3cm]
+   en el Problema Circular Restringido de Tres Cuerpos}\\[0.6cm]
+
+  \rule{\linewidth}{1pt}\\[1.0cm]
+
+  \begin{tabular}{rl}
+    \textbf{Autores:} & Soleil Dayana Ni\~no Murcia\\
+    & Sara Calle Mu\~noz\\
+    & Daniel Soto Villada\\[0.4cm]
+    \textbf{Fecha:}   & \today
+  \end{tabular}
+
+  \vfill
+  {\small Medellín, Colombia}
+\end{titlepage}
+
+% =========================
+% RESUMEN Y CONTENIDO
+% =========================
+\begin{abstract}
+\noindent
+Este reporte presenta una implementación del Problema Circular Restringido de Tres Cuerpos (CRTBP) aplicada al sistema Sol--Júpiter y a un conjunto de partículas de prueba asociadas a la dinámica joviana: 624 Hektor, 153 Hilda, 617 Patroclus y la sonda espacial Lucy. A partir de efemérides obtenidas con JPL Horizons, se construyen condiciones iniciales en un marco inercial, se transforman al sistema rotante baricéntrico y se expresan en unidades canónicas. Con este marco se estudian las ecuaciones de movimiento, el potencial modificado y la constante de Jacobi como herramienta para identificar regiones permitidas y regiones de exclusión. El análisis confirma la utilidad del CRTBP para interpretar la estabilidad de troyanos en torno a los puntos triangulares de Lagrange y para describir, de forma aproximada, la navegación de Lucy por corredores dinámicos de baja energía.
+
+\medskip
+\noindent\textbf{Palabras clave:} CRTBP, misión Lucy, asteroides troyanos, Júpiter, constante de Jacobi, regiones de exclusión, JPL Horizons.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% =========================
+% ESTRUCTURA DEL REPORTE
+% =========================
+\section{Introducción}
+\subsection{Contexto del problema}
+\noindent
+Los asteroides troyanos de Júpiter constituyen una población dinámica asociada a las regiones de libración alrededor de los puntos triangulares de Lagrange \(L_4\) y \(L_5\). Su estudio conecta la mecánica celeste clásica con problemas actuales de estabilidad orbital, resonancias y diseño de misiones espaciales. La misión Lucy de la NASA explora directamente esta población y permite motivar un modelo reducido del sistema Sol--Júpiter--partículas de prueba \cite{nasa_lucy,murray1999solar}.
+
+En este trabajo se utiliza el Problema Circular Restringido de Tres Cuerpos (CRTBP) como aproximación para describir la dinámica de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy bajo la influencia gravitacional dominante del Sol y Júpiter. El modelo supone que los primarios se mueven en órbitas circulares alrededor de su baricentro común y que los cuerpos estudiados tienen masa despreciable, de modo que no alteran el movimiento de los primarios \cite{szebehely1967,zuluaga_mecanica_celeste}.
+
+\subsection{Objetivo general}
+Modelar y analizar la dinámica de cuerpos asociados al entorno joviano en el marco del CRTBP Sol--Júpiter, usando efemérides reales, unidades canónicas y la constante de Jacobi como herramienta de diagnóstico dinámico.
+
+\subsection{Objetivos específicos}
+\begin{enumerate}[label=\alph*)]
+  \item Obtener condiciones iniciales de los cuerpos mediante consultas a JPL Horizons.
+  \item Definir las unidades canónicas y el parámetro de masa del sistema Sol--Júpiter.
+  \item Transformar vectores de estado inerciales al marco rotante baricéntrico del CRTBP.
+  \item Calcular constantes de Jacobi para comparar el confinamiento dinámico de asteroides y sonda.
+  \item Identificar regiones permitidas y regiones de exclusión mediante superficies de cero velocidad.
+\end{enumerate}
+
+\section{Marco teórico}
+\subsection{Configuración del CRTBP Sol--Júpiter}
+En el CRTBP, dos cuerpos primarios de masas \(m_1\) y \(m_2\) describen órbitas circulares alrededor de su centro de masa, mientras una tercera partícula de masa despreciable se mueve bajo su influencia gravitacional. Para este trabajo se toma al Sol como primario dominante \(m_1\) y a Júpiter como secundario \(m_2\). Los asteroides y la sonda Lucy se tratan como partículas de prueba.
+
+El parámetro de masa adimensional se define como
+\begin{equation}
+\alpha=\frac{m_2}{m_1+m_2},\qquad 1-\alpha=\frac{m_1}{m_1+m_2},
+\end{equation}
+de modo que, en el marco rotante canónico, los primarios permanecen fijos en
+\begin{equation}
+\vec r_1=(-\alpha,0,0),\qquad \vec r_2=(1-\alpha,0,0).
+\end{equation}
+Para el sistema Sol--Júpiter usado en el análisis, se obtiene \(\alpha=\num{9.53683853e-4}\), valor suficientemente pequeño para que los puntos triangulares \(L_4\) y \(L_5\) sean estables bajo el criterio de Routh \cite{zuluaga_mecanica_celeste,murray1999solar}.
+
+\subsection{Unidades canónicas}
+Se adoptan unidades canónicas para simplificar las ecuaciones de movimiento. La unidad de masa es
+\begin{equation}
+U_M=m_1+m_2,
+\end{equation}
+la unidad de longitud es la distancia característica entre los primarios,
+\begin{equation}
+U_L=a,
+\end{equation}
+y la unidad de tiempo se define como
+\begin{equation}
+U_T=\sqrt{\frac{U_L^3}{G U_M}}.
+\end{equation}
+Con esta elección, la velocidad angular media del sistema rotante es \(n=1\), la constante gravitacional toma valor unitario en las ecuaciones adimensionales y la unidad de velocidad queda dada por
+\begin{equation}
+U_V=\frac{U_L}{U_T}.
+\end{equation}
+
+\subsection{Ecuaciones de movimiento en el marco rotante}
+Sea \(\vec r=(x,y,z)\) la posición de la partícula de prueba en el marco rotante. Las distancias relativas a los primarios son
+\begin{equation}
+\vec r_1=(x+\alpha,y,z),\qquad \vec r_2=(x-1+
+\alpha,y,z),
+\end{equation}
+y sus módulos se denotan por \(r_1=\|\vec r_1\|\) y \(r_2=\|\vec r_2\|\). En unidades canónicas, la ecuación vectorial del CRTBP puede escribirse como
+\begin{equation}
+\ddot{\vec r}=-(1-\alpha)\frac{\vec r_1}{r_1^3}-\alpha\frac{\vec r_2}{r_2^3}
+-\hat e_z\times(\hat e_z\times\vec r)-2\hat e_z\times\dot{\vec r}.
+\end{equation}
+Los dos primeros términos son gravitacionales, el tercero corresponde a la aceleración centrífuga y el cuarto a la aceleración de Coriolis.
+
+\subsection{Constante de Jacobi y regiones de exclusión}
+El CRTBP posee una integral primera conocida como constante de Jacobi \cite{szebehely1967,zuluaga_mecanica_celeste}:
+\begin{equation}
+C_J=\frac{2(1-\alpha)}{r_1}+\frac{2\alpha}{r_2}+x^2+y^2-v^2,
+\end{equation}
+donde \(v^2=\dot x^2+\dot y^2+\dot z^2\). Al despejar la rapidez se obtiene
+\begin{equation}
+v^2=\frac{2(1-\alpha)}{r_1}+\frac{2\alpha}{r_2}+x^2+y^2-C_J.
+\end{equation}
+La condición física \(v^2\geq0\) determina las regiones permitidas del espacio. Las fronteras \(v^2=0\) definen superficies de cero velocidad, mientras que las zonas con \(v^2<0\) son regiones de exclusión dinámicamente inaccesibles para una partícula con ese valor de \(C_J\).
+
+\section{Metodología}
+\subsection{Consulta de efemérides con Horizons}
+Las condiciones iniciales se obtuvieron mediante la función \texttt{pc.consulta\_horizons}, usando efemérides del sistema JPL Horizons \cite{jpl_horizons,giorgini1996horizons}. Se definió un intervalo de un año, desde el 16 de junio de 2026 hasta el 16 de junio de 2027, con paso temporal de 5 días. Para cada cuerpo se almacenaron tablas de efemérides, tiempos en día juliano y vectores de estado.
+
+\begin{table}[H]
+\centering
+\caption{Cuerpos incluidos en la consulta de efemérides y rol dentro del modelo.}
+\label{tab:cuerpos}
+\begin{tabular}{llll}
+\toprule
+\textbf{Cuerpo} & \textbf{Identificador Horizons} & \textbf{Tipo} & \textbf{Rol dinámico} \\
+\midrule
+Sol & \texttt{10} & Estrella & Primario \(m_1\) \\
+Júpiter & \texttt{599} & Planeta & Secundario \(m_2\) \\
+624 Hektor & \texttt{DES=2000624;} & Asteroide troyano & Partícula de prueba \\
+153 Hilda & \texttt{DES=2000153} & Asteroide resonante & Partícula de prueba \\
+617 Patroclus & \texttt{DES=2000617;} & Asteroide troyano binario & Partícula de prueba \\
+Lucy & \texttt{-49} & Sonda espacial & Partícula de prueba \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Transformación al marco rotante canónico}
+El procedimiento de transformación parte de los vectores de estado inerciales de los primarios y de cada partícula de prueba. Primero se calcula el baricentro del sistema Sol--Júpiter,
+\begin{equation}
+\vec R_{CM}=\frac{m_1\vec r_1+m_2\vec r_2}{m_1+m_2},\qquad
+\vec V_{CM}=\frac{m_1\vec v_1+m_2\vec v_2}{m_1+m_2},
+\end{equation}
+y se traslada el estado de cada partícula al marco baricéntrico:
+\begin{equation}
+\vec r_{rel}=\vec r_3-\vec R_{CM},\qquad \vec v_{rel}=\vec v_3-\vec V_{CM}.
+\end{equation}
+
+Luego se calcula el ángulo \(\theta\) asociado a la línea Sol--Júpiter,
+\begin{equation}
+\theta=\arctan2(r_{12,y},r_{12,x}),
+\end{equation}
+y se aplica una rotación \(R(-\theta)\) para alinear a los primarios con el eje \(x\). Finalmente, las posiciones y velocidades se adimensionalizan mediante
+\begin{equation}
+\vec r_{can}=\frac{\vec r_{rel}}{U_L},\qquad \vec v_{can}=\frac{\vec v_{rel}}{U_V}.
+\end{equation}
+La velocidad en el marco rotante requiere restar la contribución de la rotación del sistema:
+\begin{equation}
+\vec v_{rot}=R(-\theta)\vec v_{can}-\hat e_z\times\vec r_{rot},
+\end{equation}
+con \(\vec r_{rot}=R(-\theta)\vec r_{can}\). Esta corrección es esencial para calcular de manera consistente la constante de Jacobi.
+
+\subsection{Evaluación de regiones permitidas}
+Con el valor de \(C_J\) de Lucy se evalúa la expresión de \(v^2\) en una malla del plano orbital \(z=0\). Los puntos con \(v^2<0\) se interpretan como regiones de exclusión, mientras que el contorno \(v^2=0\) define la superficie de cero velocidad. Adicionalmente, se evaluaron puntos de prueba en \((x,y)=(-0.25,-0.6)\) y \((x,y)=(-0.25,-1.6)\) para ilustrar la clasificación local entre región permitida y región prohibida.
+
+\section{Resultados}
+\subsection{Parámetros canónicos del sistema}
+La Tabla~\ref{tab:unidades} resume las unidades canónicas y parámetros físicos usados para adimensionalizar el problema. Estas escalas fijan el marco natural del CRTBP Sol--Júpiter.
+
+\begin{table}[H]
+\centering
+\caption{Resumen de unidades canónicas y parámetros de masa del sistema Sol--Júpiter.}
+\label{tab:unidades}
+\begin{tabular}{lll}
+\toprule
+\textbf{Magnitud} & \textbf{Valor} & \textbf{Interpretación} \\
+\midrule
+\(U_L\) & \(\SI{7.8716e11}{m}\) & Distancia característica Sol--Júpiter \\
+\(U_T\) & \(\SI{6.0594e7}{s}\) & Unidad de tiempo, \(\sim\SI{701.32}{d}\) \\
+\(U_V\) & \(\SI{1.2991e4}{m\,s^{-1}}\) & Unidad de velocidad \\
+\(m_1\) & \(\SI{1.9884e30}{kg}\) & Masa del Sol \\
+\(m_2\) & \(\SI{1.8981e27}{kg}\) & Masa de Júpiter \\
+\(\alpha\) & \(\num{9.53683853e-4}\) & Parámetro de masa de Júpiter \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Estados iniciales en el marco rotante}
+La Tabla~\ref{tab:estados} presenta los estados iniciales adimensionales de las partículas de prueba. Estos estados constituyen la entrada directa para integrar las ecuaciones del CRTBP.
+
+\begin{table}[H]
+\centering
+\caption{Estados iniciales canónicos en el marco rotante Sol--Júpiter.}
+\label{tab:estados}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Cuerpo} & \(x\) & \(y\) & \(z\) & \(v_x\) & \(v_y\) & \(v_z\) \\
+\midrule
+624 Hektor & 0.377035 & 0.893765 & -0.143472 & -0.020723 & -0.024544 & -0.282129 \\
+153 Hilda & 0.329461 & -0.770991 & -0.015378 & 0.194138 & -0.005059 & -0.139908 \\
+617 Patroclus & 0.505944 & -0.773217 & 0.136944 & 0.096140 & -0.033033 & 0.384216 \\
+Lucy & -0.076031 & 0.889482 & -0.047828 & 0.222791 & 0.547798 & 0.006550 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Constantes de Jacobi}
+La Tabla~\ref{tab:jacobi} compara los valores medios de la constante de Jacobi. Lucy presenta el menor valor de \(C_J\), lo que implica mayor acceso relativo a regiones dinámicas abiertas en el marco rotante. En cambio, 153 Hilda tiene el valor más alto dentro del conjunto, consistente con un confinamiento energético más marcado.
+
+\begin{table}[H]
+\centering
+\caption{Constantes de Jacobi promedio obtenidas para cada partícula de prueba.}
+\label{tab:jacobi}
+\begin{tabular}{lr}
+\toprule
+\textbf{Cuerpo} & \(C_J\) \\
+\midrule
+624 Hektor & 2.89896093 \\
+153 Hilda & 3.02920675 \\
+617 Patroclus & 2.83575186 \\
+Lucy & 2.68375426 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Espacios reservados para visualizaciones}
+Las figuras aún no se han anexado al proyecto. Por ello, se dejan espacios reservados con nombres de archivo sugeridos para incorporar posteriormente las visualizaciones producidas por el análisis numérico.
+
+\placeholderfigure{Trayectorias de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco inercial.}{fig_trayectorias_inercial.png}
+
+\placeholderfigure{Trayectorias de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco rotante Sol--Júpiter.}{fig_trayectorias_rotantes.png}
+
+\placeholderfigure{Mapa del potencial modificado del CRTBP en el plano orbital con posiciones de los primarios y puntos de Lagrange.}{fig_potencial_modificado.png}
+
+\placeholderfigure{Zoom de la fase de captura.}{fig_ZoomFaseDeCaptura.png}
+
+\section{Discusión}
+\subsection{Interpretación dinámica}
+Los resultados muestran que el CRTBP ofrece una representación compacta de la dinámica dominante en el sistema Sol--Júpiter. La transformación al marco rotante permite que las regiones de libración, las barreras energéticas y las trayectorias relativas se interpreten con mayor claridad que en un marco puramente inercial. En particular, los troyanos 624 Hektor y 617 Patroclus se asocian con regiones de atrapamiento alrededor de los puntos triangulares, mientras que 153 Hilda representa un caso más complejo por su relación con la resonancia 3:2 con Júpiter.
+
+La constante de Jacobi funciona como un diagnóstico global del presupuesto dinámico de cada partícula. Un valor menor de \(C_J\), como el de Lucy, abre más regiones permitidas en el espacio de configuración, mientras que valores más altos restringen el movimiento a zonas más confinadas. Esta diferencia es útil para interpretar por qué una misión espacial puede transitar entre regiones dinámicas que no están igualmente disponibles para asteroides con distinta energía efectiva.
+
+\subsection{Limitaciones del modelo}
+\begin{itemize}
+  \item El CRTBP supone órbitas circulares para Sol y Júpiter, ignorando excentricidad e inclinación reales.
+  \item Las masas de asteroides y sonda se consideran despreciables, por lo que no hay retroacción sobre los primarios.
+  \item No se incluyen perturbaciones de otros planetas, radiación solar ni maniobras de navegación de Lucy.
+  \item La dinámica de 153 Hilda requiere modelos resonantes de mayor fidelidad para un análisis de largo plazo.
+\end{itemize}
+
+\subsection{Trabajo futuro}
+\begin{enumerate}
+  \item Incorporar las figuras generadas por las integraciones numéricas en los espacios reservados.
+  \item Comparar el CRTBP con un modelo elíptico restringido o con integración N-cuerpo completa.
+  \item Evaluar cuantitativamente la conservación de \(C_J\) durante la integración numérica.
+  \item Explorar la apertura y cierre de cuellos dinámicos cerca de \(L_1\) y \(L_2\) para distintos valores de \(C_J\).
+\end{enumerate}
+
+\section{Conclusiones}
+\begin{enumerate}
+  \item Se construyó un flujo de análisis para pasar de efemérides Horizons a condiciones iniciales canónicas en el marco rotante del CRTBP.
+  \item El parámetro de masa Sol--Júpiter, \(\alpha\approx\num{9.54e-4}\), permite interpretar la estabilidad de los puntos triangulares de Lagrange y la existencia de troyanos jovianos.
+  \item La transformación de velocidades al marco rotante, incluyendo el término \(-\hat e_z\times\vec r\), es necesaria para obtener diagnósticos energéticos consistentes.
+  \item La constante de Jacobi permite identificar regiones permitidas, regiones de exclusión y superficies de cero velocidad sin integrar exhaustivamente todas las trayectorias posibles.
+  \item Lucy presenta un valor de \(C_J\) menor que los asteroides analizados, lo que sugiere mayor acceso a corredores dinámicos dentro del modelo simplificado.
+\end{enumerate}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Referencias}
+\nocite{zuluaga_mecanica_celeste,jpl_horizons,giorgini1996horizons,nasa_lucy,murray1999solar,szebehely1967}
+\bibliographystyle{apalike}
+\bibliography{BibliographyCRTBP}
+
+\end{document}
