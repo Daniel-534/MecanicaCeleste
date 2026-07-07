@@ -53,13 +53,17 @@ El informe (y por tanto el notebook) sigue esta estructura:
   - Consulta de efemérides con JPL Horizons para el Sol, Júpiter, los tres asteroides y Lucy (intervalo del 16 de junio de 2026 al 16 de junio de 2027, paso de 5 días).
   - Transformación del marco inercial al marco rotante canónico (cálculo del baricentro, rotación por el ángulo Sol–Júpiter y adimensionalización).
   - Evaluación de regiones permitidas y prohibidas a partir de la constante de Jacobi de Lucy.
+  - Expreimento exploratorio de captura balística cerca a L1.
 - **4. Resultados**
   - Parámetros canónicos del sistema Sol–Júpiter (α ≈ 9.54 × 10⁻⁴, unidades de longitud, tiempo y velocidad).
   - Estados iniciales adimensionales de cada cuerpo en el marco rotante.
   - Comparación de las constantes de Jacobi: Lucy presenta el valor más bajo (mayor acceso a regiones dinámicas abiertas), mientras que 153 Hilda presenta el valor más alto (mayor confinamiento).
   - Visualizaciones: trayectorias en el marco rotante, evolución temporal de la constante de Jacobi, mapa del potencial modificado y regiones de exclusión para Lucy.
+  - - Expreimento exploratorio de captura balística cerca a L1.
+    - Espacios reservados para visualizaciones.
 - **5. Discusión** — Interpretación dinámica de los resultados, limitaciones del modelo (órbitas circulares, masas de prueba despreciables, sin perturbaciones adicionales ni maniobras de navegación) y trabajo futuro (modelo elíptico, integración N-cuerpo completa, análisis de cuellos dinámicos cerca de L1 y L2).
 - **6. Conclusiones** — Síntesis de los hallazgos principales sobre la estabilidad de los puntos de Lagrange, la consistencia energética de la transformación al marco rotante y el mayor acceso dinámico de Lucy frente a los asteroides analizados.
+
 
 ## Requisitos para ejecutar el notebook
 
