@@ -63,7 +63,7 @@
     \textbf{Autores:} & Soleil Dayana Ni\~no Murcia\\
     & Sara Calle Mu\~noz\\
     & Daniel Soto Villada\\[0.4cm]
-    \textbf{Fecha:}   & \today
+    \textbf{Semestre:}   & 2026-1
   \end{tabular}
 
   \vfill
@@ -77,8 +77,6 @@
 \noindent
 Este reporte presenta una implementación del Problema Circular Restringido de Tres Cuerpos (CRTBP) aplicada al sistema Sol--Júpiter y a un conjunto de partículas de prueba asociadas a la dinámica joviana: 624 Hektor, 153 Hilda, 617 Patroclus y la sonda espacial Lucy. A partir de efemérides obtenidas con JPL Horizons, se construyen condiciones iniciales en un marco inercial, se transforman al sistema rotante baricéntrico y se expresan en unidades canónicas. Con este marco se estudian las ecuaciones de movimiento, el potencial modificado y la constante de Jacobi como herramienta para identificar regiones permitidas y regiones de exclusión. Adicionalmente, se realiza un experimento numérico exploratorio de \emph{captura balística temporal} cerca del punto de Lagrange \(L_1\), usando la energía de Hilda como referencia. El análisis confirma la utilidad del CRTBP para interpretar la estabilidad de troyanos en torno a los puntos triangulares de Lagrange y para describir, de forma aproximada, la navegación de Lucy por corredores dinámicos de baja energía.
 
-\medskip
-\noindent\textbf{Palabras clave:} CRTBP, misión Lucy, asteroides troyanos, Júpiter, constante de Jacobi, regiones de exclusión, captura balística, punto de Lagrange \(L_1\), JPL Horizons.
 \end{abstract}
 
 \newpage
@@ -406,7 +404,9 @@ El experimento exploratorio de la Sección~\ref{sec:captura} ilustra, de forma c
   \item El experimento exploratorio cerca de \(L_1\), con energía inspirada en Hilda, produjo una condición inicial (\texttt{offset}=0.005, \texttt{margen}=0.015) que genera 7 vueltas alrededor de Júpiter antes de escapar en \(t\approx13\), con una deriva de \(C_J\) despreciable, lo que ilustra cualitativamente el fenómeno de captura balística temporal sin constituir una predicción física rigurosa.
 \end{enumerate}
 
-\noindent\textit{Nota:} es posible ver la animación completa del proceso de captura y escape en el repositorio de GitHub del proyecto (enlace disponible al inicio del notebook asociado a este reporte).
+\subsection*{Recursos digitales complementarios}
+\noindent
+Como material complementario, el lector puede consultar las \href{https://github.com/Daniel-534/MecanicaCeleste/tree/main/Modelacion3}{animaciones del sistema Sol--Júpiter en GitHub}, donde se visualiza la evolución temporal de los cuerpos tanto en el marco inercial como en el marco rotante. Además, el desarrollo computacional completo del trabajo está disponible en el \href{https://colab.research.google.com/github/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/CRTBP_Jupiter.ipynb}{notebook interactivo de Google Colab}.
 
 \clearpage
 \phantomsection
