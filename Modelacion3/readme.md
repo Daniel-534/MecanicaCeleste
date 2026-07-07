@@ -12,6 +12,14 @@ A partir de efemérides reales obtenidas de **JPL Horizons**, se construyen cond
 
 El proyecto conecta la teoría clásica de la mecánica celeste (puntos de Lagrange, estabilidad de troyanos, resonancias) con un caso actual de exploración espacial: la navegación de Lucy por corredores dinámicos de baja energía rumbo a los troyanos de Júpiter.
 
+<div align="center">
+  <img
+    src="https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/animacion_CRTBP_3_-_1_.gif"
+    alt="Animación CRTBP GIF"
+    width="520"
+  />
+</div>
+
 ## Contenido del repositorio y orden recomendado
 
 El proyecto se presenta en varios formatos complementarios. Se recomienda revisarlos en este orden:
