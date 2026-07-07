@@ -1,23 +1,25 @@
 # Dinámica de troyanos jovianos y la misión Lucy en el Problema Circular Restringido de Tres Cuerpos (CRTBP)
 Por **Soleil Niño, Sara Calle, Daniel Soto.**
 
+
 *Curso de Mecánica Celeste — Instituto de Física, Facultad de Ciencias Exactas y Naturales, Universidad de Antioquia - Junio 2026*
 
-<div align="center">
+
+
+<div style="display: flex; justify-content: center; gap: 150px; flex-wrap: wrap;">
   <img
     src="https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/animacion_CRTBP_3_-_1_.gif"
     alt="Animación CRTBP GIF"
-    width="520"
+    width="60%"
+  />
+  <img
+    src="https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/trayectoria%20particula%20hipotetica%20en%20L1Jupiter.gif.gif"
+    alt="Animación CRTBP GIF"
+    width="39%"
   />
 </div>
 
-<div align="center">
-  <img
-    src= "https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/trayectoria%20particula%20hipotetica%20en%20L1Jupiter.gif.gif"
-    alt="Animación CRTBP GIF"
-    width="520"
-  />
-</div>
+
 
 ## Descripción general
 
@@ -33,8 +35,8 @@ El proyecto conecta la teoría clásica de la mecánica celeste (puntos de Lagra
 
 El proyecto se presenta en varios formatos complementarios. Se recomienda revisarlos en este orden:
 
-1. **Presentación** ([Video](pendiente) y/o [diapositivas](pendiente)) — Presentación resumida del proyecto: contexto, objetivos, metodología y resultados principales, explicados de forma narrativa. Es el mejor punto de partida para entender el "qué" y el "por qué" antes de entrar en el detalle técnico.
-2. **Informe** ([LaTeX](pendiente) / [PDF](pendiente)) — Documento completo con el marco teórico, la metodología y el análisis de resultados. Aquí están las ecuaciones, las tablas de parámetros y la discusión detallada. Léelo después del video para profundizar en la formulación matemática y las decisiones metodológicas.
+1. **Presentación** ([Video](https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/crtbp%20jupiter%20video.mp4)) y/o [diapositivas](https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/presentacion%20completa.pdf)) — Presentación resumida del proyecto: contexto, objetivos, metodología y resultados principales, explicados de forma narrativa. Es el mejor punto de partida para entender el "qué" y el "por qué" antes de entrar en el detalle técnico.
+2. **Informe** ([LaTeX](https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/reporte_CRTBP.pdf) / [PDF](https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/reporte_CRTBP.tex)) — Documento completo con el marco teórico, la metodología y el análisis de resultados. Aquí están las ecuaciones, las tablas de parámetros y la discusión detallada. Léelo después del video para profundizar en la formulación matemática y las decisiones metodológicas.
 3. [**Notebook (Jupyter)**](Modelacion3/Problemset3PenduloDoble.ipynb) — Implementación en Python, organizada de forma narrativa para reproducir todo el análisis: consulta de efemérides, transformación de coordenadas, cálculo de la constante de Jacobi y generación de las visualizaciones interactivas (trayectorias, mapas de potencial, regiones de exclusión). Ejecútalo al final para interactuar directamente con las figuras y ver el proceso completo paso a paso.
 
 ## Estructura teórica del informe
