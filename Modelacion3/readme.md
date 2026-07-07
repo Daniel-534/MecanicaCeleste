@@ -1,16 +1,7 @@
 # Dinámica de troyanos jovianos y la misión Lucy en el Problema Circular Restringido de Tres Cuerpos (CRTBP)
+Por **Soleil Niño, Sara Calle, Daniel Soto.**
 
-**Curso:** Mecánica Celeste — Instituto de Física, Facultad de Ciencias Exactas y Naturales, Universidad de Antioquia
-**Autores** Soleil Niño, Sara Calle, Daniel Soto.
-Junio 2026
-
-## Descripción general
-
-Este proyecto implementa el **Problema Circular Restringido de Tres Cuerpos (CRTBP)** aplicado al sistema Sol–Júpiter, usando como partículas de prueba a tres asteroides jovianos (**624 Hektor**, **153 Hilda**, **617 Patroclus**) y a la sonda espacial **Lucy** de la NASA.
-
-A partir de efemérides reales obtenidas de **JPL Horizons**, se construyen condiciones iniciales en un marco inercial, se transforman al marco rotante baricéntrico del CRTBP y se expresan en unidades canónicas. Con ese marco se analizan las ecuaciones de movimiento, el potencial modificado y la **constante de Jacobi**, que permite identificar regiones dinámicamente permitidas y regiones de exclusión (superficies de cero velocidad) sin necesidad de integrar todas las trayectorias posibles.
-
-El proyecto conecta la teoría clásica de la mecánica celeste (puntos de Lagrange, estabilidad de troyanos, resonancias) con un caso actual de exploración espacial: la navegación de Lucy por corredores dinámicos de baja energía rumbo a los troyanos de Júpiter.
+*Curso de Mecánica Celeste — Instituto de Física, Facultad de Ciencias Exactas y Naturales, Universidad de Antioquia - Junio 2026*
 
 <div align="center">
   <img
@@ -20,13 +11,31 @@ El proyecto conecta la teoría clásica de la mecánica celeste (puntos de Lagra
   />
 </div>
 
+<div align="center">
+  <img
+    src= "https://github.com/Daniel-534/MecanicaCeleste/blob/main/Modelacion3/trayectoria%20particula%20hipotetica%20en%20L1Jupiter.gif.gif"
+    alt="Animación CRTBP GIF"
+    width="520"
+  />
+</div>
+
+## Descripción general
+
+Este proyecto implementa el **Problema Circular Restringido de Tres Cuerpos (CRTBP)** aplicado al sistema Sol–Júpiter, usando como partículas de prueba a tres asteroides jovianos (**624 Hektor**, **153 Hilda**, **617 Patroclus**) y a la sonda espacial **Lucy** de la NASA.
+
+A partir de efemérides reales obtenidas de **JPL Horizons**, se construyen condiciones iniciales en un marco inercial, se transforman al marco rotante baricéntrico del CRTBP y se expresan en unidades canónicas. Con ese marco se analizan las ecuaciones de movimiento, el potencial modificado y la **constante de Jacobi**, que permite identificar regiones dinámicamente permitidas y regiones de exclusión (superficies de cero velocidad) sin necesidad de integrar todas las trayectorias posibles.
+
+El proyecto conecta la teoría clásica de la mecánica celeste (puntos de Lagrange, estabilidad de troyanos, resonancias) con un caso actual de exploración espacial: la navegación de Lucy por corredores dinámicos de baja energía rumbo a los troyanos de Júpiter.
+
+
+
 ## Contenido del repositorio y orden recomendado
 
 El proyecto se presenta en varios formatos complementarios. Se recomienda revisarlos en este orden:
 
-1. **Video y/o diapositivas** — Presentación resumida del proyecto: contexto, objetivos, metodología y resultados principales, explicados de forma narrativa. Es el mejor punto de partida para entender el "qué" y el "por qué" antes de entrar en el detalle técnico.
-2. **Informe (LaTeX / PDF)** — Documento completo con el marco teórico, la metodología y el análisis de resultados. Aquí están las ecuaciones, las tablas de parámetros y la discusión detallada. Léelo después del video para profundizar en la formulación matemática y las decisiones metodológicas.
-3. **Notebook (Jupyter)** — Implementación en Python, organizada de forma narrativa para reproducir todo el análisis: consulta de efemérides, transformación de coordenadas, cálculo de la constante de Jacobi y generación de las visualizaciones interactivas (trayectorias, mapas de potencial, regiones de exclusión). Ejecútalo al final para interactuar directamente con las figuras y ver el proceso completo paso a paso.
+1. **Presentación** ([Video](pendiente) y/o [diapositivas](pendiente)) — Presentación resumida del proyecto: contexto, objetivos, metodología y resultados principales, explicados de forma narrativa. Es el mejor punto de partida para entender el "qué" y el "por qué" antes de entrar en el detalle técnico.
+2. **Informe** ([LaTeX](pendiente) / [PDF](pendiente)) — Documento completo con el marco teórico, la metodología y el análisis de resultados. Aquí están las ecuaciones, las tablas de parámetros y la discusión detallada. Léelo después del video para profundizar en la formulación matemática y las decisiones metodológicas.
+3. [**Notebook (Jupyter)**](Modelacion3/Problemset3PenduloDoble.ipynb) — Implementación en Python, organizada de forma narrativa para reproducir todo el análisis: consulta de efemérides, transformación de coordenadas, cálculo de la constante de Jacobi y generación de las visualizaciones interactivas (trayectorias, mapas de potencial, regiones de exclusión). Ejecútalo al final para interactuar directamente con las figuras y ver el proceso completo paso a paso.
 
 ## Estructura teórica del informe
 
