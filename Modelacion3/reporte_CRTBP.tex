@@ -36,21 +36,6 @@
 \setlength{\headheight}{14.5pt}
 \hbadness=10000
 
-\newcommand{\placeholderfigure}[2]{%
-\begin{figure}[H]
-\centering
-\fbox{%
-  \begin{minipage}[c][6.2cm][c]{0.86\textwidth}
-  \centering
-  \vspace{0.2cm}
-  \textbf{Espacio reservado para figura}\\[0.3cm]
-  #1\\[0.2cm]
-  \small Archivo sugerido: \texttt{\detokenize{#2}}
-  \vspace{0.2cm}
-  \end{minipage}}
-\caption{#1}
-\end{figure}}
-
 \begin{document}
 \sloppy
 
@@ -61,7 +46,7 @@
 \begin{titlepage}
   \centering
 
-  \vspace*{1.2cm}
+  \includegraphics[width=0.24\textwidth]{imgCRTBP/logo-udea.png}\\[0.6cm]
   {\Large \textbf{Universidad de Antioquia}}\\[0.2cm]
   {\large Facultad de Ciencias Exactas y Naturales}\\[0.1cm]
   {\large Instituto de Física}\\[0.1cm]
@@ -179,7 +164,7 @@ v^2=\frac{2(1-\alpha)}{r_1}+\frac{2\alpha}{r_2}+x^2+y^2-C_J.
 \end{equation}
 La condición física \(v^2\geq0\) determina las regiones permitidas del espacio. Las fronteras \(v^2=0\) definen superficies de cero velocidad, mientras que las zonas con \(v^2<0\) son regiones de exclusión dinámicamente inaccesibles para una partícula con ese valor de \(C_J\).
 
-\subsection{Aproximación de Euler para el punto \(L_1\)}
+\subsection{Aproximación de Euler para el punto \texorpdfstring{\(L_1\)}{L1}}
 Para \(\mu\ll1\), la posición del punto colineal \(L_1\) (entre el secundario y el primario) puede aproximarse a primer orden mediante la fórmula de Euler,
 \begin{equation}
 x_{L_1}\approx (1-\alpha)-\left(\frac{\alpha}{3}\right)^{1/3},
@@ -236,7 +221,7 @@ con \(\vec r_{rot}=R(-\theta)\vec r_{can}\). Esta corrección es esencial para c
 \subsection{Evaluación de regiones permitidas}
 Con el valor de \(C_J\) de Lucy se evalúa la expresión de \(v^2\) en una malla del plano orbital \(z=0\). Los puntos con \(v^2<0\) se interpretan como regiones de exclusión, mientras que el contorno \(v^2=0\) define la superficie de cero velocidad. Adicionalmente, se evaluaron puntos de prueba en \((x,y)=(-0.25,-0.6)\) y \((x,y)=(-0.25,-1.6)\) para ilustrar la clasificación local entre región permitida y región prohibida.
 
-\subsection{Experimento exploratorio de captura balística cerca de \(L_1\)}
+\subsection{Experimento exploratorio de captura balística cerca de \texorpdfstring{\(L_1\)}{L1}}
 \label{sec:metodologia_captura}
 Como complemento cualitativo al análisis anterior, se diseñó un experimento numérico para ilustrar el concepto de \emph{captura balística temporal}. El procedimiento fue el siguiente:
 
@@ -311,7 +296,7 @@ Lucy & 2.68375426 \\
 \end{tabular}
 \end{table}
 
-\subsection{Experimento exploratorio: captura balística temporal cerca de \(L_1\)}
+\subsection{Experimento exploratorio: captura balística temporal cerca de \texorpdfstring{\(L_1\)}{L1}}
 \label{sec:captura}
 Siguiendo el procedimiento descrito en la Sección~\ref{sec:metodologia_captura}, la Tabla~\ref{tab:captura_ref} resume los valores de referencia empleados para construir la condición inicial cerca de \(L_1\), mientras que la Tabla~\ref{tab:captura_resultado} presenta los parámetros óptimos hallados en el barrido y los resultados de la validación a tiempo largo.
 
@@ -352,19 +337,38 @@ Deriva máxima de \(C_J\) (control numérico) & \(2.04\times10^{-5}\) \\
 
 La Figura~\ref{fig:zoom_captura} muestra el detalle de la fase de captura previa al escape confirmado en \(t\approx13.02\).
 
-\placeholderfigure{Fase de captura de la partícula de prueba (energía \(C_J\) inspirada en Hilda) en la vecindad de Júpiter, previa al escape en \(t\approx13\). La trayectoria (cian) realiza varias vueltas alrededor de Júpiter (círculo azul) cerca del punto de Lagrange \(L_1\) (cruz negra), antes de abandonar la región de captura. Resultado de un experimento numérico exploratorio, no una predicción física validada.}{fig_ZoomFaseDeCaptura.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{imgCRTBP/fig_ZoomFaseDeCaptura.png}
+\caption{Fase de captura de la partícula de prueba (energía \(C_J\) inspirada en Hilda) en la vecindad de Júpiter, previa al escape en \(t\approx13\). La trayectoria (cian) realiza varias vueltas alrededor de Júpiter (círculo azul) cerca del punto de Lagrange \(L_1\) (cruz negra), antes de abandonar la región de captura. Resultado de un experimento numérico exploratorio, no una predicción física validada.}
 \label{fig:zoom_captura}
+\end{figure}
 
 La deriva máxima de \(C_J\) a lo largo de la integración (\(2.04\times10^{-5}\)) es varios órdenes de magnitud menor que el margen energético empleado (0.015), lo que respalda que el número de vueltas y el tiempo de escape reportados no son artefactos numéricos del integrador.
 
 \subsection{Espacios reservados para visualizaciones}
 Las figuras restantes aún no se han anexado al proyecto. Por ello, se dejan espacios reservados con nombres de archivo sugeridos para incorporar posteriormente las visualizaciones producidas por el análisis numérico.
 
-\placeholderfigure{Trayectorias de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco inercial.}{fig_trayectorias_inercial.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{imgCRTBP/fig_trayectorias_inercial.png}
+\caption{Trayectorias de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco de referencia inercial durante la integración numérica del sistema Sol--Júpiter.}
+\label{fig:trayectorias_inercial}
+\end{figure}
 
-\placeholderfigure{Trayectorias de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco rotante Sol--Júpiter.}{fig_trayectorias_rotantes.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{imgCRTBP/fig_trayectorias_rotantes.png}
+\caption{Evolución dinámica de 624 Hektor, 153 Hilda, 617 Patroclus y Lucy en el marco rotante del CRTBP Sol--Júpiter. La visualización permite comparar la libración de los troyanos, la dinámica resonante de Hilda y la trayectoria de la sonda en el potencial efectivo del sistema.}
+\label{fig:trayectorias_rotantes}
+\end{figure}
 
-\placeholderfigure{Mapa del potencial modificado del CRTBP en el plano orbital con posiciones de los primarios y puntos de Lagrange.}{fig_potencial_modificado.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{imgCRTBP/fig_potencial_modificado.png}
+\caption{Mapa del potencial modificado del CRTBP en el plano orbital, con la configuración Sol--Júpiter y la estructura asociada a los puntos de Lagrange.}
+\label{fig:potencial_modificado}
+\end{figure}
 
 \section{Discusión}
 \subsection{Interpretación dinámica}
