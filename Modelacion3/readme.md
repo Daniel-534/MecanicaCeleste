@@ -27,8 +27,9 @@ Este proyecto implementa el **Problema Circular Restringido de Tres Cuerpos (CRT
 
 A partir de efemérides reales obtenidas de **JPL Horizons**, se construyen condiciones iniciales en un marco inercial, se transforman al marco rotante baricéntrico del CRTBP y se expresan en unidades canónicas. Con ese marco se analizan las ecuaciones de movimiento, el potencial modificado y la **constante de Jacobi**, que permite identificar regiones dinámicamente permitidas y regiones de exclusión (superficies de cero velocidad) sin necesidad de integrar todas las trayectorias posibles.
 
-El proyecto conecta la teoría clásica de la mecánica celeste (puntos de Lagrange, estabilidad de troyanos, resonancias) con un caso actual de exploración espacial: la navegación de Lucy por corredores dinámicos de baja energía rumbo a los troyanos de Júpiter.
+Además, se creó una partícula de prueba utilizando la Constante de Jacobi (CJ) de Hilda como referencia energética, pero con condiciones iniciales artificialmente generadas cerca de L1 (energía ligeramente menor que L1, velocidad perpendicular al eje Sol-Júpiter). Se realizó una búsqueda por fuerza bruta de offsets desde L1 y márgenes de energía para encontrar condiciones que maximizaran las órbitas alrededor de Júpiter antes del escape de la partícula de prueba.
 
+El proyecto aplica la teoría clásica de puntos de Lagrange, estabilidad de troyanos y resonancias, con un caso actual de exploración espacial: la navegación de Lucy por corredores dinámicos de baja energía rumbo a los troyanos de Júpiter.
 
 
 ## Contenido del repositorio y orden recomendado
